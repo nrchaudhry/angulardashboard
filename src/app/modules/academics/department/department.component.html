@@ -1,0 +1,244 @@
+<div class="collapse-card-h container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card-primary card">
+                <div class="card-header">
+                    <div class="align-items-center row">
+                        <div class="col">
+                            <a href="javascript:void" aria-controls="collapse-customerinfo1" aria-expanded="true"
+                                class="card-title">Departments
+                            </a>
+                        </div>
+                        <div class="col-auto">
+                            <button class="btn btn-secondary btn-sm" (click)="addNew()">
+                                <i class="fas fa-plus fa-fw"></i> Add New
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="outer-div">
+                                <div class="grid-wrapper">
+                                    <dx-data-grid #grid id="gridContainer" [dataSource]="departmentAll"
+                                        keyExpr="department_ID" [showColumnLines]="true" [showRowLines]="true"
+                                        [showBorders]="true" [rowAlternationEnabled]="true" [allowColumnResizing]="true"
+                                        [columnMinWidth]="30" [columnAutoWidth]="true" [remoteOperations]="true"
+                                        height="600" width="100%">
+                                        <dxo-filter-row [visible]="true"></dxo-filter-row>
+                                        <dxo-header-filter [visible]="true"></dxo-header-filter>
+                                        <dxo-search-panel [visible]="true"></dxo-search-panel>
+                                        <dxo-group-panel [visible]="false"></dxo-group-panel>
+                                        <dxo-grouping #expand [autoExpandAll]="true"></dxo-grouping>
+                                        <dxo-scrolling mode="virtual"></dxo-scrolling>
+                                        <dxo-sorting mode="multiple"></dxo-sorting>
+                                        <dxo-selection mode="single"></dxo-selection>
+                                        <dxi-column [width]="60" [allowFiltering]="false" [allowSorting]="false"
+                                            alignment="center" cellTemplate="cellTemplate">
+                                        </dxi-column>
+
+                                        <dxi-column [width]="300" dataField="college_ID.college_NAME" caption="College"
+                                            cssClass="myClass" alignment="left">
+                                        </dxi-column>
+
+                                        <dxi-column [width]="120" dataField="department_CODE" caption="Code"
+                                            cssClass="myClass" alignment="center">
+                                        </dxi-column>
+                                        <dxi-column [width]="300" dataField="department_NAME" caption="Name"
+                                            cssClass="myClass" alignment="left">
+                                        </dxi-column>
+                                        <dxi-column dataField="department_DESCRIPTION" caption="Description"
+                                            cssClass="myClass" alignment="left">
+                                        </dxi-column>
+                                        <dxi-column [width]="100" dataField="isactive" caption="Active"
+                                            cssClass="myClass" alignment="center">
+                                        </dxi-column>
+                                        <div *dxTemplate="let data of 'cellTemplate'" (click)="edit(data)">
+                                            <a href="javascript:void" class=""><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                        </div>
+                                    </dx-data-grid>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div aria-labelledby="exampleModalLabel" class="modal fade show" id="adddepartment" role="dialog" tabindex="0">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                    Add New Department
+                </h5>
+                <button aria-label="Close" class="close" (click)="cancel()" data-dismiss="modal" type="button">
+                    <span aria-hidden="true"> ×</span>
+                </button>
+            </div>
+            <form action="" class="form" (ngSubmit)="f.form.valid && add(department)" #f="ngForm" novalidate>
+                <div class="modal-body">
+                    <div class="row" *ngIf="universityActive.length>1">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="custom-label form-label">University</label>
+                                <ng-select [(ngModel)]="department.university_ID" maxlength="50" name="university_ID" (change)="universityOnChange($event)">
+                                    <ng-option *ngFor="let university of universityActive"
+                                        [value]="university.university_ID">
+                                        {{university.university_NAME}}
+                                    </ng-option>
+                                </ng-select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="collegeActive.length>1">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="custom-label form-label">College / Faculty / School</label>
+                                <ng-select [(ngModel)]="department.college_ID" maxlength="50" name="college_ID">
+                                    <ng-option *ngFor="let college of collegeActive"
+                                        [value]="college.college_ID">
+                                        {{college.college_NAME}}
+                                    </ng-option>
+                                </ng-select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label form-label">Department Code
+                                    <span style="color: red;">*</span>
+                                </label>
+                                <input type="text" class="form-control"
+                                    [(ngModel)]="department.department_CODE" name="department_CODE">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label form-label">Department Name
+                                    <span style="color: red;">*</span>
+                                </label>
+                                <input type="text" class="form-control"
+                                    [(ngModel)]="department.department_NAME" name="department_NAME">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label form-label">Department Description</label>
+                                <textarea rows="3" class="form-control" [(ngModel)]="department.department_DESCRIPTION"
+                                    name="description"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" [disabled]="f.invalid">
+                        Add
+                    </button>
+                    <button type="button" class="btn btn-default" (click)='cancel()'
+                        data-dismiss="modal">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div aria-labelledby="exampleModalLabel" class="modal fade show" id="editdepartment" role="dialog" tabindex="0">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                    Edit Department
+                </h5>
+                <button aria-label="Close" class="close" (click)="cancel()" data-dismiss="modal" type="button">
+                    <span aria-hidden="true"> ×</span>
+                </button>
+            </div>
+            <form action="" class="form" (ngSubmit)="f.form.valid && update(department)" #f="ngForm" novalidate>
+                <div class="modal-body">
+                    <div class="row" *ngIf="universityActive.length>1">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="custom-label form-label">University</label>
+                                <ng-select [(ngModel)]="department.university_ID" maxlength="50" name="university_ID" (change)="universityOnChange($event)">
+                                    <ng-option *ngFor="let university of universityActive"
+                                        [value]="university.university_ID">
+                                        {{university.university_NAME}}
+                                    </ng-option>
+                                </ng-select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="collegeActive.length>1">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="custom-label form-label">College / Faculty / School</label>
+                                <ng-select [(ngModel)]="department.college_ID" maxlength="50" name="college_ID">
+                                    <ng-option *ngFor="let college of collegeActive"
+                                        [value]="college.college_ID">
+                                        {{college.college_NAME}}
+                                    </ng-option>
+                                </ng-select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label form-label">Department Code
+                                    <span style="color: red;">*</span>
+                                </label>
+                                <input type="text" class="form-control"
+                                    [(ngModel)]="department.department_CODE" name="department_CODE">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label form-label">Department Name
+                                    <span style="color: red;">*</span>
+                                </label>
+                                <input type="text" class="form-control"
+                                    [(ngModel)]="department.department_NAME" name="department_NAME">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label form-label">Department Description</label>
+                                <textarea rows="3" class="form-control" [(ngModel)]="department.department_DESCRIPTION"
+                                    name="description"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <label class="control-label form-label">
+                                        <input type="checkbox" [(ngModel)]="department.isactive" name="isactive">
+                                        Active
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" [disabled]="f.invalid">
+                        Update
+                    </button>
+                    <button type="button" class="btn btn-default" (click)='cancel()'
+                        data-dismiss="modal">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

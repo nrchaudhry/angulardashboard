@@ -1,0 +1,101 @@
+<!---Main Header-->
+
+<div class="main-header">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-auto">
+                <div class="site-brand">
+                    <a href="#">
+                        <img src="{{ logo }}" class="logo" alt="Logo" />
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-auto order-md-3 ml-auto col">
+                <nav class="user-profile">
+                    <div class="form-row align-items-center">
+                        <div class="col-auto">
+                            <div class="img-holder">
+                                <img src="assets/images/user.png" class="userimg" alt="" />
+                            </div>
+                        </div>
+
+                        <div class="col pl-1 mt-n1">
+                            <ul class="navbar-nav mr-auto">
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle pb-0" href="#" id="navbarDropdown" role="button"
+                                        data-toggle="dropdown" position="left" aria-haspopup="true"
+                                        aria-expanded="false">
+                                        {{user.forenames}} {{user.surname}}
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="javascript:void(0)">Profile</a>
+                                        <a class="dropdown-item" href="javascript:void(0)">Settings</a>
+                                        <a (click)=logout() class="dropdown-item" href="javascript:void(0)">Logout</a>
+                                    </div>
+                                    <div class="admin">Admin</div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+
+            <div class="col-12 col-md order-md-2 mt-4 mt-md-0 px-md-5">
+                <form class="search-suggestions searchbar-lg">
+                    <div class="input-group">
+                        <input type="text" class="form-control search-input" placeholder="Search">
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-primary" variant="primary">Search</button>
+                            <button type="button" class="btn btn-light btn-toggle ml-2" id="btn-toggle">
+                                <i class="fas fa-bars fa-lg"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!---Navigation-->
+<div class="navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col" *ngIf="findLength(menu)>1">
+                <!-- Navbar -->
+                <nav id="smart-menu" class="sm sm-blue">
+                    <li>
+                        <a [routerLink]="" routerLinkActive="linkactive"><i class="fas fa-home font-lg"></i></a>
+                    </li>
+
+                    <li *ngFor="let m of menu"><a href="#">{{m.cat}} </a>
+                        <ul *ngIf="isNotEmpty(m.pri)">
+                            <li *ngFor="let s of m.pri"><a [routerLink]="[s.link]"
+                                    routerLinkActive="linkactive">{{s.name}}</a></li>
+                        </ul>
+                    </li>
+                </nav>
+
+            </div>
+            <div class="col" *ngIf="findLength(menu)==1">
+                <!-- Navbar -->
+                <nav id="smart-menu" class="sm sm-blue">
+                    <li>
+                        <a [routerLink]="['/home/dashboard']" routerLinkActive="linkactive"><i
+                                class="fas fa-home font-lg"></i></a>
+                    </li>
+                    <li *ngFor="let m of smenu"><a [routerLink]="[m.link]" routerLinkActive="linkactive">{{m.name}} </a>
+                        <!-- <ul *ngIf="isNotEmpty(m.pri)">
+                        <li  *ngFor="let s of m.pri"><a [routerLink]="[s.link]" routerLinkActive="linkactive" >{{s.name}}</a></li>
+                      </ul> -->
+                    </li>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <div class="myinput" style="display: none;">
+
+    </div>
+</div>

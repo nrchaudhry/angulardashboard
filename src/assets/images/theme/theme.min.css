@@ -1,0 +1,199 @@
+.menu-w.color-scheme-dark {
+    background-color: #323c58;
+    color: rgba(255, 255, 255, 0.9);
+    border-right-color: rgba(255, 255, 255, 0.05);
+    -webkit-box-shadow: 0px 5px 15px rgba(22, 22, 35, 0.1);
+    box-shadow: 0px 5px 15px rgba(22, 22, 35, 0.1);
+}
+.menu-w.color-style-bright {
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#767676), to(#767676));
+    background-image: linear-gradient(to bottom, #767676 0%, #767676 100%);
+    background-repeat: repeat-x;
+}
+.menu-w {
+    position: relative;
+    background-color: #fff;
+    -webkit-box-shadow: 0px 2px 4px rgba(126, 142, 177, 0.12);
+    box-shadow: 0px 2px 4px rgba(126, 142, 177, 0.12);
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 260px;
+    flex: 0 0 260px;
+    border-right: 0px solid rgba(0, 0, 0, 0.05);
+}
+
+.menu-mobile.color-scheme-dark {
+    background-color: #323c58 !important;
+    background-image: none !important;
+}
+
+.menu-position-side.menu-w.color-scheme-dark .logo-w {
+    background: none !important;
+}
+
+.pipeline.white.lined-primary {
+    border-top: 6px solid #323c58;
+    border-radius: 0px 0px 4px 4px;
+    color: #334152 !important;
+}
+
+.white {
+    color: white !important;
+}
+
+.pipeline-name {
+    color: white !important;
+}
+
+.lined-primary {
+    border-top: 6px solid #323c58;
+}
+
+.pipeline-header {
+    background-color: #323c58 !important;
+}
+
+.pipeline.white .pipeline-header .pipeline-name {
+    color: white !important;
+}
+
+.pipeline-header button {
+    position: relative;
+    bottom: 8px;
+}
+
+.menu-w .logo-w .logo-element,
+.top-bar .logo-w .logo-element {
+    content: "";
+    width: 26px;
+    height: 26px;
+    border-radius: 15px;
+    position: relative;
+    background-color: #323c58 !important;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 20px;
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+}
+
+.btn-default,
+.all-wrapper .fc-button.fc-state-active {
+    color: black;
+    font-weight: bold;
+    background-color: white;
+    border-color: white;
+}
+
+.btn-primary,
+.all-wrapper .fc-button.fc-state-active {
+    color: #fff;
+    background-color: #323c58;
+    font-weight: bold;
+    border-color: #323c58;
+}
+
+.btn {
+    border-radius: 20px;
+    padding: .5rem 1rem;
+    font-size: 1.25rem;
+}
+
+.modal-header {
+    background: #323c58;
+}
+
+.modal-header h5 {
+    color: white;
+}
+
+.modal-header button span {
+    color: white;
+}
+
+.form-control {
+    display: block;
+    width: 100%;
+    padding: .375rem .75rem;
+    color: #495057;
+    background-color: #f2f4f8;
+}
+
+a {
+    color: #323c58;
+    text-decoration: none;
+    background-color: transparent;
+    -webkit-text-decoration-skip: objects;
+}
+
+.pipeline.white.lined-primary {
+    border-top: 6px solid #323c58;
+    border-radius: 0px 0px 4px 4px;
+}
+
+.lined-primary {
+    border-top: 6px solid #323c58;
+}
+
+.top-bar .logged-user-w .logged-user-menu {
+    background: #323c58;
+} 
+
+.spinner-icon {
+    width: 20px !important;
+    height: 20px !important;
+    border: 4px solid transparent !important;
+    border-top-color: inherit !important;
+    border-left-color: inherit !important;
+    border-radius: 50% !important;
+    -webkit-animation: .4s linear infinite loading-bar-spinner;
+    animation: .4s linear infinite loading-bar-spinner;
+}
+
+#loading-bar-spinner {
+    color: #323c58 !important;
+}
+
+.bar {
+    background: #323c58 !important;
+    height: 4px !important;
+}
+
+.top-bar .logo-w img {
+    height: auto;
+    width: 100%;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.pipeline.white.lined-primary {
+    border-top: 6px solid #323c58 !important;
+    border-radius: 0px 0px 4px 4px;
+}
+
+.footer-img-responsive {
+    width: 100px !important;
+}
+
+.top-menu-controls-custom{
+    border: 1px solid #f2f4f8;
+    position: relative;
+    top: 0px;
+    bottom: 10px;
+    border-radius: 54px;
+    margin: 8px;
+    box-shadow: 0px 2px 4px rgba(126, 142, 177, 0.12);
+}
+.menu-w .logo-w img {
+    width: 100px !important;
+    height: auto;
+    display: block;
+    vertical-align: middle;
+}
+.menu-w .logo-w .logo{
+    position: relative !important;
+    right: 50% !important;
+    left: 15% !important;
+}
+.menu-w .logo-w .logo {
+    display: inline-block;
+}

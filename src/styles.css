@@ -1,0 +1,125 @@
+@import "~@ng-select/ng-select/themes/default.theme.css";
+@import url("https://cwiztech.com/design/css/admin-hub.css");
+@import url("https://cwiztech.com/design/css/jca-theme.css");
+/* 
+@import url("https://cwiztech.com/design/css/cwiztech-theme.css");
+@import url("https://cwiztech.com/design/css/mfs-theme.css");
+ */
+ :root {
+    --font-1: 'Red Hat Display', sans-serif;
+    --font-2: 'Abril Fatface', cursive;
+  
+    --primary: #c5aba3;
+    --primary2: #2c2b2d;
+    --secondary: #2c2b2d;
+    --light: #f4eae9;
+    --dark: #efe0da;
+    --theme: #2c2b2d;
+}
+html,body {letter-spacing: 1px;}
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: var(--font-2);
+}
+a,a:hover,a:focus,a:active {color: var(--secondary);}
+.btn {
+    text-transform: uppercase;
+    font-weight: var(--fw-strong);
+}
+.form-control-sm,
+.btn-sm {line-height: 30px;}
+
+
+
+
+.card .card-body {padding: 20px;}
+.form-check-label {
+    position: relative;
+    top: 2px;
+    left: 8px;
+}
+.card-header {border-radius: 0;}
+.modal .modal-header, .card .card-header, .card-footer {padding: 18px 20px;}
+.section-registration  .form .form-holder {display: flex;}
+.section-registration .form-header {
+    border: 0;
+    margin-bottom: 30px;
+    padding: 40px 15px 30px;
+    text-align: center;
+    position: relative;
+    background-size: cover;
+    background-position: top center;
+    background-repeat: no-repeat;
+}
+.section-registration .form-header::before {
+    content: '';
+    width: 100%;
+    height: 100%;
+    opacity: .98;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: absolute;
+    background: var(--primary);
+}
+.section-registration .form-header .logo {
+    margin: auto;
+    max-width: 100px;
+}
+.section-registration .form-header .logo,
+.section-registration .form-header .meta {
+    z-index: 9;
+    position: relative;
+}
+
+.registeration-process {
+    width: 350px;
+    background: white;
+    box-shadow: var(--card-shadow);
+}
+.registeration-process li a {
+    display: block;
+    position: relative;
+    padding: 18px 20px;
+    text-transform: uppercase;
+    color: var(--sec-text);
+    font-weight: var(--fw-strong);
+}
+.registeration-process>li a.active {
+    color: white;
+    background: var(--primary);
+}
+.registeration-process>li a.active::after {
+    content: '';
+    position: absolute;
+    left: 100%;
+    top: 50%;
+    margin-top: -21px;
+    border-left: 0;
+    border-bottom: 21px solid transparent;
+    border-top: 21px solid transparent;
+    border-left: 15px solid var(--primary);
+}
+.registeration-process li a .status {
+    position: absolute;
+    font-size: 10px;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+}
+.registeration-process li a .status.completed {color: #8BC34A;}
+.registeration-process li a .status.inprogress {color: #FF9800;}
+.registeration-process li a .status.notstarted {color: #F44336;}
+.key-status {
+    background: var(--light);
+    margin: 20px;
+    padding: 10px 0;
+}
+.key-status li a {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+.registeration-proces-tab {
+    width: 100%;
+    padding-left: 30px;
+} 
