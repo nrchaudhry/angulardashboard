@@ -1,11 +1,8 @@
 @import "~@ng-select/ng-select/themes/default.theme.css";
 @import url("https://cwiztech.com/design/css/admin-hub.css");
-@import url("https://cwiztech.com/design/css/jca-theme.css");
-/* 
 @import url("https://cwiztech.com/design/css/cwiztech-theme.css");
-@import url("https://cwiztech.com/design/css/mfs-theme.css");
- */
- :root {
+
+:root {
     --font-1: 'Red Hat Display', sans-serif;
     --font-2: 'Abril Fatface', cursive;
   
