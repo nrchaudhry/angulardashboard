@@ -26,11 +26,6 @@ import { HomeComponent } from './home.component';
 import { HomeRoutingModule } from './home-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 
-import { PersonalComponent } from '../person/personal/personal.component';
-import { CampusesComponent } from '../academics/campuses/campuses.component';
-import { CampusComponent } from '../academics/campuses/campus/campus.component';
-import { DepartmentComponent } from '../academics/department/department.component';
-
 @NgModule({
   imports: [
     HomeRoutingModule,
@@ -57,10 +52,6 @@ import { DepartmentComponent } from '../academics/department/department.componen
   declarations: [
     HomeComponent,
     DashboardComponent,
-    PersonalComponent,
-    CampusesComponent,
-    CampusComponent,
-    DepartmentComponent,
   ]
 })
 

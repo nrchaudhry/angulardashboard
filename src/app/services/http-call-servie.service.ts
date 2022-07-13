@@ -18,11 +18,7 @@ export class HttpCallServieService {
   AuthUrl: any = this.loginService.loaddetail().oauthservice_PATH;
 
   api(postData) {
-    return this.http.post(this.BaseUrl + "service/apigateway", postData).pipe(map(res => res.json()));
-  }
-
-  getTitle() {
-    return this.http.get(this.AuthUrl + "login/usertitle").pipe(map(res => res.json()));
+    return this.http.post(this.BaseUrl + "apigateway", postData).pipe(map(res => res.json()));
   }
 
 }
