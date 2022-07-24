@@ -14,6 +14,11 @@ export class OnFailService {
   ) { }
 
   onFail(ifFail) {
+    if (ifFail.error == "invalid_token") {
+      this._toaster.warning("Internal session expired. Logged in again ", "Logged out");
+      this._loginService.logout();
+      return;
+    }
     if (ifFail.status == 0) {
       this._toaster.error("Connection timed out", "Error");
       return;
@@ -46,6 +51,9 @@ export class OnFailService {
       } else {
         this._toaster.error("Status: " + ifFail.status + " Error: " + body.error + " Message: " + body.error_description, "Error");
       }
+    } else if (ifFail.hasOwnProperty("message")) {
+      this._toaster.warning("Message", " " + ifFail.message);
+      return;
     } else {
       this._toaster.error("check your internet connection", "Error");
       return;
