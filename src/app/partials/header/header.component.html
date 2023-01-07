@@ -66,9 +66,8 @@
                 <!-- Navbar -->
                 <nav id="smart-menu" class="sm sm-blue">
                     <li>
-                        <a [routerLink]="" routerLinkActive="linkactive"><i class="fas fa-home font-lg"></i></a>
+                        <a (click)="redirectToAppsStore()"><i class="fas fa-home font-lg"></i></a>
                     </li>
-
                     <li *ngFor="let m of menu"><a href="#">{{m.cat}} </a>
                         <ul *ngIf="isNotEmpty(m.pri)">
                             <li *ngFor="let s of m.pri"><a [routerLink]="[s.link]"
@@ -82,8 +81,7 @@
                 <!-- Navbar -->
                 <nav id="smart-menu" class="sm sm-blue">
                     <li>
-                        <a (click)="redirectToAppsStore()"><i
-                                class="fas fa-home font-lg"></i></a>
+                        <a (click)="redirectToAppsStore()"><i class="fas fa-home font-lg"></i></a>
                     </li>
                     <li *ngFor="let m of smenu"><a [routerLink]="[m.link]" routerLinkActive="linkactive">{{m.name}} </a>
                         <!-- <ul *ngIf="isNotEmpty(m.pri)">
