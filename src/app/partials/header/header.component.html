@@ -82,7 +82,7 @@
                 <!-- Navbar -->
                 <nav id="smart-menu" class="sm sm-blue">
                     <li>
-                        <a [routerLink]="['/home/dashboard']" routerLinkActive="linkactive"><i
+                        <a (click)="redirectToAppsStore()"><i
                                 class="fas fa-home font-lg"></i></a>
                     </li>
                     <li *ngFor="let m of smenu"><a [routerLink]="[m.link]" routerLinkActive="linkactive">{{m.name}} </a>
