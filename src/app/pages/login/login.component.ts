@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
     if (this.loginservice.logged() == true) {
       setTimeout(() => this.toastr.success("Sucessfully loged in!"));
       this.offSpinner();
-      redirectByHref(setting.redirctPath+"/#/home/dashboard");
+      redirectByHref(setting.redirctPath+"/#/home/campuses");
       return;
     } else {
       this.activatedRoute.queryParams.subscribe(params => {
@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
                 this.toastr.success("Sucessfully loged in!")
               );
               this.offSpinner();
-              redirectByHref(setting.redirctPath+"/#/home/dashboard")
+              redirectByHref(setting.redirctPath+"/#/home/campuses")
               return;
             } else {
               this.offSpinner();

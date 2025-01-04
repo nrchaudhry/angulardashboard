@@ -21,5 +21,12 @@ export class HttpCallServieService {
     return this.http.post(this.BaseUrl + "apigateway", postData).pipe(map(res => res.json()));
   }
 
+  getTitle() {
+    return this.http.get(this.AuthUrl + "login/usertitle").pipe(map(res => res.json()));
+  }
+
+  upload() {
+    return this.http.get("").pipe(map(res => res.json()));
+  }
 }
 

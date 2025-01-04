@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Response, Headers } from '@angular/http'
 import { map } from "rxjs/operators";
 
+import { setting } from "src/app/setting";
 import { LoginService } from '../pages/login/login.service';
 
 @Injectable({
@@ -22,7 +23,8 @@ export class SidebarService {
         headers: new Headers({
           "Content-Type": "application/json",
           grant_type: "password",
-          authorization: "bearer " + this.loginService.loaddetail().basic_Token_
+          authorization: "bearer " + this.loginService.loaddetail().basic_Token_,
+          ApplicationCode: setting.application_ID
         })
       }
     ).pipe(map(res => res.json()));

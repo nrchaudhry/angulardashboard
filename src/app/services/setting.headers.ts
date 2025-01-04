@@ -18,9 +18,11 @@ export class RequestOptionsService extends BaseRequestOptions {
                 var token = JSON.parse(localStorage.getItem(setting.application_ID)).access_token;
             }
             newOptions.headers.set('authorization', `bearer ${token}`);
+            newOptions.headers.set('ApplicationCode', setting.application_ID);
             return newOptions;
         } else {
             newOptions.headers.set('authorization', `bearer ${JSON.parse(localStorage.getItem(setting.application_ID)).access_token}`);
+            newOptions.headers.set('ApplicationCode', setting.application_ID);
             return newOptions;
         }
     }
