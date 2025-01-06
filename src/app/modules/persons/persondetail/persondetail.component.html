@@ -1,0 +1,124 @@
+<div class="collapse-card-h container">
+  <app-person [view]="5" [personID]="personID"></app-person>
+</div>
+
+<div class="collapse-card-h container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card-primary card">
+        <div class="card-header">
+          <div class="align-items-center row">
+            <div class="col">
+              <a href="javascript:void" aria-controls="collapse-customerinfo1" aria-expanded="true"
+                class="card-title">Contact Addresses
+              </a>
+            </div>
+            <div class="col-auto">
+              <button (click)="addNewcontactaddress()" class="btn btn-secondary btn-sm">
+                <i class="fas fa-plus fa-fw"></i> Add New
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-lg-12">
+              <app-personcontactaddress #personcontactaddresses [view]="22" [personID]="personID" [isreload]="true"
+                (show)="showcontactaddress($event)"></app-personcontactaddress>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="collapse-card-h container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card-primary card">
+        <div class="card-header">
+          <div class="align-items-center row">
+            <div class="col">
+              <a href="javascript:void" aria-controls="collapse-customerinfo1" aria-expanded="true"
+                class="card-title">Contacts
+              </a>
+            </div>
+            <div class="col-auto">
+              <button (click)="addNewcontact()" class="btn btn-secondary btn-sm">
+                <i class="fas fa-plus fa-fw"></i> Add New
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-lg-12">
+              <app-personcontact #personcontacts [view]="22" [personID]="personID" [isreload]="true"
+                (show)="showcontact($event)"></app-personcontact>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="collapse-card-h container">
+  <div class="row">
+    <div class="col-md-12">
+      <app-personequality #personequalities [view]=22 [personequalityID]="personequalityID" [sexHidden]=true [ethnicHidden]=true [sexualorientationHidden]=true [residentialHidden]=true [immigrationstatusHidden]=true [UKentryHidden]=true [convictionHidden]=true></app-personequality>
+    </div>
+  </div>
+</div>
+
+<div class="collapse-card-h container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card-primary card">
+        <div class="card-header">
+          <div class="align-items-center row">
+            <div class="col">
+              <a href="javascript:void" aria-controls="collapse-customerinfo1" aria-expanded="true"
+                class="card-title">PERSON IDENTITY
+              </a>
+            </div>
+            <div class="col-auto">
+              <button (click)="addNewidentity()" class="btn btn-secondary btn-sm">
+                <i class="fas fa-plus fa-fw"></i> Add New
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-lg-12">
+              <app-personidentity #personidentities [view]=22 [personID]="personID" [isreload]="true"
+                (show)="showidentity($event)"></app-personidentity>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <div aria-labelledby="exampleModalLabel" class="modal fade show" id="addpersoncontact" role="dialog" tabindex="-1">
+  <app-personcontact #addpersoncontact [view]=3 (refresh)="personcontactrefresh()"
+    (cancel)="cancelcontact()"></app-personcontact>
+</div>
+
+<div aria-labelledby="exampleModalLabel" class="modal fade show" id="editpersoncontact" role="dialog" tabindex="-1">
+  <app-personcontact #editpersoncontact [view]=4 (refresh)="personcontactrefresh()"
+    (cancel)="cancelcontact()"></app-personcontact>
+</div>
+
+<div aria-labelledby="exampleModalLabel" class="modal fade show" id="addpersonidentity" role="dialog" tabindex="-1">
+  <app-personidentity #addpersonidentity [view]=3 (refresh)="personidentitiesrefresh()"
+    (cancel)="cancelidentity()"></app-personidentity>
+</div>
+
+<div aria-labelledby="exampleModalLabel" class="modal fade show" id="editpersonidentity" role="dialog" tabindex="-1">
+  <app-personidentity #editpersonidentity [view]=4 (refresh)="personidentitiesrefresh()"
+    (cancel)="cancelidentity()"></app-personidentity>
+</div> -->

@@ -1,0 +1,28 @@
+<div class="form-group">
+    <label class="custom-label form-label">Addresstype
+        <span style="color: red;" [hidden]="disabled" *ngIf="iscompulsory==true">*</span>
+    </label>
+    <div class="row" *ngIf="disabled==true">
+        <div class="col-md-12">
+            <ng-select [(ngModel)]="addresstypeID" [disabled]="disabled" name="addresstypeID" maxlength="50">
+                <ng-option *ngFor="let addresstype of addresstypesAll" [value]="addresstype.id" [disabled]="disabled">
+                    {{ addresstype.code }} - {{ addresstype.description }}
+                </ng-option>
+            </ng-select>
+        </div>
+    </div>
+    <div class="row" *ngIf="disabled==false">
+        <div class="col-md-10">
+            <ng-select [(ngModel)]="addresstypeID" [disabled]="disabled" name="addresstypeID" maxlength="50">
+                <ng-option *ngFor="let addresstype of addresstypes" [value]="addresstype.id" [disabled]="disabled">
+                    {{ addresstype.code }} - {{ addresstype.description }}
+                </ng-option>
+            </ng-select>
+        </div>
+        <div class="col-md-2">
+            <button type="button" class="btn btn-light ml-2" [hidden]="disabled" (click)="addresstypeGet()">
+                <i class="fa fa-refresh" aria-hidden="true"></i>
+            </button>
+        </div>
+    </div>
+</div>

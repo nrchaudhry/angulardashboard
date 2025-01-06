@@ -1,0 +1,306 @@
+<div *ngIf="view==1" class="form-group">
+    <label class="custom-label form-label"> Letter Head
+        <span style="color: red;" [hidden]="disabled" *ngIf="iscompulsory==true">*</span>
+    </label>
+    <div class="row">
+        <div class="col-md-10" *ngIf="disabled==true">
+            <ng-select [(ngModel)]="letterheadID" [disabled]="disabled" name="letterheadID">
+                <ng-option *ngFor="let letterhead of letterheadsAll" [value]="letterhead.letterhead_ID">
+                    {{ letterhead.letterhead_CODE }} - {{ letterhead.letterhead_DESC }}
+                </ng-option>
+            </ng-select>
+        </div>
+        <div class="col-md-10" *ngIf="disabled==false">
+            <ng-select [(ngModel)]="letterheadID" [disabled]="disabled" name="letterheadID">
+                <ng-option *ngFor="let letterhead of letterheads" [value]="letterhead.letterhead_ID">
+                    {{ letterhead.letterhead_CODE }} - {{ letterhead.letterhead_DESC }}
+                </ng-option>
+            </ng-select>
+        </div>
+        <div class="col-md-2">
+            <button type="button" class="btn btn-light ml-2" [hidden]="disabled" (click)="letterheadGet()">
+                <i class="fa fa-refresh" aria-hidden="true"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="view==11" class="form-group">
+    <label class="custom-label form-label"> Letter Head
+        <span style="color: red;" [hidden]="disabled" *ngIf="iscompulsory==true">*</span>
+    </label>
+    <div class="row">
+        <div class="col-md-10" *ngIf="disabled==true">
+            <ng-select [(ngModel)]="letterheadID" [disabled]="disabled" name="letterheadID">
+                <ng-option *ngFor="let letterhead of letterheadsAll" [value]="letterhead.letterhead_ID">
+                    {{ letterhead.letterhead_CODE }} - {{ letterhead.letterhead_DESC }}
+                </ng-option>
+            </ng-select>
+        </div>
+        <div class="col-md-10" *ngIf="disabled==false">
+            <ng-select [(ngModel)]="letterheadID" [disabled]="disabled" name="letterheadID">
+                <ng-option *ngFor="let letterhead of letterheads" [value]="letterhead.letterhead_ID">
+                    {{ letterhead.letterhead_CODE }} - {{ letterhead.letterhead_DESC }}
+                </ng-option>
+            </ng-select>
+        </div>
+        <div class="col-md-2">
+            <button type="button" class="btn btn-light ml-2" [hidden]="disabled"
+                (click)="letterheadAdvancedSearch(applicationID)">
+                <i class="fa fa-refresh" aria-hidden="true"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="view==2" class="form-group">
+    <div class="outer-div">
+        <div class="grid-wrapper">
+            <dx-data-grid #grid id="gridContainer" [dataSource]="letterheadsAll" keyExpr="letterhead_ID"
+                [showColumnLines]="true" [showRowLines]="true" [showBorders]="true" [rowAlternationEnabled]="true"
+                [allowColumnResizing]="true" [columnMinWidth]="30" [columnAutoWidth]="true" [remoteOperations]="true"
+                height="600" width="100%" (onToolbarPreparing)="onToolbarPreparing($event)">
+                <dxo-filter-row [visible]="true"></dxo-filter-row>
+                <dxo-header-filter [visible]="true"></dxo-header-filter>
+                <dxo-search-panel [visible]="true"></dxo-search-panel>
+                <dxo-group-panel [visible]="false"></dxo-group-panel>
+                <dxo-grouping #expand [autoExpandAll]="false"></dxo-grouping>
+                <dxo-scrolling mode="virtual"></dxo-scrolling>
+                <dxo-sorting mode="multiple"></dxo-sorting>
+                <dxo-selection mode="single"></dxo-selection>
+                <dxi-column [width]="75" [allowFiltering]="false" [allowSorting]="false" alignment="center"
+                    cellTemplate="cellTemplate"></dxi-column>
+                <dxi-column dataField="application.application_NAME" caption="Application" cssClass="myClass" alignment="center"></dxi-column>
+                <dxi-column [width]="150" dataField="letterhead_CODE" caption="Code" cssClass="myClass" alignment="center"></dxi-column>
+                <dxi-column dataField="letterhead_DESC" caption="Description" cssClass="myClass" alignment="left"></dxi-column>
+                <dxi-column [width]="100" dataField="isactive" caption="Active" cssClass="myClass" alignment="center"></dxi-column>
+
+                <div *dxTemplate="let data of 'cellTemplate'">
+                    <a href="javascript:void" class="" (click)="update(data)">
+                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                </div>
+            </dx-data-grid>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="view==22" class="form-group">
+    <div class="outer-div">
+        <div class="grid-wrapper">
+            <dx-data-grid #grid id="gridContainer" [dataSource]="letterheadsAll" keyExpr="letterhead_ID"
+            [showColumnLines]="true" [showRowLines]="true" [showBorders]="true" [rowAlternationEnabled]="true"
+            [allowColumnResizing]="true" [columnMinWidth]="30" [columnAutoWidth]="true" [remoteOperations]="true"
+            height="600" width="100%" (onToolbarPreparing)="onToolbarPreparingAdvanced($event)">
+            <dxo-filter-row [visible]="true"></dxo-filter-row>
+            <dxo-header-filter [visible]="true"></dxo-header-filter>
+            <dxo-search-panel [visible]="true"></dxo-search-panel>
+            <dxo-group-panel [visible]="false"></dxo-group-panel>
+            <dxo-grouping #expand [autoExpandAll]="false"></dxo-grouping>
+            <dxo-scrolling mode="virtual"></dxo-scrolling>
+            <dxo-sorting mode="multiple"></dxo-sorting>
+            <dxo-selection mode="single"></dxo-selection>
+            <dxi-column [width]="75" [allowFiltering]="false" [allowSorting]="false" alignment="center"
+                cellTemplate="cellTemplate"></dxi-column>
+                <dxi-column dataField="application.application_NAME" caption="Application" cssClass="myClass" alignment="center"></dxi-column>
+                <dxi-column [width]="150" dataField="letterhead_CODE" caption="Code" cssClass="myClass" alignment="center"></dxi-column>
+                <dxi-column dataField="letterhead_DESC" caption="Description" cssClass="myClass" alignment="left"></dxi-column>
+                <dxi-column [width]="100" dataField="isactive" caption="Active" cssClass="myClass" alignment="center"></dxi-column>
+
+                <div *dxTemplate="let data of 'cellTemplate'">
+                    <a href="javascript:void" class="" (click)="update(data)">
+                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                </div>
+            </dx-data-grid>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="view==3" class="form-group">
+    <form action="" class="form" (ngSubmit)="f.form.valid && letterheadAdd(letterhead)" #f="ngForm" novalidate>
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">
+                        <i class="fa fa-plus" aria-hidden="true"></i> Add New Letter Head
+                    </h5>
+                    <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                        <span aria-hidden="true"> ×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <app-application #addapplication [view]="1" ></app-application>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Code <span style="color:red">*</span></label>
+                                <input type="text" class="form-control" name="letterhead_CODE"
+                                    [(ngModel)]="letterhead.letterhead_CODE" maxlength="50" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label">Description</label>
+                                <textarea rows="3" class="form-control" [(ngModel)]="letterhead.letterhead_DESC"
+                                    name="letterhead_DESC"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" [disabled]="f.invalid">
+                        <i class="fa fa-plus" aria-hidden="true"></i> Add
+                    </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div *ngIf="view==4" class="form-group">
+    <form action="" class="form" (ngSubmit)="f.form.valid && letterheadUpdate(letterhead)" #f="ngForm" novalidate>
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">
+                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit Letter Head
+                    </h5>
+                    <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                        <span aria-hidden="true"> ×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <app-application #editapplication [view]="1" [applicationID]="letterhead.application_ID"></app-application>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Code <span style="color:red">*</span></label>
+                                <input type="text" class="form-control" name="letterhead_CODE"
+                                    [(ngModel)]="letterhead.letterhead_CODE" maxlength="50" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label">Description</label>
+                                <textarea rows="3" class="form-control" [(ngModel)]="letterhead.letterhead_DESC"
+                                    name="letterhead_DESC"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <label class="control-label">
+                                        <input type="checkbox" [checked]="letterhead.isactive"
+                                            [(ngModel)]="letterhead.isactive" name="isactive">
+                                        Active
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" [disabled]="f.invalid">
+                        <i class="fa fa-plus" aria-hidden="true"></i> Update
+                    </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div *ngIf="view==5" class="form-group">
+    <div class="card-primary card">
+        <div class="card-header">
+            <div class="align-items-center row">
+                <div class="col" *ngIf="letterhead.letterhead_ID==0">
+                    <a href="javascript:void" aria-controls="collapse-letterheadinfo1" aria-expanded="true"
+                        class="card-title">Add New Letter Head
+                    </a>
+                </div>
+                <div class="col" *ngIf="letterhead.letterhead_ID!=0 && disabled==false">
+                    <a href="javascript:void" aria-controls="collapse-letterheadinfo1" aria-expanded="true"
+                        class="card-title">Edit Letter Head
+                    </a>
+                </div>
+                <div class="col" *ngIf="letterhead.letterhead_ID!=0 && disabled==true">
+                    <a href="javascript:void" aria-controls="collapse-letterheadinfo1" aria-expanded="true"
+                        class="card-title">Letter Head Detail
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <app-application #application [view]="1" [applicationID]="letterhead.application_ID" [disabled]="disabled"></app-application>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label"> Code <span style="color:red"
+                                        [hidden]="disabled">*</span></label>
+                                <input type="text" class="form-control" name="letterhead_CODE" [disabled]="disabled"
+                                    [(ngModel)]="letterhead.letterhead_CODE" maxlength="50" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label"> Description</label>
+                                <textarea rows="3" class="form-control" [(ngModel)]="letterhead.letterhead_DESC"
+                                    [disabled]="disabled" name="letterhead_DESC"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12" *ngIf="letterhead.letterhead_ID!=0">
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <label class="control-label">
+                                        <input type="checkbox" [checked]="letterhead.isactive"
+                                            [(ngModel)]="letterhead.isactive" [disabled]="disabled" name="isactive">
+                                        Active
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button *ngIf="letterhead.letterhead_ID!=0 && disabled==true" (click)="editView()" id="cancel"
+                                class="btn btn-primary" style="float: right;"> Edit
+                            </button>
+                            <button *ngIf="disabled==false" type="button" (click)='letterheadCancel()'
+                                style="float: right;" class="btn btn-light" data-dismiss="modal"> Cancel
+                            </button>
+                            <button *ngIf="letterhead.letterhead_ID!=0 && disabled==false" type="button" data-dismiss="modal"
+                                style=" margin-right: 10px; float: right;" (click)='letterheadUpdate(letterhead)'
+                                class="btn btn-primary">
+                                Update
+                            </button>
+                            <button *ngIf="letterhead.letterhead_ID==0" type="button" data-dismiss="modal"
+                                style=" margin-right: 10px; float: right;" (click)='letterheadAdd(letterhead)'
+                                class="btn btn-primary">
+                                Save
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

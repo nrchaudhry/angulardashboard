@@ -1,0 +1,28 @@
+<div class="form-group">
+    <label class="custom-label form-label">Subject
+        <span style="color: red;" [hidden]="disabled" *ngIf="iscompulsory==true">*</span>
+    </label>
+    <div class="row" *ngIf="disabled==true">
+        <div class="col-md-12">
+            <ng-select [(ngModel)]="subjectID" [disabled]="disabled" name="subjectID" maxlength="50">
+                <ng-option *ngFor="let subject of subjectsAll" [value]="subject.id" [disabled]="disabled">
+                    {{ subject.code }} - {{ subject.description }}
+                </ng-option>
+            </ng-select>
+        </div>
+    </div>
+    <div class="row" *ngIf="disabled==false">
+        <div class="col-md-10">
+            <ng-select [(ngModel)]="subjectID" [disabled]="disabled" name="subjectID" maxlength="50">
+                <ng-option *ngFor="let subject of subjects" [value]="subject.id" [disabled]="disabled">
+                    {{ subject.code }} - {{ subject.description }}
+                </ng-option>
+            </ng-select>
+        </div>
+        <div class="col-md-2">
+            <button type="button" class="btn btn-light ml-2" [hidden]="disabled" (click)="subjectGet()">
+                <i class="fa fa-refresh" aria-hidden="true"></i>
+            </button>
+        </div>
+    </div>
+</div>

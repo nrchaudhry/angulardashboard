@@ -1,0 +1,308 @@
+<div *ngIf="view==1" class="form-group">
+    <label class="custom-label form-label"> SMS Setting
+        <span style="color: red;" [hidden]="disabled" *ngIf="iscompulsory==true">*</span>
+    </label>
+    <div class="row">
+        <div class="col-md-10" *ngIf="disabled==true">
+            <ng-select [(ngModel)]="smssettingID" [disabled]="disabled" name="smssettingID">
+                <ng-option *ngFor="let smssetting of smssettingsAll" [value]="smssetting.smssetting_ID">
+                    {{ smssetting.sms_NUMBER }} - {{ smssetting.sms_NAME }}
+                </ng-option>
+            </ng-select>
+        </div>
+        <div class="col-md-10" *ngIf="disabled==false">
+            <ng-select [(ngModel)]="smssettingID" [disabled]="disabled" name="smssettingID">
+                <ng-option *ngFor="let smssetting of smssettings" [value]="smssetting.smssetting_ID">
+                    {{ smssetting.sms_NUMBER }} - {{ smssetting.sms_NAME }}
+                </ng-option>
+            </ng-select>
+        </div>
+        <div class="col-md-2">
+            <button type="button" class="btn btn-light ml-2" [hidden]="disabled" (click)="smssettingGet()">
+                <i class="fa fa-refresh" aria-hidden="true"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="view==11" class="form-group">
+    <label class="custom-label form-label"> SMS Setting
+        <span style="color: red;" [hidden]="disabled" *ngIf="iscompulsory==true">*</span>
+    </label>
+    <div class="row">
+        <div class="col-md-10" *ngIf="disabled==true">
+            <ng-select [(ngModel)]="smssettingID" [disabled]="disabled" name="smssettingID">
+                <ng-option *ngFor="let smssetting of smssettingsAll" [value]="smssetting.smssetting_ID">
+                    {{ smssetting.sms_NUMBER }} - {{ smssetting.sms_NAME }}
+                </ng-option>
+            </ng-select>
+        </div>
+        <div class="col-md-10" *ngIf="disabled==false">
+            <ng-select [(ngModel)]="smssettingID" [disabled]="disabled" name="smssettingID">
+                <ng-option *ngFor="let smssetting of smssettings" [value]="smssetting.smssetting_ID">
+                    {{ smssetting.sms_NUMBER }} - {{ smssetting.sms_NAME }}
+                </ng-option>
+            </ng-select>
+        </div>
+        <div class="col-md-2">
+            <button type="button" class="btn btn-light ml-2" [hidden]="disabled"
+                (click)="smssettingAdvancedSearch(applicationID)">
+                <i class="fa fa-refresh" aria-hidden="true"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="view==2" class="form-group">
+    <div class="outer-div">
+        <div class="grid-wrapper">
+            <dx-data-grid #grid id="gridContainer" [dataSource]="smssettingsAll" keyExpr="smssetting_ID"
+                [showColumnLines]="true" [showRowLines]="true" [showBorders]="true" [rowAlternationEnabled]="true"
+                [allowColumnResizing]="true" [columnMinWidth]="30" [columnAutoWidth]="true" [remoteOperations]="true"
+                height="600" width="100%" (onToolbarPreparing)="onToolbarPreparing($event)">
+                <dxo-filter-row [visible]="true"></dxo-filter-row>
+                <dxo-header-filter [visible]="true"></dxo-header-filter>
+                <dxo-search-panel [visible]="true"></dxo-search-panel>
+                <dxo-group-panel [visible]="false"></dxo-group-panel>
+                <dxo-grouping #expand [autoExpandAll]="false"></dxo-grouping>
+                <dxo-scrolling mode="virtual"></dxo-scrolling>
+                <dxo-sorting mode="multiple"></dxo-sorting>
+                <dxo-selection mode="single"></dxo-selection>
+                <dxi-column [width]="75" [allowFiltering]="false" [allowSorting]="false" alignment="center"
+                    cellTemplate="cellTemplate"></dxi-column>
+                <dxi-column dataField="application_ID" caption="Application" cssClass="myClass" alignment="center"></dxi-column>
+                <dxi-column dataField="sms_NAME" caption="Name" cssClass="myClass" alignment="center"></dxi-column>
+                <dxi-column dataField="sms_NUMBER" caption="Number" cssClass="myClass"alignment="center"></dxi-column>
+                <dxi-column [width]="100" dataField="isactive" caption="Active" cssClass="myClass" alignment="center"></dxi-column>
+
+                <div *dxTemplate="let data of 'cellTemplate'">
+                    <a href="javascript:void" class="" (click)="update(data)">
+                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                </div>
+            </dx-data-grid>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="view==22" class="form-group">
+    <div class="outer-div">
+        <div class="grid-wrapper">
+            <dx-data-grid #grid id="gridContainer" [dataSource]="smssettingsAll" keyExpr="smssetting_ID"
+            [showColumnLines]="true" [showRowLines]="true" [showBorders]="true" [rowAlternationEnabled]="true"
+            [allowColumnResizing]="true" [columnMinWidth]="30" [columnAutoWidth]="true" [remoteOperations]="true"
+            height="600" width="100%" (onToolbarPreparing)="onToolbarPreparingAdvanced($event)">
+                <dxo-filter-row [visible]="true"></dxo-filter-row>
+                <dxo-header-filter [visible]="true"></dxo-header-filter>
+                <dxo-search-panel [visible]="true"></dxo-search-panel>
+                <dxo-group-panel [visible]="false"></dxo-group-panel>
+                <dxo-grouping #expand [autoExpandAll]="false"></dxo-grouping>
+                <dxo-scrolling mode="virtual"></dxo-scrolling>
+                <dxo-sorting mode="multiple"></dxo-sorting>
+                <dxo-selection mode="single"></dxo-selection>
+                <dxi-column [width]="75" [allowFiltering]="false" [allowSorting]="false" alignment="center"
+                cellTemplate="cellTemplate"></dxi-column>
+                <dxi-column dataField="application_ID" caption="Application" cssClass="myClass" alignment="center"></dxi-column>
+                <dxi-column dataField="sms_NAME" caption="Name" cssClass="myClass" alignment="center"></dxi-column>
+                <dxi-column dataField="sms_NUMBER" caption="Number" cssClass="myClass"alignment="center"></dxi-column>
+                <dxi-column [width]="100" dataField="isactive" caption="Active" cssClass="myClass" alignment="center"></dxi-column>
+
+                <div *dxTemplate="let data of 'cellTemplate'">
+                    <a href="javascript:void" class="" (click)="update(data)">
+                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                </div>
+            </dx-data-grid>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="view==3" class="form-group">
+    <form action="" class="form" (ngSubmit)="f.form.valid && smssettingAdd(smssetting)" #f="ngForm" novalidate>
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">
+                        <i class="fa fa-plus" aria-hidden="true"></i> Add New SMS Setting
+                    </h5>
+                    <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                        <span aria-hidden="true"> ×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <app-application #addapplication [view]="1" ></app-application>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Name <span style="color:red">*</span></label>
+                                <input type="text" class="form-control" name="sms_NAME"
+                                    [(ngModel)]="smssetting.sms_NAME" maxlength="50" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Number <span style="color:red">*</span></label>
+                                <input type="text" class="form-control" name="sms_NUMBER"
+                                    [(ngModel)]="smssetting.sms_NUMBER" maxlength="50" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" [disabled]="f.invalid">
+                        <i class="fa fa-plus" aria-hidden="true"></i> Add
+                    </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div *ngIf="view==4" class="form-group">
+    <form action="" class="form" (ngSubmit)="f.form.valid && smssettingUpdate(smssetting)" #f="ngForm" novalidate>
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">
+                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit SMS Setting
+                    </h5>
+                    <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                        <span aria-hidden="true"> ×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <app-application #editapplication [view]="1" [applicationID]="smssetting.application_ID"></app-application>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Name <span style="color:red">*</span></label>
+                                <input type="text" class="form-control" name="sms_NAME"
+                                    [(ngModel)]="smssetting.sms_NAME" maxlength="50" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Number <span style="color:red">*</span></label>
+                                <input type="text" class="form-control" name="sms_NUMBER"
+                                    [(ngModel)]="smssetting.sms_NUMBER" maxlength="50" required>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <label class="control-label">
+                                        <input type="checkbox" [checked]="smssetting.isactive"
+                                            [(ngModel)]="smssetting.isactive" name="isactive">
+                                        Active
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" [disabled]="f.invalid">
+                        <i class="fa fa-plus" aria-hidden="true"></i> Update
+                    </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div *ngIf="view==5" class="form-group">
+    <div class="card-primary card">
+        <div class="card-header">
+            <div class="align-items-center row">
+                <div class="col" *ngIf="smssetting.smssetting_ID==0">
+                    <a href="javascript:void" aria-controls="collapse-smssettinginfo1" aria-expanded="true"
+                        class="card-title">Add New SMS Setting
+                    </a>
+                </div>
+                <div class="col" *ngIf="smssetting.smssetting_ID!=0 && disabled==false">
+                    <a href="javascript:void" aria-controls="collapse-smssettinginfo1" aria-expanded="true"
+                        class="card-title">Edit SMS Setting
+                    </a>
+                </div>
+                <div class="col" *ngIf="smssetting.smssetting_ID!=0 && disabled==true">
+                    <a href="javascript:void" aria-controls="collapse-smssettinginfo1" aria-expanded="true"
+                        class="card-title">SMS Setting Detail
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <app-application #application [view]="1" [disabled]="disabled" [applicationID]="smssetting.application_ID"></app-application>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Name <span style="color:red">*</span></label>
+                                <input type="text" class="form-control" name="sms_NAME" [disabled]="disabled"
+                                    [(ngModel)]="smssetting.sms_NAME" maxlength="50" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label"> Number <span style="color:red"
+                                        [hidden]="disabled">*</span></label>
+                                <input type="text" class="form-control" name="sms_NUMBER" [disabled]="disabled"
+                                    [(ngModel)]="smssetting.sms_NUMBER" maxlength="50" required>
+                            </div>
+                        </div>
+                    </div>
+                   
+                    <div class="row">
+                        <div class="col-md-12" *ngIf="smssetting.smssetting_ID!=0">
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <label class="control-label">
+                                        <input type="checkbox" [checked]="smssetting.isactive"
+                                            [(ngModel)]="smssetting.isactive" [disabled]="disabled" name="isactive">
+                                        Active
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button *ngIf="smssetting.smssetting_ID!=0 && disabled==true" (click)="editView()" id="cancel"
+                                class="btn btn-primary" style="float: right;"> Edit
+                            </button>
+                            <button *ngIf="disabled==false" type="button" (click)='smssettingCancel()'
+                                style="float: right;" class="btn btn-light" data-dismiss="modal"> Cancel
+                            </button>
+                            <button *ngIf="smssetting.smssetting_ID!=0 && disabled==false" type="button" data-dismiss="modal"
+                                style=" margin-right: 10px; float: right;" (click)='smssettingUpdate(smssetting)'
+                                class="btn btn-primary">
+                                Update
+                            </button>
+                            <button *ngIf="smssetting.smssetting_ID==0" type="button" data-dismiss="modal"
+                                style=" margin-right: 10px; float: right;" (click)='smssettingAdd(smssetting)'
+                                class="btn btn-primary">
+                                Save
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

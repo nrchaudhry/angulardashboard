@@ -29,8 +29,7 @@
                                         {{user.forenames}} {{user.surname}}
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="javascript:void(0)">Profile</a>
-                                        <a class="dropdown-item" href="javascript:void(0)">Settings</a>
+                                        <a (click)=profile() class="dropdown-item" href="javascript:void(0)">Profile</a>
                                         <a (click)=logout() class="dropdown-item" href="javascript:void(0)">Logout</a>
                                     </div>
                                     <div class="admin">Admin</div>
@@ -62,6 +61,15 @@
 <div class="navigation">
     <div class="container">
         <div class="row">
+            <div class="col" *ngIf="findLength(menu)<1">
+                <!-- Navbar -->
+                <nav id="smart-menu" class="sm sm-blue">
+                    <li>
+                        <a (click)="redirectToAppsStore()"><i class="fas fa-home font-lg"></i></a>
+                    </li>
+                </nav>
+            </div>
+
             <div class="col" *ngIf="findLength(menu)>1">
                 <!-- Navbar -->
                 <nav id="smart-menu" class="sm sm-blue">
@@ -75,8 +83,8 @@
                         </ul>
                     </li>
                 </nav>
-
             </div>
+
             <div class="col" *ngIf="findLength(menu)==1">
                 <!-- Navbar -->
                 <nav id="smart-menu" class="sm sm-blue">

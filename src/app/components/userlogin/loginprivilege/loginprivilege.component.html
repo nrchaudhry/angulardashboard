@@ -1,0 +1,471 @@
+<div *ngIf="view==1" class="form-group">
+    <label class="custom-label form-label"> Login Privilege
+        <span style="color: red;" [hidden]="disabled" *ngIf="iscompulsory==true">*</span>
+    </label>
+    <div class="row">
+        <div class="col-md-10" *ngIf="disabled==true">
+            <ng-select [(ngModel)]="privilegeID" [disabled]="disabled" name="privilegeID">
+                <ng-option *ngFor="let loginprivilege of loginprivilegesAll" [value]="loginprivilege.privilege_ID">
+                    {{ loginprivilege.privilege_NAME }} - {{ loginprivilege.privilege_DESCRIPTION }}
+                </ng-option>
+            </ng-select>
+        </div>
+        <div class="col-md-10" *ngIf="disabled==false">
+            <ng-select [(ngModel)]="privilegeID" [disabled]="disabled" name="privilegeID">
+                <ng-option *ngFor="let loginprivilege of loginprivileges" [value]="loginprivilege.privilege_ID">
+                    {{ loginprivilege.privilege_NAME }} - {{ loginprivilege.privilege_DESCRIPTION }}
+                </ng-option>
+            </ng-select>
+        </div>
+        <div class="col-md-2">
+            <button type="button" class="btn btn-light ml-2" [hidden]="disabled" (click)="loginprivilegeGet()">
+                <i class="fa fa-refresh" aria-hidden="true"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="view==11" class="form-group">
+    <label class="custom-label form-label"> Login Privilege
+        <span style="color: red;" [hidden]="disabled" *ngIf="iscompulsory==true">*</span>
+    </label>
+    <div class="row">
+        <div class="col-md-10" *ngIf="disabled==true">
+            <ng-select [(ngModel)]="privilegeID" [disabled]="disabled" name="privilegeID">
+                <ng-option *ngFor="let loginprivilege of loginprivilegesAll" [value]="loginprivilege.privilege_ID">
+                    {{ loginprivilege.privilege_NAME }} - {{ loginprivilege.privilege_DESCRIPTION }}
+                </ng-option>
+            </ng-select>
+        </div>
+        <div class="col-md-10" *ngIf="disabled==false">
+            <ng-select [(ngModel)]="privilegeID" [disabled]="disabled" name="privilegeID">
+                <ng-option *ngFor="let loginprivilege of loginprivileges" [value]="loginprivilege.privilege_ID">
+                    {{ loginprivilege.privilege_NAME }} - {{ loginprivilege.privilege_DESCRIPTION }}
+                </ng-option>
+            </ng-select>
+        </div>
+        <div class="col-md-2">
+            <button type="button" class="btn btn-light ml-2" [hidden]="disabled"
+                (click)="loginprivilegeAdvancedSearch(pcategoryID)">
+                <i class="fa fa-refresh" aria-hidden="true"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="view==2" class="form-group">
+    <div class="outer-div">
+        <div class="grid-wrapper">
+            <dx-data-grid #grid id="gridContainer" [dataSource]="loginprivilegesAll" keyExpr="privilege_ID"
+                [showColumnLines]="true" [showRowLines]="true" [showBorders]="true" [rowAlternationEnabled]="true"
+                [allowColumnResizing]="true" [columnMinWidth]="30" [columnAutoWidth]="true" [remoteOperations]="true"
+                height="600" width="100%" (onToolbarPreparing)="onToolbarPreparing($event)">
+                <dxo-filter-row [visible]="true"></dxo-filter-row>
+                <dxo-header-filter [visible]="true"></dxo-header-filter>
+                <dxo-search-panel [visible]="true"></dxo-search-panel>
+                <dxo-group-panel [visible]="false"></dxo-group-panel>
+                <dxo-grouping #expand [autoExpandAll]="false"></dxo-grouping>
+                <dxo-scrolling mode="virtual"></dxo-scrolling>
+                <dxo-sorting mode="multiple"></dxo-sorting>
+                <dxo-selection mode="single"></dxo-selection>
+                <dxi-column [width]="75" [allowFiltering]="false" [allowSorting]="false" alignment="center" cellTemplate="cellTemplate"></dxi-column>
+                <dxi-column dataField="pcategory.pcategory_NAME" caption="Privilege Category" cssClass="myClass" alignment="center"></dxi-column>
+                <dxi-column dataField="privilege_NAME" caption="Name" cssClass="myClass" alignment="center"></dxi-column>
+                <dxi-column dataField="privilege_DESCRIPTION" caption="Description" cssClass="myClass" alignment="center"></dxi-column>
+                <dxi-column dataField="privilegeorder_NO" caption="Order No" cssClass="myClass" alignment="center"></dxi-column>
+                <dxi-column dataField="privilege_STATE" caption="State" cssClass="myClass" alignment="center"></dxi-column>
+                <dxi-column dataField="privilege_URL" caption="URL" cssClass="myClass" alignment="center"></dxi-column>
+                <dxi-column dataField="privilege_TEMPLATEURL" caption="Template URL" cssClass="myClass" alignment="center"></dxi-column>
+                <dxi-column dataField="privilege_CONTROLLER" caption="Controller" cssClass="myClass" alignment="center"></dxi-column>
+                <dxi-column dataField="privilege_CONTROLLERPATH" caption="Controller Path" cssClass="myClass" alignment="center"></dxi-column>
+                <dxi-column dataField="ismenuprivilege" caption="Menu Privilege" cssClass="myClass" alignment="center"></dxi-column>
+                <dxi-column [width]="100" dataField="isactive" caption="Active" cssClass="myClass" alignment="center"></dxi-column>
+
+                <div *dxTemplate="let data of 'cellTemplate'">
+                    <a href="javascript:void" class="" (click)="update(data)">
+                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                </div>
+            </dx-data-grid>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="view==22" class="form-group">
+    <div class="outer-div">
+        <div class="grid-wrapper">
+            <dx-data-grid #grid id="gridContainer" [dataSource]="loginprivilegesAll" keyExpr="privilege_ID"
+            [showColumnLines]="true" [showRowLines]="true" [showBorders]="true" [rowAlternationEnabled]="true"
+            [allowColumnResizing]="true" [columnMinWidth]="30" [columnAutoWidth]="true" [remoteOperations]="true"
+            height="600" width="100%" (onToolbarPreparing)="onToolbarPreparingAdvanced($event)">
+                <dxo-filter-row [visible]="true"></dxo-filter-row>
+                <dxo-header-filter [visible]="true"></dxo-header-filter>
+                <dxo-search-panel [visible]="true"></dxo-search-panel>
+                <dxo-group-panel [visible]="false"></dxo-group-panel>
+                <dxo-grouping #expand [autoExpandAll]="false"></dxo-grouping>
+                <dxo-scrolling mode="virtual"></dxo-scrolling>
+                <dxo-sorting mode="multiple"></dxo-sorting>
+                <dxo-selection mode="single"></dxo-selection>
+                <dxi-column [width]="75" [allowFiltering]="false" [allowSorting]="false" alignment="center" cellTemplate="cellTemplate"></dxi-column>
+                <dxi-column dataField="pcategory.pcategory_NAME" caption="Privilege Category" cssClass="myClass" alignment="center"></dxi-column>
+                <dxi-column dataField="privilege_NAME" caption="Name" cssClass="myClass" alignment="center"></dxi-column>
+                <dxi-column dataField="privilege_DESCRIPTION" caption="Description" cssClass="myClass" alignment="center"></dxi-column>
+                <dxi-column dataField="privilegeorder_NO" caption="Order No" cssClass="myClass" alignment="center"></dxi-column>
+                <dxi-column dataField="privilege_STATE" caption="State" cssClass="myClass" alignment="center"></dxi-column>
+                <dxi-column dataField="privilege_URL" caption="URL" cssClass="myClass" alignment="center"></dxi-column>
+                <dxi-column dataField="privilege_TEMPLATEURL" caption="Template URL" cssClass="myClass" alignment="center"></dxi-column>
+                <dxi-column dataField="privilege_CONTROLLER" caption="Controller" cssClass="myClass" alignment="center"></dxi-column>
+                <dxi-column dataField="privilege_CONTROLLERPATH" caption="Controller Path" cssClass="myClass" alignment="center"></dxi-column>
+                <dxi-column dataField="ismenuprivilege" caption="Menu Privilege" cssClass="myClass" alignment="center"></dxi-column>
+                    <dxi-column [width]="100" dataField="isactive" caption="Active" cssClass="myClass" alignment="center"></dxi-column>
+
+                <div *dxTemplate="let data of 'cellTemplate'">
+                    <a href="javascript:void" class="" (click)="update(data)">
+                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                </div>
+            </dx-data-grid>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="view==3" class="form-group">
+    <form action="" class="form" (ngSubmit)="f.form.valid && loginprivilegeAdd(loginprivilege)" #f="ngForm" novalidate>
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">
+                        <i class="fa fa-plus" aria-hidden="true"></i> Add New Login Privilege
+                    </h5>
+                    <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                        <span aria-hidden="true"> ×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <app-loginprivilegecategory #addloginprivilegecategory [view]="1" [pcategoryID]="loginprivilege.pcategory_ID"></app-loginprivilegecategory>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label">Name <span style="color:red">*</span></label>
+                                <input type="text" class="form-control" name="privilege_NAME"
+                                    [(ngModel)]="loginprivilege.privilege_NAME" maxlength="50" required>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label">Order No <span style="color:red">*</span></label>
+                                <input type="text" class="form-control" name="privilegeorder_NO" [(ngModel)]="loginprivilege.privilegeorder_NO"
+                                    maxlength="50" required>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label">State <span style="color:red">*</span></label>
+                                <input type="text" class="form-control" name="privilege_STATE" [(ngModel)]="loginprivilege.privilege_STATE" maxlength="50" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label">Description <span style="color:red">*</span></label>
+                                <textarea type="text" class="form-control" name="privilege_DESCRIPTION"
+                                    [(ngModel)]="loginprivilege.privilege_DESCRIPTION" maxlength="50"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">URL <span style="color:red">*</span></label>
+                                <input type="text" class="form-control" name="privilege_URL" [(ngModel)]="loginprivilege.privilege_URL" maxlength="50" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Template URL <span style="color:red">*</span></label>
+                                <input type="text" class="form-control" name="privilege_TEMPLATEURL" [(ngModel)]="loginprivilege.privilege_TEMPLATEURL" maxlength="50" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Controller <span style="color:red">*</span></label>
+                                <input type="text" class="form-control" name="privilege_CONTROLLER" [(ngModel)]="loginprivilege.privilege_CONTROLLER" maxlength="50" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Controller Path <span style="color:red">*</span></label>
+                                <input type="text" class="form-control" name="privilege_CONTROLLERPATH" [(ngModel)]="loginprivilege.privilege_CONTROLLERPATH" maxlength="50" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" [disabled]="f.invalid">
+                        <i class="fa fa-plus" aria-hidden="true"></i> Add
+                    </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div *ngIf="view==4" class="form-group">
+    <form action="" class="form" (ngSubmit)="f.form.valid && loginprivilegeUpdate(loginprivilege)" #f="ngForm" novalidate>
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">
+                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit Login Privilege
+                    </h5>
+                    <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                        <span aria-hidden="true"> ×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <app-loginprivilegecategory #editloginprivilegecategory [view]="1" [pcategoryID]="loginprivilege.pcategory_ID"></app-loginprivilegecategory>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label">Name <span style="color:red">*</span></label>
+                                <input type="text" class="form-control" name="privilege_NAME" [(ngModel)]="loginprivilege.privilege_NAME" maxlength="50" required>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label">Order No <span style="color:red">*</span></label>
+                                <input type="text" class="form-control" name="privilegeorder_NO" [(ngModel)]="loginprivilege.privilegeorder_NO"
+                                    maxlength="50" required>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label"> State <span style="color:red">*</span></label>
+                                <input type="text" class="form-control" name="privilege_STATE" [(ngModel)]="loginprivilege.privilege_STATE" maxlength="50" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Description </label>
+                                <textarea type="text" class="form-control" name="privilege_DESCRIPTION" [(ngModel)]="loginprivilege.privilege_DESCRIPTION" maxlength="50" ></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">URL <span style="color:red">*</span></label>
+                                <input type="text" class="form-control" name="privilege_URL" [(ngModel)]="loginprivilege.privilege_URL" maxlength="50" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label"> Template URL <span style="color:red">*</span></label>
+                                <input type="text" class="form-control" name="privilege_TEMPLATEURL" [(ngModel)]="loginprivilege.privilege_TEMPLATEURL" maxlength="50" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Controller <span style="color:red">*</span></label>
+                                <input type="text" class="form-control" name="privilege_CONTROLLER" [(ngModel)]="loginprivilege.privilege_CONTROLLER" maxlength="50" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label"> Controller Path <span style="color:red">*</span></label>
+                                <input type="text" class="form-control" name="privilege_CONTROLLERPATH" [(ngModel)]="loginprivilege.privilege_CONTROLLERPATH" maxlength="50" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <label class="control-label">
+                                        <input type="checkbox" [checked]="loginprivilege.ismenuprivilege"
+                                            [(ngModel)]="loginprivilege.ismenuprivilege" name="ismenuprivilege">
+                                        Menu Privilege
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <label class="control-label">
+                                        <input type="checkbox" [checked]="loginprivilege.isactive"
+                                            [(ngModel)]="loginprivilege.isactive" name="isactive">
+                                        Active
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" [disabled]="f.invalid">
+                        <i class="fa fa-plus" aria-hidden="true"></i> Update
+                    </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div *ngIf="view==5" class="form-group">
+    <div class="card-primary card">
+        <div class="card-header">
+            <div class="align-items-center row">
+                <div class="col" *ngIf="loginprivilege.privilege_ID==0">
+                    <a href="javascript:void" aria-controls="collapse-loginprivilegeinfo1" aria-expanded="true"
+                        class="card-title">Add New Login Privilege
+                    </a>
+                </div>
+                <div class="col" *ngIf="loginprivilege.privilege_ID!=0 && disabled==false">
+                    <a href="javascript:void" aria-controls="collapse-loginprivilegeinfo1" aria-expanded="true"
+                        class="card-title">Edit Login Privilege
+                    </a>
+                </div>
+                <div class="col" *ngIf="loginprivilege.privilege_ID!=0 && disabled==true">
+                    <a href="javascript:void" aria-controls="collapse-loginprivilegeinfo1" aria-expanded="true"
+                        class="card-title">Login Privilege Detail
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <app-loginprivilegecategory  #loginprivilegecategory [view]="1" [pcategoryID]="loginprivilege.pcategory_ID" [disabled]="loginprivilegecategoryDisabled"></app-loginprivilegecategory> 
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label"> Name <span style="color:red"
+                                        [hidden]="disabled">*</span></label>
+                                <input type="text" class="form-control" name="privilege_NAME" [disabled]="disabled"
+                                    [(ngModel)]="loginprivilege.privilege_NAME" maxlength="50" required>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label">Order No <span style="color:red">*</span></label>
+                                <input type="text" class="form-control" name="privilegeorder_NO" [disabled]="disabled"
+                                    [(ngModel)]="loginprivilege.privilegeorder_NO" maxlength="50" required>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label"> State <span style="color:red">*</span></label>
+                                <input type="text" class="form-control" name="privilege_STATE" [disabled]="disabled"
+                                    [(ngModel)]="loginprivilege.privilege_STATE" maxlength="50" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label"> Description <span style="color:red" [hidden]="disabled">*</span></label>
+                                <textarea type="text" class="form-control" name="privilege_DESCRIPTION" [disabled]="disabled" [(ngModel)]="loginprivilege.privilege_DESCRIPTION" maxlength="50" ></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label"> URL <span style="color:red"
+                                        [hidden]="disabled">*</span></label>
+                                <input type="text" class="form-control" name="privilege_URL" [disabled]="disabled"
+                                    [(ngModel)]="loginprivilege.privilege_URL" maxlength="50" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label"> Template URL <span style="color:red" [hidden]="disabled">*</span></label>
+                                <input type="text" class="form-control" name="privilege_TEMPLATEURL" [disabled]="disabled" [(ngModel)]="loginprivilege.privilege_TEMPLATEURL" maxlength="50" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label"> Controller <span style="color:red"
+                                        [hidden]="disabled">*</span></label>
+                                <input type="text" class="form-control" name="privilege_CONTROLLER" [disabled]="disabled"
+                                    [(ngModel)]="loginprivilege.privilege_CONTROLLER" maxlength="50" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label"> Controller Path <span style="color:red" [hidden]="disabled">*</span></label>
+                                <input type="text" class="form-control" name="privilege_CONTROLLERPATH" [disabled]="disabled" [(ngModel)]="loginprivilege.privilege_CONTROLLERPATH" maxlength="50" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <label class="control-label">
+                                        <input type="checkbox" [checked]="loginprivilege.ismenuprivilege"
+                                            [(ngModel)]="loginprivilege.ismenuprivilege" [disabled]="disabled" name="ismenuprivilege">
+                                        Menu Privilege
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6" *ngIf="loginprivilege.privilege_ID!=0">
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <label class="control-label">
+                                        <input type="checkbox" [checked]="loginprivilege.isactive"
+                                            [(ngModel)]="loginprivilege.isactive" [disabled]="disabled" name="isactive">
+                                        Active
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button *ngIf="loginprivilege.privilege_ID!=0 && disabled==true" (click)="editView()" id="cancel"
+                                class="btn btn-primary" style="float: right;"> Edit
+                            </button>
+                            <button *ngIf="disabled==false" type="button" (click)='loginprivilegeCancel()'
+                                style="float: right;" class="btn btn-light" data-dismiss="modal"> Cancel
+                            </button>
+                            <button *ngIf="loginprivilege.privilege_ID!=0 && disabled==false" type="button" data-dismiss="modal"
+                                style=" margin-right: 10px; float: right;" (click)='loginprivilegeUpdate(loginprivilege)'
+                                class="btn btn-primary">
+                                Update
+                            </button>
+                            <button *ngIf="loginprivilege.privilege_ID==0" type="button" data-dismiss="modal"
+                                style=" margin-right: 10px; float: right;" (click)='loginprivilegeAdd(loginprivilege)'
+                                class="btn btn-primary">
+                                Save
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

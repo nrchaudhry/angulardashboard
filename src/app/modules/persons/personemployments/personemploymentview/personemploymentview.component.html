@@ -1,0 +1,48 @@
+<app-person [view]="0" [disabled]="true"></app-person>
+
+<div class="collapse-card-h container">
+  <div class="row">
+    <div class="col-md-12">
+      <app-personemployment [view]=5 [personemploymentID]="personemploymentID" (refresh)="refresh()"
+        (cancel)="cancel()"></app-personemployment>
+    </div>
+  </div>
+</div>
+
+<div class="collapse-card-h container" *ngIf="personemploymentID!=0">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card-primary card">
+        <div class="card-header">
+          <div class="align-items-center row">
+            <div class="col">
+              <a href="javascript:void" aria-controls="collapse-customerinfo1" aria-expanded="true"
+                class="card-title">Employments
+              </a>
+            </div>
+            <div class="col-auto">
+              <button (click)="addNewPersonmembership()" class="btn btn-secondary btn-sm">
+                <i class="fas fa-plus fa-fw"></i> Add New Membership
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-lg-12">
+              <app-personmembership #personmembership [view]=2 (edit)="edit($event)"></app-personmembership>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div aria-labelledby="exampleModalLabel" class="modal fade show" id="addpersonmembership" role="dialog" tabindex="-1">
+  <app-personmembership #addpersonmembership [view]=3 (cancel)="personmembershipcancel()"></app-personmembership>
+</div>
+
+<div aria-labelledby="exampleModalLabel" class="modal fade show" id="editpersonmembership" role="dialog" tabindex="-1">
+  <app-personmembership #editpersonmembership [view]=4 (cancel)="personmembershipcancel()"></app-personmembership>
+</div>

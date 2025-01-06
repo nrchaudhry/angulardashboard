@@ -1,0 +1,30 @@
+
+  <div class="form-group">
+    <label class="custom-label form-label">Room Type
+      <span style="color: red;" [hidden]="disabled" *ngIf="iscompulsory==true">*</span>
+    </label>
+    <div class="row" *ngIf="disabled==true">
+      <div class="col-md-12">
+        <ng-select [(ngModel)]="roomtypeID" [disabled]="disabled" name="roomtypeID" maxlength="50">
+          <ng-option *ngFor="let roomtype of roomtypesAll" [value]="roomtype.id" [disabled]="disabled">
+            {{ roomtype.code }} - {{ roomtype.description }}
+          </ng-option>
+        </ng-select>
+      </div>
+    </div>
+    <div class="row" *ngIf="disabled==false">
+      <div class="col-md-10">
+        <ng-select [(ngModel)]="roomtypeID" [disabled]="disabled" name="roomtypeID" maxlength="50">
+          <ng-option *ngFor="let roomtype of roomtypes" [value]="roomtype.id" [disabled]="disabled">
+            {{ roomtype.code }} - {{ roomtype.description }}
+          </ng-option>
+        </ng-select>
+      </div>
+      <div class="col-md-2">
+        <button type="button" class="btn btn-light ml-2" [hidden]="disabled" (click)="roomtypeGet()">
+          <i class="fa fa-refresh" aria-hidden="true"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+  

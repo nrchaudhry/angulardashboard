@@ -1,0 +1,30 @@
+
+  <div class="form-group">
+    <label class="custom-label form-label">Provision Type
+      <span style="color: red;" [hidden]="disabled" *ngIf="iscompulsory==true">*</span>
+    </label>
+    <div class="row" *ngIf="disabled==true">
+      <div class="col-md-12">
+        <ng-select [(ngModel)]="provisiontypeID" [disabled]="disabled" name="provisiontypeID" maxlength="50">
+          <ng-option *ngFor="let provisiontype of provisiontypesAll" [value]="provisiontype.id" [disabled]="disabled">
+            {{ provisiontype.code }} - {{ provisiontype.description }}
+          </ng-option>
+        </ng-select>
+      </div>
+    </div>
+    <div class="row" *ngIf="disabled==false">
+      <div class="col-md-10">
+        <ng-select [(ngModel)]="provisiontypeID" [disabled]="disabled" name="provisiontypeID" maxlength="50">
+          <ng-option *ngFor="let provisiontype of provisiontypes" [value]="provisiontype.id" [disabled]="disabled">
+            {{ provisiontype.code }} - {{ provisiontype.description }}
+          </ng-option>
+        </ng-select>
+      </div>
+      <div class="col-md-2">
+        <button type="button" class="btn btn-light ml-2" [hidden]="disabled" (click)="provisiontypeGet()">
+          <i class="fa fa-refresh" aria-hidden="true"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+  

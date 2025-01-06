@@ -1,0 +1,269 @@
+<div *ngIf="view==1" class="form-group">
+    <label class="custom-label form-label">Location
+      <span style="color: red;" [hidden]="disabled" *ngIf="iscompulsory==true">*</span>
+  </label>
+    <div class="row">
+        <div class="col-md-10">
+            <ng-select [(ngModel)]="locationID" [disabled]="disabled" name="locationID">
+                <ng-option *ngFor="let location of locations" [value]="location.location_ID" [disabled]="disabled">
+                    {{ location.location_CODE }} - {{ location.location_NAME }}
+                </ng-option>
+            </ng-select>
+        </div>
+        <div class="col-md-2">
+            <button type="button" class="btn btn-light ml-2" [hidden]="disabled" (click)="locationGet()">
+              <i class="fa fa-refresh" aria-hidden="true"></i>
+          </button>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="view==2" class="form-group">
+    <div class="outer-div">
+        <div class="grid-wrapper">
+            <dx-data-grid #grid id="gridContainer" [dataSource]="locationsAll" keyExpr="location_ID" [showColumnLines]="true" [showRowLines]="true" [showBorders]="true" [rowAlternationEnabled]="true" [allowColumnResizing]="true" [columnMinWidth]="30"
+                [columnAutoWidth]="true" [remoteOperations]="true" height="600" width="100%"
+                (onToolbarPreparing)="onToolbarPreparing($event)">
+                <dxo-filter-row [visible]="true"></dxo-filter-row>
+                <dxo-header-filter [visible]="true"></dxo-header-filter>
+                <dxo-search-panel [visible]="true"></dxo-search-panel>
+                <dxo-group-panel [visible]="false"></dxo-group-panel>
+                <dxo-grouping #expand [autoExpandAll]="false"></dxo-grouping>
+                <dxo-scrolling mode="virtual"></dxo-scrolling>
+                <dxo-sorting mode="multiple"></dxo-sorting>
+                <dxo-selection mode="single"></dxo-selection>
+                <dxi-column [width]="75" [allowFiltering]="false" [allowSorting]="false" alignment="center" cellTemplate="cellTemplate"></dxi-column>
+                <dxi-column [width]="120" dataField="location_CODE" caption="Code" cssClass="myClass" alignment="center"></dxi-column>
+                <dxi-column [width]="300" dataField="location_NAME" caption="Name" cssClass="myClass" alignment="left"></dxi-column>
+                <dxi-column dataField="location_DESC" caption="Description" cssClass="myClass" alignment="left"></dxi-column>
+                <dxi-column [width]="300" dataField="locationparent_ID.location_NAME" caption="Parent Location" cssClass="myClass" alignment="center"></dxi-column>
+                <dxi-column [width]="300" dataField="locationleveltype" caption="Level Type" cssClass="myClass" alignment="center"></dxi-column>
+                <dxi-column [width]="100" dataField="isactive" caption="Active" cssClass="myClass" alignment="center"></dxi-column>
+
+                <div *dxTemplate="let data of 'cellTemplate'">
+                    <a href="javascript:void" class="" (click)="viewlocation(data)">
+                        <i class="fa fa-eye" aria-hidden="true"></i></a>
+                </div>
+            </dx-data-grid>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="view==3" class="form-group">
+    <form action="" class="form" (ngSubmit)="f.form.valid && locationAdd(location)" #f="ngForm" novalidate>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label"> Location Code <span style="color:red">*</span></label>
+                        <input type="text" class="form-control" name="location_CODE" [(ngModel)]="location.location_CODE" maxlength="50" required>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label"> Location Name <span style="color:red">*</span></label>
+                        <input type="text" class="form-control" name="location_NAME" [(ngModel)]="location.location_NAME" maxlength="50" required>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                        <app-locationleveltype #locationleveltype [iscompulsory]="true" [locationleveltypeID]="location.locationleveltype_ID"></app-locationleveltype>
+                </div>
+                <div class="col-md-6">
+                    <app-location #addlocation [view]="1"></app-location>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="control-label"> Location Description</label>
+                        <textarea rows="3" class="form-control" [(ngModel)]="location.location_DESC" name="location_DESC"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-primary" [disabled]="f.invalid">
+              <i class="fa fa-plus" aria-hidden="true"></i> Add
+          </button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        </div>
+    </form>
+</div>
+
+<div *ngIf="view==4" class="form-group">
+    <form action="" class="form" (ngSubmit)="f.form.valid && locationUpdate(location)" #f="ngForm" novalidate>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label"> Location Code <span style="color:red">*</span></label>
+                        <input type="text" class="form-control" name="location_CODE" [(ngModel)]="location.location_CODE" maxlength="50" required>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label"> Location Name <span style="color:red">*</span></label>
+                        <input type="text" class="form-control" name="location_NAME" [(ngModel)]="location.location_NAME" maxlength="50" required>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <app-locationleveltype #locationleveltype [iscompulsory]="true" [locationleveltypeID]="location.locationleveltype_ID"></app-locationleveltype>
+                </div>
+                <div class="col-md-6">
+                    <app-location #editlocation [view]="1" [locationID]="location.locationparent_ID"></app-location>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="control-label"> Location Description</label>
+                        <textarea rows="3" class="form-control" [(ngModel)]="location.location_DESC" name="location_DESC"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label class="control-label">
+                              <input type="checkbox" [checked]="location.isactive"
+                                  [(ngModel)]="location.isactive" name="isactive">
+                              Active
+                          </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-primary" [disabled]="f.invalid">
+              <i class="fa fa-plus" aria-hidden="true"></i> Update
+          </button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        </div>
+    </form>
+</div>
+
+<div *ngIf="view==5" class="form-group">
+    <div class="modal-body">
+        <app-locationsearchfilter #locationsearchfilter [issearchfilter]=false *ngIf="disabled==false"></app-locationsearchfilter>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="control-label"> Location Code
+                        <span style="color: red;" [hidden]="disabled">*</span>
+                    </label>
+                    <input type="text" class="form-control" name="location_CODE" [(ngModel)]="location.location_CODE" [disabled]='disabled' required>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="control-label"> Location Name
+                        <span style="color: red;" [hidden]="disabled">*</span>
+                    </label>
+                    <input type="text" class="form-control" name="location_NAME" [(ngModel)]="location.location_NAME" [disabled]='disabled' required>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <app-locationleveltype #locationleveltype [disabled]='disabled' [locationleveltypeID]="location.locationleveltype_ID.id"></app-locationleveltype>
+            </div>
+        </div>
+        <div class="row" *ngIf="location.location_ID!=0">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="control-label">Location Parent</label>
+                    <input type="text" class="form-control" name="locationparent_ID" [(ngModel)]="location.locationparent_ID.location_NAME" [disabled]=true>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="control-label"> Location Description</label>
+                    <textarea rows="3" class="form-control" [(ngModel)]="location.location_DESC" name="location_DESC" [disabled]='disabled'></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" *ngIf="location.location_ID!=0">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label class="control-label">Latitude</label>
+                    <input type="text" class="form-control" name="latitude" [(ngModel)]="location.latitude" [disabled]='disabled'>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label class="control-label">Longitude</label>
+                    <input type="text" class="form-control" name="longitude" [(ngModel)]="location.longitude" [disabled]='disabled'>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label class="control-label">Altitude</label>
+                    <input type="text" class="form-control" name="altitude" [(ngModel)]="location.altitude" [disabled]='disabled'>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group"><br /><br />
+                    <div class="checkbox">
+                        <label class="control-label">
+                            <input type="checkbox" [checked]="location.isactive"
+                                [(ngModel)]="location.isactive" [disabled]='disabled' name="isactive">
+                            Active
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-3"></div>
+            <div class="col-md-3"></div>
+            <div class="col-md-3">
+                <button *ngIf="location.location_ID!=0 && disabled==true" (click)="locationEdit()" id="cancel" class="btn btn-primary"
+                    style="float: right;"> Edit
+                </button>
+                <button *ngIf="disabled==false" type="button" (click)='locationCancel()' style="float: right;"
+                    class="btn btn-light" data-dismiss="modal"> Cancel
+                </button>
+                <button *ngIf="location.location_ID!=0 && disabled==false" type="button" data-dismiss="modal"
+                    style=" margin-right: 10px; float: right;" (click)='locationUpdate(location)'
+                    class="btn btn-primary">
+                    Update
+                </button>
+                <button *ngIf="location.location_ID==0" type="button" data-dismiss="modal"
+                    style=" margin-right: 10px; float: right;" (click)='locationAdd(location)'
+                    class="btn btn-primary">
+                    Save
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="view==6" class="form-group">
+    <label *ngIf="isshowlables==true" class="custom-label form-label"> {{ locationleveltypeLABEL }}
+      <span style="color: red;" [hidden]="disabled" *ngIf="iscompulsory==true">*</span>
+  </label>
+    <div class="row">
+        <div class="col-md-10">
+            <ng-select [(ngModel)]="locationID" [disabled]="disabled" name="locationID" (change)="changeLocation($event)">
+                <ng-option *ngFor="let location of locationsAll" [value]="location.location_ID" [disabled]="disabled">
+                    {{ location.location_CODE }} - {{ location.location_NAME }}
+                </ng-option>
+            </ng-select>
+        </div>
+        <div class="col-md-2">
+            <button type="button" class="btn btn-light ml-2" [hidden]="disabled" (click)="refreshLocation()">
+              <i class="fa fa-refresh" aria-hidden="true"></i>
+          </button>
+        </div>
+    </div>
+</div>

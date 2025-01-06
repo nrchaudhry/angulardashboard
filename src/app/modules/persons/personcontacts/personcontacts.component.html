@@ -1,0 +1,41 @@
+<app-person></app-person>
+
+<div class="collapse-card-h container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card-primary card">
+        <div class="card-header">
+          <div class="align-items-center row">
+            <div class="col">
+              <a href="javascript:void" aria-controls="collapse-customerinfo1" aria-expanded="true"
+                class="card-title">Contacts
+              </a>
+            </div>
+            <div class="col-auto">
+              <button (click)="addNew()" class="btn btn-secondary btn-sm">
+                <i class="fas fa-plus fa-fw"></i> Add New
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-lg-12">
+              <app-personcontact #personcontact [view]="2" (show)="show($event)"></app-personcontact>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div aria-labelledby="exampleModalLabel" class="modal fade show" id="addpersoncontact" role="dialog" tabindex="-1">
+  <app-personcontact #addpersoncontact [view]=3 (refresh)="refresh()" (cancel)="cancel()"></app-personcontact>
+</div>
+
+<div aria-labelledby="exampleModalLabel" class="modal fade show" id="editpersoncontact" role="dialog" tabindex="-1">
+  <app-personcontact #editpersoncontact [view]=4 (refresh)="refresh()" (cancel)="cancel()"></app-personcontact>
+</div>
+
+<app-navigation nextURL="/home/equality" previousURL="/home/personal"></app-navigation>

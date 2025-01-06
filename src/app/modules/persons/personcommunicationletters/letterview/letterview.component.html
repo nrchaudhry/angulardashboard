@@ -1,0 +1,9 @@
+<app-person [view]="0" [disabled]="true"></app-person>
+
+<div class="collapse-card-h container">
+    <div class="row">
+        <div class="col-md-12">
+            <app-personcommunicationletter [view]=5 [personletterID]="personletterID" (refresh)="refresh()" (cancel)="cancel()"></app-personcommunicationletter>
+        </div>
+    </div>
+</div>

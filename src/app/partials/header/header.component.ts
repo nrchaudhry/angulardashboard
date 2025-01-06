@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 import { LoginService } from '../../pages/login/login.service';
 import { OnFailService } from 'src/app/services/on-fail.service';
@@ -28,13 +29,18 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     private toastrservice: ToastrService,
+    private router: Router,
     private _onFail_: OnFailService,
     private sidebarservice: SidebarService,
-    private loginservice: LoginService
+    private loginservice: LoginService,
   ) { }
 
   ngOnInit() {
     this.user = this.loginservice.loaddetail();
+  }
+
+  profile() {
+    this.router.navigate(["/home/profile"], { queryParams: { person: this.user.person_ID } });
   }
 
   logout() {

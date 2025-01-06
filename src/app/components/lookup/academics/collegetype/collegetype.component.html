@@ -1,0 +1,30 @@
+
+  <div class="form-group">
+    <label class="custom-label form-label">College Type
+      <span style="color: red;" [hidden]="disabled" *ngIf="iscompulsory==true">*</span>
+    </label>
+    <div class="row" *ngIf="disabled==true">
+      <div class="col-md-12">
+        <ng-select [(ngModel)]="collegetypeID" [disabled]="disabled" name="collegetypeID" maxlength="50">
+          <ng-option *ngFor="let collegetype of collegetypesAll" [value]="collegetype.id" [disabled]="disabled">
+            {{ collegetype.code }} - {{ collegetype.description }}
+          </ng-option>
+        </ng-select>
+      </div>
+    </div>
+    <div class="row" *ngIf="disabled==false">
+      <div class="col-md-10">
+        <ng-select [(ngModel)]="collegetypeID" [disabled]="disabled" name="collegetypeID" maxlength="50">
+          <ng-option *ngFor="let collegetype of collegetypes" [value]="collegetype.id" [disabled]="disabled">
+            {{ collegetype.code }} - {{ collegetype.description }}
+          </ng-option>
+        </ng-select>
+      </div>
+      <div class="col-md-2">
+        <button type="button" class="btn btn-light ml-2" [hidden]="disabled" (click)="collegetypeGet()">
+          <i class="fa fa-refresh" aria-hidden="true"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+  

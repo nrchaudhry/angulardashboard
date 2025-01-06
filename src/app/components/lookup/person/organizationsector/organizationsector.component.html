@@ -1,0 +1,30 @@
+
+  <div class="form-group">
+    <label class="custom-label form-label">Organization Sector
+      <span style="color: red;" [hidden]="disabled" *ngIf="iscompulsory==true">*</span>
+    </label>
+    <div class="row" *ngIf="disabled==true">
+      <div class="col-md-12">
+        <ng-select [(ngModel)]="organizationsectorID" [disabled]="disabled" name="organizationsectorID" maxlength="50">
+          <ng-option *ngFor="let organizationsector of organizationsectorsAll" [value]="organizationsector.id" [disabled]="disabled">
+            {{ organizationsector.code }} - {{ organizationsector.description }}
+          </ng-option>
+        </ng-select>
+      </div>
+    </div>
+    <div class="row" *ngIf="disabled==false">
+      <div class="col-md-10">
+        <ng-select [(ngModel)]="organizationsectorID" [disabled]="disabled" name="organizationsectorID" maxlength="50">
+          <ng-option *ngFor="let organizationsector of organizationsectors" [value]="organizationsector.id" [disabled]="disabled">
+            {{ organizationsector.code }} - {{ organizationsector.description }}
+          </ng-option>
+        </ng-select>
+      </div>
+      <div class="col-md-2">
+        <button type="button" class="btn btn-light ml-2" [hidden]="disabled" (click)="organizationsectorGet()">
+          <i class="fa fa-refresh" aria-hidden="true"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+  

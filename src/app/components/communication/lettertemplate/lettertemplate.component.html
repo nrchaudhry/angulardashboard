@@ -1,0 +1,415 @@
+<div *ngIf="view==1" class="form-group">
+    <label class="custom-label form-label"> Letter Template
+        <span style="color: red;" [hidden]="disabled" *ngIf="iscompulsory==true">*</span>
+    </label>
+    <div class="row">
+        <div class="col-md-10" *ngIf="disabled==true">
+            <ng-select [(ngModel)]="letterID" [disabled]="disabled" name="letterID">
+                <ng-option *ngFor="let lettertemplate of lettertemplatesAll" [value]="lettertemplate.letter_ID">
+                    {{ lettertemplate.letter_CODE }} - {{ lettertemplate.letter_TITLE }}
+                </ng-option>
+            </ng-select>
+        </div>
+        <div class="col-md-10" *ngIf="disabled==false">
+            <ng-select [(ngModel)]="letterID" [disabled]="disabled" name="letterID">
+                <ng-option *ngFor="let lettertemplate of lettertemplates" [value]="lettertemplate.letter_ID">
+                    {{ lettertemplate.letter_CODE }} - {{ lettertemplate.letter_TITLE }}
+                </ng-option>
+            </ng-select>
+        </div>
+        <div class="col-md-2">
+            <button type="button" class="btn btn-light ml-2" [hidden]="disabled" (click)="lettertemplateGet()">
+                <i class="fa fa-refresh" aria-hidden="true"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="view==11" class="form-group">
+    <label class="custom-label form-label"> Letter Template
+        <span style="color: red;" [hidden]="disabled" *ngIf="iscompulsory==true">*</span>
+    </label>
+    <div class="row">
+        <div class="col-md-10" *ngIf="disabled==true">
+            <ng-select [(ngModel)]="letterID" [disabled]="disabled" name="letterID">
+                <ng-option *ngFor="let lettertemplate of lettertemplatesAll" [value]="lettertemplate.letter_ID">
+                    {{ lettertemplate.letter_CODE }} - {{ lettertemplate.letter_TITLE }}
+                </ng-option>
+            </ng-select>
+        </div>
+        <div class="col-md-10" *ngIf="disabled==false">
+            <ng-select [(ngModel)]="letterID" [disabled]="disabled" name="letterID">
+                <ng-option *ngFor="let lettertemplate of lettertemplates" [value]="lettertemplate.letter_ID">
+                    {{ lettertemplate.letter_CODE }} - {{ lettertemplate.letter_TITLE }}
+                </ng-option>
+            </ng-select>
+        </div>
+        <div class="col-md-2">
+            <button type="button" class="btn btn-light ml-2" [hidden]="disabled"
+                (click)="lettertemplateAdvancedSearch(letterheadID)">
+                <i class="fa fa-refresh" aria-hidden="true"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="view==2" class="form-group">
+    <div class="outer-div">
+        <div class="grid-wrapper">
+            <dx-data-grid #grid id="gridContainer" [dataSource]="lettertemplatesAll" keyExpr="letter_ID"
+                [showColumnLines]="true" [showRowLines]="true" [showBorders]="true" [rowAlternationEnabled]="true"
+                [allowColumnResizing]="true" [columnMinWidth]="30" [columnAutoWidth]="true" [remoteOperations]="true"
+                height="600" width="100%" (onToolbarPreparing)="onToolbarPreparing($event)">
+                <dxo-filter-row [visible]="true"></dxo-filter-row>
+                <dxo-header-filter [visible]="true"></dxo-header-filter>
+                <dxo-search-panel [visible]="true"></dxo-search-panel>
+                <dxo-group-panel [visible]="false"></dxo-group-panel>
+                <dxo-grouping #expand [autoExpandAll]="false"></dxo-grouping>
+                <dxo-scrolling mode="virtual"></dxo-scrolling>
+                <dxo-sorting mode="multiple"></dxo-sorting>
+                <dxo-selection mode="single"></dxo-selection>
+                <dxi-column [width]="75" [allowFiltering]="false" [allowSorting]="false" alignment="center"
+                    cellTemplate="cellTemplate"></dxi-column>
+                <dxi-column dataField="letterhead.letterhead_CODE" caption="Letter Head" cssClass="myClass" alignment="left"></dxi-column>
+                <dxi-column dataField="lettercategory.lettercategory_CODE" caption="Letter Category" cssClass="myClass" alignment="left"></dxi-column>
+                <dxi-column dataField="emailsetting.email_NAME" caption="Email" cssClass="myClass" alignment="left"></dxi-column>
+                <dxi-column dataField="letter_CODE" caption="Code" cssClass="myClass" alignment="center"></dxi-column>
+                <dxi-column dataField="letter_TITLE" caption="Title" cssClass="myClass" alignment="left"></dxi-column>
+                <dxi-column dataField="letter_SUBJECT" caption="Subject" cssClass="myClass" alignment="left"></dxi-column>
+                <dxi-column dataField="letter_TEXT" caption="Text" cssClass="myClass" alignment="center"></dxi-column>
+                <dxi-column dataField="letter_PARAMETERS" caption="Parameters" cssClass="myClass" alignment="left"></dxi-column>
+                <dxi-column [width]="100" dataField="isactive" caption="Active" cssClass="myClass" alignment="center"></dxi-column>
+
+                <div *dxTemplate="let data of 'cellTemplate'">
+                    <a href="javascript:void" class="" (click)="update(data)">
+                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                </div>
+            </dx-data-grid>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="view==22" class="form-group">
+    <div class="outer-div">
+        <div class="grid-wrapper">
+            <dx-data-grid #grid id="gridContainer" [dataSource]="lettertemplatesAll" keyExpr="letter_ID"
+            [showColumnLines]="true" [showRowLines]="true" [showBorders]="true" [rowAlternationEnabled]="true"
+            [allowColumnResizing]="true" [columnMinWidth]="30" [columnAutoWidth]="true" [remoteOperations]="true"
+            height="600" width="100%" (onToolbarPreparing)="onToolbarPreparingAdvanced($event)">
+            <dxo-filter-row [visible]="true"></dxo-filter-row>
+            <dxo-header-filter [visible]="true"></dxo-header-filter>
+            <dxo-search-panel [visible]="true"></dxo-search-panel>
+            <dxo-group-panel [visible]="false"></dxo-group-panel>
+            <dxo-grouping #expand [autoExpandAll]="false"></dxo-grouping>
+            <dxo-scrolling mode="virtual"></dxo-scrolling>
+            <dxo-sorting mode="multiple"></dxo-sorting>
+            <dxo-selection mode="single"></dxo-selection>
+            <dxi-column [width]="75" [allowFiltering]="false" [allowSorting]="false" alignment="center"
+                cellTemplate="cellTemplate"></dxi-column>
+                <dxi-column dataField="letterhead.letterhead_CODE" caption="Letter Head" cssClass="myClass" alignment="left"></dxi-column>
+                <dxi-column dataField="lettercategory.lettercategory_CODE" caption="Letter Category" cssClass="myClass" alignment="left"></dxi-column>
+                <dxi-column dataField="emailsetting.email_NAME" caption="Email Name" cssClass="myClass" alignment="left"></dxi-column>
+                <dxi-column dataField="letter_CODE" caption="Code" cssClass="myClass" alignment="center"></dxi-column>
+                <dxi-column dataField="letter_TITLE" caption="Title" cssClass="myClass" alignment="left"></dxi-column>
+                <dxi-column dataField="letter_SUBJECT" caption="Subject" cssClass="myClass" alignment="left"></dxi-column>
+                <dxi-column dataField="letter_TEXT" caption="Text" cssClass="myClass" alignment="center"></dxi-column>
+                <dxi-column dataField="letter_PARAMETERS" caption="Parameters" cssClass="myClass" alignment="left"></dxi-column>
+                <dxi-column [width]="100" dataField="isactive" caption="Active" cssClass="myClass" alignment="center"></dxi-column>
+
+                <div *dxTemplate="let data of 'cellTemplate'">
+                    <a href="javascript:void" class="" (click)="update(data)">
+                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                </div>
+            </dx-data-grid>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="view==3" class="form-group">
+    <form action="" class="form" (ngSubmit)="f.form.valid && lettertemplateAdd(lettertemplate)" #f="ngForm" novalidate>
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalMessage">
+                        <i class="fa fa-plus" aria-hidden="true"></i> Add New Letter Template
+                    </h5>
+                    <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                        <span aria-hidden="true"> ×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <app-letterhead #addletterhead [view]="1" ></app-letterhead>
+                        </div>
+                        <div class="col-md-6">
+                            <app-lettercategory #addlettercategory [view]="1" ></app-lettercategory>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <app-emailsetting #addemailsetting [view]="1" ></app-emailsetting>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Code <span style="color:red">*</span></label>
+                                <input type="text" class="form-control" name="letter_CODE"
+                                    [(ngModel)]="lettertemplate.letter_CODE" maxlength="50" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label"> Title <span style="color:red"
+                                        [hidden]="disabled">*</span></label>
+                                <input type="text" class="form-control" name="letter_TITLE" [disabled]="disabled"
+                                    [(ngModel)]="lettertemplate.letter_TITLE" maxlength="50" required>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label"> Subject <span style="color:red">*</span></label>
+                                <input type="text" class="form-control" name="letter_SUBJECT" [disabled]="disabled"
+                                    [(ngModel)]="lettertemplate.letter_SUBJECT" maxlength="50" required>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label"> Parameters <span style="color:red">*</span></label>
+                                <input type="text" class="form-control" name="letter_PARAMETERS" [disabled]="disabled"
+                                    [(ngModel)]="lettertemplate.letter_PARAMETERS" maxlength="50" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label"> Text <span style="color:red"
+                                        [hidden]="disabled">*</span></label>
+                                <textarea rows="3" type="textarea" class="form-control" name="letter_TEXT" [disabled]="disabled"
+                                    [(ngModel)]="lettertemplate.letter_TEXT" maxlength="500" required></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" [disabled]="f.invalid">
+                        <i class="fa fa-plus" aria-hidden="true"></i> Add
+                    </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div *ngIf="view==4" class="form-group">
+    <form action="" class="form" (ngSubmit)="f.form.valid && lettertemplateUpdate(lettertemplate)" #f="ngForm" novalidate>
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalMessage">
+                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit Letter Template
+                    </h5>
+                    <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                        <span aria-hidden="true"> ×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <app-letterhead #editletterhead [view]="1" [letterheadID]="lettertemplate.letterhead_ID"></app-letterhead>
+                        </div>
+                        <div class="col-md-6">
+                            <app-lettercategory #editlettercategory [view]="1" [lettercategoryID]="lettertemplate.lettercategory_ID"></app-lettercategory>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <app-emailsetting #editemailsetting [view]="1" [emailsettingID]="lettertemplate.emailsetting_ID"></app-emailsetting>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Code <span style="color:red">*</span></label>
+                                <input type="text" class="form-control" name="letter_CODE"
+                                    [(ngModel)]="lettertemplate.letter_CODE" maxlength="500" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label"> Title <span style="color:red"
+                                        [hidden]="disabled">*</span></label>
+                                <input type="text" class="form-control" name="letter_TITLE" [disabled]="disabled"
+                                    [(ngModel)]="lettertemplate.letter_TITLE" maxlength="50" required>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label"> Subject <span style="color:red">*</span></label>
+                                <input type="text" class="form-control" name="letter_SUBJECT" [disabled]="disabled"
+                                    [(ngModel)]="lettertemplate.letter_SUBJECT" maxlength="50" required>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label"> Parameters <span style="color:red">*</span></label>
+                                <input type="text" class="form-control" name="letter_PARAMETERS" [disabled]="disabled"
+                                    [(ngModel)]="lettertemplate.letter_PARAMETERS" maxlength="50" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label"> Text <span style="color:red"
+                                        [hidden]="disabled">*</span></label>
+                                <textarea rows="3" type="textarea" class="form-control" name="letter_TEXT" [disabled]="disabled"
+                                    [(ngModel)]="lettertemplate.letter_TEXT" maxlength="50" required></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <label class="control-label">
+                                        <input type="checkbox" [checked]="lettertemplate.isactive"
+                                            [(ngModel)]="lettertemplate.isactive" name="isactive">
+                                        Active
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" [disabled]="f.invalid">
+                        <i class="fa fa-plus" aria-hidden="true"></i> Update
+                    </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div *ngIf="view==5" class="form-group">
+    <div class="card-primary card">
+        <div class="card-header">
+            <div class="align-items-center row">
+                <div class="col" *ngIf="lettertemplate.letter_ID==0">
+                    <a href="javascript:void" aria-controls="collapse-lettertemplateinfo1" aria-expanded="true"
+                        class="card-title">Add New Letter Template
+                    </a>
+                </div>
+                <div class="col" *ngIf="lettertemplate.letter_ID!=0 && disabled==false">
+                    <a href="javascript:void" aria-controls="collapse-lettertemplateinfo1" aria-expanded="true"
+                        class="card-title">Edit Letter Template
+                    </a>
+                </div>
+                <div class="col" *ngIf="lettertemplate.letter_ID!=0 && disabled==true">
+                    <a href="javascript:void" aria-controls="collapse-lettertemplateinfo1" aria-expanded="true"
+                        class="card-title">Letter Template Detail
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <app-letterhead #letterhead [view]="1" [letterheadID]="lettertemplate.letterhead_ID" [disabled]="disabled"></app-letterhead>
+                        </div>
+                        <div class="col-md-6">
+                            <app-lettercategory #lettercategory [view]="1" [lettercategoryID]="lettertemplate.lettercategory_ID" [disabled]="disabled"></app-lettercategory>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <app-emailsetting #emailsetting [view]="1" [emailsettingID]="lettertemplate.emailsetting_ID" [disabled]="disabled"></app-emailsetting>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label"> Code <span style="color:red"
+                                        [hidden]="disabled">*</span></label>
+                                <input type="text" class="form-control" name="letter_CODE" [disabled]="disabled"
+                                    [(ngModel)]="lettertemplate.letter_CODE" maxlength="50" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label"> Title <span style="color:red"
+                                        [hidden]="disabled">*</span></label>
+                                <input type="text" class="form-control" name="letter_TITLE" [disabled]="disabled"
+                                    [(ngModel)]="lettertemplate.letter_TITLE" maxlength="50" required>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label"> Subject <span style="color:red">*</span></label>
+                                <input type="text" class="form-control" name="letter_SUBJECT" [disabled]="disabled"
+                                    [(ngModel)]="lettertemplate.letter_SUBJECT" maxlength="50" required>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label"> Parameters <span style="color:red">*</span></label>
+                                <input type="text" class="form-control" name="letter_PARAMETERS" [disabled]="disabled"
+                                    [(ngModel)]="lettertemplate.letter_PARAMETERS" maxlength="50" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label"> Text <span style="color:red"
+                                        [hidden]="disabled">*</span></label>
+                                <textarea rows="3" type="textarea" class="form-control" name="letter_TEXT" [disabled]="disabled"
+                                    [(ngModel)]="lettertemplate.letter_TEXT" maxlength="50" required></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12" *ngIf="lettertemplate.letter_ID!=0">
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <label class="control-label">
+                                        <input type="checkbox" [checked]="lettertemplate.isactive"
+                                            [(ngModel)]="lettertemplate.isactive" [disabled]="disabled" name="isactive">
+                                        Active
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button *ngIf="lettertemplate.letter_ID!=0 && disabled==true" (click)="editView()" id="cancel"
+                                class="btn btn-primary" style="float: right;"> Edit
+                            </button>
+                            <button *ngIf="disabled==false" type="button" (click)='lettertemplateCancel()'
+                                style="float: right;" class="btn btn-light" data-dismiss="modal"> Cancel
+                            </button>
+                            <button *ngIf="lettertemplate.letter_ID!=0 && disabled==false" type="button" data-dismiss="modal"
+                                style=" margin-right: 10px; float: right;" (click)='lettertemplateUpdate(lettertemplate)'
+                                class="btn btn-primary">
+                                Update
+                            </button>
+                            <button *ngIf="lettertemplate.letter_ID==0" type="button" data-dismiss="modal"
+                                style=" margin-right: 10px; float: right;" (click)='lettertemplateAdd(lettertemplate)'
+                                class="btn btn-primary">
+                                Save
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

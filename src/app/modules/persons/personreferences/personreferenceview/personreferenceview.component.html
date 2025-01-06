@@ -1,0 +1,10 @@
+<app-person></app-person>
+
+<div class="collapse-card-h container">
+    <div class="row">
+        <div class="col-md-12">
+            <app-personreference [view]=5 [personreferenceID]="personreferenceID" (cancel)="cancel()"></app-personreference>
+        </div>
+    </div>
+</div>
+<app-navigation nextURL="/home/documents" previousURL="/home/employments"></app-navigation>

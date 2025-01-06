@@ -1,0 +1,62 @@
+<app-person></app-person>
+
+<div class="collapse-card-h container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card-primary card">
+                <div class="card-header">
+                    <div class="align-items-center row">
+                        <div class="col">
+                            <a href="javascript:void" aria-controls="collapse-customerinfo1" aria-expanded="true" class="card-title">PERSON LANGUAGE INFORMATION
+                            </a>
+                        </div>
+                        <div class="col-auto">
+                            <button (click)="addNew()" class="btn btn-secondary btn-sm">
+                                <i class="fas fa-plus fa-fw"></i> Add New
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <app-personlanguage #personlanguages [view]=2 (edit)="edit($event)"></app-personlanguage>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+
+  <div aria-labelledby="exampleModalLabel" class="modal fade show" id="addpersonlanguage" role="dialog" tabindex="-1">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                    <i class="fa fa-plus" aria-hidden="true"></i> Add New Person Language Information
+                </h5>
+                <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+            <span aria-hidden="true"> ×</span>
+        </button>
+            </div>
+            <app-personlanguage #addpersonlanguage [view]=3 (refresh)="refresh()" (cancel)="cancel()"></app-personlanguage>
+        </div>
+    </div>
+  </div>
+
+  <div aria-labelledby="exampleModalLabel" class="modal fade show" id="editpersonlanguage" role="dialog" tabindex="-1">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit Person Language Information
+                </h5>
+                <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+            <span aria-hidden="true"> ×</span>
+        </button>
+            </div>
+            <app-personlanguage #editpersonlanguage [view]=4 (refresh)="refresh()" (cancel)="cancel()"></app-personlanguage>
+        </div>
+    </div>
+  </div>

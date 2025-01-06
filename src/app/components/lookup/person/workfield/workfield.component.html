@@ -1,0 +1,30 @@
+
+<div class="form-group">
+  <label class="custom-label form-label">Workfield
+    <span style="color: red;" [hidden]="disabled" *ngIf="iscompulsory==true">*</span>
+  </label>
+  <div class="row" *ngIf="disabled==true">
+    <div class="col-md-12">
+      <ng-select [(ngModel)]="workfieldID" [disabled]="disabled" name="workfieldID" maxlength="50">
+        <ng-option *ngFor="let workfield of workfieldsAll" [value]="workfield.id" [disabled]="disabled">
+          {{ workfield.code }} - {{ workfield.description }}
+        </ng-option>
+      </ng-select>
+    </div>
+  </div>
+  <div class="row" *ngIf="disabled==false">
+    <div class="col-md-10">
+      <ng-select [(ngModel)]="workfieldID" [disabled]="disabled" name="workfieldID" maxlength="50">
+        <ng-option *ngFor="let workfield of workfields" [value]="workfield.id" [disabled]="disabled">
+          {{ workfield.code }} - {{ workfield.description }}
+        </ng-option>
+      </ng-select>
+    </div>
+    <div class="col-md-2">
+      <button type="button" class="btn btn-light ml-2" [hidden]="disabled" (click)="workfieldGet()">
+        <i class="fa fa-refresh" aria-hidden="true"></i>
+      </button>
+    </div>
+  </div>
+</div>
+

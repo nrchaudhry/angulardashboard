@@ -1,0 +1,19 @@
+<app-person></app-person>
+
+<div class="collapse-card-h container">
+    <div class="row">
+        <div class="col-md-12">
+            <app-personequality #personequalities [view]=5 [genderHidden]=true></app-personequality>
+        </div>
+    </div>
+</div>
+
+<div aria-labelledby="exampleModalLabel" class="modal fade show" id="add" role="dialog" tabindex="-1">
+    <app-personequality #addpersonequality [view]=3 (refresh)="refresh()" (cancel)="cancel()"></app-personequality>
+</div>
+
+<div aria-labelledby="exampleModalLabel" class="modal fade show" id="edit" role="dialog" tabindex="-1">
+    <app-personequality #editpersonequality [view]=4 (refresh)="refresh()" (cancel)="cancel()"></app-personequality>
+</div>
+
+<app-navigation nextURL="/home/qualifications" previousURL="/home/contacts"></app-navigation>

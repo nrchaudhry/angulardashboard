@@ -1,0 +1,72 @@
+<div *ngIf="view==1" class="row">
+    <div class="col-md-12">
+        <div class="card-primary card">
+            <div class="card-header">
+                <div class="align-items-center row">
+                    <div class="col">
+                        <a href="javascript:void" aria-controls="collapse-customerinfo1" aria-expanded="true"
+                            class="card-title">Filter
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4" *ngFor="let locationleveltype of locationleveltypes">
+                        <app-location #locations [view]="6" [locationleveltypeID]="locationleveltype.id"
+                            [locationparentID]="locationleveltype.locationparentID"
+                            (selectedLocation)="selectedLocation($event)"></app-location>
+                    </div>
+                </div>
+                <div class="row" *ngIf="issearchfilter==true">
+                    <div class="col-md-12">
+                        <div class="form-group text-right">
+                            <button id="savebutton" class="btn btn-success ml-2" (click)="searchfilter()">
+                                Search
+                            </button>
+                            <button type="button" class="btn btn-light ml-2" (click)="reset()">
+                                Reset
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="view==2" class="row">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-6" *ngFor="let locationleveltype of locationleveltypes">
+                <app-location #locations [view]="6" [disabled]='disabled' [locationleveltypeID]="locationleveltype.id"
+                    [locationparentID]="locationleveltype.locationparentID"
+                    (selectedLocation)="selectedLocation($event)"></app-location>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="view==3" class="row">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-4" *ngFor="let locationleveltype of locationleveltypes">
+                <app-location #locations [view]="6" [disabled]='disabled' [locationleveltypeID]="locationleveltype.id"
+                    [locationparentID]="locationleveltype.locationparentID"
+                    (selectedLocation)="selectedLocation($event)"></app-location>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="view==4" class="row">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-12" *ngFor="let locationleveltype of locationleveltypes">
+                <app-location #locations [view]="6" [disabled]='disabled' [isshowlables]="isshowlables" [locationleveltypeID]="locationleveltype.id"
+                    [locationparentID]="locationleveltype.locationparentID"
+                    (selectedLocation)="selectedLocation($event)"></app-location>
+            </div>
+        </div>
+    </div>
+</div>

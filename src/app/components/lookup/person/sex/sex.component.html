@@ -1,0 +1,30 @@
+
+<div class="form-group">
+  <label class="custom-label form-label">Sex
+    <span style="color: red;" [hidden]="disabled" *ngIf="iscompulsory==true">*</span>
+  </label>
+  <div class="row" *ngIf="disabled==true">
+    <div class="col-md-12">
+      <ng-select [(ngModel)]="sexID" [disabled]="disabled" name="sexID" maxlength="50">
+        <ng-option *ngFor="let sex of sexesAll" [value]="sex.id" [disabled]="disabled">
+          {{ sex.code }} - {{ sex.description }}
+        </ng-option>
+      </ng-select>
+    </div>
+  </div>
+  <div class="row" *ngIf="disabled==false">
+    <div class="col-md-10">
+      <ng-select [(ngModel)]="sexID" [disabled]="disabled" name="sexID" maxlength="50">
+        <ng-option *ngFor="let sex of sexes" [value]="sex.id" [disabled]="disabled">
+          {{ sex.code }} - {{ sex.description }}
+        </ng-option>
+      </ng-select>
+    </div>
+    <div class="col-md-2">
+      <button type="button" class="btn btn-light ml-2" [hidden]="disabled" (click)="sexGet()">
+        <i class="fa fa-refresh" aria-hidden="true"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
