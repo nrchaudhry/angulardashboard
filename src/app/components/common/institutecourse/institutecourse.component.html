@@ -1,0 +1,421 @@
+<div *ngIf="view==1" class="form-group">
+  <label class="custom-label form-label">Institute Course
+    <span style="color: red;" [hidden]="disabled" *ngIf="iscompulsory==true">*</span>
+  </label>
+  <div class="row" *ngIf="disabled==true">
+    <div class="col-md-12">
+      <ng-select [(ngModel)]="institutecourseID" [disabled]="disabled" name="institutecourseID"
+        (change)="onChange($event)">
+        <ng-option *ngFor="let institutecourse of institutecoursesAll" [value]="institutecourse.institutecourse_ID">
+          {{institutecourse.institutecourse_CODE}} - {{institutecourse.institutecourse_TITLE}}
+        </ng-option>
+      </ng-select>
+    </div>
+  </div>
+  <div class="row" *ngIf="disabled==false">
+    <div class="col-md-10">
+      <ng-select [(ngModel)]="institutecourseID" name="institutecourseID" (change)="onChange($event)">
+        <ng-option *ngFor="let institutecourse of institutecourses" [value]="institutecourse.institutecourse_ID"
+          [disabled]="disabled">
+          {{institutecourse.institutecourse_CODE}} - {{institutecourse.institutecourse_TITLE}}
+        </ng-option>
+      </ng-select>
+    </div>
+    <div class="col-md-2">
+      <button type="button" class="btn btn-light ml-2" (click)="load(true)">
+        <i class="fa fa-refresh" aria-hidden="true"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="view==10" class="form-group">
+  <label class="custom-label form-label">Institute Course
+    <span style="color: red;" [hidden]="disabled" *ngIf="iscompulsory==true">*</span>
+  </label>
+  <div class="row" *ngIf="disabled==true">
+    <div class="col-md-12">
+      <ng-select [(ngModel)]="institutecourseID" [disabled]="disabled" name="institutecourseID"
+        (change)="onChange($event)">
+        <ng-option *ngFor="let institutecourse of institutecoursesAll" [value]="institutecourse.institutecourse_ID">
+          {{institutecourse.institutecourse_CODE}} - {{institutecourse.institutecourse_TITLE}}
+        </ng-option>
+      </ng-select>
+    </div>
+  </div>
+  <div class="row" *ngIf="disabled==false">
+    <div class="col-md-10">
+      <ng-select [(ngModel)]="institutecourseID" name="institutecourseID" (change)="onChange($event)">
+        <ng-option *ngFor="let institutecourse of institutecoursesAll" [value]="institutecourse.institutecourse_ID"
+          [disabled]="disabled">
+          {{institutecourse.institutecourse_CODE}} - {{institutecourse.institutecourse_TITLE}}
+        </ng-option>
+      </ng-select>
+    </div>
+    <div class="col-md-2">
+      <button type="button" class="btn btn-light ml-2" (click)="load(true)">
+        <i class="fa fa-refresh" aria-hidden="true"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="view==11" class="form-group">
+  <label class="custom-label form-label">Institute Course
+    <span style="color: red;" [hidden]="disabled" *ngIf="iscompulsory==true">*</span>
+  </label>
+  <div class="row" *ngIf="disabled==true">
+    <div class="col-md-12">
+      <ng-select [(ngModel)]="institutecourseID" [disabled]="disabled" name="institutecourseID">
+        <ng-option *ngFor="let institutecourse of institutecoursesAll" [value]="institutecourse.institutecourse_ID"
+          [disabled]="disabled">
+          {{institutecourse.institutecourse_CODE}} - {{institutecourse.institutecourse_TITLE}}
+        </ng-option>
+      </ng-select>
+    </div>
+  </div>
+  <div class="row" *ngIf="disabled==false">
+    <div class="col-md-10">
+      <ng-select [(ngModel)]="institutecourseID" [disabled]="disabled" name="institutecourseID"
+        (change)="onChange($event)">
+        <ng-option *ngFor="let institutecourse of institutecourses" [value]="institutecourse.institutecourse_ID"
+          [disabled]="disabled">
+          {{institutecourse.institutecourse_CODE}} - {{institutecourse.institutecourse_TITLE}}
+        </ng-option>
+      </ng-select>
+    </div>
+    <div class="col-md-2">
+      <button type="button" class="btn btn-light ml-2" [hidden]="disabled" (click)="load(true)">
+        <i class="fa fa-refresh" aria-hidden="true"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="view==19" class="form-group">
+  <label class="custom-label form-label">Institute Course
+    <span style="color: red;" [hidden]="disabled" *ngIf="iscompulsory==true">*</span>
+  </label>
+  <div class="row" *ngIf="disabled==true">
+    <div class="col-md-12">
+      <ng-select [(ngModel)]="institutecourseID" [disabled]="disabled" name="institutecourseID"
+        (change)="onChange($event)">
+        <ng-option *ngFor="let institutecourse of institutecoursesAll" [value]="institutecourse.institutecourse_ID"
+          [disabled]="disabled">
+          {{institutecourse.institutecourse_CODE}} - {{institutecourse.institutecourse_TITLE}}
+        </ng-option>
+      </ng-select>
+    </div>
+  </div>
+  <div class="row" *ngIf="disabled==false">
+    <div class="col-md-10">
+      <ng-select [(ngModel)]="institutecourseID" [disabled]="disabled" name="institutecourseID"
+        (change)="onChange($event)">
+        <ng-option *ngFor="let institutecourse of institutecoursesAll" [value]="institutecourse.institutecourse_ID"
+          [disabled]="disabled">
+          {{institutecourse.institutecourse_CODE}} - {{institutecourse.institutecourse_TITLE}}
+        </ng-option>
+      </ng-select>
+    </div>
+    <div class="col-md-2">
+      <button type="button" class="btn btn-light ml-2" [hidden]="disabled" (click)="load(true)">
+        <i class="fa fa-refresh" aria-hidden="true"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="view==2" class="form-group">
+  <div class="outer-div">
+    <div class="grid-wrapper">
+      <dx-data-grid #grid id="gridContainer" [dataSource]="institutecoursesAll" keyExpr="institutecourse_ID"
+        [showColumnLines]="true" [showRowLines]="true" [showBorders]="true" [rowAlternationEnabled]="true"
+        [allowColumnResizing]="true" [columnMinWidth]="30" [columnAutoWidth]="true" [remoteOperations]="true"
+        height="600" width="100%" (onToolbarPreparing)="onToolbarPreparing($event)">
+        <dxo-filter-row [visible]="true"></dxo-filter-row>
+        <dxo-header-filter [visible]="true"></dxo-header-filter>
+        <dxo-search-panel [visible]="true"></dxo-search-panel>
+        <dxo-group-panel [visible]="false"></dxo-group-panel>
+        <dxo-grouping #expand [autoExpandAll]="false"></dxo-grouping>
+        <dxo-scrolling mode="virtual"></dxo-scrolling>
+        <dxo-sorting mode="multiple"></dxo-sorting>
+        <dxo-selection mode="single"></dxo-selection>
+        <dxi-column [width]="75" [allowFiltering]="false" [allowSorting]="false" alignment="center"
+          cellTemplate="cellTemplate"></dxi-column>
+        <dxi-column dataField="institute.institute_NAME" caption="Institute" cssClass="myClass" alignment="center">
+        </dxi-column>
+        <dxi-column dataField="course.course_TITLE" caption="Course" cssClass="myClass" alignment="center"></dxi-column>
+        <dxi-column [width]="120" dataField="institutecourse_CODE" caption="Code" cssClass="myClass" alignment="center">
+        </dxi-column>
+        <dxi-column [width]="300" dataField="institutecourse_TITLE" caption="Title" cssClass="myClass" alignment="left">
+        </dxi-column>
+        <dxi-column [width]="500" dataField="institutecourse_SHORTTITLE" caption="Short Title" cssClass="myClass">
+        </dxi-column>
+        <dxi-column [width]="130" dataField="institutecourse_CREDITHOURS" caption="Credit Hours" cssClass="myClass"
+          alignment="center"></dxi-column>
+        <dxi-column [width]="100" dataField="isactive" caption="Active" cssClass="myClass" alignment="center">
+        </dxi-column>
+
+        <div *dxTemplate="let data of 'cellTemplate'">
+          <a href="javascript:void" class="" (click)="update(data)">
+            <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+        </div>
+      </dx-data-grid>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="view==3" class="form-group">
+  <form action="" class="form" (ngSubmit)="f.form.valid && institutecourseAdd(institutecourse)" #f="ngForm" novalidate>
+    <div class="modal-dialog modal-xl" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">
+            <i class="fa fa-plus" aria-hidden="true"></i> Add New Institute Course
+          </h5>
+          <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+            <span aria-hidden="true"> ×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-6">
+              <app-institute #institute [view]="1" [instituteID]="institutecourse.institute_ID">
+              </app-institute>
+            </div>
+            <div class="col-md-6">
+              <app-course #course [view]="1" [courseID]="institutecourse.course_ID">
+              </app-course>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="control-label"> Code <span style="color:red">*</span></label>
+                <input type="text" class="form-control" name="institutecourse_CODE"
+                  [(ngModel)]="institutecourse.institutecourse_CODE" maxlength="50" required>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="control-label"> Title <span style="color:red">*</span></label>
+                <input type="text" class="form-control" name="institutecourse_TITLE"
+                  [(ngModel)]="institutecourse.institutecourse_TITLE" maxlength="50" required>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="control-label"> Short Title <span style="color:red">*</span></label>
+                <input type="text" class="form-control" name="institutecourse_SHORTTITLE"
+                  [(ngModel)]="institutecourse.institutecourse_SHORTTITLE" maxlength="50" required>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="control-label"> Credit Hours <span style="color:red">*</span></label>
+                <input type="text" class="form-control" name="institutecourse_CREDITHOURS"
+                  [(ngModel)]="institutecourse.institutecourse_CREDITHOURS" maxlength="50" required>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary" [disabled]="f.invalid">
+            <i class="fa fa-plus" aria-hidden="true"></i> Add
+          </button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div *ngIf="view==4" class="form-group">
+  <form action="" class="form" (ngSubmit)="f.form.valid && institutecourseUpdate(institutecourse)" #f="ngForm"
+    novalidate>
+    <div class="modal-dialog modal-xl" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">
+            <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit Institute Course
+          </h5>
+          <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+            <span aria-hidden="true"> ×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-6">
+              <app-institute #institute [view]="1" [instituteID]="institutecourse.institute_ID">
+              </app-institute>
+            </div>
+            <div class="col-md-6">
+              <app-course #course [view]="1" [courseID]="institutecourse.course_ID">
+              </app-course>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="control-label"> Code <span style="color:red">*</span></label>
+                <input type="text" class="form-control" name="institutecourse_CODE"
+                  [(ngModel)]="institutecourse.institutecourse_CODE" maxlength="50" required>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="control-label"> Title <span style="color:red">*</span></label>
+                <input type="text" class="form-control" name="institutecourse_TITLE"
+                  [(ngModel)]="institutecourse.institutecourse_TITLE" maxlength="50" required>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="control-label"> Short Title </label>
+                <input type="text" class="form-control" name="institutecourse_SHORTTITLE"
+                  [(ngModel)]="institutecourse.institutecourse_SHORTTITLE" maxlength="50">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="control-label"> Credit Hours <span style="color:red">*</span></label>
+                <input type="text" class="form-control" name="institutecourse_CREDITHOURS"
+                  [(ngModel)]="institutecourse.institutecourse_CREDITHOURS" maxlength="50" required>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <div class="checkbox">
+                  <label class="control-label">
+                    <input type="checkbox" [checked]="institutecourse.isactive" [(ngModel)]="institutecourse.isactive"
+                      name="isactive">
+                    Active
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary" [disabled]="f.invalid">
+            <i class="fa fa-plus" aria-hidden="true"></i> Update
+          </button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div *ngIf="view==5" class="fcorm-group">
+  <div class="card-primary card">
+    <div class="card-header">
+      <div class="align-items-center row">
+        <div class="col" *ngIf="institutecourse.institutecourse_ID==0">
+          <a href="javascript:void" aria-controls="collapse-institutecourseinfo1" aria-expanded="true"
+            class="card-title">Add New Institute Course
+          </a>
+        </div>
+        <div class="col" *ngIf="institutecourse.institutecourse_ID!=0 && disabled==false">
+          <a href="javascript:void" aria-controls="collapse-institutecourseinfo1" aria-expanded="true"
+            class="card-title">Edit Institute Course
+          </a>
+        </div>
+        <div class="col" *ngIf="institutecourse.institutecourse_ID!=0 && disabled==true">
+          <a href="javascript:void" aria-controls="collapse-institutecourseinfo1" aria-expanded="true"
+            class="card-title">Institute Course Detail
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="control-label"> Code <span style="color:red">*</span></label>
+                <input type="text" class="form-control" name="institutecourse_CODE"
+                  [(ngModel)]="institutecourse.institutecourse_CODE" maxlength="50" [disabled]="disabled" required>
+              </div>
+            </div>
+            <div class="col-md-8">
+              <div class="form-group">
+                <label class="control-label"> Title <span style="color:red">*</span></label>
+                <input type="text" class="form-control" name="institutecourse_TITLE"
+                  [(ngModel)]="institutecourse.institutecourse_TITLE" maxlength="50" [disabled]="disabled" required>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="control-label"> Short Title <span style="color:red">*</span></label>
+                <input type="text" class="form-control" name="institutecourse_SHORTTITLE"
+                  [(ngModel)]="institutecourse.institutecourse_SHORTTITLE" maxlength="50" required>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="control-label"> Credit Hours <span style="color:red">*</span></label>
+                <input type="text" class="form-control" name="institutecourse_CREDITHOURS"
+                  [(ngModel)]="institutecourse.institutecourse_CREDITHOURS" maxlength="50" required>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <app-institute #institute [view]="1" [iscompulsory]=true [disabled]="disabled"
+                [instituteID]=institutecourse.institute_ID></app-institute>
+            </div>
+            <div class="col-md-6">
+              <app-course #course [view]="1" [iscompulsory]=true [disabled]="disabled"
+                [courseID]=institutecourse.course_ID></app-course>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12" *ngIf="institutecourse.institutecourse_ID!=0">
+              <div class="form-group">
+                <div class="checkbox">
+                  <label class="control-label">
+                    <input type="checkbox" [checked]="institutecourse.isactive" [(ngModel)]="institutecourse.isactive"
+                      [disabled]="disabled" name="isactive">
+                    Active
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <span class="float-right">
+                <button *ngIf="institutecourse.institutecourse_ID!=0 && disabled==true" (click)="editView()" id="cancel"
+                  class="btn btn-primary" style="float: right;"> Edit
+                </button>
+                <button *ngIf="disabled==false" type="button" (click)='cancelView()' style="float: right;"
+                  class="btn btn-light" data-dismiss="modal"> Cancel
+                </button>
+                <button *ngIf="institutecourse.institutecourse_ID!=0 && disabled==false" type="button"
+                  data-dismiss="modal" style=" margin-right: 10px; float: right;"
+                  (click)='institutecourseUpdate(institutecourse)' class="btn btn-primary">
+                  Update
+                </button>
+                <button *ngIf="institutecourse.institutecourse_ID==0" type="button" data-dismiss="modal"
+                  style=" margin-right: 10px; float: right;" (click)='institutecourseAdd(institutecourse)'
+                  class="btn btn-primary">
+                  Save
+                </button>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

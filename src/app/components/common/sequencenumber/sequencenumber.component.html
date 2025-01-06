@@ -1,0 +1,25 @@
+<div *ngIf="view==1" class="form-group">
+    <label class="custom-label form-label">{{ label }}
+        <span style="color: red;" [hidden]="disabled" *ngIf="iscompulsory==true">*</span>
+    </label>
+    <div class="row">
+        <div class="col-md-12">
+            <ng-select [(ngModel)]="value" name="value" [disabled]="disabled" required>
+                <ng-option *ngFor="let no of numbers" [value]="no.value">
+                    {{no.value}}
+                </ng-option>
+            </ng-select>
+        </div>
+    </div>
+</div>
+<div *ngIf="view==2" class="form-group">
+    <div class="row">
+        <div class="col-md-12">
+            <ng-select [(ngModel)]="value" name="value"  [disabled]="disabled"  required>
+                <ng-option *ngFor="let no of numbers" [value]="no.value">
+                    {{no.value}}
+                </ng-option>
+            </ng-select>
+        </div>
+    </div>
+</div>

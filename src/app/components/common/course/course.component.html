@@ -1,0 +1,718 @@
+<div *ngIf="view==1" class="form-group">
+  <label class="custom-label form-label">Program
+    <span style="color: red;" [hidden]="disabled" *ngIf="iscompulsory==true">*</span>
+  </label>
+  <div class="row" *ngIf="disabled==true">
+    <div class="col-md-12">
+      <ng-select [(ngModel)]="courseID" [disabled]="disabled" name="courseID" (change)="onChange($event)">
+        <ng-option *ngFor="let course of coursesAll" [value]="course.course_ID">
+          {{course.course_CODE}} - {{ course.course_TITLE}}
+        </ng-option>
+      </ng-select>
+    </div>
+  </div>
+  <div class="row" *ngIf="disabled==false">
+    <div class="col-md-10">
+      <ng-select [(ngModel)]="courseID" name="courseID" (change)="onChange($event)">
+        <ng-option *ngFor="let course of courses" [value]="course.course_ID" [disabled]="disabled">
+          {{course.course_CODE}} - {{ course.course_TITLE}}
+        </ng-option>
+      </ng-select>
+    </div>
+    <div class="col-md-2">
+      <button type="button" class="btn btn-light ml-2" (click)="load(true)">
+        <i class="fa fa-refresh" aria-hidden="true"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="view==10" class="form-group">
+  <label class="custom-label form-label">Program
+    <span style="color: red;" [hidden]="disabled" *ngIf="iscompulsory==true">*</span>
+  </label>
+  <div class="row" *ngIf="disabled==true">
+    <div class="col-md-12">
+      <ng-select [(ngModel)]="courseID" [disabled]="disabled" name="courseID" (change)="onChange($event)">
+        <ng-option *ngFor="let course of coursesAll" [value]="course.course_ID">
+          {{course.course_CODE}} - {{ course.course_TITLE}}
+        </ng-option>
+      </ng-select>
+    </div>
+  </div>
+  <div class="row" *ngIf="disabled==false">
+    <div class="col-md-10">
+      <ng-select [(ngModel)]="courseID" name="courseID" (change)="onChange($event)">
+        <ng-option *ngFor="let course of coursesAll" [value]="course.course_ID" [disabled]="disabled">
+          {{course.course_CODE}} - {{ course.course_TITLE}}
+        </ng-option>
+      </ng-select>
+    </div>
+    <div class="col-md-2">
+      <button type="button" class="btn btn-light ml-2" (click)="load(true)">
+        <i class="fa fa-refresh" aria-hidden="true"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="view==11" class="form-group">
+  <label class="custom-label form-label">Program
+    <span style="color: red;" [hidden]="disabled" *ngIf="iscompulsory==true">*</span>
+  </label>
+  <div class="row" *ngIf="disabled==true">
+    <div class="col-md-12">
+      <ng-select [(ngModel)]="courseID" [disabled]="disabled" name="courseID">
+        <ng-option *ngFor="let course of coursesAll" [value]="course.course_ID" [disabled]="disabled">
+          {{course.course_CODE}} - {{ course.course_TITLE}}
+        </ng-option>
+      </ng-select>
+    </div>
+  </div>
+  <div class="row" *ngIf="disabled==false">
+    <div class="col-md-10">
+      <ng-select [(ngModel)]="courseID" [disabled]="disabled" name="courseID" (change)="onChange($event)">
+        <ng-option *ngFor="let course of courses" [value]="course.course_ID" [disabled]="disabled">
+          {{course.course_CODE}} - {{ course.course_TITLE}}
+        </ng-option>
+      </ng-select>
+    </div>
+    <div class="col-md-2">
+      <button type="button" class="btn btn-light ml-2" [hidden]="disabled" (click)="load(true)">
+        <i class="fa fa-refresh" aria-hidden="true"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="view==19" class="form-group">
+  <label class="custom-label form-label">Program
+    <span style="color: red;" [hidden]="disabled" *ngIf="iscompulsory==true">*</span>
+  </label>
+  <div class="row" *ngIf="disabled==true">
+    <div class="col-md-12">
+      <ng-select [(ngModel)]="courseID" [disabled]="disabled" name="courseID" (change)="onChange($event)">
+        <ng-option *ngFor="let course of coursesAll" [value]="course.course_ID" [disabled]="disabled">
+          {{course.course_CODE}} - {{ course.course_TITLE}}
+        </ng-option>
+      </ng-select>
+    </div>
+  </div>
+  <div class="row" *ngIf="disabled==false">
+    <div class="col-md-10">
+      <ng-select [(ngModel)]="courseID" [disabled]="disabled" name="courseID" (change)="onChange($event)">
+        <ng-option *ngFor="let course of coursesAll" [value]="course.course_ID" [disabled]="disabled">
+          {{course.course_CODE}} - {{ course.course_TITLE}}
+        </ng-option>
+      </ng-select>
+    </div>
+    <div class="col-md-2">
+      <button type="button" class="btn btn-light ml-2" [hidden]="disabled" (click)="load(true)">
+        <i class="fa fa-refresh" aria-hidden="true"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="view==2" class="form-group">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="outer-div">
+        <div class="grid-wrapper">
+          <dx-data-grid #grid id="gridContainer" [dataSource]="coursesAll" keyExpr="course_ID" [showColumnLines]="true"
+            [showRowLines]="true" [showBorders]="true" [rowAlternationEnabled]="true" [allowColumnResizing]="true"
+            [columnMinWidth]="30" [columnAutoWidth]="true" [remoteOperations]="true" height="600" width="100%"
+            (onToolbarPreparing)="onToolbarPreparing($event)">
+            <dxo-filter-row [visible]="true"></dxo-filter-row>
+            <dxo-header-filter [visible]="true"></dxo-header-filter>
+            <dxo-search-panel [visible]="true"></dxo-search-panel>
+            <dxo-group-panel [visible]="false"></dxo-group-panel>
+            <dxo-grouping #expand [autoExpandAll]="true"></dxo-grouping>
+            <dxo-scrolling mode="virtual"></dxo-scrolling>
+            <dxo-sorting mode="multiple"></dxo-sorting>
+            <dxo-selection mode="single"></dxo-selection>
+            <dxi-column [width]="75" [allowFiltering]="false" [allowSorting]="false" alignment="center"
+              cellTemplate="cellTemplate"> </dxi-column>
+            <dxi-column [width]="150" dataField="course_CODE" caption="Code" cssClass="myClass" alignment="center">
+            </dxi-column>
+            <dxi-column dataField="course_TITLE" caption="Title" cssClass="myClass"> </dxi-column>
+            <dxi-column dataField="course_SHORTTITLE" caption="Short Title" cssClass="myClass"> </dxi-column>
+            <dxi-column dataField="qualification.qualification_NAME" caption="Qualification" cssClass="myClass">
+            </dxi-column>
+            <dxi-column dataField="course_LEVEL" caption="Level" cssClass="myClass" alignment="center"> </dxi-column>
+            <dxi-column [width]="175" dataField="minimum_DURATION" caption="Duration (Min)" cssClass="myClass"
+              alignment="center"></dxi-column>
+            <dxi-column [width]="175" dataField="maximum_DURATION" caption="Duration (Max)" cssClass="myClass"
+              alignment="center"></dxi-column>
+            <dxi-column [width]="200" dataField="minimum_CREDITHOURS" caption="Credit Hours (Min)" cssClass="myClass"
+              alignment="center"></dxi-column>
+            <dxi-column [width]="200" dataField="maximum_CREDITHOURS" caption="Credit Hours (Max)" cssClass="myClass"
+              alignment="center"> </dxi-column>
+            <dxi-column dataField="courseaim.description" caption="Course Aim" cssClass="myClass"
+              alignment="center"></dxi-column>
+            <dxi-column dataField="provisiontype.description" caption="Provision Type" cssClass="myClass"
+              alignment="center"></dxi-column>
+            <dxi-column dataField="regulatorytype.description" caption="Regulatory Type" cssClass="myClass"
+              alignment="center"></dxi-column>
+            <dxi-column dataField="teachertrainingcourse.description" caption="Teacher Training Course"
+              cssClass="myClass" alignment="center"></dxi-column>
+            <dxi-column dataField="mandatory_MODULES" caption=" Mandatory Modules" cssClass="myClass"
+              alignment="center"></dxi-column>
+            <dxi-column dataField="optional_MODULES" caption="Optional Modules" cssClass="myClass"
+              alignment="center"></dxi-column>
+            <dxi-column dataField="studyskill_MODULES" caption="Studyskill Modules" cssClass="myClass"
+              alignment="center"></dxi-column>
+            <dxi-column [width]="100" dataField="isactive" caption="Active" cssClass="myClass"
+              alignment="center"></dxi-column>
+            <div *dxTemplate="let data of 'cellTemplate'">
+              <a href="javascript:void" class="" (click)="showView(data)">
+                <i class="fa fa-eye" aria-hidden="true"></i></a>
+            </div>
+          </dx-data-grid>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="view==3" class="form-group">
+  <form action="" class="form" (ngSubmit)="f.form.valid && courseAdd(course)" #f="ngForm" novalidate>
+    <div class="modal-dialog modal-xl" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">
+            <i class="fa fa-plus" aria-hidden="true"></i> Add New Program
+          </h5>
+          <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+            <span aria-hidden="true"> ×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="control-label">Program Code</label>
+                <span style="color: red;" [hidden]="disabled"> *</span>
+                <input type="text" class="form-control" name="course_CODE" maxlength="50"
+                  [(ngModel)]="course.course_CODE" required />
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="control-label">Program title</label>
+                <span style="color: red;" [hidden]="disabled"> *</span>
+                <input type="text" class="form-control" name="course_TITLE" maxlength="50"
+                  [(ngModel)]="course.course_TITLE" required />
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="control-label">Program Short Title</label>
+                <span style="color: red;" [hidden]="disabled"> *</span>
+                <input type="text" class="form-control" name="course_SHORTTITLE" maxlength="50"
+                  [(ngModel)]="course.course_SHORTTITLE" required />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <app-qualification #addqualification></app-qualification>
+            </div>
+            <div class="col-md-6">
+              <app-provisiontype #addprovisiontype></app-provisiontype>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="control-label">Program Introduction</label>
+                <span style="color: red;" [hidden]="disabled"> *</span>
+                <input type="text" class="form-control" name="course_INTRODUCTION" maxlength="50"
+                  [(ngModel)]="course.course_INTRODUCTION" required />
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="control-label">Program Level</label>
+                <span style="color: red;" [hidden]="disabled"> *</span>
+                <input type="text" class="form-control" name="course_LEVEL" maxlength="50"
+                  [(ngModel)]="course.course_LEVEL" required />
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="control-label">Minimum Duration</label>
+                <span style="color: red;" [hidden]="disabled"> *</span>
+                <input type="text" class="form-control" name="minimum_DURATION" maxlength="50"
+                  [(ngModel)]="course.minimum_DURATION" required />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="control-label">Maximum Duration</label>
+                <span style="color: red;" [hidden]="disabled"> *</span>
+                <input type="text" class="form-control" name="maximum_DURATION" maxlength="50"
+                  [(ngModel)]="course.maximum_DURATION" required />
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="control-label">Minimum Credit hours</label>
+                <span style="color: red;" [hidden]="disabled"> *</span>
+                <input type="text" class="form-control" name="minimum_CREDITHOURS" maxlength="50"
+                  [(ngModel)]="course.minimum_CREDITHOURS" required />
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="control-label">Maximum Credit hours</label>
+                <span style="color: red;" [hidden]="disabled"> *</span>
+                <input type="text" class="form-control" name="maximum_CREDITHOURS" maxlength="50"
+                  [(ngModel)]="course.maximum_CREDITHOURS" required />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="control-label"> Pathway <span style="color:red">*</span></label>
+                <input type="text" class="form-control" name="pathway" [(ngModel)]="course.pathway" maxlength="50"
+                  required>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="control-label">SLC Coursecode <span style="color:red">*</span></label>
+                <input type="text" class="form-control" name="slc_COURSECODE" [(ngModel)]="course.slc_COURSECODE"
+                  maxlength="50" required>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="control-label"> Lara Code <span style="color:red">*</span></label>
+                <input type="text" class="form-control" name="lara_CODE" [(ngModel)]="course.lara_CODE" maxlength="50"
+                  required>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="control-label">Mandatory Modules<span style="color:red">*</span></label>
+                <input type="text" class="form-control" name="mandatory_MODULES" [(ngModel)]="course.mandatory_MODULES"
+                  maxlength="50" required>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="control-label">Optional Modules<span style="color:red">*</span></label>
+                <input type="text" class="form-control" name="optional_MODULES" [(ngModel)]="course.optional_MODULES"
+                  maxlength="50" required>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="control-label"> Studyskill Modules<span style="color:red">*</span></label>
+                <input type="text" class="form-control" name=" studyskill_MODULES"
+                  [(ngModel)]="course. studyskill_MODULES" maxlength="50" required>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary" [disabled]="f.invalid">
+            <i class="fa fa-plus" aria-hidden="true"></i> Add
+          </button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div *ngIf="view==4" class="form-group">
+  <form action="" class="form" (ngSubmit)="f.form.valid && courseUpdate(course)" #f="ngForm" novalidate>
+    <div class="modal-dialog modal-xl" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">
+            <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit Program
+          </h5>
+          <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+            <span aria-hidden="true"> ×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="control-label">Program Code</label>
+                <span style="color: red;" [hidden]="disabled"> *</span>
+                <input type="text" class="form-control" name="course_CODE" maxlength="50"
+                  [(ngModel)]="course.course_CODE" required />
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="control-label">Program title</label>
+                <span style="color: red;" [hidden]="disabled"> *</span>
+                <input type="text" class="form-control" name="course_TITLE" maxlength="50"
+                  [(ngModel)]="course.course_TITLE" required />
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="control-label">Program Shorttitle</label>
+                <span style="color: red;" [hidden]="disabled"> *</span>
+                <input type="text" class="form-control" name="course_SHORTTITLE" maxlength="50"
+                  [(ngModel)]="course.course_SHORTTITLE" required />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <app-qualificationtype #qualificationtype [qualificationtypeID]="course.qualificationtype_ID"
+                [disabled]="disabled"></app-qualificationtype>
+            </div>
+            <div class="col-md-4">
+              <app-provisiontype #provisiontype [disabled]="disabled"
+                [provisiontypeID]="course.provisiontype_ID"></app-provisiontype>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="control-label">Program Introduction</label>
+                <span style="color: red;" [hidden]="disabled"> *</span>
+                <input type="text" class="form-control" name="course_INTRODUCTION" maxlength="50"
+                  [(ngModel)]="course.course_INTRODUCTION" required />
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="control-label">Program Level</label>
+                <span style="color: red;" [hidden]="disabled"> *</span>
+                <input type="text" class="form-control" name="course_LEVEL" maxlength="50"
+                  [(ngModel)]="course.course_LEVEL" required />
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="control-label">Minimum Duration</label>
+                <span style="color: red;" [hidden]="disabled"> *</span>
+                <input type="text" class="form-control" name="minimum_DURATION" maxlength="50"
+                  [(ngModel)]="course.minimum_DURATION" required />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="control-label">Maximum Duration</label>
+                <span style="color: red;" [hidden]="disabled"> *</span>
+                <input type="text" class="form-control" name="maximum_DURATION" maxlength="50"
+                  [(ngModel)]="course.maximum_DURATION" required />
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="control-label">Minimum Credit hours</label>
+                <span style="color: red;" [hidden]="disabled"> *</span>
+                <input type="text" class="form-control" name="minimum_CREDITHOURS" maxlength="50"
+                  [(ngModel)]="course.minimum_CREDITHOURS" required />
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="control-label">Maximum Credit hours</label>
+                <span style="color: red;" [hidden]="disabled"> *</span>
+                <input type="text" class="form-control" name="maximum_CREDITHOURS" maxlength="50"
+                  [(ngModel)]="course.maximum_CREDITHOURS" required />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="control-label"> Pathway <span style="color:red">*</span></label>
+                <input type="text" class="form-control" name="pathway" [(ngModel)]="course.pathway" maxlength="50"
+                  required>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="control-label">SLC Course Code <span style="color:red">*</span></label>
+                <input type="text" class="form-control" name="slc_COURSECODE" [(ngModel)]="course.slc_COURSECODE"
+                  maxlength="50" required>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="control-label"> Lara Code <span style="color:red">*</span></label>
+                <input type="text" class="form-control" name="lara_CODE" [(ngModel)]="course.lara_CODE" maxlength="50"
+                  required>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="control-label">Mandatory Modules<span style="color:red">*</span></label>
+                <input type="text" class="form-control" name="mandatory_MODULES" [(ngModel)]="course.mandatory_MODULES"
+                  maxlength="50" required>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="control-label">Optional Modules<span style="color:red">*</span></label>
+                <input type="text" class="form-control" name="optional_MODULES" [(ngModel)]="course.optional_MODULES"
+                  maxlength="50" required>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="control-label"> Studyskill Modules<span style="color:red">*</span></label>
+                <input type="text" class="form-control" name=" studyskill_MODULES"
+                  [(ngModel)]="course. studyskill_MODULES" maxlength="50" required>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <div class="checkbox">
+                  <label class="control-label">
+                    <input type="checkbox" [checked]="course.isactive" [(ngModel)]="course.isactive" name="isactive">
+                    Active
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary" [disabled]="f.invalid">
+            <i class="fa fa-plus" aria-hidden="true"></i> Update
+          </button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div *ngIf="view==5" class="form-group">
+  <div class="card-primary card">
+    <div class="card-header">
+      <div class="align-items-center row">
+        <div class="col" *ngIf="course.course_ID==0">
+          <a href="javascript:void" aria-controls="collapse-courseinfo1" aria-expanded="true" class="card-title">Add New
+            Program
+          </a>
+        </div>
+        <div class="col" *ngIf="course.course_ID!=0 && disabled==false">
+          <a href="javascript:void" aria-controls="collapse-courseinfo1" aria-expanded="true" class="card-title"> Edit
+            Program
+          </a>
+        </div>
+        <div class="col" *ngIf="course.course_ID!=0 && disabled==true">
+          <a href="javascript:void" aria-controls="collapse-courseinfo1" aria-expanded="true" class="card-title">Program
+            Detail
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="control-label">Program Code</label>
+                <span style="color: red;" [hidden]="disabled"> *</span>
+                <input type="text" class="form-control" name="course_CODE" maxlength="50"
+                  [(ngModel)]="course.course_CODE" [disabled]="disabled" required />
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="control-label">Program Title</label>
+                <span style="color: red;" [hidden]="disabled"> *</span>
+                <input type="text" class="form-control" name="course_TITLE" maxlength="50"
+                  [(ngModel)]="course.course_TITLE" [disabled]="disabled" required />
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="control-label">Program Short Title</label>
+                <span style="color: red;" [hidden]="disabled"> *</span>
+                <input type="text" class="form-control" name="course_TITLE" maxlength="50"
+                  [(ngModel)]="course.course_SHORTTITLE" [disabled]="disabled" required />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label class="control-label">Program Introduction</label>
+                <textarea rows="3" type="textarea" class="form-control" name="course_INTRODUCTION" maxlength="500"
+                  [(ngModel)]="course.course_INTRODUCTION" [disabled]="disabled"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <app-qualification #qualification [view]="1" [disabled]="disabled"
+                [qualificationID]="course.qualification_ID"></app-qualification>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <app-qualificationtype #qualificationtype [qualificationtypeID]="course.qualificationtype_ID"
+                [disabled]="disabled"></app-qualificationtype>
+            </div>
+            <div class="col-md-4">
+              <app-provisiontype #provisiontype [disabled]="disabled"
+                [provisiontypeID]="course.provisiontype_ID"></app-provisiontype>
+            </div>
+            <div class="col-md-4">
+              <app-courseaim #courseaim [disabled]="disabled" [courseaimID]="course.courseaim_ID"></app-courseaim>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="control-label">Program Level</label>
+                <span style="color: red;" [hidden]="disabled"> *</span>
+                <app-sequencenumber #courselevel [view]="2" [value]="course.course_LEVEL"
+                  [disabled]="disabled"></app-sequencenumber>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="control-label">Minimum Duration</label>
+                <span style="color: red;" [hidden]="disabled"> *</span>
+                <app-sequencenumber #minimumduration [view]="2" [value]="course.minimum_DURATION"
+                  [disabled]="disabled"></app-sequencenumber>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="control-label">Maximum Duration</label>
+                <span style="color: red;" [hidden]="disabled"> *</span>
+                <app-sequencenumber #maximumduration [view]="2" [value]="course.maximum_DURATION"
+                  [disabled]="disabled"></app-sequencenumber>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <app-regulatorybody #regulatorybody [disabled]="disabled"
+                [regulatorybodyID]="course.regulatorybody_ID"></app-regulatorybody>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="control-label">Minimum Credit Hours</label>
+                <span style="color: red;" [hidden]="disabled"> *</span>
+                <app-sequencenumber #minimumcredithours [view]="2" [value]="course.minimum_CREDITHOURS"
+                  [disabled]="disabled"></app-sequencenumber>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="control-label">Maximum Credit Hours</label>
+                <span style="color: red;" [hidden]="disabled"> *</span>
+                <app-sequencenumber #maximumcredithours [view]="2" [value]="course.maximum_CREDITHOURS"
+                  [disabled]="disabled"></app-sequencenumber>
+              </div>
+            </div>
+          </div>
+          <!--
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label"> Pathway </label>
+                                <input type="text" class="form-control" name="pathway" [(ngModel)]="course.pathway"
+                                    maxlength="50" [disabled]="disabled">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label">SLC Course Code </label>
+                                <input type="text" class="form-control" name="slc_COURSECODE"
+                                    [(ngModel)]="course.slc_COURSECODE" [disabled]="disabled" maxlength="50">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label"> Lara Code </label>
+                                <input type="text" class="form-control" name="lara_CODE" [(ngModel)]="course.lara_CODE"
+                                    maxlength="50" [disabled]="disabled">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label">Mandatory Modules<span style="color:red">*</span></label>
+                                <input type="text" class="form-control" name="mandatory_MODULES"
+                                    [(ngModel)]="course.mandatory_MODULES" maxlength="50" [disabled]="disabled"
+                                    required>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label">Optional Modules<span style="color:red">*</span></label>
+                                <input type="text" class="form-control" name="optional_MODULES"
+                                    [(ngModel)]="course.optional_MODULES" maxlength="50" [disabled]="disabled" required>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label"> Studyskill Modules<span style="color:red">*</span></label>
+                                <input type="text" class="form-control" name=" studyskill_MODULES"
+                                    [(ngModel)]="course. studyskill_MODULES" maxlength="50" [disabled]="disabled"
+                                    required>
+                            </div>
+                        </div>
+                    </div>
+-->
+          <div class="row">
+            <div class="col-md-6" *ngIf="course.course_ID!=0">
+              <div class="form-group">
+                <div class="checkbox">
+                  <label class="control-label">
+                    <input type="checkbox" [checked]="course.isactive" [(ngModel)]="course.isactive"
+                      [disabled]="disabled" name="isactive">
+                    Active
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <button *ngIf="course.course_ID!=0 && disabled==true" (click)="editView()" id="cancel"
+                class="btn btn-primary" style="float: right;"> Edit
+              </button>
+              <button *ngIf="disabled==false" type="button" (click)='courseCancel()' style="float: right;"
+                class="btn btn-light" data-dismiss="modal"> Cancel
+              </button>
+              <button *ngIf="course.course_ID!=0 && disabled==false" type="button" data-dismiss="modal"
+                style=" margin-right: 10px; float: right;" (click)='courseUpdate(course)' class="btn btn-primary">
+                Update
+              </button>
+              <button *ngIf="course.course_ID==0" type="button" data-dismiss="modal"
+                style=" margin-right: 10px; float: right;" (click)='courseAdd(course)' class="btn btn-primary">
+                Save
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

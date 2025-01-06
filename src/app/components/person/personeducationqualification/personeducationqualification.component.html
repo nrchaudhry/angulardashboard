@@ -1,0 +1,552 @@
+<div *ngIf="view==1" class="form-group">
+    <label class="custom-label form-label"> Person Education Qualification
+        <span style="color: red;" [hidden]="disabled" *ngIf="iscompulsory==true">*</span>
+    </label>
+    <div class="row">
+        <div class="col-md-10" *ngIf="disabled==true">
+            <ng-select [(ngModel)]="personqualificationID" [disabled]="disabled" name="personqualificationID">
+                <ng-option *ngFor="let personeducationqualification of personeducationqualificationsAll"
+                    [value]="personeducationqualification.personqualification_ID">
+                    {{ personeducationqualification.dissertation_TITLE }} - {{ personeducationqualification.registration_NUMBER }}
+                </ng-option>
+            </ng-select>
+        </div>
+        <div class="col-md-10" *ngIf="disabled==false">
+            <ng-select [(ngModel)]="personqualificationID" [disabled]="disabled" name="personqualificationID">
+                <ng-option *ngFor="let personeducationqualification of personeducationqualifications" [value]="personeducationqualification.personqualification_ID">
+                    {{ personeducationqualification.dissertation_TITLE }} - {{ personeducationqualification.registration_NUMBER }}
+                </ng-option>
+            </ng-select>
+        </div>
+        <div class="col-md-2">
+            <button type="button" class="btn btn-light ml-2" [hidden]="disabled" (click)="personeducationqualificationGet()">
+                <i class="fa fa-refresh" aria-hidden="true"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="view==10" class="form-group">
+    <label class="custom-label form-label">Person Education Qualification
+      <span style="color: red;" [hidden]="disabled" *ngIf="iscompulsory==true">*</span>
+    </label>
+    <div class="row" *ngIf="disabled==true">
+      <div class="col-md-12">
+        <ng-select [(ngModel)]="personqualificationID" [disabled]="disabled" name="personqualificationID"
+          (change)="onChange($event)">
+          <ng-option *ngFor="let personeducationqualification of personeducationqualificationsAll"
+            [value]="personeducationqualification.personqualification_ID" [disabled]="disabled">
+            {{ personeducationqualification.dissertation_TITLE }} - {{ personeducationqualification.registration_NUMBER }}
+        </ng-option>
+        </ng-select>
+      </div>
+    </div>
+    <div class="row" *ngIf="disabled==false">
+      <div class="col-md-10">
+        <ng-select [(ngModel)]="personqualificationID" [disabled]="disabled" name="personqualificationID"
+          (change)="onChange($event)">
+          <ng-option *ngFor="let personeducationqualification of personeducationqualificationsAll"
+            [value]="personeducationqualification.personqualification_ID" [disabled]="disabled">
+            {{ personeducationqualification.dissertation_TITLE }} - {{ personeducationqualification.registration_NUMBER }}
+        </ng-option>
+        </ng-select>
+      </div>
+      <div class="col-md-2">
+        <button type="button" class="btn btn-light ml-2" [hidden]="disabled" (click)="load(true)">
+          <i class="fa fa-refresh" aria-hidden="true"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <div *ngIf="view==11" class="form-group">
+    <label class="custom-label form-label">Person Education Qualification
+      <span style="color: red;" [hidden]="disabled" *ngIf="iscompulsory==true">*</span>
+    </label>
+    <div class="row" *ngIf="disabled==true">
+      <div class="col-md-12">
+        <ng-select [(ngModel)]="personqualificationID" [disabled]="disabled" name="personqualificationID">
+          <ng-option *ngFor="let personeducationqualification of personeducationqualificationsAll"
+            [value]="personeducationqualification.personqualification_ID" [disabled]="disabled">
+            {{ personeducationqualification.dissertation_TITLE }} - {{ personeducationqualification.registration_NUMBER }}
+        </ng-option>
+        </ng-select>
+      </div>
+    </div>
+    <div class="row" *ngIf="disabled==false">
+      <div class="col-md-10">
+        <ng-select [(ngModel)]="personqualificationID" [disabled]="disabled" name="personqualificationID"
+          (change)="onChange($event)">
+          <ng-option *ngFor="let personeducationqualification of personeducationqualifications"
+            [value]="personeducationqualification.personqualification_ID" [disabled]="disabled">
+            {{ personeducationqualification.dissertation_TITLE }} - {{ personeducationqualification.registration_NUMBER }}
+        </ng-option>
+        </ng-select>
+      </div>
+      <div class="col-md-2">
+        <button type="button" class="btn btn-light ml-2" [hidden]="disabled" (click)="load(true)">
+          <i class="fa fa-refresh" aria-hidden="true"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <div *ngIf="view==19" class="form-group">
+    <label class="custom-label form-label">Person Education Qualification
+      <span style="color: red;" [hidden]="disabled" *ngIf="iscompulsory==true">*</span>
+    </label>
+    <div class="row" *ngIf="disabled==true">
+      <div class="col-md-12">
+        <ng-select [(ngModel)]="personqualificationID" [disabled]="disabled" name="personqualificationID"
+          (change)="onChange($event)">
+          <ng-option *ngFor="let personeducationqualification of personeducationqualificationsAll"
+            [value]="personeducationqualification.personqualification_ID" [disabled]="disabled">
+            {{ personeducationqualification.dissertation_TITLE }} - {{ personeducationqualification.registration_NUMBER }}
+        </ng-option>
+        </ng-select>
+      </div>
+    </div>
+    <div class="row" *ngIf="disabled==false">
+      <div class="col-md-10">
+        <ng-select [(ngModel)]="personqualificationID" [disabled]="disabled" name="personqualificationID"
+          (change)="onChange($event)">
+          <ng-option *ngFor="let personeducationqualification of personeducationqualificationsAll"
+            [value]="personeducationqualification.personqualification_ID" [disabled]="disabled">
+            {{ personeducationqualification.dissertation_TITLE }} - {{ personeducationqualification.registration_NUMBER }}
+        </ng-option>
+        </ng-select>
+      </div>
+      <div class="col-md-2">
+        <button type="button" class="btn btn-light ml-2" [hidden]="disabled" (click)="load(true)">
+          <i class="fa fa-refresh" aria-hidden="true"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+<div *ngIf="view==2" class="form-group">
+    <div class="outer-div">
+        <div class="grid-wrapper">
+            <dx-data-grid #grid id="gridContainer" [dataSource]="personeducationqualificationsAll" keyExpr="personqualification_ID"
+                [showColumnLines]="true" [showRowLines]="true" [showBorders]="true" [rowAlternationEnabled]="true"
+                [allowColumnResizing]="true" [columnMinWidth]="30" [columnAutoWidth]="true" [remoteOperations]="true"
+                height="300" width="100%" (onToolbarPreparing)="onToolbarPreparing($event)">
+                <dxo-filter-row [visible]="true"></dxo-filter-row>
+                <dxo-header-filter [visible]="true"></dxo-header-filter>
+                <dxo-search-panel [visible]="true"></dxo-search-panel>
+                <dxo-group-panel [visible]="false"></dxo-group-panel>
+                <dxo-grouping #expand [autoExpandAll]="false"></dxo-grouping>
+                <dxo-scrolling mode="virtual"></dxo-scrolling>
+                <dxo-sorting mode="multiple"></dxo-sorting>
+                <dxo-selection mode="single"></dxo-selection>
+                
+                <dxi-column [width]="75" [allowFiltering]="false" [allowSorting]="false" alignment="center" cellTemplate="cellTemplate"></dxi-column>
+
+                    <dxi-column dataField="person.forenames" caption="Name" cssClass="myClass" alignment="left"></dxi-column>
+                    <dxi-column dataField="educationsystem_ID.description" caption="Education System" cssClass="myClass" alignment="center"></dxi-column> -->
+                    <dxi-column dataField="educationattendancemode_ID.description" caption="Education Attendance Mode" cssClass="myClass" alignment="center"></dxi-column> -->
+                    <dxi-column dataField="qualificationstatus_ID.description" caption="Qualification Status" cssClass="myClass" alignment="center"></dxi-column> -->
+                    <dxi-column dataField="gradingsystem_ID.description" caption="Grading System" cssClass="myClass" alignment="center"></dxi-column> -->
+                    <dxi-column dataField="dissertation_TITLE" caption="Title" cssClass="myClass" alignment="center"></dxi-column>
+                    <dxi-column dataField="registration_NUMBER" caption="Reg No" cssClass="myClass" alignment="center"></dxi-column>
+                    <dxi-column dataField="qualification_STARTDATE" caption="Start Date" cssClass="myClass" alignment="center"></dxi-column>
+                    <dxi-column dataField="qualification_ENDDATE" caption="End Date" cssClass="myClass" alignment="center"></dxi-column>
+                    <dxi-column dataField="total_MARKS" caption="Total Marks" cssClass="myClass" alignment="center"></dxi-column>
+                    <dxi-column dataField="obtained_MARKS" caption="Obtained Marks" cssClass="myClass" alignment="center"></dxi-column>
+                    <dxi-column dataField="obtained_PERCENTAGE" caption="Obtained Percentage" cssClass="myClass" alignment="center"></dxi-column>
+
+                <dxi-column [width]="100" dataField="isactive" caption="Active" cssClass="myClass" alignment="center">
+                </dxi-column>
+
+                <div *dxTemplate="let data of 'cellTemplate'">
+                    <a href="javascript:void" class="" (click)="update(data)">
+                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                </div>
+            </dx-data-grid>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="view==22" class="form-group">
+    <div class="outer-div">
+        <div class="grid-wrapper">
+            <dx-data-grid #grid id="gridContainer" [dataSource]="personeducationqualifications" keyExpr="personqualification_ID"
+                [showColumnLines]="true" [showRowLines]="true" [showBorders]="true" [rowAlternationEnabled]="true"
+                [allowColumnResizing]="true" [columnMinWidth]="30" [columnAutoWidth]="true" [remoteOperations]="true"
+                height="300" width="100%" (onToolbarPreparing)="onToolbarPreparing($event)">
+                <dxo-filter-row [visible]="true"></dxo-filter-row>
+                <dxo-header-filter [visible]="true"></dxo-header-filter>
+                <dxo-search-panel [visible]="true"></dxo-search-panel>
+                <dxo-group-panel [visible]="false"></dxo-group-panel>
+                <dxo-grouping #expand [autoExpandAll]="false"></dxo-grouping>
+                <dxo-scrolling mode="virtual"></dxo-scrolling>
+                <dxo-sorting mode="multiple"></dxo-sorting>
+                <dxo-selection mode="single"></dxo-selection>
+                
+                <dxi-column [width]="75" [allowFiltering]="false" [allowSorting]="false" alignment="center" cellTemplate="cellTemplate"></dxi-column>
+
+                    <dxi-column dataField="person.forenames" caption="Name" cssClass="myClass" alignment="left"></dxi-column>
+                    <dxi-column dataField="educationsystem_ID.description" caption="Education System" cssClass="myClass" alignment="center"></dxi-column> -->
+                    <dxi-column dataField="educationattendancemode_ID.description" caption="Education Attendance Mode" cssClass="myClass" alignment="center"></dxi-column> -->
+                    <dxi-column dataField="qualificationstatus_ID.description" caption="Qualification Status" cssClass="myClass" alignment="center"></dxi-column> -->
+                    <dxi-column dataField="gradingsystem_ID.description" caption="Grading System" cssClass="myClass" alignment="center"></dxi-column> -->
+                    
+                    <dxi-column dataField="dissertation_TITLE" caption="Title" cssClass="myClass" alignment="center"></dxi-column>
+                    <dxi-column dataField="registration_NUMBER" caption="Reg No" cssClass="myClass" alignment="center"></dxi-column>
+                    <dxi-column dataField="qualification_STARTDATE" caption="Start Date" cssClass="myClass" alignment="center"></dxi-column>
+                    <dxi-column dataField="qualification_ENDDATE" caption="End Date" cssClass="myClass" alignment="center"></dxi-column>
+                    <dxi-column dataField="total_MARKS" caption="Total Marks" cssClass="myClass" alignment="center"></dxi-column>
+                    <dxi-column dataField="obtained_MARKS" caption="Obtained Marks" cssClass="myClass" alignment="center"></dxi-column>
+                    <dxi-column dataField="obtained_PERCENTAGE" caption="Obtained Percentage" cssClass="myClass" alignment="center"></dxi-column>
+
+                <dxi-column [width]="100" dataField="isactive" caption="Active" cssClass="myClass" alignment="center">
+                </dxi-column>
+
+                <div *dxTemplate="let data of 'cellTemplate'">
+                    <a href="javascript:void" class="" (click)="update(data)">
+                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                </div>
+            </dx-data-grid>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="view==3" class="form-group">
+    <form action="" class="form" (ngSubmit)="f.form.valid && personeducationqualificationAdd(personeducationqualification)" #f="ngForm" novalitext>
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">
+                        <i class="fa fa-plus" aria-hidden="true"></i> Add New Person Education Qualification
+                    </h5>
+                    <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                        <span aria-hidden="true"> ×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label"> Title <span style="color:red">*</span></label>
+                                <input type="text" class="form-control" name="dissertation_TITLE" [(ngModel)]="personeducationqualification.dissertation_TITLE" maxlength="50" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label"> Reg No <span style="color:red">*</span></label>
+                                <input type="text" class="form-control" name="registration_NUMBER" [(ngModel)]="personeducationqualification.registration_NUMBER" maxlength="50" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label"> Start Date <span style="color:red">*</span></label>
+                                <input type="date" class="form-control" name="qualification_STARTDATE" [(ngModel)]="personeducationqualification.qualification_STARTDATE" maxlength="50" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label"> End Date <span style="color:red">*</span></label>
+                                <input type="date" class="form-control" name="qualification_ENDDATE" [(ngModel)]="personeducationqualification.qualification_ENDDATE" maxlength="50" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label"> Total Marks <span style="color:red">*</span></label>
+                                <input type="text" class="form-control" name="total_MARKS" [(ngModel)]="personeducationqualification.total_MARKS" maxlength="50" required>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label"> Obtained Marks <span style="color:red">*</span></label>
+                                <input type="text" class="form-control" name="obtained_MARKS" [(ngModel)]="personeducationqualification.obtained_MARKS" maxlength="50" required>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label"> Obtained Percentage <span style="color:red">*</span></label>
+                                <input type="text" class="form-control" name="obtained_PERCENTAGE" [(ngModel)]="personeducationqualification.obtained_PERCENTAGE" maxlength="50" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <app-educationattendancemode #educationattendancemode [iscompulsory]="true"></app-educationattendancemode>
+                        </div>
+                        <div class="col-md-6">
+                            <app-educationsystem #educationsystem [iscompulsory]="true"></app-educationsystem>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <app-qualificationstatus #qualificationstatus [iscompulsory]="true"></app-qualificationstatus>
+                        </div>
+                        <div class="col-md-6">
+                            <app-gradingsystem #gradingsystem [iscompulsory]="true"></app-gradingsystem>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" [disabled]="f.invalid">
+                        <i class="fa fa-plus" aria-hidden="true"></i> Add
+                    </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div *ngIf="view==4" class="form-group">
+    <form action="" class="form" (ngSubmit)="f.form.valid && personeducationqualificationUpdate(personeducationqualification)" #f="ngForm"
+        novalitext>
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">
+                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit Person Education Qualification
+                    </h5>
+                    <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                        <span aria-hidden="true"> ×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <app-institute #institutes></app-institute>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <app-institutecourse #institutecourses [view]="11"></app-institutecourse>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label"> Title <span style="color:red">*</span></label>
+                                <input type="text" class="form-control" name="dissertation_TITLE" [(ngModel)]="personeducationqualification.dissertation_TITLE" maxlength="50" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label"> Reg No <span style="color:red">*</span></label>
+                                <input type="text" class="form-control" name="registration_NUMBER" [(ngModel)]="personeducationqualification.registration_NUMBER" maxlength="50" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label"> Start Date <span style="color:red">*</span></label>
+                                <input type="date" class="form-control" name="qualification_STARTDATE" [(ngModel)]="personeducationqualification.qualification_STARTDATE" maxlength="50" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label"> End Date <span style="color:red">*</span></label>
+                                <input type="date" class="form-control" name="qualification_ENDDATE" [(ngModel)]="personeducationqualification.qualification_ENDDATE" maxlength="50" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label"> Total Marks <span style="color:red">*</span></label>
+                                <input type="text" class="form-control" name="total_MARKS" [(ngModel)]="personeducationqualification.total_MARKS" maxlength="50" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label"> Obtained Marks <span style="color:red">*</span></label>
+                                <input type="text" class="form-control" name="obtained_MARKS" [(ngModel)]="personeducationqualification.obtained_MARKS" maxlength="50" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label"> Obtained Percentage <span style="color:red">*</span></label>
+                                <input type="text" class="form-control" name="obtained_PERCENTAGE" [(ngModel)]="personeducationqualification.obtained_PERCENTAGE" maxlength="50" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <app-qualificationstatus #qualificationstatus [qualificationstatusID]="personeducationqualification.qualificationstatus_ID"  [disabled]="disabled"></app-qualificationstatus>
+                        </div>
+                        <div class="col-md-6">
+                            <app-gradingsystem #gradingsystem [gradingsystemID]="personeducationqualification.gradingsystem_ID"  [disabled]="disabled" ></app-gradingsystem>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <app-educationsystem  #educationsystem [educationsystemID]="personeducationqualification.educationsystem_ID"  [disabled]="disabled" ></app-educationsystem>
+                        </div>
+                        <div class="col-md-6">
+                            <app-educationattendancemode  #educationattendancemode [educationattendancemodeID]="personeducationqualification.educationattendancemode_ID" [disabled]="disabled" ></app-educationattendancemode>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <label class="control-label">
+                                        <input type="checkbox" [checked]="personeducationqualification.isactive"
+                                            [(ngModel)]="personeducationqualification.isactive" name="isactive">
+                                        Active
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" [disabled]="f.invalid">
+                        <i class="fa fa-plus" aria-hidden="true"></i> Update
+                    </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div *ngIf="view==5" class="form-group">
+    <div class="card-primary card">
+        <div class="card-header">
+            <div class="align-items-center row">
+                <div class="col" *ngIf="personeducationqualification.personqualification_ID==0">
+                    <a href="javascript:void" aria-controls="collapse-personeducationqualificationinfo1" aria-expanded="true"
+                        class="card-title">Add Education Qualification
+                    </a>
+                </div>
+                <div class="col" *ngIf="personeducationqualification.personqualification_ID!=0 && disabled==false">
+                    <a href="javascript:void" aria-controls="collapse-personeducationqualificationinfo1" aria-expanded="true"
+                        class="card-title">Edit Education Qualification
+                    </a>
+                </div>
+                <div class="col" *ngIf="personeducationqualification.personqualification_ID!=0 && disabled==true">
+                    <a href="javascript:void" aria-controls="collapse-personeducationqualificationinfo1" aria-expanded="true"
+                        class="card-title">Education Qualification
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <app-institute #institute [view]="1" [iscompulsory]="true"
+                                (onInstituteChange)="onInstituteChange($event)"></app-institute>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <app-institutecourse #institutecourse [view]="11" [iscompulsory]="true"></app-institutecourse>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label"> Registration No <span style="color:red">*</span></label>
+                                <input type="text" class="form-control" name="registration_NUMBER" [(ngModel)]="personeducationqualification.registration_NUMBER" [disabled]="disabled" maxlength="50" required>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label"> Start Date <span style="color:red">*</span></label>
+                                <input type="date" class="form-control" name="qualification_STARTDATE" [(ngModel)]="personeducationqualification.qualification_STARTDATE" [disabled]="disabled" maxlength="50" required>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label"> End Date <span style="color:red">*</span></label>
+                                <input type="date" class="form-control" name="qualification_ENDDATE" [(ngModel)]="personeducationqualification.qualification_ENDDATE" [disabled]="disabled" maxlength="50" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label"> Total Marks <span style="color:red">*</span></label>
+                                <input type="text" class="form-control" name="total_MARKS" [(ngModel)]="personeducationqualification.total_MARKS" [disabled]="disabled" maxlength="50" required>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label"> Obtained Marks <span style="color:red">*</span></label>
+                                <input type="text" class="form-control" name="obtained_MARKS" [(ngModel)]="personeducationqualification.obtained_MARKS" [disabled]="disabled" maxlength="50" required>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label"> Obtained Percentage <span style="color:red">*</span></label>
+                                <input type="text" class="form-control" name="obtained_PERCENTAGE" [(ngModel)]="personeducationqualification.obtained_PERCENTAGE" [disabled]="disabled" maxlength="50" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <app-qualificationstatus #qualificationstatus [qualificationstatusID]="personeducationqualification.qualificationstatus_ID"  [disabled]="disabled"></app-qualificationstatus>
+                        </div>
+                        <div class="col-md-6">
+                            <app-gradingsystem #gradingsystem [gradingsystemID]="personeducationqualification.gradingsystem_ID"  [disabled]="disabled" ></app-gradingsystem>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <app-educationsystem  #educationsystem [educationsystemID]="personeducationqualification.educationsystem_ID"  [disabled]="disabled" ></app-educationsystem>
+                        </div>
+                        <div class="col-md-6">
+                            <app-educationattendancemode  #educationattendancemode [educationattendancemodeID]="personeducationqualification.educationattendancemode_ID" [disabled]="disabled" ></app-educationattendancemode>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label"> Title </label>
+                                <input type="text" class="form-control" name="dissertation_TITLE" [(ngModel)]="personeducationqualification.dissertation_TITLE" [disabled]="disabled" maxlength="50" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12" *ngIf="personeducationqualification.personqualification_ID!=0">
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <label class="control-label">
+                                        <input type="checkbox" [checked]="personeducationqualification.isactive"
+                                            [(ngModel)]="personeducationqualification.isactive" [disabled]="disabled" name="isactive">
+                                        Active
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button *ngIf="personeducationqualification.personqualification_ID!=0 && disabled==true" (click)="editView()"
+                                id="cancel" class="btn btn-primary" style="float: right;"> Edit
+                            </button>
+                            <button *ngIf="disabled==false" type="button" (click)='personeducationqualificationCancel()'
+                                style="float: right;" class="btn btn-light" data-dismiss="modal"> Cancel
+                            </button>
+                            <button *ngIf="personeducationqualification.personqualification_ID!=0 && disabled==false" type="button"
+                                data-dismiss="modal" style=" margin-right: 10px; float: right;"
+                                (click)='personeducationqualificationUpdate(personeducationqualification)' class="btn btn-primary">
+                                Update
+                            </button>
+                            <button *ngIf="personeducationqualification.personqualification_ID==0" type="button" data-dismiss="modal"
+                                style=" margin-right: 10px; float: right;" (click)='personeducationqualificationAdd(personeducationqualification)'
+                                class="btn btn-primary">
+                                Save
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

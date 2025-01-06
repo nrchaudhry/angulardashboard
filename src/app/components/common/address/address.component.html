@@ -1,0 +1,122 @@
+<div class="row">
+    <div class="col-md-4">
+        <app-locationsearchfilter #locationsearchfilter [view]="4"  [locationtypeID]=0 [disabled]="disabled"
+            [locationID]="locationID"></app-locationsearchfilter>
+    </div>
+    <div class="col-md-2">
+        <div class="form-group">
+            <label class="custom-label form-label">Postcode
+                <span style="color:red" [hidden]="disabled">*</span>
+            </label>
+            <input id="postcode" type="text" class="form-control" name="addressPostCode" [(ngModel)]="addressPostCode"
+                [disabled]="disabled">
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="form-group">
+            <button class="my-4 mx-auto w-100 btn btn-primary btn-sm" [disabled]="disabled"
+                (click)="getAddress(addressPostCode)">Get Address
+            </button>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="form-group">
+            <label class="custom-label form-label">Latitute</label>
+            <input type="text" class="form-control" [disabled]="disabled" name="addressLatitude"
+                [(ngModel)]="addressLatitude">
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="form-group">
+            <label class="custom-label form-label">Longitute</label>
+            <input type="text" class="form-control" [disabled]="disabled" name="addressLongitude"
+                [(ngModel)]="addressLongitude">
+        </div>
+    </div>
+</div>
+<div class="row" *ngIf="addressActive.length>0 && disabled==false">
+    <div class="col-md-12">
+        <div class="form-group">
+            <label class="custom-label form-label" [hidden]="disabled">Select Address</label>
+            <ng-select (change)="updateAddress($event)" [hidden]="disabled" name="address">
+                <ng-option *ngFor="let address of addressActive" [value]="address" [disabled]="disabled">
+                    {{address.mainaddress}}
+                </ng-option>
+            </ng-select>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="custom-label form-label">Address Line 1</label>
+            <input type="text" class="form-control" [disabled]="disabled" name="addressLine1"
+                [(ngModel)]="addressLine1">
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="custom-label form-label">Address Line 2</label>
+            <input type="text" class="form-control" [disabled]="disabled" name="addressLine2"
+                [(ngModel)]="addressLine2">
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="custom-label form-label">Address Line 3</label>
+            <input type="text" class="form-control" [disabled]="disabled" name="addressLine3"
+                [(ngModel)]="addressLine3">
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-2">
+        <div class="form-group">
+            <label class="custom-label form-label">City</label>
+            <input type="text" class="form-control" [disabled]="disabled" name="addressLine4"
+                [(ngModel)]="addressLine4">
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="form-group">
+            <label class="custom-label form-label">Province / County</label>
+            <input type="text" class="form-control" [disabled]="disabled" name="addressLine5"
+                [(ngModel)]="addressLine5">
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="custom-label form-label">Email</label>
+            <input type="text" class="form-control" [disabled]="disabled" name="email" [(ngModel)]="email">
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="control-label form-label">Web</label>
+            <input type="text" class="form-control" [disabled]="disabled" name="webAddress" [(ngModel)]="webAddress">
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="custom-label form-label">Telephone</label>
+            <input type="text" class="form-control" [disabled]="disabled" name="telephoneNumber"
+                [(ngModel)]="telephoneNumber">
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="control-label form-label">Fax No</label>
+            <input type="text" class="form-control" [disabled]="disabled" name="telephoneAltNumber"
+                [(ngModel)]="telephoneAltNumber">
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="custom-label form-label">Mobile No</label>
+            <input type="text" class="form-control" [disabled]="disabled" name="mobileNumber"
+                [(ngModel)]="mobileNumber">
+        </div>
+    </div>
+</div>
