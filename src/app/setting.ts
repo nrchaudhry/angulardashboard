@@ -1,7 +1,7 @@
 export const setting = {
   AppsStorePath: "http://apps.cwiztech.com/#/",
   LoginAppPath: "http://accounts.cwiztech.com/#/",
-  application_ID: "CWIZTECHAcademicsManagement",
+  application_ID: "AngularDashboard",
 
   companyName: 'Compuwiz Technologies',
   companyShortName: 'CWizTech',
