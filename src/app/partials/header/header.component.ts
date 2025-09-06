@@ -40,6 +40,7 @@ export class HeaderComponent implements OnInit {
   }
 
   profile() {
+    console.log(this.user.person_ID);
     this.router.navigate(["/home/profile"], { queryParams: { person: this.user.person_ID } });
   }
 

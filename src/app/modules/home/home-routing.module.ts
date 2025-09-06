@@ -10,9 +10,9 @@ import { PersondetailComponent } from '../persons/persondetail/persondetail.comp
 const routes: Routes = [{
   path: '', component: HomeComponent,
   children: [
-    { path: 'dashboard', component: DashboardComponent },
-
     { path: 'profile', component: PersondetailComponent },
+
+    { path: 'dashboard', component: DashboardComponent },
 
     { path: '', redirectTo: 'dashboard' },
     { path: '**', component: NotfoundComponent }
