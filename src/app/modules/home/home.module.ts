@@ -186,6 +186,18 @@ import { PersonreferenceviewComponent } from '../persons/personreferences/person
 import { PersonsComponent } from '../persons/persons.component';
 import { PersonviewComponent } from '../persons/personview/personview.component';
 
+import { MembershipComponent } from 'src/app/components/membership/membership/membership.component';
+
+import { EventComponent } from 'src/app/components/event/event/event.component';
+import { EventmediaComponent } from 'src/app/components/event/eventmedia/eventmedia.component';
+
+import { MembershipsComponent } from '../memberships/memberships/memberships.component';
+import { MembershipviewComponent } from '../memberships/memberships/membershipview/membershipview.component';
+
+import { EventsComponent } from '../events/events/events.component';
+import { EventviewComponent } from '../events/events/eventview/eventview.component';
+import { EventmediasComponent } from '../events/eventmedias/eventmedias.component';
+import { EventmediaviewComponent } from '../events/eventmedias/eventmediaview/eventmediaview.component';
 
 @NgModule({
   imports: [
@@ -373,6 +385,18 @@ import { PersonviewComponent } from '../persons/personview/personview.component'
     PersoncontactaddressviewComponent,
     PersoncontactaddressesComponent,
 
+    MembershipComponent, 
+
+    EventComponent, 
+    EventmediaComponent, 
+
+    MembershipsComponent, 
+    MembershipviewComponent, 
+
+    EventsComponent, 
+    EventviewComponent, 
+    EventmediasComponent, 
+    EventmediaviewComponent
   ]
 })
 
