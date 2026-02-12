@@ -1,15 +1,15 @@
-echo "Compile ANGULAR Dashboard Management Start"
+echo "Compile COMPANYNAME Dashboard Management Start"
 git pull
 
-URLStyle=${1:-"http://old.cwiztech.com/dev/cwiztech/styles.css"}
+URLStyle=${1:-"http://design.companyname.com/companyname/styles.css"}
 OUTStyle=${2:-"src/styles.css"}
 curl -fL "$URLStyle" -o "$OUTStyle"
 
-URL=${1:-"http://old.cwiztech.com/dev/cwiztech/setting.ts"}
+URL=${1:-"http://design.companyname.com/companyname/setting.ts"}
 OUT=${2:-"src/app/setting.ts"}
 curl -fL "$URL" -o "$OUT"
 
-sed -i 's/APPLICATIONCODE/ANGULARDashboardManagement/' "$OUT"
+sed -i 's/APPLICATIONCODE/COMPANYNAMEDashboardManagement/' "$OUT"
 
 echo "ng build command start"
 ng build --prod --base-href ./
@@ -27,30 +27,30 @@ sed -i 's/APPLICATIONCODE/CWIZTECHDashboardManagementDev/' "$OUT"
 echo "Update Changes"
 git add .
 echo "Git Added"
-git commit -m "ANGULAR Dashboard Management updated"
+git commit -m "COMPANYNAME Dashboard Management updated"
 echo "Git Commit"
 git push
 echo "Git Updated"
 
 echo "Directory Changed"
-cd ../../COMPANYwebapps
+cd ../../companynamewebapps
 echo "Pull work for Live Server"
 git pull
 
-echo "Remove old files of ANGULAR Dashboard Management"
+echo "Remove old files of COMPANYNAME Dashboard Management"
 rm -r dashboard/*
 
-echo "Copy new files of ANGULAR Dashboard Management from dashboardmanagement to cwiztechproject/COMPANYwebapps/dashboardmanagement"
+echo "Copy new files of COMPANYNAME Dashboard Management from dashboardmanagement to cwiztechproject/COMPANYwebapps/dashboardmanagement"
 cp -r ../projects/productmanagement/dashboard/* dashboard
 
 echo "Push work for Live Server"
 git add .
 echo "Git Added"
-git commit -m "ANGULAR Dashboard Management updated"
+git commit -m "COMPANYNAME Dashboard Management updated"
 echo "Git Commit"
 git push
 echo "Git Updated"
 
-echo "Live ANGULAR Dashboard Management"
-cd /var/www/COMPANYwebapps
+echo "Live COMPANYNAME Dashboard Management"
+cd /var/www/companynamewebapps
 git pull
