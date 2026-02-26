@@ -1,0 +1,12 @@
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-fussion" [fullScreen]="true">
+  <p style="color: white"> Please wait... </p>
+</ngx-spinner>
+
+<div class="collapse-card-h container">
+  <div class="row">
+    <div class="col-md-12">
+      <app-company [view]=5 [companyID]="companyID" (refresh)="refresh()"
+        (cancel)="cancel()" (spinnerOn)="spinnerOn()" (spinnerOff)="spinnerOff()"></app-company>
+    </div>
+  </div>
+</div>

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { HttpClientModule } from '@angular/common/http';
 import { NgSelectModule } from '@ng-select/ng-select';
 import {
@@ -19,6 +19,7 @@ import {
   DxDropDownButtonModule,
 } from 'devextreme-angular';
 import { IconPickerModule } from "ngx-icon-picker";
+import { NgxSpinnerModule } from 'ngx-spinner';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 import { SharedModule } from '../shared/shared.module';
@@ -186,13 +187,18 @@ import { PersonreferenceviewComponent } from '../persons/personreferences/person
 import { PersonsComponent } from '../persons/persons.component';
 import { PersonviewComponent } from '../persons/personview/personview.component';
 
+import { CompaniesComponent } from '../companies/companies/companies.component';
+import { CompanyviewComponent } from '../companies/companies/companyview/companyview.component';
+
 @NgModule({
   imports: [
     HomeRoutingModule,
     RouterModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     NgSelectModule,
+    NgxSpinnerModule,
     CKEditorModule,
     CommonModule,
     SharedModule,
@@ -371,6 +377,9 @@ import { PersonviewComponent } from '../persons/personview/personview.component'
     SmsviewComponent,
     PersoncontactaddressviewComponent,
     PersoncontactaddressesComponent,
+
+    CompaniesComponent,
+    CompanyviewComponent,
 
   ]
 })

@@ -22,7 +22,7 @@ URL=${1:-"http://old.cwiztech.com/dev/cwiztech/setting.ts"}
 OUT=${2:-"src/app/setting.ts"}
 curl -fL "$URL" -o "$OUT"
 
-sed -i 's/APPLICATIONCODE/CWIZTECHDashboardManagementDev/' "$OUT"
+sed -i 's/APPLICATIONCODE/CWIZTECHApplicationManagementDev/' "$OUT"
 
 echo "Update Changes"
 git add .
@@ -41,7 +41,7 @@ echo "Remove old files of COMPANYNAME Dashboard Management"
 rm -r dashboard/*
 
 echo "Copy new files of COMPANYNAME Dashboard Management from dashboardmanagement to cwiztechproject/COMPANYwebapps/dashboardmanagement"
-cp -r ../projects/productmanagement/dashboard/* dashboard
+cp -r ../projects/dashboardmanagement/dashboard/* dashboard
 
 echo "Push work for Live Server"
 git add .

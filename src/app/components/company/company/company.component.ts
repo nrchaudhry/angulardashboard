@@ -14,6 +14,7 @@ import { CompanysubtypeComponent } from '../companysubtype/companysubtype.compon
   styleUrls: ['./company.component.css']
 })
 export class CompanyComponent implements OnInit {
+  @ViewChild("companyparent") companyparent: CompanyComponent;
   @ViewChild("companysubtype") companysubtype: CompanysubtypeComponent;
   @ViewChild("businessnature") businessnature: BusinessnatureComponent;
   @ViewChild("companystatus") companystatus: CompanystatusComponent;
@@ -45,23 +46,26 @@ export class CompanyComponent implements OnInit {
   @Input()
   companyparentCode = null;
   @Input()
-  netsuiteID = null;
+  companysubtypeDisabled: boolean = false;
   @Input()
-  netsuiteCode = null;
+  companyparentDisabled: boolean = false;
   @Input()
-  intakeDisabled: boolean = true;
+  businessnatureDisabled: boolean = false;
+  @Input()
+  companystatusDisabled: boolean = false;
 
   @Output() edit = new EventEmitter();
   @Output() cancel = new EventEmitter();
   @Output() show = new EventEmitter();
   @Output() refresh = new EventEmitter();
   @Output() onCompanyChange = new EventEmitter();
+  @Output() spinnerOn = new EventEmitter();
+  @Output() spinnerOff = new EventEmitter();
 
   companies = [];
   companiesAll = [];
   company = {
     company_ID: 0,
-    netsuite_ID: null,
     company_CODE: null,
     company_NAME: null,
     company_DESC: null,
@@ -74,6 +78,7 @@ export class CompanyComponent implements OnInit {
     start_DATE: null,
     end_DATE: null,
     companylogo_PATH: null,
+    file: File = null,
     isactive: true,
   }
 
@@ -103,15 +108,13 @@ export class CompanyComponent implements OnInit {
       this.companies == null;
       this.companyGet();
     }
-    if (((this.view >= 1 && this.view <= 2) || this.view == 10) && (this.companiesAll == null || this.companiesAll.length == 0 || reload == true)) {
+    if (this.view >= 1 && this.view <= 2 && (this.companiesAll == null || this.companiesAll.length == 0 || reload == true)) {
       this.companiesAll == null;
       this.companyGetAll();
     }
 
     var search = {
       companysubtype_ID: this.companysubtypeID,
-      netsuite_ID: this.netsuiteID,
-      netsuite_CODE: this.netsuiteCode,
       businessnature_ID: this.businessnatureID,
       businessnature_CODE: this.businessnatureCode,
       companystatus_ID: this.companystatusID,
@@ -155,10 +158,20 @@ export class CompanyComponent implements OnInit {
     }
   }
 
+  onFileSelection(event) {
+    this.company.file = event.target.files[0];
+    var reader = new FileReader();
+
+    reader.onload = (event: any) => {
+      this.company.companylogo_PATH = event.target.result;
+    };
+
+    reader.readAsDataURL(event.target.files[0]);
+  }
+
   add() {
     this.company = {
       company_ID: 0,
-      netsuite_ID: null,
       company_CODE: null,
       company_NAME: null,
       company_DESC: null,
@@ -171,6 +184,7 @@ export class CompanyComponent implements OnInit {
       start_DATE: null,
       end_DATE: null,
       companylogo_PATH: null,
+      file: File = null,
       isactive: true,
     };
   }
@@ -204,7 +218,6 @@ export class CompanyComponent implements OnInit {
 
   setCompany(response) {
     this.companyID = response.company_ID;
-    this.netsuiteID = response.netsuite_ID;
     this.businessnatureID = response.businessnature_ID;
     this.companyparentID = response.companyparent_ID;
     this.companystatusID = response.companystatus_ID;
@@ -222,7 +235,9 @@ export class CompanyComponent implements OnInit {
   }
 
   companyGet() {
+    this.spinnerOn.next();
     this.companieservice.get().subscribe(response => {
+      this.spinnerOff.next();
       if (response) {
         if (response.error && response.status) {
           this.toastrservice.warning("Message", " " + response.message);
@@ -232,12 +247,15 @@ export class CompanyComponent implements OnInit {
         }
       }
     }, error => {
+      this.spinnerOff.next();
       this.onfailservice.onFail(error);
     })
   }
 
   companyGetAll() {
+    this.spinnerOn.next();
     this.companieservice.getAll().subscribe(response => {
+      this.spinnerOff.next();
       if (response) {
         if (response.error && response.status) {
           this.toastrservice.warning("Message", " " + response.message);
@@ -247,13 +265,16 @@ export class CompanyComponent implements OnInit {
         }
       }
     }, error => {
+      this.spinnerOff.next();
       this.onfailservice.onFail(error);
     })
   }
 
   companyGetOne(id) {
+    this.spinnerOn.next();
     this.disabled = true;
     this.companieservice.getOne(id).subscribe(response => {
+      this.spinnerOff.next();
       if (response) {
         if (response.error && response.status) {
           this.toastrservice.warning("Message", " " + response.message);
@@ -262,17 +283,20 @@ export class CompanyComponent implements OnInit {
         }
       }
     }, error => {
+      this.spinnerOff.next();
       this.onfailservice.onFail(error);
     })
   }
 
   companyAdd(company) {
+    this.spinnerOn.next();
     company.companysubtype_ID = this.companysubtypeID;
     company.businessnature_ID = this.businessnature.businessnatureID;
     company.companystatus_ID = this.companystatus.companystatusID;
     company.isactive = "Y";
 
     this.companieservice.add(company).subscribe(response => {
+      this.spinnerOff.next();
       if (response) {
         if (response.error && response.status) {
           this.toastrservice.warning("Message", " " + response.message);
@@ -287,11 +311,13 @@ export class CompanyComponent implements OnInit {
         }
       }
     }, error => {
+      this.spinnerOff.next();
       this.onfailservice.onFail(error);
     })
   }
 
   companyUpdate(company) {
+    this.spinnerOn.next();
     company.companysubtype_ID = this.companysubtypeID;
     company.businessnature_ID = this.businessnature.businessnatureID;
     company.companystatus_ID = this.companystatus.companystatusID;
@@ -301,7 +327,9 @@ export class CompanyComponent implements OnInit {
     } else {
       company.isactive = "N";
     }
+
     this.companieservice.update(company, company.company_ID).subscribe(response => {
+      this.spinnerOff.next();
       if (response) {
         if (response.error && response.status) {
           this.toastrservice.warning("Message", " " + response.message);
@@ -316,12 +344,15 @@ export class CompanyComponent implements OnInit {
         }
       }
     }, error => {
+      this.spinnerOff.next();
       this.onfailservice.onFail(error);
     })
   }
 
   companyUpdateAll(companies) {
+    this.spinnerOn.next();
     this.companieservice.updateAll(companies).subscribe(response => {
+      this.spinnerOff.next();
       if (response) {
         if (response.error && response.status) {
           this.toastrservice.warning("Message", " " + response.message);
@@ -334,15 +365,19 @@ export class CompanyComponent implements OnInit {
         }
       }
     }, error => {
+      this.spinnerOff.next();
       this.onfailservice.onFail(error);
     })
   }
 
   companySearch(str) {
+    this.spinnerOn.next();
     var search = {
       search: str
     }
+
     this.companieservice.search(search).subscribe(response => {
+      this.spinnerOff.next();
       if (response) {
         if (response.error && response.status) {
           this.toastrservice.warning("Message", " " + response.message);
@@ -352,15 +387,19 @@ export class CompanyComponent implements OnInit {
         }
       }
     }, error => {
+      this.spinnerOff.next();
       this.onfailservice.onFail(error);
     })
   }
 
   companySearchAll(str) {
+    this.spinnerOn.next();
     var search = {
       search: str
     }
+
     this.companieservice.searchAll(search).subscribe(response => {
+      this.spinnerOff.next();
       if (response) {
         if (response.error && response.status) {
           this.toastrservice.warning("Message", " " + response.message);
@@ -370,21 +409,23 @@ export class CompanyComponent implements OnInit {
         }
       }
     }, error => {
+      this.spinnerOff.next();
       this.onfailservice.onFail(error);
     })
   }
 
   companyAdvancedSearch(search) {
+    this.spinnerOn.next();
     this.companysubtypeID = search.companysubtype_ID;
-    this.netsuiteID = search.netsuite_ID;
-    this.netsuiteCode = search.netsuite_CODE;
     this.businessnatureID = search.businessnature_ID;
     this.businessnatureCode = search.businessnature_CODE;
     this.companyparentID = search.companyparent_ID;
     this.companyparentCode = search.companyparent_CODE;
     this.companystatusID = search.companystatus_ID;
     this.companystatusCode = search.companystatus_CODE;
+
     this.companieservice.advancedSearch(search).subscribe(response => {
+      this.spinnerOff.next();
       if (response) {
         if (response.error && response.status) {
           this.toastrservice.warning("Message", " " + response.message);
@@ -394,21 +435,23 @@ export class CompanyComponent implements OnInit {
         }
       }
     }, error => {
+      this.spinnerOff.next();
       this.onfailservice.onFail(error);
     })
   }
 
   companyAdvancedSearchAll(search) {
+    this.spinnerOn.next();
     this.companysubtypeID = search.companysubtype_ID;
-    this.netsuiteID = search.netsuite_ID;
-    this.netsuiteCode = search.netsuite_CODE;
     this.businessnatureID = search.businessnature_ID;
     this.businessnatureCode = search.businessnature_CODE;
     this.companyparentID = search.companyparent_ID;
     this.companyparentCode = search.companyparent_CODE;
     this.companystatusID = search.companystatus_ID;
     this.companystatusCode = search.companystatus_CODE;
+
     this.companieservice.advancedSearchAll(search).subscribe(response => {
+      this.spinnerOff.next();
       if (response) {
         if (response.error && response.status) {
           this.toastrservice.warning("Message", " " + response.message);
@@ -418,6 +461,7 @@ export class CompanyComponent implements OnInit {
         }
       }
     }, error => {
+      this.spinnerOff.next();
       this.onfailservice.onFail(error);
     })
   }
