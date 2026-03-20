@@ -304,7 +304,6 @@ export class CompanyComponent implements OnInit {
           this.toastrservice.success("Success", "New Intake Course Added");
           this.setCompany(this.companieservice.getDetail(response));
           this.refresh.next();
-          this.companyGetAll();
           this.disabled = true;
         } else {
           this.toastrservice.error("Some thing went wrong");
@@ -337,7 +336,6 @@ export class CompanyComponent implements OnInit {
           this.toastrservice.success("Success", "Intake Course Updated");
           this.setCompany(this.companieservice.getDetail(response));
           this.refresh.next();
-          this.companyGetAll();
           this.disabled = true;
         } else {
           this.toastrservice.error("Some thing went wrong");
