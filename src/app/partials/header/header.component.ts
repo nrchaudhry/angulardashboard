@@ -8,6 +8,7 @@ import { SidebarService } from 'src/app/services/sidebar.service';
 import { setting } from "src/app/setting";
 
 import * as $ from 'jquery'
+import { PersonService } from 'src/app/components/person/person/person.service';
 
 @Component({
   selector: 'app-header',
@@ -19,6 +20,21 @@ export class HeaderComponent implements OnInit {
   Timeout;
   anything = false;
   user: any;
+  person = {
+    person_ID: 0,
+    title: null,
+    surname: null,
+    previoussurname: null,
+    forenames: null,
+    middlename: null,
+    nickname: null,
+    birth_DATE: null,
+    birth_TIME: null,
+    birthplace_ID: null,
+    birthplaces: [],
+    personimg_PATH: null,
+    isactive: true
+  }
   temp = [];
   menu: any = [];
   smenu: any = [];
@@ -28,19 +44,31 @@ export class HeaderComponent implements OnInit {
   logo = setting.logo;
 
   constructor(
+    private onfailservice: OnFailService,
     private toastrservice: ToastrService,
     private router: Router,
     private _onFail_: OnFailService,
     private sidebarservice: SidebarService,
     private loginservice: LoginService,
+    private personservice: PersonService
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.user = this.loginservice.loaddetail();
+    this.personGetOne(this.user.person_ID);
+  }
+
+  personGetOne(id) {
+    this.personservice.getOne(id).subscribe(response => {
+      if (response) {
+        this.person = this.personservice.getDetail(response);
+      }
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   profile() {
-    console.log(this.user.person_ID);
     this.router.navigate(["/home/profile"], { queryParams: { person: this.user.person_ID } });
   }
 

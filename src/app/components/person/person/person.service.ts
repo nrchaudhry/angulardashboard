@@ -11,7 +11,7 @@ export class PersonService {
   get() {
     var postData = {
       request_TYPE: 'GET',
-      request_URI: 'person',
+      request_URI: setting.commonServicePath+'person',
       request_BODY: '',
     };
     return this._HttpCallServieService_.api(postData);
@@ -20,7 +20,7 @@ export class PersonService {
   getAll() {
     var postData = {
       request_TYPE: 'GET',
-      request_URI: 'person/all',
+      request_URI: setting.commonServicePath+'person/all',
       request_BODY: '',
     };
     return this._HttpCallServieService_.api(postData);
@@ -29,7 +29,7 @@ export class PersonService {
   getOne(id: string) {
     var postData = {
       request_TYPE: 'GET',
-      request_URI: 'person/' + id,
+      request_URI: setting.commonServicePath+'person/' + id,
       request_BODY: '',
     };
     return this._HttpCallServieService_.api(postData);
@@ -38,7 +38,7 @@ export class PersonService {
   add(data: any) {
     var postData = {
       request_TYPE: 'POST',
-      request_URI: 'person',
+      request_URI: setting.commonServicePath+'person',
       request_BODY: JSON.stringify(data),
     };
     return this._HttpCallServieService_.api(postData);
@@ -47,7 +47,7 @@ export class PersonService {
   update(data: any, id: string) {
     var postData = {
       request_TYPE: 'PUT',
-      request_URI: 'person/' + id,
+      request_URI: setting.commonServicePath+'person/' + id,
       request_BODY: JSON.stringify(data),
     };
     return this._HttpCallServieService_.api(postData);
@@ -56,7 +56,7 @@ export class PersonService {
   updateAll(data: any) {
     var postData = {
       request_TYPE: 'PUT',
-      request_URI: 'person',
+      request_URI: setting.commonServicePath+'person',
       request_BODY: JSON.stringify(data),
     };
     return this._HttpCallServieService_.api(postData);
@@ -65,7 +65,7 @@ export class PersonService {
   delete(id: string) {
     var postData = {
       request_TYPE: 'DELETE',
-      request_URI: 'person/' + id,
+      request_URI: setting.commonServicePath+'person/' + id,
       request_BODY: '',
     };
     return this._HttpCallServieService_.api(postData);
@@ -74,7 +74,7 @@ export class PersonService {
   search(data: any) {
     var postData = {
       request_TYPE: 'POST',
-      request_URI: 'person/search',
+      request_URI: setting.commonServicePath+'person/search',
       request_BODY: JSON.stringify(data),
     };
     return this._HttpCallServieService_.api(postData);
@@ -83,7 +83,7 @@ export class PersonService {
   searchAll(data: any) {
     var postData = {
       request_TYPE: 'POST',
-      request_URI: 'person/search/all',
+      request_URI: setting.commonServicePath+'person/search/all',
       request_BODY: JSON.stringify(data),
     };
     return this._HttpCallServieService_.api(postData);
@@ -92,7 +92,7 @@ export class PersonService {
   advancedSearch(data: any) {
     var postData = {
       request_TYPE: 'POST',
-      request_URI: 'person/advancedsearch',
+      request_URI: setting.commonServicePath+'person/advancedsearch',
       request_BODY: JSON.stringify(data),
     };
     return this._HttpCallServieService_.api(postData);
@@ -101,7 +101,7 @@ export class PersonService {
   advancedSearchAll(data: any) {
     var postData = {
       request_TYPE: 'POST',
-      request_URI: 'person/advancedsearch/all',
+      request_URI: setting.commonServicePath+'person/advancedsearch/all',
       request_BODY: JSON.stringify(data),
     };
     return this._HttpCallServieService_.api(postData);

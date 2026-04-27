@@ -1,20 +1,22 @@
 export const setting = {
-  AppsStorePath: "http://apps.cwiztech.com/#/",
-  LoginAppPath: "http://accounts.cwiztech.com/#/",
+  CustomerAppPath: "https://customers.petease.com.pk/#/",
+  studentAppPath: "https://students.petease.com.pk/#/",
+  AppsStorePath: "https://apps.petease.com.pk/#/",
+  LoginAppPath: "https://accounts.petease.com.pk/#/",
   application_ID: "CWIZTECHApplicationManagementDev",
 
   companyName: 'Compuwiz Technologies',
   companyShortName: 'CWizTech',
-  logo: 'http://design.cwiztech.com/images/logo.png',
-  logo1white: 'http://design.cwiztech.com/images/logo-short.png',
-  loginBanner1: 'http://design.cwiztech.com/images/intro-back.jpeg',
-  icon: 'http://design.cwiztech.com/images/favicon.ico',
+  logo: 'https://design.petease.com.pk/images/logo.png',
+  logo1white: 'https://design.petease.com.pk/images/logo-short.png',
+  loginBanner1: 'https://design.petease.com.pk/images/intro-back.jpg',
+  icon: 'https://design.petease.com.pk/images/favicon.ico',
 
-  servicePath: "cwiztech/",
+  servicePath: "fivestar/",
   commonServicePath: "cwiztech/",
 
   isHash: '/#',
   redirctPath: '',
-  //redirctPath: '/academics',
+  //redirctPath: '/doctor',
   isApplication: false,
 };
