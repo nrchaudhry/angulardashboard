@@ -116,7 +116,7 @@ export class PersoncommunicationletterService{
 
   getAllDetail(response) {
     for (var a = 0; a < response.length; a++) {
-      response[a] = this.getDetail(response[a]);
+      response[a] = this.getDetails(response[a]);
     }
     return (response);
   }
@@ -129,5 +129,15 @@ export class PersoncommunicationletterService{
 
     return(response);
   }
+
+  getDetails(response) {
+    if (response.person_DETAIL != null) {
+      response.person = this.personservice.getDetails(JSON.parse(response.person_DETAIL));
+      response.person_DETAIL = null
+    }
+
+    return(response);
+  }
+
 }
 

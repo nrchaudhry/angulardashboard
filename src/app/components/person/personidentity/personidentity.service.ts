@@ -117,9 +117,7 @@ export class PersonidentityService {
 
   getAllDetail(response) {
     for (var a = 0; a < response.length; a++) {
-      response[a].person = JSON.parse(response[a].person_DETAIL);
-      response[a].person_DETAIL = null;
-
+      response[a] = this.getDetails(response[a]);
     }
     return (response);
   }
@@ -127,6 +125,15 @@ export class PersonidentityService {
   getDetail(response) {
     if (response.person_DETAIL != null) {
       response.person = this.personservice.getDetail(JSON.parse(response.person_DETAIL));
+      response.person_DETAIL = response.person.title + " " + response.person.forenames + " " + response.person.surname;
+    }
+
+    return (response);
+  }
+
+  getDetails(response) {
+    if (response.person_DETAIL != null) {
+      response.person = this.personservice.getDetails(JSON.parse(response.person_DETAIL));
       response.person_DETAIL = response.person.title + " " + response.person.forenames + " " + response.person.surname;
     }
 

@@ -117,7 +117,7 @@ export class PersondocumentService{
 
   getAllDetail(response) {
     for (var a = 0; a < response.length; a++) {
-      response[a] = this.getDetail(response[a]);
+      response[a] = this.getDetails(response[a]);
     }
     return (response);
   }
@@ -125,6 +125,13 @@ export class PersondocumentService{
   getDetail(response) {
     if (response.person_DETAIL != null) {
       response.person = this.personservice.getDetail(JSON.parse(response.person_DETAIL));
+      response.person_DETAIL = response.person.title + " " + response.person.forenames + " " + response.person.surname;
+    }
+  }
+
+  getDetails(response) {
+    if (response.person_DETAIL != null) {
+      response.person = this.personservice.getDetails(JSON.parse(response.person_DETAIL));
       response.person_DETAIL = response.person.title + " " + response.person.forenames + " " + response.person.surname;
     }
   }

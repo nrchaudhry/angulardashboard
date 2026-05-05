@@ -1,13 +1,15 @@
 import { Injectable } from "@angular/core";
 import { HttpCallServieService } from "src/app/services/http-call-servie.service";
 import { setting } from "src/app/setting";
+import { PersonService } from "../person/person.service";
 
 @Injectable({
   providedIn: "root"
 })
 export class  PersonmembershipService {
   constructor(
-    private _HttpCallServieService_: HttpCallServieService
+    private _HttpCallServieService_: HttpCallServieService,
+    private personservice: PersonService
   ) { }
 
 
@@ -106,17 +108,27 @@ export class  PersonmembershipService {
 
   getAllDetail(response) {
     for (var a = 0; a < response.length; a++) {
-      response[a].person = JSON.parse(response[a].person_DETAIL);
-      response[a].person_DETAIL = null;
+      response[a] = this.getDetails(response[a]);
     }
-    return(response);
+    return (response);
   }
 
   getDetail(response) {
-    response.person = JSON.parse(response.person_DETAIL);
-    response.person_DETAIL = null;
+    if (response.person_DETAIL != null) {
+      response.person = this.personservice.getDetail(JSON.parse(response.person_DETAIL));
+      response.person_DETAIL = response.person.title + " " + response.person.forenames + " " + response.person.surname;
+    }
 
-    return(response);
+    return (response);
+  }
+
+  getDetails(response) {
+    if (response.person_DETAIL != null) {
+      response.person = this.personservice.getDetails(JSON.parse(response.person_DETAIL));
+      response.person_DETAIL = response.person.title + " " + response.person.forenames + " " + response.person.surname;
+    }
+
+    return (response);
   }
 
 }

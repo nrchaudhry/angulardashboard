@@ -534,28 +534,30 @@
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="col-md-3">
               <div class="row">
-                <div class="col-md-4">
-                </div>
-                <div class="col-md-8">
-                  <a>
-                    <img id="profileimage" src="http://cwiztech.com/apply/images/user.png" class="img-thumbnail" alt=""
-                      onerror="this.src='images/user.png'">
-                  </a>
+                <div class="col-md-12">
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title">Birth Place</h5>
+                      <app-locationsearchfilter #locationsearchfilter [view]="3" [disabled]='disabled'
+                        [locationID]="person.birthplace_ID">
+                      </app-locationsearchfilter>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="col-md-12">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">Birth Place</h5>
-                  <app-locationsearchfilter #locationsearchfilter [view]="3" [disabled]='disabled'
-                    [locationID]="person.birthplace_ID">
-                  </app-locationsearchfilter>
+            <div class="col-md-3">
+              <div class="row">
+                <div class="col-md-1">
+                </div>
+                <div class="col-md-11">
+                  <div class="form-group">
+                    <img src="{{ person.personimg_PATH }}" width="100%" height="100%"
+                      onerror="this.src='https://cwiztech.com/apply/images/user.png'">
+                    <input type="file" class="form-control" name="personimg_PATH" (change)="onFileSelection($event)"
+                      [disabled]="disabled" required />
+                  </div>
                 </div>
               </div>
             </div>

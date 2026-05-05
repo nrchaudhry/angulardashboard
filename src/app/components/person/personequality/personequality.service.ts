@@ -117,7 +117,7 @@ export class PersonequalityService {
   
    getAllDetail(response) {
     for (var a = 0; a < response.length; a++) {
-      response[a] = this.getDetail(response[a]);
+      response[a] = this.getDetails(response[a]);
     }
     return (response);
   }
@@ -125,7 +125,7 @@ export class PersonequalityService {
   getDetail(response) {
     if (response.person_DETAIL != null) {
       response.person = this.personservice.getDetail(JSON.parse(response.person_DETAIL));
-      response.person_DETAIL = null
+      response.person_DETAIL = response.person.title + " " + response.person.forenames + " " + response.person.surname;
     }
 
     if (response.residential_DETAIL != null) {
@@ -198,6 +198,80 @@ export class PersonequalityService {
     return(response);
   }
 
+  getDetails(response) {
+    if (response.person_DETAIL != null) {
+      response.person = this.personservice.getDetails(JSON.parse(response.person_DETAIL));
+      response.person_DETAIL = response.person.title + " " + response.person.forenames + " " + response.person.surname;
+    }
 
+    if (response.residential_DETAIL != null) {
+      response.residential = JSON.parse(response.residential_DETAIL);
+      response.residential_DETAIL = response.residential.code + ' - ' + response.residential.description;
+    }
+
+    if (response.domicile_DETAIL != null) {
+      response.domicile = JSON.parse(response.domicile_DETAIL);
+      response.domicile_DETAIL = response.domicile.code + ' - ' + response.domicile.description;
+    }
+
+    if (response.nationality_DETAIL != null) {
+      response.nationality = JSON.parse(response.nationality_DETAIL);
+      response.nationality_DETAIL = response.nationality.code + ' - ' + response.nationality.description;
+    }
+
+    if (response.maritalstatus_DETAIL != null) {
+      response.maritalstatus = JSON.parse(response.maritalstatus_DETAIL);
+      response.maritalstatus_DETAIL = response.maritalstatus.code + ' - ' + response.maritalstatus.description;
+    }
+
+    if (response.religion_DETAIL != null) {
+      response.religion = JSON.parse(response.religion_DETAIL);
+      response.religion_DETAIL = response.religion.code + ' - ' + response.religion.description;
+    }
+
+
+    if (response.ethnic_DETAIL != null) {
+      response.ethnic = JSON.parse(response.ethnic_DETAIL);
+      response.ethnic_DETAIL = response.ethnic.code + ' - ' + response.ethnic.description;
+    }
+
+    if (response.sexualorientation_DETAIL != null) {
+      response.sexualorientation = JSON.parse(response.sexualorientation_DETAIL);
+      response.sexualorientation_DETAIL = response.sexualorientation.code + ' - ' + response.sexualorientation.description;
+    }
+
+    if (response.gender_DETAIL != null) {
+      response.gender = JSON.parse(response.gender_DETAIL);
+      response.gender_DETAIL = response.gender.code + ' - ' + response.gender.description;
+    }
+
+    response.nationalities = [];
+    response.location = JSON.parse(response.nationality_DETAIL);
+    response.nationality_DETAIL = null;
+    while (response.location.locationparent_ID != null) {
+      response.nationalities.push(response.location);
+      response.location = response.location.locationparent_ID;
+    }
+    response.nationalities.push(response.location);
+
+    response.residentials = [];
+    response.location = JSON.parse(response.residential_DETAIL);
+    response.residential_DETAIL = null;
+    while (response.location.locationparent_ID != null) {
+      response.residentials.push(response.location);
+      response.location = response.location.locationparent_ID;
+    }
+    response.residentials.push(response.location);
+
+    response.domiciles = [];
+    response.location = JSON.parse(response.domicile_DETAIL);
+    response.domicile_DETAIL = null;
+    while (response.location.locationparent_ID != null) {
+      response.domiciles.push(response.location);
+      response.location = response.location.locationparent_ID;
+    }
+    response.domiciles.push(response.location);
+    return(response);
+  }
 
 }

@@ -118,7 +118,7 @@ export class  PersoneducationinstituteService {
 
   getAllDetail(response) {
     for (var a = 0; a < response.length; a++) {
-      response[a] = this.getDetail(response[a]);
+      response[a] = this.getDetails(response[a]);
     }
     return (response);
   }
@@ -126,7 +126,7 @@ export class  PersoneducationinstituteService {
   getDetail(response) {
    if (response.person_DETAIL != null) {
       response.person = this.personservice.getDetail(JSON.parse(response.person_DETAIL));
-      response.person_DETAIL = null
+      response.person_DETAIL = response.person.title + " " + response.person.forenames + " " + response.person.surname;
     }
    
     if (response.educationinstitute_DETAIL != null) {
@@ -141,4 +141,22 @@ export class  PersoneducationinstituteService {
     return (response);
   }
 
-}
+  getDetails(response) {
+    if (response.person_DETAIL != null) {
+       response.person = this.personservice.getDetails(JSON.parse(response.person_DETAIL));
+       response.person_DETAIL = response.person.title + " " + response.person.forenames + " " + response.person.surname;
+      }
+    
+     if (response.educationinstitute_DETAIL != null) {
+       response.educationinstitute = JSON.parse(response.educationinstitute_DETAIL);
+       response.educationinstitute_DETAIL = response.educationinstitute.code + ' - ' + response.educationinstitute.description;
+     }
+ 
+     if (response.educationattendancemode_DETAIL != null) {
+       response.educationattendancemode = JSON.parse(response.educationattendancemode_DETAIL);
+       response.educationattendancemode_DETAIL = response.educationattendancemode.code + ' - ' + response.educationattendancemode.description;
+     }
+     return (response);
+   }
+ 
+ }

@@ -117,7 +117,7 @@ export class PersoncommunicationemailService{
   
   getAllDetail(response) {
     for (var a = 0; a < response.length; a++) {
-      response[a] = this.getDetail(response[a]);
+      response[a] = this.getDetails(response[a]);
     }
     return (response);
   }
@@ -130,5 +130,15 @@ export class PersoncommunicationemailService{
 
     return(response);
   }
+
+  getDetails(response) {
+    if (response.personcontact_DETAIL != null) {
+      response.personcontact = this.personcontactservice.getDetails(JSON.parse(response.personcontact_DETAIL));
+      response.personcontact_DETAIL = null
+    }
+
+    return(response);
+  }
+
 }
 

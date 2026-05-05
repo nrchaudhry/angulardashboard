@@ -1,6 +1,8 @@
 import { Injectable } from "@angular/core";
 import { Http } from "@angular/http";
+import {HttpClient} from '@angular/common/http';
 import { map, catchError } from "rxjs/operators";
+import {Observable} from 'rxjs';
 
 import { LoginService } from "../pages/login/login.service";
 
@@ -11,6 +13,7 @@ export class HttpCallServieService {
 
   constructor(
     private http: Http,
+    private httpclient: HttpClient,
     private loginService: LoginService
   ) { }
 
@@ -25,8 +28,14 @@ export class HttpCallServieService {
     return this.http.get(this.AuthUrl + "login/usertitle").pipe(map(res => res.json()));
   }
 
-  upload() {
-    return this.http.get("").pipe(map(res => res.json()));
+  upload(file):Observable<any> {
+    const formData = new FormData(); 
+    formData.append("file", file, file.name);
+    formData.append("application_ID", "1");
+    formData.append("folder", "test");
+
+    return this.httpclient.post(this.BaseUrl + "apigateway/googledrive/upload", formData);
   }
+
 }
 

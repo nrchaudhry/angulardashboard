@@ -1,13 +1,15 @@
 import { Injectable } from "@angular/core";
 import { HttpCallServieService } from "src/app/services/http-call-servie.service";
 import { setting } from "src/app/setting";
+import { PersonService } from "../person/person.service";
 
 @Injectable({
   providedIn: "root"
 })
 export class  PersonlanguageService {
   constructor(
-    private _HttpCallServieService_: HttpCallServieService
+    private _HttpCallServieService_: HttpCallServieService,
+    private personservice: PersonService
   ) { }
 
 
@@ -106,31 +108,17 @@ export class  PersonlanguageService {
 
   getAllDetail(response) {
     for (var a = 0; a < response.length; a++) {
-      response[a].person = JSON.parse(response[a].person_DETAIL);
-      response[a].person_DETAIL = null;
-
-      if (response[a].language_DETAIL != null) {
-        response[a].language = JSON.parse(response[a].language_DETAIL);
-        response[a].language_DETAIL = response[a].language.code + ' - ' + response[a].language.description;
-      }
-
-      if (response[a].competency_DETAIL != null) {
-        response[a].competency = JSON.parse(response[a].competency_DETAIL);
-        response[a].competency_DETAIL = response[a].competency.code + ' - ' + response[a].competency.description;
-      }
-      if (response[a].fluency_DETAIL != null) {
-        response[a].fluency = JSON.parse(response[a].fluency_DETAIL);
-        response[a].fluency_DETAIL = response[a].fluency.code + ' - ' + response[a].fluency.description;
-      }
+      response[a] = this.getDetails(response[a]);
     }
     return (response);
   }
 
   getDetail(response) {
-    response.person = JSON.parse(response.person_DETAIL);
-    response.person_DETAIL = null;
+    if (response.person_DETAIL != null) {
+      response.person = this.personservice.getDetail(JSON.parse(response.person_DETAIL));
+      response.person_DETAIL = response.person.title + " " + response.person.forenames + " " + response.person.surname;
+    }
 
-   
     if (response.language_DETAIL != null) {
       response.language = JSON.parse(response.language_DETAIL);
       response.language_DETAIL = response.language.description;
@@ -145,7 +133,33 @@ export class  PersonlanguageService {
       response.fluency = JSON.parse(response.fluency_DETAIL);
       response.fluency_DETAIL = response.fluency.code + ' - ' + response.fluency.description;
     }
+
     return (response);
   }
+
+  getDetails(response) {
+    if (response.person_DETAIL != null) {
+      response.person = this.personservice.getDetails(JSON.parse(response.person_DETAIL));
+      response.person_DETAIL = response.person.title + " " + response.person.forenames + " " + response.person.surname;
+    }
+
+    if (response.language_DETAIL != null) {
+      response.language = JSON.parse(response.language_DETAIL);
+      response.language_DETAIL = response.language.description;
+    }
+
+    if (response.competency_DETAIL != null) {
+      response.competency = JSON.parse(response.competency_DETAIL);
+      response.competency_DETAIL = response.competency.code + ' - ' + response.competency.description;
+    }
+
+    if (response.fluency_DETAIL != null) {
+      response.fluency = JSON.parse(response.fluency_DETAIL);
+      response.fluency_DETAIL = response.fluency.code + ' - ' + response.fluency.description;
+    }
+
+    return (response);
+  }
+
 
 }

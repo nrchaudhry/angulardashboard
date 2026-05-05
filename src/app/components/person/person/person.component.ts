@@ -52,6 +52,7 @@ export class PersonComponent implements OnInit {
     birth_DATE: null,
     birth_TIME: null,
     birthplace_ID: null,
+    file: File = null,
     birthplaces: [],
     personimg_PATH: null,
     isactive: true
@@ -148,6 +149,7 @@ export class PersonComponent implements OnInit {
       birth_TIME: null,
       birthplace_ID: null,
       birthplaces: [],
+      file: File = null,
       personimg_PATH: null,
       isactive: true
     };
@@ -187,6 +189,17 @@ export class PersonComponent implements OnInit {
         break;
       }
     }
+  }
+
+  onFileSelection(event) {
+    this.person.file = event.target.files[0];
+    var reader = new FileReader();
+
+    reader.onload = (event: any) => {
+      this.person.personimg_PATH = event.target.result;
+    };
+
+    reader.readAsDataURL(event.target.files[0]);
   }
 
   setPerson(response) {
@@ -258,23 +271,49 @@ export class PersonComponent implements OnInit {
     person.birthplace_ID = this.locationsearchfilter.locationID;
     person.isactive = "Y";
 
-    this.personservice.add(person).subscribe(response => {
-      if (response) {
+    if (this.person.file != null) {
+      this.personservice.upload(this.person.file).subscribe(response => {
         if (response.error && response.status) {
           this.toastrservice.warning("Message", " " + response.message);
-        } else if (response.person_ID) {
-          this.toastrservice.success("Success", "New Person Added");
-          this.setPerson(this.personservice.getDetail(response));
-          this.refresh.next();
-          this.personGetAll();
-          this.disabled = true;
-        } else {
-          this.toastrservice.error("Some thing went wrong");
+        } else if (response.url) {
+          person.personimg_PATH = response.url;
+
+          this.personservice.add(person).subscribe(response => {
+            if (response) {
+              if (response.error && response.status) {
+                this.toastrservice.warning("Message", " " + response.message);
+              } else if (response.person_ID) {
+                this.toastrservice.success("Success", "New Person Added");
+                this.setPerson(this.personservice.getDetail(response));
+                this.disabled = true;
+              } else {
+                this.toastrservice.error("Some thing went wrong");
+              }
+            }
+          }, error => {
+            this.onfailservice.onFail(error);
+          })
         }
-      }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+      }, error => {
+        this.onfailservice.onFail(error);
+      });
+    } else {
+      this.personservice.add(person).subscribe(response => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning("Message", " " + response.message);
+          } else if (response.person_ID) {
+            this.toastrservice.success("Success", "New Person Added");
+            this.setPerson(this.personservice.getDetail(response));
+            this.disabled = true;
+          } else {
+            this.toastrservice.error("Some thing went wrong");
+          }
+        }
+      }, error => {
+        this.onfailservice.onFail(error);
+      })
+    }
   }
 
   personUpdate(person) {
@@ -284,23 +323,50 @@ export class PersonComponent implements OnInit {
     } else {
       person.isactive = "N";
     }
-    this.personservice.update(person, person.person_ID).subscribe(response => {
-      if (response) {
+
+    if (this.person.file != null) {
+      this.personservice.upload(this.person.file).subscribe(response => {
         if (response.error && response.status) {
           this.toastrservice.warning("Message", " " + response.message);
-        } else if (response.person_ID) {
-          this.toastrservice.success("Success", "Person Updated");
-          this.setPerson(this.personservice.getDetail(response));
-          this.refresh.next();
-          this.personGetAll();
-          this.disabled = true;
-        } else {
-          this.toastrservice.error("Some thing went wrong");
+        } else if (response.url) {
+          person.personimg_PATH = response.url;
+
+          this.personservice.update(person, person.person_ID).subscribe(response => {
+            if (response) {
+              if (response.error && response.status) {
+                this.toastrservice.warning("Message", " " + response.message);
+              } else if (response.person_ID) {
+                this.toastrservice.success("Success", "Person Updated");
+                this.setPerson(this.personservice.getDetail(response));
+                this.disabled = true;
+              } else {
+                this.toastrservice.error("Some thing went wrong");
+              }
+            }
+          }, error => {
+            this.onfailservice.onFail(error);
+          })
         }
-      }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+      }, error => {
+        this.onfailservice.onFail(error);
+      });
+    } else {
+      this.personservice.update(person, person.person_ID).subscribe(response => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning("Message", " " + response.message);
+          } else if (response.person_ID) {
+            this.toastrservice.success("Success", "Person Updated");
+            this.setPerson(this.personservice.getDetail(response));
+            this.disabled = true;
+          } else {
+            this.toastrservice.error("Some thing went wrong");
+          }
+        }
+      }, error => {
+        this.onfailservice.onFail(error);
+      })
+    }
   }
 
   personUpdateAll(persons) {

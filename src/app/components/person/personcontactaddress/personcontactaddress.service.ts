@@ -119,7 +119,7 @@ export class PersoncontactaddressService {
 
   getAllDetail(response) {
     for (var a = 0; a < response.length; a++) {
-      response[a] = this.getDetail(response[a]);
+      response[a] = this.getDetails(response[a]);
     }
     return (response);
   }
@@ -150,4 +150,32 @@ export class PersoncontactaddressService {
     response.locations.push(response.location);
     return (response);
   }
+
+  getDetails(response) {
+    if (response.person_DETAIL != null) {
+      response.person = this.personservice.getDetails(JSON.parse(response.person_DETAIL));
+      response.person_DETAIL = response.person.title + " " + response.person.forenames + " " + response.person.surname;
+    }
+
+    response.address = response.address_LINE1;
+    if (response.address_LINE2 != null && response.address_LINE2 != '')
+      response.address = response.address + ", " + response.address_LINE2;
+    if (response.address_LINE3 != null && response.address_LINE3 != '')
+      response.address = response.address + ", " + response.address_LINE3;
+    if (response.address_LINE4 != null && response.address_LINE4 != '')
+      response.address = response.address + ", " + response.address_LINE4;
+    if (response.address_LINE5 != null && response.address_LINE5 != '')
+      response.address = response.address + ", " + response.address_LINE5;
+    response.locations = [];
+    response.location = JSON.parse(response.location_DETAIL);
+    response.location_DETAIL = null;
+    // while (response.location.locationparent_ID != null) {
+    //   response.address = response.address + ", " + response.location.location_NAME;
+    //   response.locations.push(response.location);
+    //   response.location = response.location.locationparent_ID;
+    // }
+    response.locations.push(response.location);
+    return (response);
+  }
+
 }
