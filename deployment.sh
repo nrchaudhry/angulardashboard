@@ -14,11 +14,11 @@ sed -i 's/APPLICATIONCODE/COMPANYNAMEDashboardManagement/' "$OUT"
 echo "ng build command start"
 ng build --prod --base-href ./
 
-URLStyle=${1:-"http://old.cwiztech.com/dev/cwiztech/styles.css"}
+URLStyle=${1:-"https://design.cwiztech.com/cwiztech/styles.css"}
 OUTStyle=${2:-"src/styles.css"}
 curl -fL "$URLStyle" -o "$OUTStyle"
 
-URL=${1:-"http://old.cwiztech.com/dev/cwiztech/setting.ts"}
+URL=${1:-"https://design.cwiztech.com/cwiztech/setting.ts"}
 OUT=${2:-"src/app/setting.ts"}
 curl -fL "$URL" -o "$OUT"
 
