@@ -7,10 +7,10 @@ export const setting = {
 
   companyName: 'Compuwiz Technologies',
   companyShortName: 'CWizTech',
-  logo: 'https://design.petease.com.pk/images/logo.png',
-  logo1white: 'https://design.petease.com.pk/images/logo-short.png',
+  logo: 'https://design.cwiztech.com/images/logo-tansparent.png',
+  logo1white: 'https://design.cwiztech.com/images/logo-tansparent.png',
   loginBanner1: 'https://design.petease.com.pk/images/intro-back.jpg',
-  icon: 'https://design.petease.com.pk/images/favicon.ico',
+  icon: 'https://design.cwiztech.com/images/favicon.ico',
 
   servicePath: "fivestar/",
   commonServicePath: "cwiztech/",
