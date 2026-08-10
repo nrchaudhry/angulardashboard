@@ -1,4 +1,3 @@
-
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { LookupService } from 'src/app/services/lookup.service';
@@ -7,7 +6,7 @@ import { OnFailService } from 'src/app/services/on-fail.service';
 @Component({
   selector: 'app-ethnic',
   templateUrl: './ethnic.component.html',
-  styleUrls: ['./ethnic.component.css']
+  styleUrls: ['./ethnic.component.css'],
 })
 export class EthnicComponent implements OnInit {
   @Input()
@@ -25,8 +24,8 @@ export class EthnicComponent implements OnInit {
   constructor(
     private lookupservice: LookupService,
     private toastrservice: ToastrService,
-    private onfailservice: OnFailService,
-  ) { }
+    private onfailservice: OnFailService
+  ) {}
 
   ngOnInit(): void {
     this.ethnics = JSON.parse(window.sessionStorage.getItem('ethnics'));
@@ -41,39 +40,44 @@ export class EthnicComponent implements OnInit {
   setEthnics(response) {
     if (this.disabled == false) {
       this.ethnics = response;
-      window.sessionStorage.setItem("ethnics", JSON.stringify(this.ethnics));
+      window.sessionStorage.setItem('ethnics', JSON.stringify(this.ethnics));
     } else {
       this.ethnicsAll = response;
-      window.sessionStorage.setItem("ethnicsAll", JSON.stringify(this.ethnicsAll));
+      window.sessionStorage.setItem('ethnicsAll', JSON.stringify(this.ethnicsAll));
     }
   }
 
-  ethnicGet(){
-    this.lookupservice.lookup("ETHNIC").subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else{
-          this.setEthnics(response);
+  ethnicGet() {
+    this.lookupservice.lookup('ETHNIC').subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else {
+            this.setEthnics(response);
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
 
-  ethnicGetAll(){
-    this.lookupservice.lookupAll("ETHNIC").subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else{
-          this.setEthnics(response);
+  ethnicGetAll() {
+    this.lookupservice.lookupAll('ETHNIC').subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else {
+            this.setEthnics(response);
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
-
 }

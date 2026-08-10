@@ -1,4 +1,3 @@
-
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { LookupService } from 'src/app/services/lookup.service';
@@ -7,7 +6,7 @@ import { OnFailService } from 'src/app/services/on-fail.service';
 @Component({
   selector: 'app-gender',
   templateUrl: './gender.component.html',
-  styleUrls: ['./gender.component.css']
+  styleUrls: ['./gender.component.css'],
 })
 export class GenderComponent implements OnInit {
   @Input()
@@ -25,8 +24,8 @@ export class GenderComponent implements OnInit {
   constructor(
     private lookupservice: LookupService,
     private toastrservice: ToastrService,
-    private onfailservice: OnFailService,
-  ) { }
+    private onfailservice: OnFailService
+  ) {}
 
   ngOnInit(): void {
     this.genders = JSON.parse(window.sessionStorage.getItem('genders'));
@@ -41,39 +40,44 @@ export class GenderComponent implements OnInit {
   setGenders(response) {
     if (this.disabled == false) {
       this.genders = response;
-      window.sessionStorage.setItem("genders", JSON.stringify(this.genders));
+      window.sessionStorage.setItem('genders', JSON.stringify(this.genders));
     } else {
       this.gendersAll = response;
-      window.sessionStorage.setItem("gendersAll", JSON.stringify(this.gendersAll));
+      window.sessionStorage.setItem('gendersAll', JSON.stringify(this.gendersAll));
     }
   }
 
-  genderGet(){
-    this.lookupservice.lookup("GENDER").subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else{
-          this.setGenders(response);
+  genderGet() {
+    this.lookupservice.lookup('GENDER').subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else {
+            this.setGenders(response);
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
 
-  genderGetAll(){
-    this.lookupservice.lookupAll("GENDER").subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else{
-          this.setGenders(response);
+  genderGetAll() {
+    this.lookupservice.lookupAll('GENDER').subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else {
+            this.setGenders(response);
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
-
 }

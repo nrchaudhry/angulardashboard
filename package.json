@@ -7,7 +7,9 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "format": "prettier --write \"src/app/**/*.{ts,js,html,css,scss,json}\" \"src/*.{ts,js,html,css,scss,json}\" \"e2e/**/*.{ts,js,json}\" \"*.{js,json}\"",
+    "format:check": "prettier --check \"src/app/**/*.{ts,js,html,css,scss,json}\" \"src/*.{ts,js,html,css,scss,json}\" \"e2e/**/*.{ts,js,json}\" \"*.{js,json}\""
   },
   "private": true,
   "dependencies": {
@@ -71,6 +73,7 @@
     "karma-coverage": "~2.0.3",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.5.0",
+    "prettier": "^2.8.8",
     "protractor": "~7.0.0",
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",

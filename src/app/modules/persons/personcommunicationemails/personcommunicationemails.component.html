@@ -7,8 +7,12 @@
         <div class="card-header">
           <div class="align-items-center row">
             <div class="col">
-              <a href="javascript:void" aria-controls="collapse-customerinfo1" aria-expanded="true"
-                class="card-title">COMMUNICATION EMAIL
+              <a
+                href="javascript:void"
+                aria-controls="collapse-customerinfo1"
+                aria-expanded="true"
+                class="card-title"
+                >COMMUNICATION EMAIL
               </a>
             </div>
             <div class="col-auto">
@@ -21,8 +25,11 @@
         <div class="card-body">
           <div class="row">
             <div class="col-lg-12">
-              <app-personcommunicationemail #personcommunicationemails [view]=2
-                (show)="show($event)"></app-personcommunicationemail>
+              <app-personcommunicationemail
+                #personcommunicationemails
+                [view]="2"
+                (show)="show($event)"
+              ></app-personcommunicationemail>
             </div>
           </div>
         </div>
@@ -31,14 +38,32 @@
   </div>
 </div>
 
-<div aria-labelledby="exampleModalLabel" class="modal fade show" id="addpersoncommunicationemail" role="dialog"
-  tabindex="-1">
-  <app-personcommunicationemail #addpersoncommunicationemail [view]=3 (refresh)="refresh()"
-    (cancel)="cancel()"></app-personcommunicationemail>
+<div
+  aria-labelledby="exampleModalLabel"
+  class="modal fade show"
+  id="addpersoncommunicationemail"
+  role="dialog"
+  tabindex="-1"
+>
+  <app-personcommunicationemail
+    #addpersoncommunicationemail
+    [view]="3"
+    (refresh)="refresh()"
+    (cancel)="cancel()"
+  ></app-personcommunicationemail>
 </div>
 
-<div aria-labelledby="exampleModalLabel" class="modal fade show" id="editpersoncommunicationemail" role="dialog"
-  tabindex="-1">
-  <app-personcommunicationemail #editpersoncommunicationemail [view]=4 (refresh)="refresh()"
-    (cancel)="cancel()"></app-personcommunicationemail>
+<div
+  aria-labelledby="exampleModalLabel"
+  class="modal fade show"
+  id="editpersoncommunicationemail"
+  role="dialog"
+  tabindex="-1"
+>
+  <app-personcommunicationemail
+    #editpersoncommunicationemail
+    [view]="4"
+    (refresh)="refresh()"
+    (cancel)="cancel()"
+  ></app-personcommunicationemail>
 </div>

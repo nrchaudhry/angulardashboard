@@ -5,20 +5,18 @@ import { PersoncommunicationemailComponent } from 'src/app/components/person/per
 @Component({
   selector: 'app-emailview',
   templateUrl: './emailview.component.html',
-  styleUrls: ['./emailview.component.css']
+  styleUrls: ['./emailview.component.css'],
 })
 export class EmailviewComponent implements OnInit {
-  @ViewChild("personcommunicationemails") personcommunicationemails: PersoncommunicationemailComponent;
+  @ViewChild('personcommunicationemails')
+  personcommunicationemails: PersoncommunicationemailComponent;
 
   personemailID = 0;
 
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-  ) { }
+  constructor(private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
+    this.route.queryParams.subscribe((params) => {
       if (params.personcommunicationemail) {
         this.personemailID = params.personcommunicationemail;
       }
@@ -31,6 +29,6 @@ export class EmailviewComponent implements OnInit {
   }
 
   cancel() {
-    this.router.navigate(["/home/communications"], { queryParams: {} });
+    this.router.navigate(['/home/communications'], { queryParams: {} });
   }
 }

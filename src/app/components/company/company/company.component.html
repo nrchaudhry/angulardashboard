@@ -1,20 +1,34 @@
-<div *ngIf="view==1" class="form-group">
-  <label class="custom-label form-label">Company
-    <span style="color: red;" [hidden]="disabled" *ngIf="iscompulsory==true">*</span>
+<div *ngIf="view == 1" class="form-group">
+  <label class="custom-label form-label"
+    >Company
+    <span style="color: red" [hidden]="disabled" *ngIf="iscompulsory == true">*</span>
   </label>
-  <div class="row" *ngIf="disabled==true">
+  <div class="row" *ngIf="disabled == true">
     <div class="col-md-12">
       <ng-select [(ngModel)]="companyID" [disabled]="disabled" name="companyID">
-        <ng-option *ngFor="let company of companiesAll" [value]="company.company_ID" [disabled]="disabled">
+        <ng-option
+          *ngFor="let company of companiesAll"
+          [value]="company.company_ID"
+          [disabled]="disabled"
+        >
           {{ company.company_CODE }} - {{ company.company_NAME }}
         </ng-option>
       </ng-select>
     </div>
   </div>
-  <div class="row" *ngIf="disabled==false">
+  <div class="row" *ngIf="disabled == false">
     <div class="col-md-10">
-      <ng-select [(ngModel)]="companyID" [disabled]="disabled" name="companyID" (change)="onChange($event)">
-        <ng-option *ngFor="let company of companies" [value]="company.company_ID" [disabled]="disabled">
+      <ng-select
+        [(ngModel)]="companyID"
+        [disabled]="disabled"
+        name="companyID"
+        (change)="onChange($event)"
+      >
+        <ng-option
+          *ngFor="let company of companies"
+          [value]="company.company_ID"
+          [disabled]="disabled"
+        >
           {{ company.company_CODE }} - {{ company.company_NAME }}
         </ng-option>
       </ng-select>
@@ -27,23 +41,37 @@
   </div>
 </div>
 
-<div *ngIf="view==11" class="form-group">
-  <label class="custom-label form-label">Company
-    <span style="color: red;" [hidden]="disabled" *ngIf="iscompulsory==true">*</span>
+<div *ngIf="view == 11" class="form-group">
+  <label class="custom-label form-label"
+    >Company
+    <span style="color: red" [hidden]="disabled" *ngIf="iscompulsory == true">*</span>
   </label>
-  <div class="row" *ngIf="disabled==true">
+  <div class="row" *ngIf="disabled == true">
     <div class="col-md-12">
       <ng-select [(ngModel)]="companyID" [disabled]="disabled" name="companyID">
-        <ng-option *ngFor="let company of companiesAll" [value]="company.company_ID" [disabled]="disabled">
+        <ng-option
+          *ngFor="let company of companiesAll"
+          [value]="company.company_ID"
+          [disabled]="disabled"
+        >
           {{ company.company_CODE }} - {{ company.company_NAME }}
         </ng-option>
       </ng-select>
     </div>
   </div>
-  <div class="row" *ngIf="disabled==false">
+  <div class="row" *ngIf="disabled == false">
     <div class="col-md-10">
-      <ng-select [(ngModel)]="companyID" [disabled]="disabled" name="companyID" (change)="onChange($event)">
-        <ng-option *ngFor="let company of companies" [value]="company.company_ID" [disabled]="disabled">
+      <ng-select
+        [(ngModel)]="companyID"
+        [disabled]="disabled"
+        name="companyID"
+        (change)="onChange($event)"
+      >
+        <ng-option
+          *ngFor="let company of companies"
+          [value]="company.company_ID"
+          [disabled]="disabled"
+        >
           {{ company.company_CODE }} - {{ company.company_NAME }}
         </ng-option>
       </ng-select>
@@ -56,15 +84,28 @@
   </div>
 </div>
 
-<div *ngIf="view==2" class="form-group">
+<div *ngIf="view == 2" class="form-group">
   <div class="row">
     <div class="col-lg-12">
       <div class="outer-div">
         <div class="grid-wrapper">
-          <dx-data-grid #grid id="gridContainer" [dataSource]="companiesAll" keyExpr="company_ID"
-            [showColumnLines]="true" [showRowLines]="true" [showBorders]="true" [rowAlternationEnabled]="true"
-            [allowColumnResizing]="true" [columnMinWidth]="30" [columnAutoWidth]="true" [remoteOperations]="true"
-            height="600" width="100%" (onToolbarPreparing)="onToolbarPreparing($event)">
+          <dx-data-grid
+            #grid
+            id="gridContainer"
+            [dataSource]="companiesAll"
+            keyExpr="company_ID"
+            [showColumnLines]="true"
+            [showRowLines]="true"
+            [showBorders]="true"
+            [rowAlternationEnabled]="true"
+            [allowColumnResizing]="true"
+            [columnMinWidth]="30"
+            [columnAutoWidth]="true"
+            [remoteOperations]="true"
+            height="600"
+            width="100%"
+            (onToolbarPreparing)="onToolbarPreparing($event)"
+          >
             <dxo-filter-row [visible]="true"></dxo-filter-row>
             <dxo-header-filter [visible]="true"></dxo-header-filter>
             <dxo-search-panel [visible]="true"></dxo-search-panel>
@@ -73,42 +114,108 @@
             <dxo-scrolling mode="virtual"></dxo-scrolling>
             <dxo-sorting mode="multiple"></dxo-sorting>
             <dxo-selection mode="single"></dxo-selection>
-            <dxi-column [width]="75" [allowFiltering]="false" [allowSorting]="false" alignment="center"
-              cellTemplate="cellTemplate"> </dxi-column>
-            <dxi-column [width]="75" [allowFiltering]="false" [allowSorting]="false" alignment="center"
-              cellTemplate="cellTemplateView"> </dxi-column>
-            <dxi-column dataField="company_CODE" caption="Code" cssClass="myClass" alignment="center">
+            <dxi-column
+              [width]="75"
+              [allowFiltering]="false"
+              [allowSorting]="false"
+              alignment="center"
+              cellTemplate="cellTemplate"
+            >
             </dxi-column>
-            <dxi-column dataField="company_NAME" caption="Company Name" cssClass="myClass" alignment="left">
+            <dxi-column
+              [width]="75"
+              [allowFiltering]="false"
+              [allowSorting]="false"
+              alignment="center"
+              cellTemplate="cellTemplateView"
+            >
             </dxi-column>
-            <dxi-column dataField="registered_NUMBER" caption="Registered Number" cssClass="myClass" alignment="center">
+            <dxi-column
+              dataField="company_CODE"
+              caption="Code"
+              cssClass="myClass"
+              alignment="center"
+            >
             </dxi-column>
-            <dxi-column dataField="tax_NUMBER" caption="Tax Number" cssClass="myClass" alignment="center">
+            <dxi-column
+              dataField="company_NAME"
+              caption="Company Name"
+              cssClass="myClass"
+              alignment="left"
+            >
             </dxi-column>
-            <dxi-column dataField="start_DATE" caption="Start Date" cssClass="myClass" alignment="center">
+            <dxi-column
+              dataField="registered_NUMBER"
+              caption="Registered Number"
+              cssClass="myClass"
+              alignment="center"
+            >
             </dxi-column>
-            <dxi-column dataField="end_DATE" caption="End Date" cssClass="myClass" alignment="center">
+            <dxi-column
+              dataField="tax_NUMBER"
+              caption="Tax Number"
+              cssClass="myClass"
+              alignment="center"
+            >
             </dxi-column>
-            <dxi-column dataField="companysubtype.companysubtype_NAME" caption="Company Sub Type" cssClass="myClass"
-              alignment="left">
+            <dxi-column
+              dataField="start_DATE"
+              caption="Start Date"
+              cssClass="myClass"
+              alignment="center"
+            >
             </dxi-column>
-            <dxi-column dataField="companyparent.company_NAME" caption="Parent Company" cssClass="myClass"
-              alignment="center">
+            <dxi-column
+              dataField="end_DATE"
+              caption="End Date"
+              cssClass="myClass"
+              alignment="center"
+            >
             </dxi-column>
-            <dxi-column dataField="businessnature.description" caption="Business Nature" cssClass="myClass"
-              alignment="center"></dxi-column>
-            <dxi-column dataField="companystatus.description" caption="Company Status" cssClass="myClass"
-              alignment="center"></dxi-column>
-            <dxi-column [width]="100" dataField="isactive" caption="Active" cssClass="myClass" alignment="center">
+            <dxi-column
+              dataField="companysubtype.companysubtype_NAME"
+              caption="Company Sub Type"
+              cssClass="myClass"
+              alignment="left"
+            >
+            </dxi-column>
+            <dxi-column
+              dataField="companyparent.company_NAME"
+              caption="Parent Company"
+              cssClass="myClass"
+              alignment="center"
+            >
+            </dxi-column>
+            <dxi-column
+              dataField="businessnature.description"
+              caption="Business Nature"
+              cssClass="myClass"
+              alignment="center"
+            ></dxi-column>
+            <dxi-column
+              dataField="companystatus.description"
+              caption="Company Status"
+              cssClass="myClass"
+              alignment="center"
+            ></dxi-column>
+            <dxi-column
+              [width]="100"
+              dataField="isactive"
+              caption="Active"
+              cssClass="myClass"
+              alignment="center"
+            >
             </dxi-column>
 
             <div *dxTemplate="let data of 'cellTemplate'">
               <a href="javascript:void" class="" (click)="update(data)">
-                <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                <i class="fa fa-pencil-square-o" aria-hidden="true"></i
+              ></a>
             </div>
             <div *dxTemplate="let data of 'cellTemplateView'">
               <a href="javascript:void" class="" (click)="showView(data)">
-                <i class="fa fa-eye" aria-hidden="true"></i></a>
+                <i class="fa fa-eye" aria-hidden="true"></i
+              ></a>
             </div>
           </dx-data-grid>
         </div>
@@ -117,13 +224,26 @@
   </div>
 </div>
 
-<div *ngIf="view==22" class="form-group">
+<div *ngIf="view == 22" class="form-group">
   <div class="outer-div">
     <div class="grid-wrapper">
-      <dx-data-grid #grid id="gridContainer" [dataSource]="companiesAll" keyExpr="company_ID" [showColumnLines]="true"
-        [showRowLines]="true" [showBorders]="true" [rowAlternationEnabled]="true" [allowColumnResizing]="true"
-        [columnMinWidth]="30" [columnAutoWidth]="true" [remoteOperations]="true" height="600" width="100%"
-        (onToolbarPreparing)="onToolbarPreparing($event)">
+      <dx-data-grid
+        #grid
+        id="gridContainer"
+        [dataSource]="companiesAll"
+        keyExpr="company_ID"
+        [showColumnLines]="true"
+        [showRowLines]="true"
+        [showBorders]="true"
+        [rowAlternationEnabled]="true"
+        [allowColumnResizing]="true"
+        [columnMinWidth]="30"
+        [columnAutoWidth]="true"
+        [remoteOperations]="true"
+        height="600"
+        width="100%"
+        (onToolbarPreparing)="onToolbarPreparing($event)"
+      >
         <dxo-filter-row [visible]="true"></dxo-filter-row>
         <dxo-header-filter [visible]="true"></dxo-header-filter>
         <dxo-search-panel [visible]="true"></dxo-search-panel>
@@ -132,50 +252,112 @@
         <dxo-scrolling mode="virtual"></dxo-scrolling>
         <dxo-sorting mode="multiple"></dxo-sorting>
         <dxo-selection mode="single"></dxo-selection>
-        <dxi-column [width]="75" [allowFiltering]="false" [allowSorting]="false" alignment="center"
-          cellTemplate="cellTemplate"> </dxi-column>
-        <dxi-column [width]="75" [allowFiltering]="false" [allowSorting]="false" alignment="center"
-          cellTemplate="cellTemplateView"> </dxi-column>
+        <dxi-column
+          [width]="75"
+          [allowFiltering]="false"
+          [allowSorting]="false"
+          alignment="center"
+          cellTemplate="cellTemplate"
+        >
+        </dxi-column>
+        <dxi-column
+          [width]="75"
+          [allowFiltering]="false"
+          [allowSorting]="false"
+          alignment="center"
+          cellTemplate="cellTemplateView"
+        >
+        </dxi-column>
         <dxi-column dataField="company_CODE" caption="Code" cssClass="myClass" alignment="center">
         </dxi-column>
-        <dxi-column dataField="company_NAME" caption="Company Name" cssClass="myClass" alignment="left">
+        <dxi-column
+          dataField="company_NAME"
+          caption="Company Name"
+          cssClass="myClass"
+          alignment="left"
+        >
         </dxi-column>
-        <dxi-column dataField="registered_NUMBER" caption="Registered Number" cssClass="myClass" alignment="center">
+        <dxi-column
+          dataField="registered_NUMBER"
+          caption="Registered Number"
+          cssClass="myClass"
+          alignment="center"
+        >
         </dxi-column>
-        <dxi-column dataField="tax_NUMBER" caption="Tax Number" cssClass="myClass" alignment="center">
+        <dxi-column
+          dataField="tax_NUMBER"
+          caption="Tax Number"
+          cssClass="myClass"
+          alignment="center"
+        >
         </dxi-column>
-        <dxi-column dataField="start_DATE" caption="Start Date" cssClass="myClass" alignment="center">
+        <dxi-column
+          dataField="start_DATE"
+          caption="Start Date"
+          cssClass="myClass"
+          alignment="center"
+        >
         </dxi-column>
         <dxi-column dataField="end_DATE" caption="End Date" cssClass="myClass" alignment="center">
         </dxi-column>
-        <dxi-column dataField="companysubtype.companysubtype_NAME" caption="Company Sub Type" cssClass="myClass"
-          alignment="left">
+        <dxi-column
+          dataField="companysubtype.companysubtype_NAME"
+          caption="Company Sub Type"
+          cssClass="myClass"
+          alignment="left"
+        >
         </dxi-column>
-        <dxi-column dataField="companyparent.company_NAME" caption="Parent Company" cssClass="myClass"
-          alignment="center">
+        <dxi-column
+          dataField="companyparent.company_NAME"
+          caption="Parent Company"
+          cssClass="myClass"
+          alignment="center"
+        >
         </dxi-column>
-        <dxi-column dataField="businessnature.description" caption="Business Nature" cssClass="myClass"
-          alignment="center"></dxi-column>
-        <dxi-column dataField="companystatus.description" caption="Company Status" cssClass="myClass"
-          alignment="center"></dxi-column>
-        <dxi-column [width]="100" dataField="isactive" caption="Active" cssClass="myClass" alignment="center">
+        <dxi-column
+          dataField="businessnature.description"
+          caption="Business Nature"
+          cssClass="myClass"
+          alignment="center"
+        ></dxi-column>
+        <dxi-column
+          dataField="companystatus.description"
+          caption="Company Status"
+          cssClass="myClass"
+          alignment="center"
+        ></dxi-column>
+        <dxi-column
+          [width]="100"
+          dataField="isactive"
+          caption="Active"
+          cssClass="myClass"
+          alignment="center"
+        >
         </dxi-column>
 
         <div *dxTemplate="let data of 'cellTemplate'">
           <a href="javascript:void" class="" (click)="update(data)">
-            <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+            <i class="fa fa-pencil-square-o" aria-hidden="true"></i
+          ></a>
         </div>
         <div *dxTemplate="let data of 'cellTemplateView'">
           <a href="javascript:void" class="" (click)="showView(data)">
-            <i class="fa fa-eye" aria-hidden="true"></i></a>
+            <i class="fa fa-eye" aria-hidden="true"></i
+          ></a>
         </div>
       </dx-data-grid>
     </div>
   </div>
 </div>
 
-<div *ngIf="view==3" class="form-group">
-  <form action="" class="form" (ngSubmit)="f.form.valid && companyAdd(company)" #f="ngForm" novalidate>
+<div *ngIf="view == 3" class="form-group">
+  <form
+    action=""
+    class="form"
+    (ngSubmit)="f.form.valid && companyAdd(company)"
+    #f="ngForm"
+    novalidate
+  >
     <div class="modal-dialog modal-xl" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -193,17 +375,27 @@
                 <div class="col-md-3">
                   <div class="form-group">
                     <label class="control-label">Code</label>
-                    <span style="color: red;" [hidden]="disabled"> *</span>
-                    <input type="text" class="form-control" name="company_CODE" [(ngModel)]="company.company_CODE"
-                      required />
+                    <span style="color: red" [hidden]="disabled"> *</span>
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="company_CODE"
+                      [(ngModel)]="company.company_CODE"
+                      required
+                    />
                   </div>
                 </div>
                 <div class="col-md-9">
                   <div class="form-group">
                     <label class="control-label">Name</label>
-                    <span style="color: red;" [hidden]="disabled"> *</span>
-                    <input type="text" class="form-control" name="company_NAME" [(ngModel)]="company.company_NAME"
-                      required />
+                    <span style="color: red" [hidden]="disabled"> *</span>
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="company_NAME"
+                      [(ngModel)]="company.company_NAME"
+                      required
+                    />
                   </div>
                 </div>
               </div>
@@ -211,8 +403,14 @@
                 <div class="col-md-12">
                   <div class="form-group">
                     <label class="control-label"> Description</label>
-                    <textarea rows="3" type="textarea" class="form-control" name="company_DESC" maxlength="500"
-                      [(ngModel)]="company.company_DESC"></textarea>
+                    <textarea
+                      rows="3"
+                      type="textarea"
+                      class="form-control"
+                      name="company_DESC"
+                      maxlength="500"
+                      [(ngModel)]="company.company_DESC"
+                    ></textarea>
                   </div>
                 </div>
               </div>
@@ -220,14 +418,23 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label class="control-label">Registered Number</label>
-                    <input type="text" class="form-control" name="registered_NUMBER"
-                      [(ngModel)]="company.registered_NUMBER" />
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="registered_NUMBER"
+                      [(ngModel)]="company.registered_NUMBER"
+                    />
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
                     <label class="control-label">Tax Number</label>
-                    <input type="text" class="form-control" name="tax_NUMBER" [(ngModel)]="company.tax_NUMBER" />
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="tax_NUMBER"
+                      [(ngModel)]="company.tax_NUMBER"
+                    />
                   </div>
                 </div>
               </div>
@@ -235,35 +442,55 @@
             <div class="col-md-4">
               <div class="form-group">
                 <label class="control-label"> Icon </label>
-                <img src="{{ company.companylogo_PATH }}" width="100%" height="100%">
-                <input type="file" class="form-control" name="companylogo_PATH" (change)="onFileSelection($event)"
-                  required />
+                <img src="{{ company.companylogo_PATH }}" width="100%" height="100%" />
+                <input
+                  type="file"
+                  class="form-control"
+                  name="companylogo_PATH"
+                  (change)="onFileSelection($event)"
+                  required
+                />
               </div>
             </div>
           </div>
           <div class="row">
             <div class="col-md-4">
-              <app-company #companyparent [disabled]="companyparentDisabled">
-              </app-company>
+              <app-company #companyparent [disabled]="companyparentDisabled"> </app-company>
             </div>
             <div class="col-md-4">
               <div class="form-group">
                 <label class="control-label">Start Date</label>
-                <span style="color: red;" [hidden]="disabled"> *</span>
-                <input type="date" class="form-control" name="start_DATE" [(ngModel)]="company.start_DATE" required />
+                <span style="color: red" [hidden]="disabled"> *</span>
+                <input
+                  type="date"
+                  class="form-control"
+                  name="start_DATE"
+                  [(ngModel)]="company.start_DATE"
+                  required
+                />
               </div>
             </div>
             <div class="col-md-4">
               <div class="form-group">
                 <label class="control-label">End Date</label>
-                <input type="date" class="form-control" name="end_DATE" [(ngModel)]="company.end_DATE" required />
+                <input
+                  type="date"
+                  class="form-control"
+                  name="end_DATE"
+                  [(ngModel)]="company.end_DATE"
+                  required
+                />
               </div>
             </div>
           </div>
           <div class="row">
             <div class="col-md-4">
-              <app-companysubtype #companysubtype [view]="1" [disabled]="companysubtypeDisabled"
-                [companysubtypeID]="companysubtypeID"></app-companysubtype>
+              <app-companysubtype
+                #companysubtype
+                [view]="1"
+                [disabled]="companysubtypeDisabled"
+                [companysubtypeID]="companysubtypeID"
+              ></app-companysubtype>
             </div>
             <div class="col-md-4">
               <app-businessnature #businessnature [disabled]="businessnatureDisabled">
@@ -286,8 +513,14 @@
   </form>
 </div>
 
-<div *ngIf="view==4" class="form-group">
-  <form action="" class="form" (ngSubmit)="f.form.valid && companyUpdate(company)" #f="ngForm" novalidate>
+<div *ngIf="view == 4" class="form-group">
+  <form
+    action=""
+    class="form"
+    (ngSubmit)="f.form.valid && companyUpdate(company)"
+    #f="ngForm"
+    novalidate
+  >
     <div class="modal-dialog modal-xl" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -305,17 +538,27 @@
                 <div class="col-md-3">
                   <div class="form-group">
                     <label class="control-label">Code</label>
-                    <span style="color: red;" [hidden]="disabled"> *</span>
-                    <input type="text" class="form-control" name="company_CODE" [(ngModel)]="company.company_CODE"
-                      required />
+                    <span style="color: red" [hidden]="disabled"> *</span>
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="company_CODE"
+                      [(ngModel)]="company.company_CODE"
+                      required
+                    />
                   </div>
                 </div>
                 <div class="col-md-9">
                   <div class="form-group">
                     <label class="control-label">Name</label>
-                    <span style="color: red;" [hidden]="disabled"> *</span>
-                    <input type="text" class="form-control" name="company_NAME" [(ngModel)]="company.company_NAME"
-                      required />
+                    <span style="color: red" [hidden]="disabled"> *</span>
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="company_NAME"
+                      [(ngModel)]="company.company_NAME"
+                      required
+                    />
                   </div>
                 </div>
               </div>
@@ -323,8 +566,14 @@
                 <div class="col-md-12">
                   <div class="form-group">
                     <label class="control-label"> Description</label>
-                    <textarea rows="3" type="textarea" class="form-control" name="company_DESC" maxlength="500"
-                      [(ngModel)]="company.company_DESC"></textarea>
+                    <textarea
+                      rows="3"
+                      type="textarea"
+                      class="form-control"
+                      name="company_DESC"
+                      maxlength="500"
+                      [(ngModel)]="company.company_DESC"
+                    ></textarea>
                   </div>
                 </div>
               </div>
@@ -332,14 +581,23 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label class="control-label">Registered Number</label>
-                    <input type="text" class="form-control" name="registered_NUMBER"
-                      [(ngModel)]="company.registered_NUMBER" />
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="registered_NUMBER"
+                      [(ngModel)]="company.registered_NUMBER"
+                    />
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
                     <label class="control-label">Tax Number</label>
-                    <input type="text" class="form-control" name="tax_NUMBER" [(ngModel)]="company.tax_NUMBER" />
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="tax_NUMBER"
+                      [(ngModel)]="company.tax_NUMBER"
+                    />
                   </div>
                 </div>
               </div>
@@ -347,44 +605,76 @@
             <div class="col-md-4">
               <div class="form-group">
                 <label class="control-label"> Icon </label>
-                <img src="{{ company.companylogo_PATH }}" width="100%" height="100%">
-                <input type="file" class="form-control" name="companylogo_PATH" (change)="onFileSelection($event)"
-                  required />
+                <img src="{{ company.companylogo_PATH }}" width="100%" height="100%" />
+                <input
+                  type="file"
+                  class="form-control"
+                  name="companylogo_PATH"
+                  (change)="onFileSelection($event)"
+                  required
+                />
               </div>
             </div>
           </div>
           <div class="row">
             <div class="col-md-4">
-              <app-company #companyparent [companyID]="company.companyparent_ID" [disabled]="companyparentDisabled">
+              <app-company
+                #companyparent
+                [companyID]="company.companyparent_ID"
+                [disabled]="companyparentDisabled"
+              >
               </app-company>
             </div>
             <div class="col-md-4">
               <div class="form-group">
                 <label class="control-label">Start Date</label>
-                <span style="color: red;" [hidden]="disabled"> *</span>
-                <input type="date" class="form-control" name="start_DATE" [(ngModel)]="company.start_DATE" required />
+                <span style="color: red" [hidden]="disabled"> *</span>
+                <input
+                  type="date"
+                  class="form-control"
+                  name="start_DATE"
+                  [(ngModel)]="company.start_DATE"
+                  required
+                />
               </div>
             </div>
             <div class="col-md-4">
               <div class="form-group">
                 <label class="control-label">End Date</label>
-                <input type="date" class="form-control" name="end_DATE" [(ngModel)]="company.end_DATE" required />
+                <input
+                  type="date"
+                  class="form-control"
+                  name="end_DATE"
+                  [(ngModel)]="company.end_DATE"
+                  required
+                />
               </div>
             </div>
           </div>
           <div class="row">
             <div class="col-md-4">
-              <app-companysubtype #companysubtype [view]="1" [companysubtypeID]="company.companysubtype_ID"
-                [disabled]="companysubtypeDisabled" [companysubtypeID]="companysubtypeID"></app-companysubtype>
+              <app-companysubtype
+                #companysubtype
+                [view]="1"
+                [companysubtypeID]="company.companysubtype_ID"
+                [disabled]="companysubtypeDisabled"
+                [companysubtypeID]="companysubtypeID"
+              ></app-companysubtype>
             </div>
             <div class="col-md-4">
-              <app-businessnature #businessnature [businessnatureID]="company.businessnature_ID"
-                [disabled]="businessnatureDisabled">
+              <app-businessnature
+                #businessnature
+                [businessnatureID]="company.businessnature_ID"
+                [disabled]="businessnatureDisabled"
+              >
               </app-businessnature>
             </div>
             <div class="col-md-4">
-              <app-companystatus #companystatus [companystatusID]="company.companystatus_ID"
-                [disabled]="companystatusDisabled">
+              <app-companystatus
+                #companystatus
+                [companystatusID]="company.companystatus_ID"
+                [disabled]="companystatusDisabled"
+              >
               </app-companystatus>
             </div>
           </div>
@@ -393,7 +683,12 @@
               <div class="form-group">
                 <div class="checkbox">
                   <label class="control-label">
-                    <input type="checkbox" [checked]="company.isactive" [(ngModel)]="company.isactive" name="isactive">
+                    <input
+                      type="checkbox"
+                      [checked]="company.isactive"
+                      [(ngModel)]="company.isactive"
+                      name="isactive"
+                    />
                     Active
                   </label>
                 </div>
@@ -412,23 +707,35 @@
   </form>
 </div>
 
-<div *ngIf="view==5" class="fcorm-group">
+<div *ngIf="view == 5" class="fcorm-group">
   <div class="card-primary card">
     <div class="card-header">
       <div class="align-items-center row">
-        <div class="col" *ngIf="company.company_ID==0">
-          <a href="javascript:void" aria-controls="collapse-companyinfo1" aria-expanded="true" class="card-title">Add
-            New Company
+        <div class="col" *ngIf="company.company_ID == 0">
+          <a
+            href="javascript:void"
+            aria-controls="collapse-companyinfo1"
+            aria-expanded="true"
+            class="card-title"
+            >Add New Company
           </a>
         </div>
-        <div class="col" *ngIf="company.company_ID!=0 && disabled==false">
-          <a href="javascript:void" aria-controls="collapse-companyinfo1" aria-expanded="true" class="card-title">Edit
-            Company
+        <div class="col" *ngIf="company.company_ID != 0 && disabled == false">
+          <a
+            href="javascript:void"
+            aria-controls="collapse-companyinfo1"
+            aria-expanded="true"
+            class="card-title"
+            >Edit Company
           </a>
         </div>
-        <div class="col" *ngIf="company.company_ID!=0 && disabled==true">
-          <a href="javascript:void" aria-controls="collapse-companyinfo1" aria-expanded="true" class="card-title">Blog
-            Company Detail
+        <div class="col" *ngIf="company.company_ID != 0 && disabled == true">
+          <a
+            href="javascript:void"
+            aria-controls="collapse-companyinfo1"
+            aria-expanded="true"
+            class="card-title"
+            >Blog Company Detail
           </a>
         </div>
       </div>
@@ -440,17 +747,29 @@
             <div class="col-md-3">
               <div class="form-group">
                 <label class="control-label">Code</label>
-                <span style="color: red;" [hidden]="disabled"> *</span>
-                <input type="text" class="form-control" name="company_CODE" [(ngModel)]="company.company_CODE"
-                  [disabled]="disabled" required />
+                <span style="color: red" [hidden]="disabled"> *</span>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="company_CODE"
+                  [(ngModel)]="company.company_CODE"
+                  [disabled]="disabled"
+                  required
+                />
               </div>
             </div>
             <div class="col-md-9">
               <div class="form-group">
                 <label class="control-label">Name</label>
-                <span style="color: red;" [hidden]="disabled"> *</span>
-                <input type="text" class="form-control" name="company_NAME" [(ngModel)]="company.company_NAME"
-                  [disabled]="disabled" required />
+                <span style="color: red" [hidden]="disabled"> *</span>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="company_NAME"
+                  [(ngModel)]="company.company_NAME"
+                  [disabled]="disabled"
+                  required
+                />
               </div>
             </div>
           </div>
@@ -458,8 +777,14 @@
             <div class="col-md-12">
               <div class="form-group">
                 <label class="control-label"> Description</label>
-                <textarea rows="3" type="textarea" class="form-control" name="company_DESC" [disabled]="disabled"
-                  [(ngModel)]="company.company_DESC"></textarea>
+                <textarea
+                  rows="3"
+                  type="textarea"
+                  class="form-control"
+                  name="company_DESC"
+                  [disabled]="disabled"
+                  [(ngModel)]="company.company_DESC"
+                ></textarea>
               </div>
             </div>
           </div>
@@ -467,15 +792,25 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label class="control-label">Registered Number</label>
-                <input type="text" class="form-control" name="registered_NUMBER" [disabled]="disabled"
-                  [(ngModel)]="company.registered_NUMBER" />
+                <input
+                  type="text"
+                  class="form-control"
+                  name="registered_NUMBER"
+                  [disabled]="disabled"
+                  [(ngModel)]="company.registered_NUMBER"
+                />
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-group">
                 <label class="control-label">Tax Number</label>
-                <input type="text" class="form-control" name="tax_NUMBER" [(ngModel)]="company.tax_NUMBER"
-                  [disabled]="disabled" />
+                <input
+                  type="text"
+                  class="form-control"
+                  name="tax_NUMBER"
+                  [(ngModel)]="company.tax_NUMBER"
+                  [disabled]="disabled"
+                />
               </div>
             </div>
           </div>
@@ -483,9 +818,14 @@
         <div class="col-md-4">
           <div class="form-group">
             <label class="control-label"> Icon </label>
-            <img src="{{ company.companylogo_PATH }}" width="100%" height="100%">
-            <input type="file" class="form-control" name="companylogo_PATH" [disabled]="disabled"
-              (change)="onFileSelection($event)" />
+            <img src="{{ company.companylogo_PATH }}" width="100%" height="100%" />
+            <input
+              type="file"
+              class="form-control"
+              name="companylogo_PATH"
+              [disabled]="disabled"
+              (change)="onFileSelection($event)"
+            />
           </div>
         </div>
       </div>
@@ -497,42 +837,70 @@
         <div class="col-md-4">
           <div class="form-group">
             <label class="control-label">Start Date</label>
-            <span style="color: red;" [hidden]="disabled"> *</span>
-            <input type="date" class="form-control" name="start_DATE" [disabled]="disabled"
-              [(ngModel)]="company.start_DATE" required />
+            <span style="color: red" [hidden]="disabled"> *</span>
+            <input
+              type="date"
+              class="form-control"
+              name="start_DATE"
+              [disabled]="disabled"
+              [(ngModel)]="company.start_DATE"
+              required
+            />
           </div>
         </div>
         <div class="col-md-4">
           <div class="form-group">
             <label class="control-label">End Date</label>
-            <input type="date" class="form-control" name="end_DATE" [disabled]="disabled" [(ngModel)]="company.end_DATE"
-              required />
+            <input
+              type="date"
+              class="form-control"
+              name="end_DATE"
+              [disabled]="disabled"
+              [(ngModel)]="company.end_DATE"
+              required
+            />
           </div>
         </div>
       </div>
       <div class="row">
         <div class="col-md-4">
-          <app-companysubtype #companysubtype [view]="1" [companysubtypeID]="company.companysubtype_ID"
-            [disabled]="companysubtypeDisabled" [companysubtypeID]="companysubtypeID"></app-companysubtype>
+          <app-companysubtype
+            #companysubtype
+            [view]="1"
+            [companysubtypeID]="company.companysubtype_ID"
+            [disabled]="companysubtypeDisabled"
+            [companysubtypeID]="companysubtypeID"
+          ></app-companysubtype>
         </div>
         <div class="col-md-4">
-          <app-businessnature #businessnature [businessnatureID]="company.businessnature_ID"
-            [disabled]="businessnatureDisabled">
+          <app-businessnature
+            #businessnature
+            [businessnatureID]="company.businessnature_ID"
+            [disabled]="businessnatureDisabled"
+          >
           </app-businessnature>
         </div>
         <div class="col-md-4">
-          <app-companystatus #companystatus [companystatusID]="company.companystatus_ID"
-            [disabled]="companystatusDisabled">
+          <app-companystatus
+            #companystatus
+            [companystatusID]="company.companystatus_ID"
+            [disabled]="companystatusDisabled"
+          >
           </app-companystatus>
         </div>
       </div>
       <div class="row">
-        <div class="col-md-2" *ngIf="company.company_ID!=0">
+        <div class="col-md-2" *ngIf="company.company_ID != 0">
           <div class="form-group">
             <div class="checkbox">
               <label class="control-label">
-                <input type="checkbox" [checked]="company.isactive" [(ngModel)]="company.isactive" [disabled]="disabled"
-                  name="isactive">
+                <input
+                  type="checkbox"
+                  [checked]="company.isactive"
+                  [(ngModel)]="company.isactive"
+                  [disabled]="disabled"
+                  name="isactive"
+                />
                 Active
               </label>
             </div>
@@ -542,18 +910,43 @@
       <div class="row">
         <div class="col-md-12">
           <span class="float-right">
-            <button *ngIf="company.company_ID!=0 && disabled==true" (click)="companyEdit()" id="cancel"
-              class="btn btn-primary" style="float: right;"> Edit
+            <button
+              *ngIf="company.company_ID != 0 && disabled == true"
+              (click)="companyEdit()"
+              id="cancel"
+              class="btn btn-primary"
+              style="float: right"
+            >
+              Edit
             </button>
-            <button *ngIf="disabled==false" type="button" (click)='companyCancel()' style="float: right;"
-              class="btn btn-light" data-dismiss="modal"> Cancel
+            <button
+              *ngIf="disabled == false"
+              type="button"
+              (click)="companyCancel()"
+              style="float: right"
+              class="btn btn-light"
+              data-dismiss="modal"
+            >
+              Cancel
             </button>
-            <button *ngIf="company.company_ID!=0 && disabled==false" type="button" data-dismiss="modal"
-              style=" margin-right: 10px; float: right;" (click)='companyUpdate(company)' class="btn btn-primary">
+            <button
+              *ngIf="company.company_ID != 0 && disabled == false"
+              type="button"
+              data-dismiss="modal"
+              style="margin-right: 10px; float: right"
+              (click)="companyUpdate(company)"
+              class="btn btn-primary"
+            >
               Update
             </button>
-            <button *ngIf="company.company_ID==0" type="button" data-dismiss="modal"
-              style=" margin-right: 10px; float: right;" (click)='companyAdd(company)' class="btn btn-primary">
+            <button
+              *ngIf="company.company_ID == 0"
+              type="button"
+              data-dismiss="modal"
+              style="margin-right: 10px; float: right"
+              (click)="companyAdd(company)"
+              class="btn btn-primary"
+            >
               Save
             </button>
           </span>

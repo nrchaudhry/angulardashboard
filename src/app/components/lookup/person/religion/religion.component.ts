@@ -1,4 +1,3 @@
-
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { LookupService } from 'src/app/services/lookup.service';
@@ -7,7 +6,7 @@ import { OnFailService } from 'src/app/services/on-fail.service';
 @Component({
   selector: 'app-religion',
   templateUrl: './religion.component.html',
-  styleUrls: ['./religion.component.css']
+  styleUrls: ['./religion.component.css'],
 })
 export class ReligionComponent implements OnInit {
   @Input()
@@ -25,8 +24,8 @@ export class ReligionComponent implements OnInit {
   constructor(
     private lookupservice: LookupService,
     private toastrservice: ToastrService,
-    private onfailservice: OnFailService,
-  ) { }
+    private onfailservice: OnFailService
+  ) {}
 
   ngOnInit(): void {
     this.religions = JSON.parse(window.sessionStorage.getItem('religions'));
@@ -41,39 +40,44 @@ export class ReligionComponent implements OnInit {
   setReligions(response) {
     if (this.disabled == false) {
       this.religions = response;
-      window.sessionStorage.setItem("religions", JSON.stringify(this.religions));
+      window.sessionStorage.setItem('religions', JSON.stringify(this.religions));
     } else {
       this.religionsAll = response;
-      window.sessionStorage.setItem("religionsAll", JSON.stringify(this.religionsAll));
+      window.sessionStorage.setItem('religionsAll', JSON.stringify(this.religionsAll));
     }
   }
 
-  religionGet(){
-    this.lookupservice.lookup("RELIGION").subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else{
-          this.setReligions(response);
+  religionGet() {
+    this.lookupservice.lookup('RELIGION').subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else {
+            this.setReligions(response);
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
 
-  religionGetAll(){
-    this.lookupservice.lookupAll("RELIGION").subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else{
-          this.setReligions(response);
+  religionGetAll() {
+    this.lookupservice.lookupAll('RELIGION').subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else {
+            this.setReligions(response);
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
-
 }

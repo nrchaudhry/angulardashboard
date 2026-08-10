@@ -1,4 +1,3 @@
-
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { LookupService } from 'src/app/services/lookup.service';
@@ -7,7 +6,7 @@ import { OnFailService } from 'src/app/services/on-fail.service';
 @Component({
   selector: 'app-maritalstatus',
   templateUrl: './maritalstatus.component.html',
-  styleUrls: ['./maritalstatus.component.css']
+  styleUrls: ['./maritalstatus.component.css'],
 })
 export class MaritalstatusComponent implements OnInit {
   @Input()
@@ -25,8 +24,8 @@ export class MaritalstatusComponent implements OnInit {
   constructor(
     private lookupservice: LookupService,
     private toastrservice: ToastrService,
-    private onfailservice: OnFailService,
-  ) { }
+    private onfailservice: OnFailService
+  ) {}
 
   ngOnInit(): void {
     this.maritalstatuses = JSON.parse(window.sessionStorage.getItem('maritalstatuses'));
@@ -41,39 +40,44 @@ export class MaritalstatusComponent implements OnInit {
   setMaritalstatuses(response) {
     if (this.disabled == false) {
       this.maritalstatuses = response;
-      window.sessionStorage.setItem("maritalstatuses", JSON.stringify(this.maritalstatuses));
+      window.sessionStorage.setItem('maritalstatuses', JSON.stringify(this.maritalstatuses));
     } else {
       this.maritalstatusesAll = response;
-      window.sessionStorage.setItem("maritalstatusesAll", JSON.stringify(this.maritalstatusesAll));
+      window.sessionStorage.setItem('maritalstatusesAll', JSON.stringify(this.maritalstatusesAll));
     }
   }
 
-  maritalstatusGet(){
-    this.lookupservice.lookup("MARITALSTATUS").subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else{
-          this.setMaritalstatuses(response);
+  maritalstatusGet() {
+    this.lookupservice.lookup('MARITALSTATUS').subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else {
+            this.setMaritalstatuses(response);
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
 
-  maritalstatusGetAll(){
-    this.lookupservice.lookupAll("MARITALSTATUS").subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else{
-          this.setMaritalstatuses(response);
+  maritalstatusGetAll() {
+    this.lookupservice.lookupAll('MARITALSTATUS').subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else {
+            this.setMaritalstatuses(response);
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
-
 }

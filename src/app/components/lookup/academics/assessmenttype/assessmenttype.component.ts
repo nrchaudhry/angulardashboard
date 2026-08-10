@@ -1,4 +1,3 @@
-
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { LookupService } from 'src/app/services/lookup.service';
@@ -7,7 +6,7 @@ import { OnFailService } from 'src/app/services/on-fail.service';
 @Component({
   selector: 'app-assessmenttype',
   templateUrl: './assessmenttype.component.html',
-  styleUrls: ['./assessmenttype.component.css']
+  styleUrls: ['./assessmenttype.component.css'],
 })
 export class AssessmenttypeComponent implements OnInit {
   @Input()
@@ -25,8 +24,8 @@ export class AssessmenttypeComponent implements OnInit {
   constructor(
     private lookupservice: LookupService,
     private toastrservice: ToastrService,
-    private onfailservice: OnFailService,
-  ) { }
+    private onfailservice: OnFailService
+  ) {}
 
   ngOnInit(): void {
     this.assessmenttypes = JSON.parse(window.sessionStorage.getItem('assessmenttypes'));
@@ -41,39 +40,44 @@ export class AssessmenttypeComponent implements OnInit {
   setAssessmenttypes(response) {
     if (this.disabled == false) {
       this.assessmenttypes = response;
-      window.sessionStorage.setItem("assessmenttypes", JSON.stringify(this.assessmenttypes));
+      window.sessionStorage.setItem('assessmenttypes', JSON.stringify(this.assessmenttypes));
     } else {
       this.assessmenttypesAll = response;
-      window.sessionStorage.setItem("assessmenttypesAll", JSON.stringify(this.assessmenttypesAll));
+      window.sessionStorage.setItem('assessmenttypesAll', JSON.stringify(this.assessmenttypesAll));
     }
   }
 
-  assessmenttypeGet(){
-    this.lookupservice.lookup("ASSESSMENTTYPE").subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else{
-          this.setAssessmenttypes(response);
+  assessmenttypeGet() {
+    this.lookupservice.lookup('ASSESSMENTTYPE').subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else {
+            this.setAssessmenttypes(response);
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
 
-  assessmenttypeGetAll(){
-    this.lookupservice.lookupAll("ASSESSMENTTYPE").subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else{
-          this.setAssessmenttypes(response);
+  assessmenttypeGetAll() {
+    this.lookupservice.lookupAll('ASSESSMENTTYPE').subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else {
+            this.setAssessmenttypes(response);
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
-
 }

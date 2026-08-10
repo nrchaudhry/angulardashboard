@@ -5,18 +5,18 @@ import { Router } from '@angular/router';
 import { LoginService } from '../../pages/login/login.service';
 import { OnFailService } from 'src/app/services/on-fail.service';
 import { SidebarService } from 'src/app/services/sidebar.service';
-import { setting } from "src/app/setting";
+import { setting } from 'src/app/setting';
 
-import * as $ from 'jquery'
+import * as $ from 'jquery';
 import { PersonService } from 'src/app/components/person/person/person.service';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
-  results = "No Record";
+  results = 'No Record';
   Timeout;
   anything = false;
   user: any;
@@ -33,8 +33,8 @@ export class HeaderComponent implements OnInit {
     birthplace_ID: null,
     birthplaces: [],
     personimg_PATH: null,
-    isactive: true
-  }
+    isactive: true,
+  };
   temp = [];
   menu: any = [];
   smenu: any = [];
@@ -51,7 +51,7 @@ export class HeaderComponent implements OnInit {
     private sidebarservice: SidebarService,
     private loginservice: LoginService,
     private personservice: PersonService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.user = this.loginservice.loaddetail();
@@ -59,17 +59,20 @@ export class HeaderComponent implements OnInit {
   }
 
   personGetOne(id) {
-    this.personservice.getOne(id).subscribe(response => {
-      if (response) {
-        this.person = this.personservice.getDetail(response);
+    this.personservice.getOne(id).subscribe(
+      (response) => {
+        if (response) {
+          this.person = this.personservice.getDetail(response);
+        }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
 
   profile() {
-    this.router.navigate(["/home/profile"], { queryParams: { person: this.user.person_ID } });
+    this.router.navigate(['/home/profile'], { queryParams: { person: this.user.person_ID } });
   }
 
   logout() {
@@ -79,62 +82,62 @@ export class HeaderComponent implements OnInit {
   redirectToAppsStore() {
     location.replace(setting.AppsStorePath);
   }
-  
+
   sideBar() {
-    this.sidebarservice.userprivileges().subscribe(res => {
-      this.AllMenus = res;
-      var tempPri = [],
-        flags = [];
-      for (var m = 0; m < res.length; m++) {
-        if (flags[res[m].pcategory_ID.pcategory_ID]) continue;
-        flags[res[m].pcategory_ID.pcategory_ID] = true;
-        this.temp.push(res[m].pcategory_ID);
-      }
-      for (var c = 0; c < this.temp.length; c++) {
-        for (var p = 0; p < res.length; p++) {
-          if (
-            res[p].pcategory_ID.pcategory_NAME ==
-            this.temp[c].pcategory_NAME &&
-            res[p].ismenuprivilege == "Y"
-          ) {
-            tempPri.push({
-              name: res[p].privilege_NAME,
-              link: res[p].privilege_STATE
-            });
-          }
-          if (p == res.length - 1) {
-            if (tempPri.length > 0) {
-              this.menu[c] = {
-                cat: this.temp[c].pcategory_NAME,
-                iconname: this.temp[c].pcategory_ICON,
-                pri: tempPri
-              };
-              tempPri = [];
+    this.sidebarservice.userprivileges().subscribe(
+      (res) => {
+        this.AllMenus = res;
+        var tempPri = [],
+          flags = [];
+        for (var m = 0; m < res.length; m++) {
+          if (flags[res[m].pcategory_ID.pcategory_ID]) continue;
+          flags[res[m].pcategory_ID.pcategory_ID] = true;
+          this.temp.push(res[m].pcategory_ID);
+        }
+        for (var c = 0; c < this.temp.length; c++) {
+          for (var p = 0; p < res.length; p++) {
+            if (
+              res[p].pcategory_ID.pcategory_NAME == this.temp[c].pcategory_NAME &&
+              res[p].ismenuprivilege == 'Y'
+            ) {
+              tempPri.push({
+                name: res[p].privilege_NAME,
+                link: res[p].privilege_STATE,
+              });
+            }
+            if (p == res.length - 1) {
+              if (tempPri.length > 0) {
+                this.menu[c] = {
+                  cat: this.temp[c].pcategory_NAME,
+                  iconname: this.temp[c].pcategory_ICON,
+                  pri: tempPri,
+                };
+                tempPri = [];
+              }
             }
           }
         }
+
+        this.smenu = this.menu[0].pri;
+        setTimeout(() => {
+          $('.myinput').append('<strong>Added to the front</strong>.');
+        }, 1);
+      },
+      (err) => {
+        this._onFail_.onFail(err);
       }
-
-      this.smenu = this.menu[0].pri;
-      setTimeout(() => {
-        $(".myinput").append("<strong>Added to the front</strong>.");
-      }, 1);
-
-    }, err => {
-      this._onFail_.onFail(err);
-    }
     );
     // TOGGEL
-    $("#btn-toggle").click(function () {
-      $(".navigation").slideToggle();
+    $('#btn-toggle').click(function () {
+      $('.navigation').slideToggle();
     });
     $(document).ready(function () {
-      $(".search-suggestions .search-input")
+      $('.search-suggestions .search-input')
         .focus(function () {
-          $(".suggestions").fadeIn("slide");
+          $('.suggestions').fadeIn('slide');
         })
         .focusout(function () {
-          $(".suggestions").fadeOut("slide");
+          $('.suggestions').fadeOut('slide');
         });
     });
   }

@@ -10,25 +10,25 @@ declare var $: any;
 @Component({
   selector: 'app-personview',
   templateUrl: './personview.component.html',
-  styleUrls: ['./personview.component.css']
+  styleUrls: ['./personview.component.css'],
 })
 export class PersonviewComponent implements OnInit {
-  @ViewChild("person") person: PersonComponent;
+  @ViewChild('person') person: PersonComponent;
 
   personID = 0;
-  title = "Person";
+  title = 'Person';
   person_ID;
 
   constructor(
     private toastrservice: ToastrService,
     private onfailservice: OnFailService,
     private route: ActivatedRoute,
-    private router: Router,
-  ) { }
+    private router: Router
+  ) {}
   disabled = false;
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
+    this.route.queryParams.subscribe((params) => {
       if (params.person) {
         this.personID = params.person;
       }

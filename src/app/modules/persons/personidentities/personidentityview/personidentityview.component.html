@@ -3,8 +3,12 @@
 <div class="collapse-card-h container">
   <div class="row">
     <div class="col-md-12">
-      <app-personidentity [view]=5 [personidentityID]="personidentityID" (refresh)="refresh()"
-        (cancel)="cancel()"></app-personidentity>
+      <app-personidentity
+        [view]="5"
+        [personidentityID]="personidentityID"
+        (refresh)="refresh()"
+        (cancel)="cancel()"
+      ></app-personidentity>
     </div>
   </div>
 </div>

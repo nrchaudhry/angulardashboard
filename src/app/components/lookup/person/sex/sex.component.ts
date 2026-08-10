@@ -1,4 +1,3 @@
-
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { LookupService } from 'src/app/services/lookup.service';
@@ -7,7 +6,7 @@ import { OnFailService } from 'src/app/services/on-fail.service';
 @Component({
   selector: 'app-sex',
   templateUrl: './sex.component.html',
-  styleUrls: ['./sex.component.css']
+  styleUrls: ['./sex.component.css'],
 })
 export class SexComponent implements OnInit {
   @Input()
@@ -25,8 +24,8 @@ export class SexComponent implements OnInit {
   constructor(
     private lookupservice: LookupService,
     private toastrservice: ToastrService,
-    private onfailservice: OnFailService,
-  ) { }
+    private onfailservice: OnFailService
+  ) {}
 
   ngOnInit(): void {
     this.sexes = JSON.parse(window.sessionStorage.getItem('sexes'));
@@ -41,39 +40,44 @@ export class SexComponent implements OnInit {
   setSexes(response) {
     if (this.disabled == false) {
       this.sexes = response;
-      window.sessionStorage.setItem("sexes", JSON.stringify(this.sexes));
+      window.sessionStorage.setItem('sexes', JSON.stringify(this.sexes));
     } else {
       this.sexesAll = response;
-      window.sessionStorage.setItem("sexesAll", JSON.stringify(this.sexesAll));
+      window.sessionStorage.setItem('sexesAll', JSON.stringify(this.sexesAll));
     }
   }
 
-  sexGet(){
-    this.lookupservice.lookup("SEX").subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else{
-          this.setSexes(response);
+  sexGet() {
+    this.lookupservice.lookup('SEX').subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else {
+            this.setSexes(response);
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
 
-  sexGetAll(){
-    this.lookupservice.lookupAll("SEX").subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else{
-          this.setSexes(response);
+  sexGetAll() {
+    this.lookupservice.lookupAll('SEX').subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else {
+            this.setSexes(response);
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
-
 }

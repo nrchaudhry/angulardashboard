@@ -1,4 +1,3 @@
-
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { LookupService } from 'src/app/services/lookup.service';
@@ -7,7 +6,7 @@ import { OnFailService } from 'src/app/services/on-fail.service';
 @Component({
   selector: 'app-attendancestatus',
   templateUrl: './attendancestatus.component.html',
-  styleUrls: ['./attendancestatus.component.css']
+  styleUrls: ['./attendancestatus.component.css'],
 })
 export class AttendancestatusComponent implements OnInit {
   @Input()
@@ -25,8 +24,8 @@ export class AttendancestatusComponent implements OnInit {
   constructor(
     private lookupservice: LookupService,
     private toastrservice: ToastrService,
-    private onfailservice: OnFailService,
-  ) { }
+    private onfailservice: OnFailService
+  ) {}
 
   ngOnInit(): void {
     this.attendancestatuses = JSON.parse(window.sessionStorage.getItem('attendancestatuses'));
@@ -41,39 +40,47 @@ export class AttendancestatusComponent implements OnInit {
   setAttendancestatuses(response) {
     if (this.disabled == false) {
       this.attendancestatuses = response;
-      window.sessionStorage.setItem("attendancestatuses", JSON.stringify(this.attendancestatuses));
+      window.sessionStorage.setItem('attendancestatuses', JSON.stringify(this.attendancestatuses));
     } else {
       this.attendancestatusesAll = response;
-      window.sessionStorage.setItem("attendancestatusesAll", JSON.stringify(this.attendancestatusesAll));
+      window.sessionStorage.setItem(
+        'attendancestatusesAll',
+        JSON.stringify(this.attendancestatusesAll)
+      );
     }
   }
 
   attendancestatusGet() {
-    this.lookupservice.lookup("ATTENDANCESTATUS").subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else {
-          this.setAttendancestatuses(response);
+    this.lookupservice.lookup('ATTENDANCESTATUS').subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else {
+            this.setAttendancestatuses(response);
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
 
   attendancestatusGetAll() {
-    this.lookupservice.lookupAll("ATTENDANCESTATUS").subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else {
-          this.setAttendancestatuses(response);
+    this.lookupservice.lookupAll('ATTENDANCESTATUS').subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else {
+            this.setAttendancestatuses(response);
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
-
 }

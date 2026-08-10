@@ -22,7 +22,7 @@ import { RequestOptionsService } from './services/setting.headers';
 import { HttpErrorInterceptor } from './services/http-error.interceptor';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, NotfoundComponent, ],
+  declarations: [AppComponent, LoginComponent, NotfoundComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule, // required animations module
@@ -54,4 +54,4 @@ import { HttpErrorInterceptor } from './services/http-error.interceptor';
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

@@ -1,4 +1,3 @@
-
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { LookupService } from 'src/app/services/lookup.service';
@@ -7,7 +6,7 @@ import { OnFailService } from 'src/app/services/on-fail.service';
 @Component({
   selector: 'app-regulatorybody',
   templateUrl: './regulatorybody.component.html',
-  styleUrls: ['./regulatorybody.component.css']
+  styleUrls: ['./regulatorybody.component.css'],
 })
 export class RegulatorybodyComponent implements OnInit {
   @Input()
@@ -25,8 +24,8 @@ export class RegulatorybodyComponent implements OnInit {
   constructor(
     private lookupservice: LookupService,
     private toastrservice: ToastrService,
-    private onfailservice: OnFailService,
-  ) { }
+    private onfailservice: OnFailService
+  ) {}
 
   ngOnInit(): void {
     this.regulatorybodies = JSON.parse(window.sessionStorage.getItem('regulatorybodies'));
@@ -41,39 +40,47 @@ export class RegulatorybodyComponent implements OnInit {
   setRegulatorybodies(response) {
     if (this.disabled == false) {
       this.regulatorybodies = response;
-      window.sessionStorage.setItem("regulatorybodies", JSON.stringify(this.regulatorybodies));
+      window.sessionStorage.setItem('regulatorybodies', JSON.stringify(this.regulatorybodies));
     } else {
       this.regulatorybodiesAll = response;
-      window.sessionStorage.setItem("regulatorybodiesAll", JSON.stringify(this.regulatorybodiesAll));
+      window.sessionStorage.setItem(
+        'regulatorybodiesAll',
+        JSON.stringify(this.regulatorybodiesAll)
+      );
     }
   }
 
-  regulatorybodyGet(){
-    this.lookupservice.lookup("REGULATORYBODY").subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else{
-          this.setRegulatorybodies(response);
+  regulatorybodyGet() {
+    this.lookupservice.lookup('REGULATORYBODY').subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else {
+            this.setRegulatorybodies(response);
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
 
-  regulatorybodyGetAll(){
-    this.lookupservice.lookupAll("REGULATORYBODY").subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else{
-          this.setRegulatorybodies(response);
+  regulatorybodyGetAll() {
+    this.lookupservice.lookupAll('REGULATORYBODY').subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else {
+            this.setRegulatorybodies(response);
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
-
 }

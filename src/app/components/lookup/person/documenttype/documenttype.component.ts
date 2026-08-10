@@ -1,4 +1,3 @@
-
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { LookupService } from 'src/app/services/lookup.service';
@@ -7,7 +6,7 @@ import { OnFailService } from 'src/app/services/on-fail.service';
 @Component({
   selector: 'app-documenttype',
   templateUrl: './documenttype.component.html',
-  styleUrls: ['./documenttype.component.css']
+  styleUrls: ['./documenttype.component.css'],
 })
 export class DocumenttypeComponent implements OnInit {
   @Input()
@@ -25,8 +24,8 @@ export class DocumenttypeComponent implements OnInit {
   constructor(
     private lookupservice: LookupService,
     private toastrservice: ToastrService,
-    private onfailservice: OnFailService,
-  ) { }
+    private onfailservice: OnFailService
+  ) {}
 
   ngOnInit(): void {
     this.documenttypes = JSON.parse(window.sessionStorage.getItem('documenttypes'));
@@ -41,39 +40,44 @@ export class DocumenttypeComponent implements OnInit {
   setDocumenttypes(response) {
     if (this.disabled == false) {
       this.documenttypes = response;
-      window.sessionStorage.setItem("documenttypes", JSON.stringify(this.documenttypes));
+      window.sessionStorage.setItem('documenttypes', JSON.stringify(this.documenttypes));
     } else {
       this.documenttypesAll = response;
-      window.sessionStorage.setItem("documenttypesAll", JSON.stringify(this.documenttypesAll));
+      window.sessionStorage.setItem('documenttypesAll', JSON.stringify(this.documenttypesAll));
     }
   }
 
-  documenttypeGet(){
-    this.lookupservice.lookup("DOCUMENTTYPE").subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else{
-          this.setDocumenttypes(response);
+  documenttypeGet() {
+    this.lookupservice.lookup('DOCUMENTTYPE').subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else {
+            this.setDocumenttypes(response);
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
 
-  documenttypeGetAll(){
-    this.lookupservice.lookupAll("DOCUMENTTYPE").subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else{
-          this.setDocumenttypes(response);
+  documenttypeGetAll() {
+    this.lookupservice.lookupAll('DOCUMENTTYPE').subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else {
+            this.setDocumenttypes(response);
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
-
 }

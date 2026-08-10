@@ -12,10 +12,10 @@ import { ReferencepersonService } from './referenceperson.service';
 @Component({
   selector: 'app-referenceperson',
   templateUrl: './referenceperson.component.html',
-  styleUrls: ['./referenceperson.component.css']
+  styleUrls: ['./referenceperson.component.css'],
 })
 export class ReferencepersonComponent implements OnInit {
-  @ViewChild("person") person: PersonComponent;
+  @ViewChild('person') person: PersonComponent;
 
   @Input()
   view: number = 1;
@@ -46,7 +46,7 @@ export class ReferencepersonComponent implements OnInit {
   referenceperson = {
     referenceperson_ID: 0,
     person_ID: null,
-  }
+  };
 
   editView() {
     this.disabled = false;
@@ -64,52 +64,67 @@ export class ReferencepersonComponent implements OnInit {
     private referencepersonservice: ReferencepersonService,
     private toastrservice: ToastrService,
     private onfailservice: OnFailService,
-    private router: Router,
-  ) { }
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.load(this.isreload);
   }
 
   load(reload): void {
-    if (this.view >= 1 && this.view <= 2 && (this.referencepersons == null || this.referencepersons.length == 0 || reload == true)) {
+    if (
+      this.view >= 1 &&
+      this.view <= 2 &&
+      (this.referencepersons == null || this.referencepersons.length == 0 || reload == true)
+    ) {
       this.referencepersons == null;
       this.referencepersonGet();
     }
-    if (((this.view >= 1 && this.view <= 2) || this.view == 10) && (this.referencepersonsAll == null || this.referencepersonsAll.length == 0 || reload == true)) {
+    if (
+      ((this.view >= 1 && this.view <= 2) || this.view == 10) &&
+      (this.referencepersonsAll == null || this.referencepersonsAll.length == 0 || reload == true)
+    ) {
       this.referencepersonsAll == null;
       this.referencepersonGetAll();
     }
 
     var search = {
       person_ID: this.personID,
-    }
+    };
 
     if (this.view >= 5 && this.view <= 6 && this.referencepersonID) {
-      window.sessionStorage.setItem("referenceperson", this.referencepersonID);
+      window.sessionStorage.setItem('referenceperson', this.referencepersonID);
       this.referencepersonGetOne(this.referencepersonID);
       this.disabled = true;
-    } else if ((this.view >= 11 && this.view <= 29) && this.disabled == false && (this.referencepersons == null || this.referencepersons.length == 0 || reload == true)) {
+    } else if (
+      this.view >= 11 &&
+      this.view <= 29 &&
+      this.disabled == false &&
+      (this.referencepersons == null || this.referencepersons.length == 0 || reload == true)
+    ) {
       this.referencepersons == null;
       this.referencepersonAdvancedSearch(search);
-    } else if ((this.view >= 11 && this.view <= 29) && this.disabled == true && (this.referencepersonsAll == null || this.referencepersonsAll.length == 0 || reload == true)) {
+    } else if (
+      this.view >= 11 &&
+      this.view <= 29 &&
+      this.disabled == true &&
+      (this.referencepersonsAll == null || this.referencepersonsAll.length == 0 || reload == true)
+    ) {
       this.referencepersonsAll == null;
       this.referencepersonAdvancedSearchAll(search);
     }
   }
 
   onToolbarPreparing(e) {
-    e.toolbarOptions.items.unshift(
-      {
-        location: 'after',
-        widget: 'dxButton',
-        options: {
-          width: 136,
-          text: 'Refresh',
-          onClick: this.load.bind(this, true),
-        },
-      }
-    );
+    e.toolbarOptions.items.unshift({
+      location: 'after',
+      widget: 'dxButton',
+      options: {
+        width: 136,
+        text: 'Refresh',
+        onClick: this.load.bind(this, true),
+      },
+    });
   }
 
   add() {
@@ -130,7 +145,7 @@ export class ReferencepersonComponent implements OnInit {
   referencepersonCancel() {
     this.disabled = true;
     if (this.referenceperson.referenceperson_ID == 0) {
-      this.router.navigate(["/home/referencepersons"], {});
+      this.router.navigate(['/home/referencepersons'], {});
     }
   }
 
@@ -147,7 +162,7 @@ export class ReferencepersonComponent implements OnInit {
     this.personID = response.person_ID;
     this.referencepersonID = response.referenceperson_ID;
 
-    if (response.isactive == "Y") {
+    if (response.isactive == 'Y') {
       response.isactive = true;
     } else {
       response.isactive = false;
@@ -162,182 +177,231 @@ export class ReferencepersonComponent implements OnInit {
   }
 
   referencepersonGet() {
-    this.referencepersonservice.get().subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else {
-          this.setPersonReferences(this.referencepersonservice.getAllDetail(response));
-          window.sessionStorage.setItem("referencepersons", JSON.stringify(this.referencepersons));
+    this.referencepersonservice.get().subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else {
+            this.setPersonReferences(this.referencepersonservice.getAllDetail(response));
+            window.sessionStorage.setItem(
+              'referencepersons',
+              JSON.stringify(this.referencepersons)
+            );
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
 
   referencepersonGetOne(id) {
-    this.referencepersonservice.getOne(id).subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else {
-          this.setPersonReference(this.referencepersonservice.getDetail(response));
+    this.referencepersonservice.getOne(id).subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else {
+            this.setPersonReference(this.referencepersonservice.getDetail(response));
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
 
   referencepersonGetAll() {
-    this.referencepersonservice.getAll().subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else {
-          this.setPersonReferences(this.referencepersonservice.getAllDetail(response));
-          window.sessionStorage.setItem("referencepersonsAll", JSON.stringify(this.referencepersonsAll));
+    this.referencepersonservice.getAll().subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else {
+            this.setPersonReferences(this.referencepersonservice.getAllDetail(response));
+            window.sessionStorage.setItem(
+              'referencepersonsAll',
+              JSON.stringify(this.referencepersonsAll)
+            );
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
 
   referencepersonAdd(referenceperson) {
     referenceperson.person_ID = this.personID;
-    this.referencepersonservice.add(referenceperson).subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else if (response.referenceperson_ID) {
-          this.toastrservice.success("Success", "New Reference Person Added");
-          this.setPersonReference(this.referencepersonservice.getDetail(response));
-          this.refresh.next();
-          this.referencepersonGetAll();
-          this.disabled = true;
-        } else {
-          this.toastrservice.error("Some thing went wrong");
+    this.referencepersonservice.add(referenceperson).subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else if (response.referenceperson_ID) {
+            this.toastrservice.success('Success', 'New Reference Person Added');
+            this.setPersonReference(this.referencepersonservice.getDetail(response));
+            this.refresh.next();
+            this.referencepersonGetAll();
+            this.disabled = true;
+          } else {
+            this.toastrservice.error('Some thing went wrong');
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
 
   referencepersonUpdate(referenceperson) {
     referenceperson.person_ID = this.personID;
     if (referenceperson.isactive == true) {
-      referenceperson.isactive = "Y";
+      referenceperson.isactive = 'Y';
     } else {
-      referenceperson.isactive = "N";
+      referenceperson.isactive = 'N';
     }
-    this.referencepersonservice.update(referenceperson, referenceperson.referenceperson_ID).subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else if (response.referenceperson_ID) {
-          this.toastrservice.success("Success", " Reference Person Updated");
-          this.setPersonReference(this.referencepersonservice.getDetail(response));
-          this.refresh.next();
-          this.referencepersonGetAll();
-          this.disabled = true;
-        } else {
-          this.toastrservice.error("Some thing went wrong");
+    this.referencepersonservice
+      .update(referenceperson, referenceperson.referenceperson_ID)
+      .subscribe(
+        (response) => {
+          if (response) {
+            if (response.error && response.status) {
+              this.toastrservice.warning('Message', ' ' + response.message);
+            } else if (response.referenceperson_ID) {
+              this.toastrservice.success('Success', ' Reference Person Updated');
+              this.setPersonReference(this.referencepersonservice.getDetail(response));
+              this.refresh.next();
+              this.referencepersonGetAll();
+              this.disabled = true;
+            } else {
+              this.toastrservice.error('Some thing went wrong');
+            }
+          }
+        },
+        (error) => {
+          this.onfailservice.onFail(error);
         }
-      }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+      );
   }
 
   referencepersonUpdateAll(referencepersons) {
-    this.referencepersonservice.updateAll(referencepersons).subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else if (response.length > 0) {
-          this.toastrservice.success("Success", "Persons Updated");
-          this.setPersonReference(this.referencepersonservice.getDetail(response));
-          this.refresh.next();
-        } else {
-          this.toastrservice.error("Some thing went wrong");
+    this.referencepersonservice.updateAll(referencepersons).subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else if (response.length > 0) {
+            this.toastrservice.success('Success', 'Persons Updated');
+            this.setPersonReference(this.referencepersonservice.getDetail(response));
+            this.refresh.next();
+          } else {
+            this.toastrservice.error('Some thing went wrong');
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
 
   referencepersonSearch(str) {
     var search = {
-      search: str
-    }
-    this.referencepersonservice.search(search).subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else {
-          this.setPersonReferences(this.referencepersonservice.getAllDetail(response));
-          window.sessionStorage.setItem("referencepersons", JSON.stringify(this.referencepersons));
+      search: str,
+    };
+    this.referencepersonservice.search(search).subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else {
+            this.setPersonReferences(this.referencepersonservice.getAllDetail(response));
+            window.sessionStorage.setItem(
+              'referencepersons',
+              JSON.stringify(this.referencepersons)
+            );
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
 
   referencepersonSearchAll(str) {
     var search = {
-      search: str
-    }
-    this.referencepersonservice.searchAll(search).subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else {
-          this.setPersonReferences(this.referencepersonservice.getAllDetail(response));
-          window.sessionStorage.setItem("referencepersonsAll", JSON.stringify(this.referencepersonsAll));
+      search: str,
+    };
+    this.referencepersonservice.searchAll(search).subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else {
+            this.setPersonReferences(this.referencepersonservice.getAllDetail(response));
+            window.sessionStorage.setItem(
+              'referencepersonsAll',
+              JSON.stringify(this.referencepersonsAll)
+            );
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
 
   referencepersonAdvancedSearch(search) {
     this.personID = search.personID;
 
-    this.referencepersonservice.advancedSearch(search).subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else {
-          this.setPersonReferences(this.referencepersonservice.getAllDetail(response));
-          window.sessionStorage.setItem("referencepersons", JSON.stringify(this.referencepersons));
+    this.referencepersonservice.advancedSearch(search).subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else {
+            this.setPersonReferences(this.referencepersonservice.getAllDetail(response));
+            window.sessionStorage.setItem(
+              'referencepersons',
+              JSON.stringify(this.referencepersons)
+            );
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
 
   referencepersonAdvancedSearchAll(search) {
     this.personID = search.personID;
 
-    this.referencepersonservice.advancedSearchAll(search).subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else {
-          this.setPersonReferences(this.referencepersonservice.getAllDetail(response));
-          window.sessionStorage.setItem("referencepersonsAll", JSON.stringify(this.referencepersonsAll));
+    this.referencepersonservice.advancedSearchAll(search).subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else {
+            this.setPersonReferences(this.referencepersonservice.getAllDetail(response));
+            window.sessionStorage.setItem(
+              'referencepersonsAll',
+              JSON.stringify(this.referencepersonsAll)
+            );
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
-
 }

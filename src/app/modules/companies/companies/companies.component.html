@@ -1,5 +1,11 @@
-<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-fussion" [fullScreen]="true">
-  <p style="color: white"> Please wait... </p>
+<ngx-spinner
+  bdColor="rgba(0, 0, 0, 0.8)"
+  size="medium"
+  color="#fff"
+  type="ball-fussion"
+  [fullScreen]="true"
+>
+  <p style="color: white">Please wait...</p>
 </ngx-spinner>
 
 <div class="collapse-card-h container">
@@ -9,8 +15,12 @@
         <div class="card-header">
           <div class="align-items-center row">
             <div class="col">
-              <a href="javascript:void" aria-controls="collapse-customerinfo1" aria-expanded="true"
-                class="card-title">Companies
+              <a
+                href="javascript:void"
+                aria-controls="collapse-customerinfo1"
+                aria-expanded="true"
+                class="card-title"
+                >Companies
               </a>
             </div>
             <div class="col-auto">
@@ -23,7 +33,14 @@
         <div class="card-body">
           <div class="row">
             <div class="col-lg-12">
-              <app-company #companies [view]="2" (edit)="edit($event)" (show)="show($event)" (spinnerOn)="spinnerOn()" (spinnerOff)="spinnerOff()"></app-company>
+              <app-company
+                #companies
+                [view]="2"
+                (edit)="edit($event)"
+                (show)="show($event)"
+                (spinnerOn)="spinnerOn()"
+                (spinnerOff)="spinnerOff()"
+              ></app-company>
             </div>
           </div>
         </div>
@@ -32,12 +49,36 @@
   </div>
 </div>
 
-<div aria-labelledby="exampleModalLabel" class="modal fade show" id="add" role="dialog" tabindex="-1">
-  <app-company #addcompany [view]=3 (refresh)="refresh()" (cancel)="cancel()" (spinnerOn)="spinnerOn()" (spinnerOff)="spinnerOff()"></app-company>
+<div
+  aria-labelledby="exampleModalLabel"
+  class="modal fade show"
+  id="add"
+  role="dialog"
+  tabindex="-1"
+>
+  <app-company
+    #addcompany
+    [view]="3"
+    (refresh)="refresh()"
+    (cancel)="cancel()"
+    (spinnerOn)="spinnerOn()"
+    (spinnerOff)="spinnerOff()"
+  ></app-company>
 </div>
 
-<div aria-labelledby="exampleModalLabel" class="modal fade show" id="edit" role="dialog" tabindex="-1">
-  <app-company #editcompany [view]=4 (refresh)="refresh()" (cancel)="cancel()" (spinnerOn)="spinnerOn()" (spinnerOff)="spinnerOff()"></app-company>
+<div
+  aria-labelledby="exampleModalLabel"
+  class="modal fade show"
+  id="edit"
+  role="dialog"
+  tabindex="-1"
+>
+  <app-company
+    #editcompany
+    [view]="4"
+    (refresh)="refresh()"
+    (cancel)="cancel()"
+    (spinnerOn)="spinnerOn()"
+    (spinnerOff)="spinnerOff()"
+  ></app-company>
 </div>
-
-

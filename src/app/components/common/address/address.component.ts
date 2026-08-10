@@ -9,10 +9,10 @@ import { LocationsearchfilterComponent } from '../../location/locationsearchfilt
 @Component({
   selector: 'app-address',
   templateUrl: './address.component.html',
-  styleUrls: ['./address.component.css']
+  styleUrls: ['./address.component.css'],
 })
 export class AddressComponent implements OnInit {
-  @ViewChild("locationsearchfilter") locationsearchfilter: LocationsearchfilterComponent;
+  @ViewChild('locationsearchfilter') locationsearchfilter: LocationsearchfilterComponent;
 
   @Input()
   iscompulsory: boolean = false;
@@ -51,20 +51,19 @@ export class AddressComponent implements OnInit {
 
   addressActive = [];
   response = {
-    postcode: ''
+    postcode: '',
   };
 
   constructor(
     private getaddressservice: GetaddressService,
     private toastrservice: ToastrService,
-    private onfailservice: OnFailService,
-  ) { }
+    private onfailservice: OnFailService
+  ) {}
 
-  ngOnInit(): void {
-}
+  ngOnInit(): void {}
 
   updateAddress(event) {
-//    this.locationID = event.country
+    //    this.locationID = event.country
     this.addressLine1 = event.line_1;
     this.addressLine2 = event.line_2;
     this.addressLine3 = event.line_3;
@@ -74,19 +73,21 @@ export class AddressComponent implements OnInit {
   }
 
   getAddress(postcode) {
-    this.getaddressservice.getByPostcode(postcode).subscribe(response => {
-      if (response) {
-        this.response = response;
-        this.addressActive = response["addresses"];
-        for (var a = 0; a < this.addressActive.length; a++) {
-          this.addressActive[a].mainaddress = this.addressActive[a].line_1 + " " + this.addressActive[a].county;
+    this.getaddressservice.getByPostcode(postcode).subscribe(
+      (response) => {
+        if (response) {
+          this.response = response;
+          this.addressActive = response['addresses'];
+          for (var a = 0; a < this.addressActive.length; a++) {
+            this.addressActive[a].mainaddress =
+              this.addressActive[a].line_1 + ' ' + this.addressActive[a].county;
+          }
+        } else {
         }
-
-      } else {
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
-
 }
