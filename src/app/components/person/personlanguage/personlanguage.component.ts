@@ -2,7 +2,6 @@ import { Component, OnInit, Input, Output, ViewChild, EventEmitter } from '@angu
 import { ToastrService } from 'ngx-toastr';
 import { OnFailService } from '../../../services/on-fail.service';
 
-
 import { PersonlanguageService } from './personlanguage.service';
 import { Router } from '@angular/router';
 import { CompetencyComponent } from '../../lookup/person/competency/competency.component';
@@ -13,13 +12,13 @@ import { PersonComponent } from '../person/person.component';
 @Component({
   selector: 'app-personlanguage',
   templateUrl: './personlanguage.component.html',
-  styleUrls: ['./personlanguage.component.css']
+  styleUrls: ['./personlanguage.component.css'],
 })
 export class PersonlanguageComponent implements OnInit {
-  @ViewChild("person") person: PersonComponent;
-  @ViewChild("language") language: LanguageComponent;
-  @ViewChild("competency") competency: CompetencyComponent;
-  @ViewChild("fluency") fluency: FluencyComponent;
+  @ViewChild('person') person: PersonComponent;
+  @ViewChild('language') language: LanguageComponent;
+  @ViewChild('competency') competency: CompetencyComponent;
+  @ViewChild('fluency') fluency: FluencyComponent;
 
   @Input()
   view: number = 1;
@@ -54,25 +53,25 @@ export class PersonlanguageComponent implements OnInit {
     person_ID: null,
     person_DETAIL: null,
     language_ID: {
-      id: null
+      id: null,
     },
     fluency_ID: {
-      id: null
+      id: null,
     },
     competency_ID: {
-      id: null
+      id: null,
     },
 
     comments: null,
-    isactive: true
-  }
+    isactive: true,
+  };
 
   constructor(
     private personlanguageservice: PersonlanguageService,
     private toastrservice: ToastrService,
     private onfailservice: OnFailService,
-    private router: Router,
-  ) { }
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.load(this.isreload);
@@ -85,11 +84,18 @@ export class PersonlanguageComponent implements OnInit {
       this.personlanguageID = Number(window.sessionStorage.getItem('personlanguage'));
     }
 
-    if (this.view >= 1 && this.view <= 2 && (this.personlanguages == null || this.personlanguages.length == 0 || reload == true)) {
+    if (
+      this.view >= 1 &&
+      this.view <= 2 &&
+      (this.personlanguages == null || this.personlanguages.length == 0 || reload == true)
+    ) {
       this.personlanguages == null;
       this.personlanguageGet();
     }
-    if (((this.view >= 1 && this.view <= 2) || this.view == 10) && (this.personlanguagesAll == null || this.personlanguagesAll.length == 0 || reload == true)) {
+    if (
+      ((this.view >= 1 && this.view <= 2) || this.view == 10) &&
+      (this.personlanguagesAll == null || this.personlanguagesAll.length == 0 || reload == true)
+    ) {
       this.personlanguagesAll == null;
       this.personlanguageGetAll();
     }
@@ -99,33 +105,41 @@ export class PersonlanguageComponent implements OnInit {
       language_ID: this.languageID,
       fluency_ID: this.fluencyID,
       competency_ID: this.competencyID,
-    }
+    };
 
     if (this.view >= 5 && this.view <= 6 && this.personlanguageID) {
-      window.sessionStorage.setItem("personlanguage", this.personlanguageID);
+      window.sessionStorage.setItem('personlanguage', this.personlanguageID);
       this.personlanguageGetOne(this.personlanguageID);
       this.disabled = true;
-    } else if ((this.view >= 11 && this.view <= 29) && this.disabled == false && (this.personlanguages == null || this.personlanguages.length == 0 || reload == true)) {
+    } else if (
+      this.view >= 11 &&
+      this.view <= 29 &&
+      this.disabled == false &&
+      (this.personlanguages == null || this.personlanguages.length == 0 || reload == true)
+    ) {
       this.personlanguages == null;
       this.personlanguageAdvancedSearch(search);
-    } else if ((this.view >= 11 && this.view <= 29) && this.disabled == true && (this.personlanguagesAll == null || this.personlanguagesAll.length == 0 || reload == true)) {
+    } else if (
+      this.view >= 11 &&
+      this.view <= 29 &&
+      this.disabled == true &&
+      (this.personlanguagesAll == null || this.personlanguagesAll.length == 0 || reload == true)
+    ) {
       this.personlanguagesAll == null;
       this.personlanguageAdvancedSearchAll(search);
     }
   }
 
   onToolbarPreparing(e) {
-    e.toolbarOptions.items.unshift(
-      {
-        location: 'after',
-        widget: 'dxButton',
-        options: {
-          width: 136,
-          text: 'Refresh',
-          onClick: this.load.bind(this, true),
-        },
-      }
-    );
+    e.toolbarOptions.items.unshift({
+      location: 'after',
+      widget: 'dxButton',
+      options: {
+        width: 136,
+        text: 'Refresh',
+        onClick: this.load.bind(this, true),
+      },
+    });
   }
 
   add() {
@@ -137,7 +151,7 @@ export class PersonlanguageComponent implements OnInit {
       fluency_ID: null,
       competency_ID: null,
       comments: null,
-      isactive: true
+      isactive: true,
     };
   }
 
@@ -160,7 +174,7 @@ export class PersonlanguageComponent implements OnInit {
   personlanguageCancel() {
     this.disabled = true;
     if (this.personlanguage.personlanguage_ID == 0) {
-      this.router.navigate(["/home/personlanguages"], {});
+      this.router.navigate(['/home/personlanguages'], {});
     }
   }
 
@@ -180,14 +194,13 @@ export class PersonlanguageComponent implements OnInit {
     this.fluencyID = response.fluency_ID;
     this.competencyID = response.competency_ID;
 
-    if (response.isactive == "Y") {
+    if (response.isactive == 'Y') {
       response.isactive = true;
     } else {
       response.isactive = false;
     }
     this.personlanguage = response;
   }
-
 
   setpersonlanguages(response) {
     for (var i = 0; i < response.length; i++) {
@@ -198,49 +211,60 @@ export class PersonlanguageComponent implements OnInit {
   }
 
   personlanguageGet() {
-    this.personlanguageservice.get().subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else {
-          this.setpersonlanguages(this.personlanguageservice.getDetail(response));
-          window.sessionStorage.setItem("personlanguages", JSON.stringify(this.personlanguages));
-
+    this.personlanguageservice.get().subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else {
+            this.setpersonlanguages(this.personlanguageservice.getDetail(response));
+            window.sessionStorage.setItem('personlanguages', JSON.stringify(this.personlanguages));
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
 
   personlanguageGetOne(id) {
     this.disabled = true;
-    this.personlanguageservice.getOne(id).subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else {
-          this.setpersonlanguage(this.personlanguageservice.getDetail(response));
+    this.personlanguageservice.getOne(id).subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else {
+            this.setpersonlanguage(this.personlanguageservice.getDetail(response));
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
 
   personlanguageGetAll() {
-    this.personlanguageservice.getAll().subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else {
-          this.setpersonlanguages(this.personlanguageservice.getDetail(response));
-          window.sessionStorage.setItem("personlanguagesAll", JSON.stringify(this.personlanguagesAll));
+    this.personlanguageservice.getAll().subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else {
+            this.setpersonlanguages(this.personlanguageservice.getDetail(response));
+            window.sessionStorage.setItem(
+              'personlanguagesAll',
+              JSON.stringify(this.personlanguagesAll)
+            );
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
 
   personlanguageAdd(personlanguage) {
@@ -248,25 +272,28 @@ export class PersonlanguageComponent implements OnInit {
     personlanguage.fluency_ID = this.fluency.fluencyID;
     personlanguage.person_ID = this.person.personID;
     personlanguage.competency_ID = this.competency.competencyID;
-    personlanguage.isactive = "Y";
+    personlanguage.isactive = 'Y';
 
-    this.personlanguageservice.add(personlanguage).subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else if (response.personlanguage_ID) {
-          this.toastrservice.success("Success", "New Person Language Added");
-          this.setpersonlanguage(this.personlanguageservice.getDetail(response));
-          this.refresh.next();
-          this.personlanguageGetAll();
-          this.disabled = true;
-        } else {
-          this.toastrservice.error("Some thing went wrong");
+    this.personlanguageservice.add(personlanguage).subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else if (response.personlanguage_ID) {
+            this.toastrservice.success('Success', 'New Person Language Added');
+            this.setpersonlanguage(this.personlanguageservice.getDetail(response));
+            this.refresh.next();
+            this.personlanguageGetAll();
+            this.disabled = true;
+          } else {
+            this.toastrservice.error('Some thing went wrong');
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
 
   personlanguageUpdate(personlanguage) {
@@ -276,45 +303,51 @@ export class PersonlanguageComponent implements OnInit {
     personlanguage.competency_ID = this.competency.competencyID;
 
     if (personlanguage.isactive == true) {
-      personlanguage.isactive = "Y";
+      personlanguage.isactive = 'Y';
     } else {
-      personlanguage.isactive = "N";
+      personlanguage.isactive = 'N';
     }
-    this.personlanguageservice.update(personlanguage, personlanguage.personlanguage_ID).subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else if (response.personlanguage_ID) {
-          this.toastrservice.success("Success", " Person Language Updated");
-          this.setpersonlanguage(this.personlanguageservice.getDetail(response));
-          this.refresh.next();
-          this.personlanguageGetAll();
-          this.disabled = true;
-        } else {
-          this.toastrservice.error("Some thing went wrong");
+    this.personlanguageservice.update(personlanguage, personlanguage.personlanguage_ID).subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else if (response.personlanguage_ID) {
+            this.toastrservice.success('Success', ' Person Language Updated');
+            this.setpersonlanguage(this.personlanguageservice.getDetail(response));
+            this.refresh.next();
+            this.personlanguageGetAll();
+            this.disabled = true;
+          } else {
+            this.toastrservice.error('Some thing went wrong');
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
   personlanguageAdvancedSearch(search) {
     this.personID = search.person_ID;
     this.languageID = search.language_ID;
     this.competencyID = search.competency_ID;
     this.fluencyID = search.fluency_ID;
-    this.personlanguageservice.advancedSearch(search).subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else {
-          this.setpersonlanguages(this.personlanguageservice.getAllDetail(response));
-          window.sessionStorage.setItem("personlanguages", JSON.stringify(this.personlanguages));
+    this.personlanguageservice.advancedSearch(search).subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else {
+            this.setpersonlanguages(this.personlanguageservice.getAllDetail(response));
+            window.sessionStorage.setItem('personlanguages', JSON.stringify(this.personlanguages));
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
 
   personlanguageAdvancedSearchAll(search) {
@@ -322,19 +355,23 @@ export class PersonlanguageComponent implements OnInit {
     this.languageID = search.language_ID;
     this.competencyID = search.competency_ID;
     this.fluencyID = search.fluency_ID;
-    this.personlanguageservice.advancedSearchAll(search).subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
+    this.personlanguageservice.advancedSearchAll(search).subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else {
+            this.setpersonlanguages(this.personlanguageservice.getAllDetail(response));
+            window.sessionStorage.setItem(
+              'personlanguagesAll',
+              JSON.stringify(this.personlanguagesAll)
+            );
+          }
         }
-        else {
-          this.setpersonlanguages(this.personlanguageservice.getAllDetail(response));
-          window.sessionStorage.setItem("personlanguagesAll", JSON.stringify(this.personlanguagesAll));
-
-        }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
 }

@@ -1,4 +1,3 @@
-
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { LookupService } from 'src/app/services/lookup.service';
@@ -7,7 +6,7 @@ import { OnFailService } from 'src/app/services/on-fail.service';
 @Component({
   selector: 'app-identitytype',
   templateUrl: './identitytype.component.html',
-  styleUrls: ['./identitytype.component.css']
+  styleUrls: ['./identitytype.component.css'],
 })
 export class IdentitytypeComponent implements OnInit {
   @Input()
@@ -25,8 +24,8 @@ export class IdentitytypeComponent implements OnInit {
   constructor(
     private lookupservice: LookupService,
     private toastrservice: ToastrService,
-    private onfailservice: OnFailService,
-  ) { }
+    private onfailservice: OnFailService
+  ) {}
 
   ngOnInit(): void {
     this.identitytypes = JSON.parse(window.sessionStorage.getItem('identitytypes'));
@@ -41,39 +40,44 @@ export class IdentitytypeComponent implements OnInit {
   setIdentitytypes(response) {
     if (this.disabled == false) {
       this.identitytypes = response;
-      window.sessionStorage.setItem("identitytypes", JSON.stringify(this.identitytypes));
+      window.sessionStorage.setItem('identitytypes', JSON.stringify(this.identitytypes));
     } else {
       this.identitytypesAll = response;
-      window.sessionStorage.setItem("identitytypesAll", JSON.stringify(this.identitytypesAll));
+      window.sessionStorage.setItem('identitytypesAll', JSON.stringify(this.identitytypesAll));
     }
   }
 
-  identitytypeGet(){
-    this.lookupservice.lookup("IDENTITYTYPE").subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else{
-          this.setIdentitytypes(response);
+  identitytypeGet() {
+    this.lookupservice.lookup('IDENTITYTYPE').subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else {
+            this.setIdentitytypes(response);
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
 
-  identitytypeGetAll(){
-    this.lookupservice.lookupAll("IDENTITYTYPE").subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else{
-          this.setIdentitytypes(response);
+  identitytypeGetAll() {
+    this.lookupservice.lookupAll('IDENTITYTYPE').subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else {
+            this.setIdentitytypes(response);
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
-
 }

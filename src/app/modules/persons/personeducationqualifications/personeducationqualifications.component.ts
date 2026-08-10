@@ -10,12 +10,15 @@ declare var $: any;
 @Component({
   selector: 'app-personeducationqualifications',
   templateUrl: './personeducationqualifications.component.html',
-  styleUrls: ['./personeducationqualifications.component.css']
+  styleUrls: ['./personeducationqualifications.component.css'],
 })
 export class PersoneducationqualificationsComponent implements OnInit {
-  @ViewChild("personeducationqualifications") personeducationqualifications: PersoneducationqualificationComponent;
-  @ViewChild("addpersoneducationqualification") addpersoneducationqualification: PersoneducationqualificationComponent;
-  @ViewChild("editpersoneducationqualification") editpersoneducationqualification: PersoneducationqualificationComponent;
+  @ViewChild('personeducationqualifications')
+  personeducationqualifications: PersoneducationqualificationComponent;
+  @ViewChild('addpersoneducationqualification')
+  addpersoneducationqualification: PersoneducationqualificationComponent;
+  @ViewChild('editpersoneducationqualification')
+  editpersoneducationqualification: PersoneducationqualificationComponent;
 
   personID = 0;
 
@@ -23,13 +26,12 @@ export class PersoneducationqualificationsComponent implements OnInit {
     private toastrservice: ToastrService,
     private onfailservice: OnFailService,
     private route: ActivatedRoute,
-    private router: Router,
-  ) { }
+    private router: Router
+  ) {}
 
   ngOnInit(): void {}
 
-  view() {
-  }
+  view() {}
 
   refresh() {
     this.personeducationqualifications.load(true);
@@ -37,11 +39,13 @@ export class PersoneducationqualificationsComponent implements OnInit {
   }
 
   show(row) {
-    this.router.navigate(["/home/qualification"], { queryParams: { personeducationqualification: row.data.personqualification_ID } });
+    this.router.navigate(['/home/qualification'], {
+      queryParams: { personeducationqualification: row.data.personqualification_ID },
+    });
   }
 
   addNew() {
-    this.router.navigate(["/home/qualification"], {});
+    this.router.navigate(['/home/qualification'], {});
     // this.addpersoneducationqualification.add();
     // $("#add").modal("show");
   }
@@ -62,19 +66,18 @@ export class PersoneducationqualificationsComponent implements OnInit {
       qualification_ENDDATE: row.data.qualification_ENDDATE,
       qualificationstatus_ID: row.data.qualificationstatus_ID,
       gradingsystem_ID: row.data.gradingsystem_ID,
-      isactive: row.data.isactive
+      isactive: row.data.isactive,
     };
-    if (row.data.isactive == "Y") {
+    if (row.data.isactive == 'Y') {
       this.editpersoneducationqualification.personeducationqualification.isactive = true;
     } else {
       this.editpersoneducationqualification.personeducationqualification.isactive = false;
     }
-    $("#edit").modal("show");
+    $('#edit').modal('show');
   }
 
   cancel() {
-    $("#add").modal("hide");
-    $("#edit").modal("hide");
+    $('#add').modal('hide');
+    $('#edit').modal('hide');
   }
-
 }

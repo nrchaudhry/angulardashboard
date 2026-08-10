@@ -4,16 +4,9 @@
     "outDir": "./out-tsc/app",
     "types": ["googlemaps"],
     "paths": {
-      "jszip": [
-        "node_modules/jszip/dist/jszip.min.js"
-      ]
+      "jszip": ["node_modules/jszip/dist/jszip.min.js"]
     }
   },
-  "files": [
-    "src/main.ts",
-    "src/polyfills.ts"
-  ],
-  "include": [
-    "src/**/*.d.ts"
-  ]
+  "files": ["src/main.ts", "src/polyfills.ts"],
+  "include": ["src/**/*.d.ts"]
 }

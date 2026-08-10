@@ -1,36 +1,37 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { PersoncommunicationletterComponent } from '../../../components/person/personcommunicationletter/personcommunicationletter.component'
+import { PersoncommunicationletterComponent } from '../../../components/person/personcommunicationletter/personcommunicationletter.component';
 
 declare var $: any;
 
 @Component({
   selector: 'app-personcommunicationletters',
   templateUrl: './personcommunicationletters.component.html',
-  styleUrls: ['./personcommunicationletters.component.css']
+  styleUrls: ['./personcommunicationletters.component.css'],
 })
 export class PersoncommunicationlettersComponent implements OnInit {
-  @ViewChild("personcommunicationletters") personcommunicationletters: PersoncommunicationletterComponent;
-  @ViewChild("addpersoncommunicationletter") addpersoncommunicationletter: PersoncommunicationletterComponent;
-  @ViewChild("editpersoncommunicationletter") editpersoncommunicationletter: PersoncommunicationletterComponent;
+  @ViewChild('personcommunicationletters')
+  personcommunicationletters: PersoncommunicationletterComponent;
+  @ViewChild('addpersoncommunicationletter')
+  addpersoncommunicationletter: PersoncommunicationletterComponent;
+  @ViewChild('editpersoncommunicationletter')
+  editpersoncommunicationletter: PersoncommunicationletterComponent;
 
-  constructor(
-    private router: Router,
-  ) { }
+  constructor(private router: Router) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
-  view() {
-  }
+  view() {}
 
   show(row) {
-    this.router.navigate(["/home/letter"], { queryParams: { personcommunicationletter: row.data.personletter_ID } });
+    this.router.navigate(['/home/letter'], {
+      queryParams: { personcommunicationletter: row.data.personletter_ID },
+    });
   }
 
   addNew() {
-    this.router.navigate(["/home/letter"], {});
+    this.router.navigate(['/home/letter'], {});
   }
 
   refresh() {
@@ -48,19 +49,18 @@ export class PersoncommunicationlettersComponent implements OnInit {
       isletterapproved: row.data.isletterapproved,
       letter_ID: row.data.letter_ID,
       letter_REQUESTDATE: row.data.letter_REQUESTDATE,
-      isactive: row.data.isactive
+      isactive: row.data.isactive,
     };
-    if (row.data.isactive == "Y") {
+    if (row.data.isactive == 'Y') {
       this.editpersoncommunicationletter.personcommunicationletter.isactive = true;
     } else {
       this.editpersoncommunicationletter.personcommunicationletter.isactive = false;
     }
-    $("#editpersoncommunicationletter").modal("show");
+    $('#editpersoncommunicationletter').modal('show');
   }
 
   cancel() {
-    $("#addpersoncommunicationletter").modal("hide");
-    $("#editpersoncommunicationletter").modal("hide");
+    $('#addpersoncommunicationletter').modal('hide');
+    $('#editpersoncommunicationletter').modal('hide');
   }
-
 }

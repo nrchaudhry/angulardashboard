@@ -10,16 +10,16 @@ import { LoginusermailmessagerecipientService } from './loginusermailmessagereci
 @Component({
   selector: 'app-loginusermailmessagerecipient',
   templateUrl: './loginusermailmessagerecipient.component.html',
-  styleUrls: ['./loginusermailmessagerecipient.component.css']
+  styleUrls: ['./loginusermailmessagerecipient.component.css'],
 })
 export class LoginusermailmessagerecipientComponent implements OnInit {
-  @ViewChild("loginusermailmessage") loginusermailmessage: LoginusermailmessageComponent;
-  @ViewChild("addloginusermailmessage") addloginusermailmessage: LoginusermailmessageComponent;
-  @ViewChild("editloginusermailmessage") editloginusermailmessage: LoginusermailmessageComponent;
+  @ViewChild('loginusermailmessage') loginusermailmessage: LoginusermailmessageComponent;
+  @ViewChild('addloginusermailmessage') addloginusermailmessage: LoginusermailmessageComponent;
+  @ViewChild('editloginusermailmessage') editloginusermailmessage: LoginusermailmessageComponent;
 
-  @ViewChild("loginuser") loginuser: LoginuserComponent;
-  @ViewChild("addloginuser") addloginuser: LoginuserComponent;
-  @ViewChild("editloginuser") editloginuser: LoginuserComponent;
+  @ViewChild('loginuser') loginuser: LoginuserComponent;
+  @ViewChild('addloginuser') addloginuser: LoginuserComponent;
+  @ViewChild('editloginuser') editloginuser: LoginuserComponent;
 
   @Input()
   view: number = 1;
@@ -37,7 +37,7 @@ export class LoginusermailmessagerecipientComponent implements OnInit {
   mailmessageID = null;
   @Input()
   mailmessagerecipientID = null;
-  
+
   @Output() edit = new EventEmitter();
   @Output() cancel = new EventEmitter();
   @Output() show = new EventEmitter();
@@ -45,49 +45,62 @@ export class LoginusermailmessagerecipientComponent implements OnInit {
   loginusermailmessagerecipients = [];
   loginusermailmessagerecipientsAll = [];
   loginusermailmessagerecipient = {
-      mailmessagerecipient_ID: 0,
-      mailmessage_ID: 0,
-      user_ID: 0,
-      student_ID: null,
-      mailmessagerecipient_ASTYPE: "",
-      isread: true,
-      isactive:true,
-  }
- 
+    mailmessagerecipient_ID: 0,
+    mailmessage_ID: 0,
+    user_ID: 0,
+    student_ID: null,
+    mailmessagerecipient_ASTYPE: '',
+    isread: true,
+    isactive: true,
+  };
+
   constructor(
     private loginusermailmessagerecipientservice: LoginusermailmessagerecipientService,
     private toastrservice: ToastrService,
     private onfailservice: OnFailService,
-    private router : Router,
-  ) { }
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
-    this.loginusermailmessagerecipients = JSON.parse(window.sessionStorage.getItem('loginusermailmessagerecipients'));
-    this.loginusermailmessagerecipientsAll = JSON.parse(window.sessionStorage.getItem('loginusermailmessagerecipientsAll'));
+    this.loginusermailmessagerecipients = JSON.parse(
+      window.sessionStorage.getItem('loginusermailmessagerecipients')
+    );
+    this.loginusermailmessagerecipientsAll = JSON.parse(
+      window.sessionStorage.getItem('loginusermailmessagerecipientsAll')
+    );
     if (this.view == 1 && this.disabled == false && this.loginusermailmessagerecipients == null) {
       this.loginusermailmessagerecipientGet();
-    } else if (this.view == 1 && this.disabled == true && this.loginusermailmessagerecipientsAll == null) {
+    } else if (
+      this.view == 1 &&
+      this.disabled == true &&
+      this.loginusermailmessagerecipientsAll == null
+    ) {
       this.loginusermailmessagerecipientGetAll();
-    } else if (this. view == 2 && this.loginusermailmessagerecipientsAll == null) {
+    } else if (this.view == 2 && this.loginusermailmessagerecipientsAll == null) {
       this.loginusermailmessagerecipientGetAll();
     }
 
-    if (this.mailmessagerecipientID != 0 && !this.mailmessagerecipientID && Number(window.sessionStorage.getItem('loginusermailmessagerecipient'))>0) {
-      this.mailmessagerecipientID = Number(window.sessionStorage.getItem('loginusermailmessagerecipient'));
-    }  else if (this. view == 22 && (this.mailmessageID != null )) {
+    if (
+      this.mailmessagerecipientID != 0 &&
+      !this.mailmessagerecipientID &&
+      Number(window.sessionStorage.getItem('loginusermailmessagerecipient')) > 0
+    ) {
+      this.mailmessagerecipientID = Number(
+        window.sessionStorage.getItem('loginusermailmessagerecipient')
+      );
+    } else if (this.view == 22 && this.mailmessageID != null) {
       this.loginusermailmessagerecipientAdvancedSearchAll(this.mailmessageID);
     }
-    
+
     if (this.view == 5 && this.mailmessagerecipientID) {
-      window.sessionStorage.setItem("loginusermailmessagerecipient", this.mailmessagerecipientID);
+      window.sessionStorage.setItem('loginusermailmessagerecipient', this.mailmessagerecipientID);
       this.loginusermailmessagerecipientGetOne(this.mailmessagerecipientID);
     }
-    
+
     if (this.view == 11 && this.mailmessageID && this.disabled == false) {
       this.loginusermailmessagerecipientAdvancedSearch(this.mailmessageID);
     } else if (this.view == 11 && this.mailmessageID && this.disabled == true) {
       this.loginusermailmessagerecipientAdvancedSearchAll(this.mailmessageID);
-      
     } else if (this.view == 11) {
       this.mailmessagerecipientID = null;
       this.loginusermailmessagerecipientsAll = null;
@@ -98,36 +111,31 @@ export class LoginusermailmessagerecipientComponent implements OnInit {
     //   this.loginusermailmessageDisabled = false;
     //   this.mailmessagerecipientID = null;
     // }
-
   }
 
   onToolbarPreparing(e) {
-    e.toolbarOptions.items.unshift(
-      {
-        location: 'after',
-        widget: 'dxButton',
-        options: {
-          width: 136,
-          text: 'Refresh',
-          onClick: this.loginusermailmessagerecipientGetAll.bind(this),
-        },
-      }
-    );
+    e.toolbarOptions.items.unshift({
+      location: 'after',
+      widget: 'dxButton',
+      options: {
+        width: 136,
+        text: 'Refresh',
+        onClick: this.loginusermailmessagerecipientGetAll.bind(this),
+      },
+    });
   }
 
   onToolbarPreparingAdvanced(e) {
-    console.log("onToolbarPreparingAdvanced");
-    e.toolbarOptions.items.unshift(
-      {
-        location: 'after',
-        widget: 'dxButton',
-        options: {
-          width: 136,
-          text: 'Refresh',
-          onClick: this.loginusermailmessagerecipientAdvancedSearchAll.bind(this, this.mailmessageID),
-        },
-      }
-    );
+    console.log('onToolbarPreparingAdvanced');
+    e.toolbarOptions.items.unshift({
+      location: 'after',
+      widget: 'dxButton',
+      options: {
+        width: 136,
+        text: 'Refresh',
+        onClick: this.loginusermailmessagerecipientAdvancedSearchAll.bind(this, this.mailmessageID),
+      },
+    });
   }
 
   add() {
@@ -136,9 +144,9 @@ export class LoginusermailmessagerecipientComponent implements OnInit {
       mailmessage_ID: 0,
       user_ID: 0,
       student_ID: null,
-      mailmessagerecipient_ASTYPE: "",
+      mailmessagerecipient_ASTYPE: '',
       isread: true,
-      isactive:true,
+      isactive: true,
     };
   }
 
@@ -158,24 +166,24 @@ export class LoginusermailmessagerecipientComponent implements OnInit {
     this.cancel.next();
   }
 
-  loginusermailmessagerecipientEdit(){
+  loginusermailmessagerecipientEdit() {
     this.disabled = false;
   }
 
   loginusermailmessagerecipientCancel() {
     this.disabled = true;
-    if (this.loginusermailmessagerecipient.mailmessagerecipient_ID==0) {
-      this.router.navigate(["/home/loginusemailmessagerecipients"], {});
+    if (this.loginusermailmessagerecipient.mailmessagerecipient_ID == 0) {
+      this.router.navigate(['/home/loginusemailmessagerecipients'], {});
     }
   }
 
   setLoginusermailmessagerecipient(response) {
-    if (response.isread == "Y") {
+    if (response.isread == 'Y') {
       response.isread = true;
     } else {
       response.isread = false;
     }
-    if (response.isactive == "Y") {
+    if (response.isactive == 'Y') {
       response.isactive = true;
     } else {
       response.isactive = false;
@@ -184,195 +192,243 @@ export class LoginusermailmessagerecipientComponent implements OnInit {
   }
 
   setLoginusermailmessagerecipients(response) {
-    if ((this.view == 1 || this.view == 11)  && this.disabled == false) {
+    if ((this.view == 1 || this.view == 11) && this.disabled == false) {
       this.loginusermailmessagerecipients = response;
-      window.sessionStorage.setItem("loginusermailmessagerecipients", JSON.stringify(this.loginusermailmessagerecipients));
+      window.sessionStorage.setItem(
+        'loginusermailmessagerecipients',
+        JSON.stringify(this.loginusermailmessagerecipients)
+      );
     } else {
       this.loginusermailmessagerecipientsAll = response;
-      window.sessionStorage.setItem("loginusermailmessagerecipientsAll", JSON.stringify(this.loginusermailmessagerecipientsAll));
+      window.sessionStorage.setItem(
+        'loginusermailmessagerecipientsAll',
+        JSON.stringify(this.loginusermailmessagerecipientsAll)
+      );
     }
     this.cancel.next();
   }
 
   loginusermailmessagerecipientGet() {
-    this.loginusermailmessagerecipientservice.get().subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else{
-          this.setLoginusermailmessagerecipients(this.loginusermailmessagerecipientservice.getAllDetail(response));
+    this.loginusermailmessagerecipientservice.get().subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else {
+            this.setLoginusermailmessagerecipients(
+              this.loginusermailmessagerecipientservice.getAllDetail(response)
+            );
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
 
   loginusermailmessagerecipientGetAll() {
-    this.loginusermailmessagerecipientservice.getAll().subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else{
-          this.setLoginusermailmessagerecipients(this.loginusermailmessagerecipientservice.getAllDetail(response));
+    this.loginusermailmessagerecipientservice.getAll().subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else {
+            this.setLoginusermailmessagerecipients(
+              this.loginusermailmessagerecipientservice.getAllDetail(response)
+            );
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
 
   loginusermailmessagerecipientGetOne(id) {
     this.disabled = true;
-    this.loginusermailmessagerecipientservice.getOne(id).subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else{
-          this.setLoginusermailmessagerecipient(this.loginusermailmessagerecipientservice.getDetail(response));
+    this.loginusermailmessagerecipientservice.getOne(id).subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else {
+            this.setLoginusermailmessagerecipient(
+              this.loginusermailmessagerecipientservice.getDetail(response)
+            );
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
 
   loginusermailmessagerecipientAdd(loginusermailmessagerecipient) {
-    loginusermailmessagerecipient.isread="Y";
-    loginusermailmessagerecipient.isactive="Y";
+    loginusermailmessagerecipient.isread = 'Y';
+    loginusermailmessagerecipient.isactive = 'Y';
 
-    if(this.view == 5){
+    if (this.view == 5) {
       loginusermailmessagerecipient.user_ID = this.loginuser.userID;
       loginusermailmessagerecipient.mailmessage_ID = this.loginusermailmessage.mailmessageID;
-    }else{ 
+    } else {
       loginusermailmessagerecipient.user_ID = this.addloginuser.userID;
       loginusermailmessagerecipient.mailmessage_ID = this.addloginusermailmessage.mailmessageID;
     }
 
-    this.loginusermailmessagerecipientservice.add(loginusermailmessagerecipient).subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else if (response.mailmessagerecipient_ID) {
-          this.toastrservice.success("Success", "New Loginusermailmessagerecipient Added");
-          this.loginusermailmessagerecipientGetAll();
-          this.setLoginusermailmessagerecipient(response);
-          this.disabled = true;
-        } else {
-          this.toastrservice.error("Some thing went wrong");
+    this.loginusermailmessagerecipientservice.add(loginusermailmessagerecipient).subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else if (response.mailmessagerecipient_ID) {
+            this.toastrservice.success('Success', 'New Loginusermailmessagerecipient Added');
+            this.loginusermailmessagerecipientGetAll();
+            this.setLoginusermailmessagerecipient(response);
+            this.disabled = true;
+          } else {
+            this.toastrservice.error('Some thing went wrong');
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
 
   loginusermailmessagerecipientUpdate(loginusermailmessagerecipient) {
-     if(this.view == 5){
+    if (this.view == 5) {
       loginusermailmessagerecipient.user_ID = this.loginuser.userID;
       loginusermailmessagerecipient.mailmessage_ID = this.loginusermailmessage.mailmessageID;
-    }else{ 
+    } else {
       loginusermailmessagerecipient.user_ID = this.editloginuser.userID;
       loginusermailmessagerecipient.mailmessage_ID = this.editloginusermailmessage.mailmessageID;
     }
     if (loginusermailmessagerecipient.isread == true) {
-      loginusermailmessagerecipient.isread = "Y";
+      loginusermailmessagerecipient.isread = 'Y';
     } else {
-      loginusermailmessagerecipient.isread = "N";
+      loginusermailmessagerecipient.isread = 'N';
     }
     if (loginusermailmessagerecipient.isactive == true) {
-      loginusermailmessagerecipient.isactive = "Y";
+      loginusermailmessagerecipient.isactive = 'Y';
     } else {
-      loginusermailmessagerecipient.isactive = "N";
+      loginusermailmessagerecipient.isactive = 'N';
     }
-    this.loginusermailmessagerecipientservice.update(loginusermailmessagerecipient, loginusermailmessagerecipient.mailmessagerecipient_ID).subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else if (response.mailmessagerecipient_ID) {
-          this.toastrservice.success("Success", " Loginusermailmessagerecipient Updated");
-          if (this.disabled==true) {
-            this.setLoginusermailmessagerecipient(response);
-          } else {
-            this.disabled = true;
+    this.loginusermailmessagerecipientservice
+      .update(loginusermailmessagerecipient, loginusermailmessagerecipient.mailmessagerecipient_ID)
+      .subscribe(
+        (response) => {
+          if (response) {
+            if (response.error && response.status) {
+              this.toastrservice.warning('Message', ' ' + response.message);
+            } else if (response.mailmessagerecipient_ID) {
+              this.toastrservice.success('Success', ' Loginusermailmessagerecipient Updated');
+              if (this.disabled == true) {
+                this.setLoginusermailmessagerecipient(response);
+              } else {
+                this.disabled = true;
+              }
+            } else {
+              this.toastrservice.error('Some thing went wrong');
+            }
           }
-        } else {
-          this.toastrservice.error("Some thing went wrong");
+        },
+        (error) => {
+          this.onfailservice.onFail(error);
         }
-      }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+      );
   }
 
   loginusermailmessagerecipientSearch(str) {
     var search = {
-      search: str
-    }
-    this.loginusermailmessagerecipientservice.search(search).subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else{
-          this.setLoginusermailmessagerecipients(this.loginusermailmessagerecipientservice.getAllDetail(response));
+      search: str,
+    };
+    this.loginusermailmessagerecipientservice.search(search).subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else {
+            this.setLoginusermailmessagerecipients(
+              this.loginusermailmessagerecipientservice.getAllDetail(response)
+            );
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
 
   loginusermailmessagerecipientSearchAll(str) {
     var search = {
-      search: str
-    }
-    this.loginusermailmessagerecipientservice.searchAll(search).subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else{
-          this.setLoginusermailmessagerecipients(this.loginusermailmessagerecipientservice.getAllDetail(response));
+      search: str,
+    };
+    this.loginusermailmessagerecipientservice.searchAll(search).subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else {
+            this.setLoginusermailmessagerecipients(
+              this.loginusermailmessagerecipientservice.getAllDetail(response)
+            );
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
 
   loginusermailmessagerecipientAdvancedSearch(mailmessageID) {
     this.mailmessageID = mailmessageID;
     var search = {
-      mailmessage_ID: mailmessageID
-    }
-    this.loginusermailmessagerecipientservice.advancedSearch(search).subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else{
-          this.setLoginusermailmessagerecipients(this.loginusermailmessagerecipientservice.getAllDetail(response));
+      mailmessage_ID: mailmessageID,
+    };
+    this.loginusermailmessagerecipientservice.advancedSearch(search).subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else {
+            this.setLoginusermailmessagerecipients(
+              this.loginusermailmessagerecipientservice.getAllDetail(response)
+            );
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
 
   loginusermailmessagerecipientAdvancedSearchAll(mailmessageID) {
     this.mailmessageID = mailmessageID;
     var search = {
-      mailmessage_ID: mailmessageID
-    }
-    this.loginusermailmessagerecipientservice.advancedSearchAll(search).subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else{
-          this.setLoginusermailmessagerecipients(this.loginusermailmessagerecipientservice.getAllDetail(response));
+      mailmessage_ID: mailmessageID,
+    };
+    this.loginusermailmessagerecipientservice.advancedSearchAll(search).subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else {
+            this.setLoginusermailmessagerecipients(
+              this.loginusermailmessagerecipientservice.getAllDetail(response)
+            );
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
-
 }

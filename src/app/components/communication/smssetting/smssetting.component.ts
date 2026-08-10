@@ -9,12 +9,12 @@ import { SmssettingService } from './smssetting.service';
 @Component({
   selector: 'app-smssetting',
   templateUrl: './smssetting.component.html',
-  styleUrls: ['./smssetting.component.css']
+  styleUrls: ['./smssetting.component.css'],
 })
 export class SmssettingComponent implements OnInit {
-  @ViewChild("application") application: ApplicationComponent;
-  @ViewChild("addapplication") addapplication: ApplicationComponent;
-  @ViewChild("editapplication") editapplication: ApplicationComponent;
+  @ViewChild('application') application: ApplicationComponent;
+  @ViewChild('addapplication') addapplication: ApplicationComponent;
+  @ViewChild('editapplication') editapplication: ApplicationComponent;
 
   @Input()
   view: number = 1;
@@ -30,7 +30,7 @@ export class SmssettingComponent implements OnInit {
   applicationID = null;
   @Input()
   smssettingID = null;
-  
+
   @Output() edit = new EventEmitter();
   @Output() cancel = new EventEmitter();
   @Output() show = new EventEmitter();
@@ -40,17 +40,17 @@ export class SmssettingComponent implements OnInit {
   smssetting = {
     smssetting_ID: 0,
     application_ID: 0,
-    sms_NAME: "",
-    sms_NUMBER: "",
-    isactive:true,
-  }
- 
+    sms_NAME: '',
+    sms_NUMBER: '',
+    isactive: true,
+  };
+
   constructor(
     private smssettingservice: SmssettingService,
     private toastrservice: ToastrService,
     private onfailservice: OnFailService,
-    private router : Router,
-  ) { }
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.smssettings = JSON.parse(window.sessionStorage.getItem('smssettings'));
@@ -59,26 +59,29 @@ export class SmssettingComponent implements OnInit {
       this.smssettingGet();
     } else if (this.view == 1 && this.disabled == true && this.smssettingsAll == null) {
       this.smssettingGetAll();
-    } else if (this. view == 2 && this.smssettingsAll == null) {
+    } else if (this.view == 2 && this.smssettingsAll == null) {
       this.smssettingGetAll();
     }
 
-    if (this.smssettingID != 0 && !this.smssettingID && Number(window.sessionStorage.getItem('smssetting'))>0) {
+    if (
+      this.smssettingID != 0 &&
+      !this.smssettingID &&
+      Number(window.sessionStorage.getItem('smssetting')) > 0
+    ) {
       this.smssettingID = Number(window.sessionStorage.getItem('smssetting'));
-    }  else if (this. view == 22 && (this.applicationID != null )) {
+    } else if (this.view == 22 && this.applicationID != null) {
       this.smssettingAdvancedSearchAll(this.applicationID);
     }
-    
+
     if (this.view == 5 && this.smssettingID) {
-      window.sessionStorage.setItem("smssetting", this.smssettingID);
+      window.sessionStorage.setItem('smssetting', this.smssettingID);
       this.smssettingGetOne(this.smssettingID);
     }
-    
+
     if (this.view == 11 && this.applicationID && this.disabled == false) {
       this.smssettingAdvancedSearch(this.applicationID);
     } else if (this.view == 11 && this.applicationID && this.disabled == true) {
       this.smssettingAdvancedSearchAll(this.applicationID);
-      
     } else if (this.view == 11) {
       this.smssettingID = null;
       this.smssettingsAll = null;
@@ -89,45 +92,40 @@ export class SmssettingComponent implements OnInit {
     //   this.applicationDisabled = false;
     //   this.smssettingID = null;
     // }
-
   }
 
   onToolbarPreparing(e) {
-    e.toolbarOptions.items.unshift(
-      {
-        location: 'after',
-        widget: 'dxButton',
-        options: {
-          width: 136,
-          text: 'Refresh',
-          onClick: this.smssettingGetAll.bind(this),
-        },
-      }
-    );
+    e.toolbarOptions.items.unshift({
+      location: 'after',
+      widget: 'dxButton',
+      options: {
+        width: 136,
+        text: 'Refresh',
+        onClick: this.smssettingGetAll.bind(this),
+      },
+    });
   }
 
   onToolbarPreparingAdvanced(e) {
-    console.log("onToolbarPreparingAdvanced");
-    e.toolbarOptions.items.unshift(
-      {
-        location: 'after',
-        widget: 'dxButton',
-        options: {
-          width: 136,
-          text: 'Refresh',
-          onClick: this.smssettingAdvancedSearchAll.bind(this, this.applicationID),
-        },
-      }
-    );
+    console.log('onToolbarPreparingAdvanced');
+    e.toolbarOptions.items.unshift({
+      location: 'after',
+      widget: 'dxButton',
+      options: {
+        width: 136,
+        text: 'Refresh',
+        onClick: this.smssettingAdvancedSearchAll.bind(this, this.applicationID),
+      },
+    });
   }
 
   add() {
     this.smssetting = {
       smssetting_ID: 0,
       application_ID: 0,
-      sms_NAME: "",
-      sms_NUMBER: "",
-      isactive:true,
+      sms_NAME: '',
+      sms_NUMBER: '',
+      isactive: true,
     };
   }
 
@@ -147,19 +145,19 @@ export class SmssettingComponent implements OnInit {
     this.cancel.next();
   }
 
-  smssettingEdit(){
+  smssettingEdit() {
     this.disabled = false;
   }
 
   smssettingCancel() {
     this.disabled = true;
-    if (this.smssetting.smssetting_ID==0) {
-      this.router.navigate(["/home/smssettings"], {});
+    if (this.smssetting.smssetting_ID == 0) {
+      this.router.navigate(['/home/smssettings'], {});
     }
   }
 
   setSmssetting(response) {
-    if (response.isactive == "Y") {
+    if (response.isactive == 'Y') {
       response.isactive = true;
     } else {
       response.isactive = false;
@@ -168,185 +166,211 @@ export class SmssettingComponent implements OnInit {
   }
 
   setSmssettings(response) {
-    if ((this.view == 1 || this.view == 11)  && this.disabled == false) {
+    if ((this.view == 1 || this.view == 11) && this.disabled == false) {
       this.smssettings = response;
-      window.sessionStorage.setItem("smssettings", JSON.stringify(this.smssettings));
+      window.sessionStorage.setItem('smssettings', JSON.stringify(this.smssettings));
     } else {
       this.smssettingsAll = response;
-      window.sessionStorage.setItem("smssettingsAll", JSON.stringify(this.smssettingsAll));
+      window.sessionStorage.setItem('smssettingsAll', JSON.stringify(this.smssettingsAll));
     }
     this.cancel.next();
   }
 
   smssettingGet() {
-    this.smssettingservice.get().subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else{
-          this.setSmssettings(this.smssettingservice.getAllDetail(response));
+    this.smssettingservice.get().subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else {
+            this.setSmssettings(this.smssettingservice.getAllDetail(response));
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
 
   smssettingGetAll() {
-    this.smssettingservice.getAll().subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else{
-          this.setSmssettings(this.smssettingservice.getAllDetail(response));
+    this.smssettingservice.getAll().subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else {
+            this.setSmssettings(this.smssettingservice.getAllDetail(response));
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
 
   smssettingGetOne(id) {
     this.disabled = true;
-    this.smssettingservice.getOne(id).subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else{
-          this.setSmssetting(this.smssettingservice.getDetail(response));
+    this.smssettingservice.getOne(id).subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else {
+            this.setSmssetting(this.smssettingservice.getDetail(response));
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
 
   smssettingAdd(smssetting) {
-    smssetting.isactive="Y";
+    smssetting.isactive = 'Y';
 
-    if(this.view == 5){
+    if (this.view == 5) {
       smssetting.application_ID = this.application.applicationID;
-    }else{ 
+    } else {
       smssetting.application_ID = this.addapplication.applicationID;
     }
 
-    this.smssettingservice.add(smssetting).subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else if (response.smssetting_ID) {
-          this.toastrservice.success("Success", "New smssetting Added");
-          this.smssettingGetAll();
-          this.setSmssetting(response);
-          this.disabled = true;
-        } else {
-          this.toastrservice.error("Some thing went wrong");
+    this.smssettingservice.add(smssetting).subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else if (response.smssetting_ID) {
+            this.toastrservice.success('Success', 'New smssetting Added');
+            this.smssettingGetAll();
+            this.setSmssetting(response);
+            this.disabled = true;
+          } else {
+            this.toastrservice.error('Some thing went wrong');
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
 
   smssettingUpdate(smssetting) {
-     if(this.view == 5){
+    if (this.view == 5) {
       smssetting.application_ID = this.application.applicationID;
-    }else{ 
+    } else {
       smssetting.application_ID = this.editapplication.applicationID;
     }
     if (smssetting.isactive == true) {
-      smssetting.isactive = "Y";
+      smssetting.isactive = 'Y';
     } else {
-      smssetting.isactive = "N";
+      smssetting.isactive = 'N';
     }
-    this.smssettingservice.update(smssetting, smssetting.smssetting_ID).subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else if (response.smssetting_ID) {
-          this.toastrservice.success("Success", " smssetting Updated");
-          if (this.disabled==true) {
-            this.setSmssetting(response);
+    this.smssettingservice.update(smssetting, smssetting.smssetting_ID).subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else if (response.smssetting_ID) {
+            this.toastrservice.success('Success', ' smssetting Updated');
+            if (this.disabled == true) {
+              this.setSmssetting(response);
+            } else {
+              this.disabled = true;
+            }
           } else {
-            this.disabled = true;
+            this.toastrservice.error('Some thing went wrong');
           }
-        } else {
-          this.toastrservice.error("Some thing went wrong");
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
 
   smssettingSearch(str) {
     var search = {
-      search: str
-    }
-    this.smssettingservice.search(search).subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else{
-          this.setSmssettings(this.smssettingservice.getAllDetail(response));
+      search: str,
+    };
+    this.smssettingservice.search(search).subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else {
+            this.setSmssettings(this.smssettingservice.getAllDetail(response));
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
 
   smssettingSearchAll(str) {
     var search = {
-      search: str
-    }
-    this.smssettingservice.searchAll(search).subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else{
-          this.setSmssettings(this.smssettingservice.getAllDetail(response));
+      search: str,
+    };
+    this.smssettingservice.searchAll(search).subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else {
+            this.setSmssettings(this.smssettingservice.getAllDetail(response));
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
 
   smssettingAdvancedSearch(applicationID) {
     this.applicationID = applicationID;
     var search = {
-      application_ID: applicationID
-    }
-    this.smssettingservice.advancedSearch(search).subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else{
-          this.setSmssettings(this.smssettingservice.getAllDetail(response));
+      application_ID: applicationID,
+    };
+    this.smssettingservice.advancedSearch(search).subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else {
+            this.setSmssettings(this.smssettingservice.getAllDetail(response));
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
 
   smssettingAdvancedSearchAll(applicationID) {
     this.applicationID = applicationID;
     var search = {
-      application_ID: applicationID
-    }
-    this.smssettingservice.advancedSearchAll(search).subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else{
-          this.setSmssettings(this.smssettingservice.getAllDetail(response));
+      application_ID: applicationID,
+    };
+    this.smssettingservice.advancedSearchAll(search).subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else {
+            this.setSmssettings(this.smssettingservice.getAllDetail(response));
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
-
 }

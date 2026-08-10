@@ -1,18 +1,22 @@
-
 <div class="form-group">
-  <label class="custom-label form-label">Religion
-    <span style="color: red;" [hidden]="disabled" *ngIf="iscompulsory==true">*</span>
+  <label class="custom-label form-label"
+    >Religion
+    <span style="color: red" [hidden]="disabled" *ngIf="iscompulsory == true">*</span>
   </label>
-  <div class="row" *ngIf="disabled==true">
+  <div class="row" *ngIf="disabled == true">
     <div class="col-md-12">
       <ng-select [(ngModel)]="religionID" [disabled]="disabled" name="religionID" maxlength="50">
-        <ng-option *ngFor="let religion of religionsAll" [value]="religion.id" [disabled]="disabled">
+        <ng-option
+          *ngFor="let religion of religionsAll"
+          [value]="religion.id"
+          [disabled]="disabled"
+        >
           {{ religion.code }} - {{ religion.description }}
         </ng-option>
       </ng-select>
     </div>
   </div>
-  <div class="row" *ngIf="disabled==false">
+  <div class="row" *ngIf="disabled == false">
     <div class="col-md-10">
       <ng-select [(ngModel)]="religionID" [disabled]="disabled" name="religionID" maxlength="50">
         <ng-option *ngFor="let religion of religions" [value]="religion.id" [disabled]="disabled">
@@ -27,4 +31,3 @@
     </div>
   </div>
 </div>
-

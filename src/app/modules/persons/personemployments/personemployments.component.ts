@@ -10,12 +10,12 @@ declare var $: any;
 @Component({
   selector: 'app-personemployments',
   templateUrl: './personemployments.component.html',
-  styleUrls: ['./personemployments.component.css']
+  styleUrls: ['./personemployments.component.css'],
 })
 export class PersonemploymentsComponent implements OnInit {
-  @ViewChild("personemployments") personemployments: PersonemploymentComponent;
-  @ViewChild("addpersonemployment") addpersonemployment: PersonemploymentComponent;
-  @ViewChild("editpersonemployment") editpersonemployment: PersonemploymentComponent;
+  @ViewChild('personemployments') personemployments: PersonemploymentComponent;
+  @ViewChild('addpersonemployment') addpersonemployment: PersonemploymentComponent;
+  @ViewChild('editpersonemployment') editpersonemployment: PersonemploymentComponent;
 
   personID = 0;
 
@@ -23,13 +23,12 @@ export class PersonemploymentsComponent implements OnInit {
     private toastrservice: ToastrService,
     private onfailservice: OnFailService,
     private route: ActivatedRoute,
-    private router: Router,
-  ) { }
+    private router: Router
+  ) {}
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
-  view() {
-  }
+  view() {}
 
   refresh() {
     this.personemployments.load(true);
@@ -37,11 +36,13 @@ export class PersonemploymentsComponent implements OnInit {
   }
 
   show(row) {
-    this.router.navigate(["/home/employment"], { queryParams: { personemployment: row.data.personemployment_ID } });
+    this.router.navigate(['/home/employment'], {
+      queryParams: { personemployment: row.data.personemployment_ID },
+    });
   }
 
   addNew() {
-    this.router.navigate(["/home/employment"], {});
+    this.router.navigate(['/home/employment'], {});
     // this.addpersonemployment.add();
     // $("#add").modal("show");
   }
@@ -71,19 +72,18 @@ export class PersonemploymentsComponent implements OnInit {
       organizationtype_ID: row.data.organizationtype_ID,
       organizationsector_ID: row.data.organizationsector_ID,
       organizationcategory_ID: row.data.organizationcategory_ID,
-      isactive: row.data.isactive
+      isactive: row.data.isactive,
     };
-    if (row.data.isactive == "Y") {
+    if (row.data.isactive == 'Y') {
       this.editpersonemployment.personemployment.isactive = true;
     } else {
       this.editpersonemployment.personemployment.isactive = false;
     }
-    $("#edit").modal("show");
+    $('#edit').modal('show');
   }
 
   cancel() {
-    $("#add").modal("hide");
-    $("#edit").modal("hide");
+    $('#add').modal('hide');
+    $('#edit').modal('hide');
   }
-
 }

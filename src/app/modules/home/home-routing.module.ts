@@ -10,23 +10,26 @@ import { PersondetailComponent } from '../persons/persondetail/persondetail.comp
 import { CompaniesComponent } from '../companies/companies/companies.component';
 import { CompanyviewComponent } from '../companies/companies/companyview/companyview.component';
 
-const routes: Routes = [{
-  path: '', component: HomeComponent,
-  children: [
-    { path: 'profile', component: PersondetailComponent },
+const routes: Routes = [
+  {
+    path: '',
+    component: HomeComponent,
+    children: [
+      { path: 'profile', component: PersondetailComponent },
 
-    { path: 'dashboard', component: DashboardComponent },
+      { path: 'dashboard', component: DashboardComponent },
 
-    { path: 'companies', component: CompaniesComponent },
-    { path: 'company', component: CompanyviewComponent },
+      { path: 'companies', component: CompaniesComponent },
+      { path: 'company', component: CompanyviewComponent },
 
-    { path: '', redirectTo: 'dashboard' },
-    { path: '**', component: NotfoundComponent }
-  ]
-}]
+      { path: '', redirectTo: 'dashboard' },
+      { path: '**', component: NotfoundComponent },
+    ],
+  },
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class HomeRoutingModule { }
+export class HomeRoutingModule {}

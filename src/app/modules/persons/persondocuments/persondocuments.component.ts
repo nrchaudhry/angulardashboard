@@ -10,12 +10,12 @@ declare var $: any;
 @Component({
   selector: 'app-persondocuments',
   templateUrl: './persondocuments.component.html',
-  styleUrls: ['./persondocuments.component.css']
+  styleUrls: ['./persondocuments.component.css'],
 })
 export class PersondocumentsComponent implements OnInit {
-  @ViewChild("persondocuments") persondocuments: PersondocumentComponent;
-  @ViewChild("addpersondocument") addpersondocument: PersondocumentComponent;
-  @ViewChild("editpersondocument") editpersondocument: PersondocumentComponent;
+  @ViewChild('persondocuments') persondocuments: PersondocumentComponent;
+  @ViewChild('addpersondocument') addpersondocument: PersondocumentComponent;
+  @ViewChild('editpersondocument') editpersondocument: PersondocumentComponent;
 
   personID = 0;
 
@@ -23,13 +23,12 @@ export class PersondocumentsComponent implements OnInit {
     private toastrservice: ToastrService,
     private onfailservice: OnFailService,
     private route: ActivatedRoute,
-    private router: Router,
-  ) { }
+    private router: Router
+  ) {}
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
-  view() {
-  }
+  view() {}
 
   refresh() {
     this.persondocuments.load(true);
@@ -37,11 +36,13 @@ export class PersondocumentsComponent implements OnInit {
   }
 
   show(row) {
-    this.router.navigate(["/home/document"], { queryParams: { persondocument: row.data.persondocument_ID } });
+    this.router.navigate(['/home/document'], {
+      queryParams: { persondocument: row.data.persondocument_ID },
+    });
   }
 
   addNew() {
-    this.router.navigate(["/home/document"], {});
+    this.router.navigate(['/home/document'], {});
     // this.addpersondocument.add();
     // $("#add").modal("show");
   }
@@ -56,19 +57,18 @@ export class PersondocumentsComponent implements OnInit {
       documenttype_DESC: row.data.documenttype_DESC,
       is_VERIFIED: row.data.is_VERIFIED,
       is_ARCHIVED: row.data.is_ARCHIVED,
-      isactive: row.data.isactive
+      isactive: row.data.isactive,
     };
-    if (row.data.isactive == "Y") {
+    if (row.data.isactive == 'Y') {
       this.editpersondocument.persondocument.isactive = true;
     } else {
       this.editpersondocument.persondocument.isactive = false;
     }
-    $("#edit").modal("show");
+    $('#edit').modal('show');
   }
 
   cancel() {
-    $("#add").modal("hide");
-    $("#edit").modal("hide");
+    $('#add').modal('hide');
+    $('#edit').modal('hide');
   }
-
 }

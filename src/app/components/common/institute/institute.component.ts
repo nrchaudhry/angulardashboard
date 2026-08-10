@@ -9,10 +9,10 @@ import { InstituteService } from './institute.service';
 @Component({
   selector: 'app-institute',
   templateUrl: './institute.component.html',
-  styleUrls: ['./institute.component.css']
+  styleUrls: ['./institute.component.css'],
 })
 export class InstituteComponent implements OnInit {
-  @ViewChild("locationsearchfilter") locationsearchfilter: LocationsearchfilterComponent;
+  @ViewChild('locationsearchfilter') locationsearchfilter: LocationsearchfilterComponent;
 
   @Input()
   view: number = 1;
@@ -56,14 +56,14 @@ export class InstituteComponent implements OnInit {
     logo_PATH: null,
     icon_PATH: null,
     isactive: true,
-  }
+  };
 
   constructor(
     private instituteservice: InstituteService,
     private toastrservice: ToastrService,
     private onfailservice: OnFailService,
-    private router: Router,
-  ) { }
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.load(this.isreload);
@@ -76,47 +76,66 @@ export class InstituteComponent implements OnInit {
     if (window.sessionStorage.getItem('institutesAll') != null) {
       this.institutesAll = JSON.parse(window.sessionStorage.getItem('institutesAll'));
     }
-    if (this.instituteID != 0 && !this.instituteID && Number(window.sessionStorage.getItem('institute')) > 0) {
+    if (
+      this.instituteID != 0 &&
+      !this.instituteID &&
+      Number(window.sessionStorage.getItem('institute')) > 0
+    ) {
       this.instituteID = Number(window.sessionStorage.getItem('institute'));
     }
 
-    if (this.view >= 1 && this.view <= 2 && (this.institutes == null || this.institutes.length == 0 || reload == true)) {
+    if (
+      this.view >= 1 &&
+      this.view <= 2 &&
+      (this.institutes == null || this.institutes.length == 0 || reload == true)
+    ) {
       this.institutes == null;
       this.instituteGet();
     }
-    if (((this.view >= 1 && this.view <= 2) || this.view == 10) && (this.institutesAll == null || this.institutesAll.length == 0 || reload == true)) {
+    if (
+      ((this.view >= 1 && this.view <= 2) || this.view == 10) &&
+      (this.institutesAll == null || this.institutesAll.length == 0 || reload == true)
+    ) {
       this.institutesAll == null;
       this.instituteGetAll();
     }
 
     var search = {
-      location_ID: this.locationID
-    }
+      location_ID: this.locationID,
+    };
     if (this.view >= 5 && this.view <= 6 && this.instituteID) {
-      window.sessionStorage.setItem("institute", this.instituteID);
+      window.sessionStorage.setItem('institute', this.instituteID);
       this.instituteGetOne(this.instituteID);
       this.disabled = true;
-    } else if ((this.view >= 11 && this.view <= 29) && this.disabled == false && (this.institutes == null || this.institutes.length == 0 || reload == true)) {
+    } else if (
+      this.view >= 11 &&
+      this.view <= 29 &&
+      this.disabled == false &&
+      (this.institutes == null || this.institutes.length == 0 || reload == true)
+    ) {
       this.institutes == null;
       this.instituteAdvancedSearch(search);
-    } else if ((this.view >= 11 && this.view <= 29) && this.disabled == true && (this.institutesAll == null || this.institutesAll.length == 0 || reload == true)) {
+    } else if (
+      this.view >= 11 &&
+      this.view <= 29 &&
+      this.disabled == true &&
+      (this.institutesAll == null || this.institutesAll.length == 0 || reload == true)
+    ) {
       this.institutesAll == null;
       this.instituteAdvancedSearchAll(search);
     }
   }
 
   onToolbarPreparing(e) {
-    e.toolbarOptions.items.unshift(
-      {
-        location: 'after',
-        widget: 'dxButton',
-        options: {
-          width: 136,
-          text: 'Refresh',
-          onClick: this.load.bind(this, true),
-        },
-      }
-    );
+    e.toolbarOptions.items.unshift({
+      location: 'after',
+      widget: 'dxButton',
+      options: {
+        width: 136,
+        text: 'Refresh',
+        onClick: this.load.bind(this, true),
+      },
+    });
   }
 
   add() {
@@ -165,7 +184,7 @@ export class InstituteComponent implements OnInit {
   instituteCancel() {
     this.disabled = true;
     if (this.institute.institute_ID == 0) {
-      this.router.navigate(["/home/institutes"], {});
+      this.router.navigate(['/home/institutes'], {});
     }
   }
 
@@ -182,7 +201,7 @@ export class InstituteComponent implements OnInit {
     this.instituteID = response.institute_ID;
     this.locationID = response.location_ID;
 
-    if (response.isactive == "Y") {
+    if (response.isactive == 'Y') {
       response.isactive = true;
     } else {
       response.isactive = false;
@@ -196,185 +215,214 @@ export class InstituteComponent implements OnInit {
   }
 
   instituteGet() {
-    this.instituteservice.get().subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else {
-          this.institutes = this.setInstitutees(this.instituteservice.getAllDetail(response));
-          window.sessionStorage.setItem("institutes", JSON.stringify(this.institutes));
+    this.instituteservice.get().subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else {
+            this.institutes = this.setInstitutees(this.instituteservice.getAllDetail(response));
+            window.sessionStorage.setItem('institutes', JSON.stringify(this.institutes));
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
 
   instituteGetAll() {
-    this.instituteservice.getAll().subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else {
-          this.institutesAll = this.setInstitutees(this.instituteservice.getAllDetail(response));
-          window.sessionStorage.setItem("institutesAll", JSON.stringify(this.institutesAll));
+    this.instituteservice.getAll().subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else {
+            this.institutesAll = this.setInstitutees(this.instituteservice.getAllDetail(response));
+            window.sessionStorage.setItem('institutesAll', JSON.stringify(this.institutesAll));
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
 
   instituteGetOne(id) {
     this.disabled = true;
-    this.instituteservice.getOne(id).subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else {
-          this.setInstitute(this.instituteservice.getDetail(response));
-          if (this.locationsearchfilter != null)
-            this.locationsearchfilter.setLocation(this.institute.locations);
+    this.instituteservice.getOne(id).subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else {
+            this.setInstitute(this.instituteservice.getDetail(response));
+            if (this.locationsearchfilter != null)
+              this.locationsearchfilter.setLocation(this.institute.locations);
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
 
   instituteAdd(institute) {
     institute.location_ID = this.locationsearchfilter.locationID;
-    institute.isactive = "Y";
+    institute.isactive = 'Y';
 
-    this.instituteservice.add(institute).subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else if (response.institute_ID) {
-          this.toastrservice.success("Success", "New Institute Added");
-          this.setInstitute(this.instituteservice.getDetail(response));
-          this.refresh.next();
-          this.instituteGetAll();
-          this.disabled = true;
-        } else {
-          this.toastrservice.error("Some thing went wrong");
+    this.instituteservice.add(institute).subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else if (response.institute_ID) {
+            this.toastrservice.success('Success', 'New Institute Added');
+            this.setInstitute(this.instituteservice.getDetail(response));
+            this.refresh.next();
+            this.instituteGetAll();
+            this.disabled = true;
+          } else {
+            this.toastrservice.error('Some thing went wrong');
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
 
   instituteUpdate(institute) {
     institute.location_ID = this.locationsearchfilter.locationID;
 
     if (institute.isactive == true) {
-      institute.isactive = "Y";
+      institute.isactive = 'Y';
     } else {
-      institute.isactive = "N";
+      institute.isactive = 'N';
     }
-    this.instituteservice.update(institute, institute.institute_ID).subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else if (response.institute_ID) {
-          this.toastrservice.success("Success", "Institute Updated");
-          this.setInstitute(this.instituteservice.getDetail(response));
-          this.refresh.next();
-          this.instituteGetAll();
-          this.disabled = true;
-        } else {
-          this.toastrservice.error("Some thing went wrong");
+    this.instituteservice.update(institute, institute.institute_ID).subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else if (response.institute_ID) {
+            this.toastrservice.success('Success', 'Institute Updated');
+            this.setInstitute(this.instituteservice.getDetail(response));
+            this.refresh.next();
+            this.instituteGetAll();
+            this.disabled = true;
+          } else {
+            this.toastrservice.error('Some thing went wrong');
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
 
   instituteUpdateAll(institutes) {
-    this.instituteservice.updateAll(institutes).subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else if (response.length > 0) {
-          this.toastrservice.success("Success", "Institutes Updated");
-          this.refresh.next();
-        } else {
-          this.toastrservice.error("Some thing went wrong");
+    this.instituteservice.updateAll(institutes).subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else if (response.length > 0) {
+            this.toastrservice.success('Success', 'Institutes Updated');
+            this.refresh.next();
+          } else {
+            this.toastrservice.error('Some thing went wrong');
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
 
   instituteSearch(str) {
     var search = {
-      search: str
-    }
-    this.instituteservice.search(search).subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else {
-          this.institutes = this.setInstitutees(this.instituteservice.getAllDetail(response));
-          window.sessionStorage.setItem("institutes", JSON.stringify(this.institutes));
+      search: str,
+    };
+    this.instituteservice.search(search).subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else {
+            this.institutes = this.setInstitutees(this.instituteservice.getAllDetail(response));
+            window.sessionStorage.setItem('institutes', JSON.stringify(this.institutes));
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
 
   instituteSearchAll(str) {
     var search = {
-      search: str
-    }
-    this.instituteservice.searchAll(search).subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else {
-          this.institutesAll = this.setInstitutees(this.instituteservice.getAllDetail(response));
-          window.sessionStorage.setItem("institutesAll", JSON.stringify(this.institutesAll));
+      search: str,
+    };
+    this.instituteservice.searchAll(search).subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else {
+            this.institutesAll = this.setInstitutees(this.instituteservice.getAllDetail(response));
+            window.sessionStorage.setItem('institutesAll', JSON.stringify(this.institutesAll));
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
 
   instituteAdvancedSearch(search) {
     this.locationID = search.location_ID;
-    this.instituteservice.advancedSearch(search).subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else {
-          this.institutes = this.setInstitutees(this.instituteservice.getAllDetail(response));
-          window.sessionStorage.setItem("institutes", JSON.stringify(this.institutes));
+    this.instituteservice.advancedSearch(search).subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else {
+            this.institutes = this.setInstitutees(this.instituteservice.getAllDetail(response));
+            window.sessionStorage.setItem('institutes', JSON.stringify(this.institutes));
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
 
   instituteAdvancedSearchAll(search) {
     this.locationID = search.location_ID;
-    this.instituteservice.advancedSearchAll(search).subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else {
-          this.institutesAll = this.setInstitutees(this.instituteservice.getAllDetail(response));
-          window.sessionStorage.setItem("institutesAll", JSON.stringify(this.institutesAll));
+    this.instituteservice.advancedSearchAll(search).subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else {
+            this.institutesAll = this.setInstitutees(this.instituteservice.getAllDetail(response));
+            window.sessionStorage.setItem('institutesAll', JSON.stringify(this.institutesAll));
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
-
 }

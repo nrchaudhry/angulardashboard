@@ -9,12 +9,12 @@ import { LoginprivilegecategoryService } from './loginprivilegecategory.service'
 @Component({
   selector: 'app-loginprivilegecategory',
   templateUrl: './loginprivilegecategory.component.html',
-  styleUrls: ['./loginprivilegecategory.component.css']
+  styleUrls: ['./loginprivilegecategory.component.css'],
 })
 export class LoginprivilegecategoryComponent implements OnInit {
-  @ViewChild("application") application: ApplicationComponent;
-  @ViewChild("addapplication") addapplication: ApplicationComponent;
-  @ViewChild("editapplication") editapplication: ApplicationComponent;
+  @ViewChild('application') application: ApplicationComponent;
+  @ViewChild('addapplication') addapplication: ApplicationComponent;
+  @ViewChild('editapplication') editapplication: ApplicationComponent;
 
   @Input()
   view: number = 1;
@@ -30,7 +30,7 @@ export class LoginprivilegecategoryComponent implements OnInit {
   applicationID = null;
   @Input()
   pcategoryID = null;
-  
+
   @Output() edit = new EventEmitter();
   @Output() cancel = new EventEmitter();
   @Output() show = new EventEmitter();
@@ -38,49 +38,60 @@ export class LoginprivilegecategoryComponent implements OnInit {
   loginprivilegecategories = [];
   loginprivilegecategoriesAll = [];
   loginprivilegecategory = {
-      pcategory_ID: 0,
-      pcategoryorder_NO: null,
-      pcategory_NAME: "",
-      pcategory_ICON:"",
-      pcategory_DESCRIPTION:"",
-      application_ID: 0,
-      isactive:true,
-  }
- 
+    pcategory_ID: 0,
+    pcategoryorder_NO: null,
+    pcategory_NAME: '',
+    pcategory_ICON: '',
+    pcategory_DESCRIPTION: '',
+    application_ID: 0,
+    isactive: true,
+  };
+
   constructor(
     private loginprivilegecategoryservice: LoginprivilegecategoryService,
     private toastrservice: ToastrService,
     private onfailservice: OnFailService,
-    private router : Router,
-  ) { }
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
-    this.loginprivilegecategories = JSON.parse(window.sessionStorage.getItem('loginprivilegecategories'));
-    this.loginprivilegecategoriesAll = JSON.parse(window.sessionStorage.getItem('loginprivilegecategoriesAll'));
+    this.loginprivilegecategories = JSON.parse(
+      window.sessionStorage.getItem('loginprivilegecategories')
+    );
+    this.loginprivilegecategoriesAll = JSON.parse(
+      window.sessionStorage.getItem('loginprivilegecategoriesAll')
+    );
     if (this.view == 1 && this.disabled == false && this.loginprivilegecategories == null) {
       this.loginprivilegecategoryGet();
-    } else if (this.view == 1 && this.disabled == true && this.loginprivilegecategoriesAll == null) {
+    } else if (
+      this.view == 1 &&
+      this.disabled == true &&
+      this.loginprivilegecategoriesAll == null
+    ) {
       this.loginprivilegecategoryGetAll();
-    } else if (this. view == 2 && this.loginprivilegecategoriesAll == null) {
+    } else if (this.view == 2 && this.loginprivilegecategoriesAll == null) {
       this.loginprivilegecategoryGetAll();
     }
 
-    if (this.pcategoryID != 0 && !this.pcategoryID && Number(window.sessionStorage.getItem('loginprivilegecategory'))>0) {
+    if (
+      this.pcategoryID != 0 &&
+      !this.pcategoryID &&
+      Number(window.sessionStorage.getItem('loginprivilegecategory')) > 0
+    ) {
       this.pcategoryID = Number(window.sessionStorage.getItem('loginprivilegecategory'));
-    }  else if (this. view == 22 && (this.applicationID != null )) {
+    } else if (this.view == 22 && this.applicationID != null) {
       this.loginprivilegecategoryAdvancedSearchAll(this.applicationID);
     }
-    
+
     if (this.view == 5 && this.pcategoryID) {
-      window.sessionStorage.setItem("loginprivilegecategory", this.pcategoryID);
+      window.sessionStorage.setItem('loginprivilegecategory', this.pcategoryID);
       this.loginprivilegecategoryGetOne(this.pcategoryID);
     }
-    
+
     if (this.view == 11 && this.applicationID && this.disabled == false) {
       this.loginprivilegecategoryAdvancedSearch(this.applicationID);
     } else if (this.view == 11 && this.applicationID && this.disabled == true) {
       this.loginprivilegecategoryAdvancedSearchAll(this.applicationID);
-      
     } else if (this.view == 11) {
       this.pcategoryID = null;
       this.loginprivilegecategoriesAll = null;
@@ -91,46 +102,41 @@ export class LoginprivilegecategoryComponent implements OnInit {
     //   this.applicationDisabled = false;
     //   this.pcategoryID = null;
     // }
-
   }
 
   onToolbarPreparing(e) {
-    e.toolbarOptions.items.unshift(
-      {
-        location: 'after',
-        widget: 'dxButton',
-        options: {
-          width: 136,
-          text: 'Refresh',
-          onClick: this.loginprivilegecategoryGetAll.bind(this),
-        },
-      }
-    );
+    e.toolbarOptions.items.unshift({
+      location: 'after',
+      widget: 'dxButton',
+      options: {
+        width: 136,
+        text: 'Refresh',
+        onClick: this.loginprivilegecategoryGetAll.bind(this),
+      },
+    });
   }
 
   onToolbarPreparingAdvanced(e) {
-    e.toolbarOptions.items.unshift(
-      {
-        location: 'after',
-        widget: 'dxButton',
-        options: {
-          width: 136,
-          text: 'Refresh',
-          onClick: this.loginprivilegecategoryAdvancedSearchAll.bind(this, this.applicationID),
-        },
-      }
-    );
+    e.toolbarOptions.items.unshift({
+      location: 'after',
+      widget: 'dxButton',
+      options: {
+        width: 136,
+        text: 'Refresh',
+        onClick: this.loginprivilegecategoryAdvancedSearchAll.bind(this, this.applicationID),
+      },
+    });
   }
 
   add() {
     this.loginprivilegecategory = {
       pcategory_ID: 0,
       pcategoryorder_NO: null,
-      pcategory_NAME: "",
-      pcategory_ICON:"",
-      pcategory_DESCRIPTION:"",
+      pcategory_NAME: '',
+      pcategory_ICON: '',
+      pcategory_DESCRIPTION: '',
       application_ID: 0,
-      isactive:true,
+      isactive: true,
     };
   }
 
@@ -150,19 +156,19 @@ export class LoginprivilegecategoryComponent implements OnInit {
     this.cancel.next();
   }
 
-  loginprivilegecategoryEdit(){
+  loginprivilegecategoryEdit() {
     this.disabled = false;
   }
 
   loginprivilegecategoryCancel() {
     this.disabled = true;
-    if (this.loginprivilegecategory.pcategory_ID==0) {
-      this.router.navigate(["/home/loginprivilegecategories"], {});
+    if (this.loginprivilegecategory.pcategory_ID == 0) {
+      this.router.navigate(['/home/loginprivilegecategories'], {});
     }
   }
 
   setLoginprivilegecategory(response) {
-    if (response.isactive == "Y") {
+    if (response.isactive == 'Y') {
       response.isactive = true;
     } else {
       response.isactive = false;
@@ -171,185 +177,231 @@ export class LoginprivilegecategoryComponent implements OnInit {
   }
 
   setLoginprivilegecategorys(response) {
-    if ((this.view == 1 || this.view == 11)  && this.disabled == false) {
+    if ((this.view == 1 || this.view == 11) && this.disabled == false) {
       this.loginprivilegecategories = response;
-      window.sessionStorage.setItem("loginprivilegecategories", JSON.stringify(this.loginprivilegecategories));
+      window.sessionStorage.setItem(
+        'loginprivilegecategories',
+        JSON.stringify(this.loginprivilegecategories)
+      );
     } else {
       this.loginprivilegecategoriesAll = response;
-      window.sessionStorage.setItem("loginprivilegecategoriesAll", JSON.stringify(this.loginprivilegecategoriesAll));
+      window.sessionStorage.setItem(
+        'loginprivilegecategoriesAll',
+        JSON.stringify(this.loginprivilegecategoriesAll)
+      );
     }
     this.cancel.next();
   }
 
   loginprivilegecategoryGet() {
-    this.loginprivilegecategoryservice.get().subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else{
-          this.setLoginprivilegecategorys(this.loginprivilegecategoryservice.getAllDetail(response));
+    this.loginprivilegecategoryservice.get().subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else {
+            this.setLoginprivilegecategorys(
+              this.loginprivilegecategoryservice.getAllDetail(response)
+            );
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
 
   loginprivilegecategoryGetAll() {
-    this.loginprivilegecategoryservice.getAll().subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else{
-          this.setLoginprivilegecategorys(this.loginprivilegecategoryservice.getAllDetail(response));
+    this.loginprivilegecategoryservice.getAll().subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else {
+            this.setLoginprivilegecategorys(
+              this.loginprivilegecategoryservice.getAllDetail(response)
+            );
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
 
   loginprivilegecategoryGetOne(id) {
     this.disabled = true;
-    this.loginprivilegecategoryservice.getOne(id).subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else{
-          this.setLoginprivilegecategory(this.loginprivilegecategoryservice.getDetail(response));
+    this.loginprivilegecategoryservice.getOne(id).subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else {
+            this.setLoginprivilegecategory(this.loginprivilegecategoryservice.getDetail(response));
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
 
   loginprivilegecategoryAdd(loginprivilegecategory) {
-    loginprivilegecategory.isactive="Y";
+    loginprivilegecategory.isactive = 'Y';
 
-    if(this.view == 5){
+    if (this.view == 5) {
       loginprivilegecategory.application_ID = this.application.applicationID;
-    }else{ 
+    } else {
       loginprivilegecategory.application_ID = this.addapplication.applicationID;
     }
 
-    this.loginprivilegecategoryservice.add(loginprivilegecategory).subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else if (response.pcategory_ID) {
-          this.toastrservice.success("Success", "New Loginprivilegecategory Added");
-          this.loginprivilegecategoryGetAll();
-          this.setLoginprivilegecategory(response);
-          this.disabled = true;
-        } else {
-          this.toastrservice.error("Some thing went wrong");
+    this.loginprivilegecategoryservice.add(loginprivilegecategory).subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else if (response.pcategory_ID) {
+            this.toastrservice.success('Success', 'New Loginprivilegecategory Added');
+            this.loginprivilegecategoryGetAll();
+            this.setLoginprivilegecategory(response);
+            this.disabled = true;
+          } else {
+            this.toastrservice.error('Some thing went wrong');
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
 
   loginprivilegecategoryUpdate(loginprivilegecategory) {
-     if(this.view == 5){
+    if (this.view == 5) {
       loginprivilegecategory.application_ID = this.application.applicationID;
-    }else{ 
+    } else {
       loginprivilegecategory.application_ID = this.editapplication.applicationID;
     }
     if (loginprivilegecategory.isactive == true) {
-      loginprivilegecategory.isactive = "Y";
+      loginprivilegecategory.isactive = 'Y';
     } else {
-      loginprivilegecategory.isactive = "N";
+      loginprivilegecategory.isactive = 'N';
     }
-    this.loginprivilegecategoryservice.update(loginprivilegecategory, loginprivilegecategory.pcategory_ID).subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else if (response.pcategory_ID) {
-          this.toastrservice.success("Success", " Loginprivilegecategory Updated");
-          if (this.disabled==true) {
-            this.setLoginprivilegecategory(response);
-          } else {
-            this.disabled = true;
+    this.loginprivilegecategoryservice
+      .update(loginprivilegecategory, loginprivilegecategory.pcategory_ID)
+      .subscribe(
+        (response) => {
+          if (response) {
+            if (response.error && response.status) {
+              this.toastrservice.warning('Message', ' ' + response.message);
+            } else if (response.pcategory_ID) {
+              this.toastrservice.success('Success', ' Loginprivilegecategory Updated');
+              if (this.disabled == true) {
+                this.setLoginprivilegecategory(response);
+              } else {
+                this.disabled = true;
+              }
+            } else {
+              this.toastrservice.error('Some thing went wrong');
+            }
           }
-        } else {
-          this.toastrservice.error("Some thing went wrong");
+        },
+        (error) => {
+          this.onfailservice.onFail(error);
         }
-      }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+      );
   }
 
   loginprivilegecategorySearch(str) {
     var search = {
-      search: str
-    }
-    this.loginprivilegecategoryservice.search(search).subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else{
-          this.setLoginprivilegecategorys(this.loginprivilegecategoryservice.getAllDetail(response));
+      search: str,
+    };
+    this.loginprivilegecategoryservice.search(search).subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else {
+            this.setLoginprivilegecategorys(
+              this.loginprivilegecategoryservice.getAllDetail(response)
+            );
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
 
   loginprivilegecategorySearchAll(str) {
     var search = {
-      search: str
-    }
-    this.loginprivilegecategoryservice.searchAll(search).subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else{
-          this.setLoginprivilegecategorys(this.loginprivilegecategoryservice.getAllDetail(response));
+      search: str,
+    };
+    this.loginprivilegecategoryservice.searchAll(search).subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else {
+            this.setLoginprivilegecategorys(
+              this.loginprivilegecategoryservice.getAllDetail(response)
+            );
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
 
   loginprivilegecategoryAdvancedSearch(applicationID) {
     this.applicationID = applicationID;
     var search = {
-      application_ID: applicationID
-    }
-    this.loginprivilegecategoryservice.advancedSearch(search).subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else{
-          this.setLoginprivilegecategorys(this.loginprivilegecategoryservice.getAllDetail(response));
+      application_ID: applicationID,
+    };
+    this.loginprivilegecategoryservice.advancedSearch(search).subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else {
+            this.setLoginprivilegecategorys(
+              this.loginprivilegecategoryservice.getAllDetail(response)
+            );
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
 
   loginprivilegecategoryAdvancedSearchAll(applicationID) {
     this.applicationID = applicationID;
     var search = {
-      application_ID: applicationID
-    }
-    this.loginprivilegecategoryservice.advancedSearchAll(search).subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else{
-          this.setLoginprivilegecategorys(this.loginprivilegecategoryservice.getAllDetail(response));
+      application_ID: applicationID,
+    };
+    this.loginprivilegecategoryservice.advancedSearchAll(search).subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else {
+            this.setLoginprivilegecategorys(
+              this.loginprivilegecategoryservice.getAllDetail(response)
+            );
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
-
 }

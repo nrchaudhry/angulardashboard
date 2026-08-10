@@ -18,16 +18,16 @@ import { InstitutecourseComponent } from '../../common/institutecourse/institute
 @Component({
   selector: 'app-personeducationqualification',
   templateUrl: './personeducationqualification.component.html',
-  styleUrls: ['./personeducationqualification.component.css']
+  styleUrls: ['./personeducationqualification.component.css'],
 })
 export class PersoneducationqualificationComponent implements OnInit {
-  @ViewChild("person") person: PersonComponent;
-  @ViewChild("institute") institute: InstituteComponent;
-  @ViewChild("institutecourse") institutecourse: InstitutecourseComponent;
-  @ViewChild("educationsystem") educationsystem: EducationsystemComponent;
-  @ViewChild("educationattendancemode") educationattendancemode: EducationattendancemodeComponent;
-  @ViewChild("gradingsystem") gradingsystem: GradingsystemComponent;
-  @ViewChild("qualificationstatus") qualificationstatus: QualificationstatusComponent;
+  @ViewChild('person') person: PersonComponent;
+  @ViewChild('institute') institute: InstituteComponent;
+  @ViewChild('institutecourse') institutecourse: InstitutecourseComponent;
+  @ViewChild('educationsystem') educationsystem: EducationsystemComponent;
+  @ViewChild('educationattendancemode') educationattendancemode: EducationattendancemodeComponent;
+  @ViewChild('gradingsystem') gradingsystem: GradingsystemComponent;
+  @ViewChild('qualificationstatus') qualificationstatus: QualificationstatusComponent;
 
   @Input()
   view: number = 1;
@@ -64,7 +64,6 @@ export class PersoneducationqualificationComponent implements OnInit {
   @Input()
   qualificationstatusCode = null;
 
-
   @Output() edit = new EventEmitter();
   @Output() cancel = new EventEmitter();
   @Output() show = new EventEmitter();
@@ -88,15 +87,15 @@ export class PersoneducationqualificationComponent implements OnInit {
     total_MARKS: null,
     obtained_MARKS: null,
     obtained_PERCENTAGE: null,
-    isactive: true
-  }
+    isactive: true,
+  };
 
   constructor(
     private personeducationqualificationservice: PersoneducationqualificationService,
     private toastrservice: ToastrService,
     private onfailservice: OnFailService,
-    private router: Router,
-  ) { }
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.load(this.isreload);
@@ -106,24 +105,43 @@ export class PersoneducationqualificationComponent implements OnInit {
     if (!this.personID && Number(window.sessionStorage.getItem('person')) > 0) {
       this.personID = Number(window.sessionStorage.getItem('person'));
     } else {
-      redirectByHref(setting.redirctPath + "/#/home/personal");
+      redirectByHref(setting.redirctPath + '/#/home/personal');
     }
 
     if (window.sessionStorage.getItem('personeducationqualifications') != null) {
-      this.personeducationqualifications = JSON.parse(window.sessionStorage.getItem('personeducationqualifications'));
+      this.personeducationqualifications = JSON.parse(
+        window.sessionStorage.getItem('personeducationqualifications')
+      );
     }
     if (window.sessionStorage.getItem('personeducationqualificationsAll') != null) {
-      this.personeducationqualificationsAll = JSON.parse(window.sessionStorage.getItem('personeducationqualificationsAll'));
+      this.personeducationqualificationsAll = JSON.parse(
+        window.sessionStorage.getItem('personeducationqualificationsAll')
+      );
     }
-    if (this.personID != 0 && !this.personID && Number(window.sessionStorage.getItem('person')) > 0) {
+    if (
+      this.personID != 0 &&
+      !this.personID &&
+      Number(window.sessionStorage.getItem('person')) > 0
+    ) {
       this.personID = Number(window.sessionStorage.getItem('person'));
     }
 
-    if (this.view >= 1 && this.view <= 2 && (this.personeducationqualifications == null || this.personeducationqualifications.length == 0 || reload == true)) {
+    if (
+      this.view >= 1 &&
+      this.view <= 2 &&
+      (this.personeducationqualifications == null ||
+        this.personeducationqualifications.length == 0 ||
+        reload == true)
+    ) {
       this.personeducationqualifications == null;
       this.personeducationqualificationGet();
     }
-    if (((this.view >= 1 && this.view <= 2) || this.view == 10) && (this.personeducationqualificationsAll == null || this.personeducationqualificationsAll.length == 0 || reload == true)) {
+    if (
+      ((this.view >= 1 && this.view <= 2) || this.view == 10) &&
+      (this.personeducationqualificationsAll == null ||
+        this.personeducationqualificationsAll.length == 0 ||
+        reload == true)
+    ) {
       this.personeducationqualificationsAll == null;
       this.personeducationqualificationGetAll();
     }
@@ -137,40 +155,52 @@ export class PersoneducationqualificationComponent implements OnInit {
       gradingsystem_CODE: this.gradingsystemCode,
       qualificationstatus_CODE: this.qualificationstatusCode,
       educationattendancemode_CODE: this.educationattendancemodeCode,
-    }
+    };
 
     if (this.view >= 5 && this.view <= 6 && this.personqualificationID) {
-      window.sessionStorage.setItem("personeducationqualification", this.personqualificationID);
+      window.sessionStorage.setItem('personeducationqualification', this.personqualificationID);
       this.personeducationqualificationGetOne(this.personqualificationID);
       this.disabled = true;
-    } else if ((this.view >= 11 && this.view <= 29) && this.disabled == false && (this.personeducationqualifications == null || this.personeducationqualifications.length == 0 || reload == true)) {
+    } else if (
+      this.view >= 11 &&
+      this.view <= 29 &&
+      this.disabled == false &&
+      (this.personeducationqualifications == null ||
+        this.personeducationqualifications.length == 0 ||
+        reload == true)
+    ) {
       this.personeducationqualifications == null;
       this.personeducationqualificationAdvancedSearch(search);
-    } else if ((this.view >= 11 && this.view <= 29) && this.disabled == true && (this.personeducationqualificationsAll == null || this.personeducationqualificationsAll.length == 0 || reload == true)) {
+    } else if (
+      this.view >= 11 &&
+      this.view <= 29 &&
+      this.disabled == true &&
+      (this.personeducationqualificationsAll == null ||
+        this.personeducationqualificationsAll.length == 0 ||
+        reload == true)
+    ) {
       this.personeducationqualificationsAll == null;
       this.personeducationqualificationAdvancedSearchAll(search);
     }
   }
 
   onToolbarPreparing(e) {
-    e.toolbarOptions.items.unshift(
-      {
-        location: 'after',
-        widget: 'dxButton',
-        options: {
-          width: 136,
-          text: 'Refresh',
-          onClick: this.load.bind(this, true),
-        },
-      }
-    );
+    e.toolbarOptions.items.unshift({
+      location: 'after',
+      widget: 'dxButton',
+      options: {
+        width: 136,
+        text: 'Refresh',
+        onClick: this.load.bind(this, true),
+      },
+    });
   }
 
   onInstituteChange(institute) {
     console.log(institute);
     var search = {
-      institute_ID: institute.institute_ID
-    }
+      institute_ID: institute.institute_ID,
+    };
     if (this.institutecourse != null && this.institutecourse.disabled == false) {
       this.institutecourse.institutecourseAdvancedSearch(search);
     } else if (this.institutecourse != null && this.institutecourse.disabled == true) {
@@ -180,7 +210,10 @@ export class PersoneducationqualificationComponent implements OnInit {
 
   onChange(personqualificationID) {
     for (var i = 0; i < this.personeducationqualificationsAll.length; i++) {
-      if (this.personeducationqualificationsAll[i].personeducationqualification_ID == personqualificationID) {
+      if (
+        this.personeducationqualificationsAll[i].personeducationqualification_ID ==
+        personqualificationID
+      ) {
         this.onPersonEducationQualificationChange.next(this.personeducationqualificationsAll[i]);
         break;
       }
@@ -203,7 +236,7 @@ export class PersoneducationqualificationComponent implements OnInit {
       total_MARKS: null,
       obtained_MARKS: null,
       obtained_PERCENTAGE: null,
-      isactive: true
+      isactive: true,
     };
   }
 
@@ -231,7 +264,7 @@ export class PersoneducationqualificationComponent implements OnInit {
     this.disabled = true;
     this.personeducationqualificationAdvancedSearch(this.personID);
     if (this.personeducationqualification.personqualification_ID == 0) {
-      this.router.navigate(["/home/personeducationqualifications"], {});
+      this.router.navigate(['/home/personeducationqualifications'], {});
     }
   }
 
@@ -242,7 +275,7 @@ export class PersoneducationqualificationComponent implements OnInit {
     this.educationattendancemodeID = response.educationattendancemodeID;
     this.qualificationstatusID = response.qualificationstatus_ID;
     this.gradingsystemID = response.gradingsystem_ID;
-    if (response.isactive == "Y") {
+    if (response.isactive == 'Y') {
       response.isactive = true;
     } else {
       response.isactive = false;
@@ -257,163 +290,217 @@ export class PersoneducationqualificationComponent implements OnInit {
   }
 
   personeducationqualificationGet() {
-    this.personeducationqualificationservice.get().subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else {
-          this.personeducationqualifications = this.setPersoneducationqualifications(this.personeducationqualificationservice.getAllDetail(response));
-          window.sessionStorage.setItem("personeducationqualifications", JSON.stringify(this.personeducationqualifications));
-
+    this.personeducationqualificationservice.get().subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else {
+            this.personeducationqualifications = this.setPersoneducationqualifications(
+              this.personeducationqualificationservice.getAllDetail(response)
+            );
+            window.sessionStorage.setItem(
+              'personeducationqualifications',
+              JSON.stringify(this.personeducationqualifications)
+            );
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
 
   personeducationqualificationGetAll() {
-    this.personeducationqualificationservice.getAll().subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else {
-          this.personeducationqualificationsAll = this.setPersoneducationqualifications(this.personeducationqualificationservice.getAllDetail(response));
-          window.sessionStorage.setItem("personeducationqualifications", JSON.stringify(this.personeducationqualifications));
-
+    this.personeducationqualificationservice.getAll().subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else {
+            this.personeducationqualificationsAll = this.setPersoneducationqualifications(
+              this.personeducationqualificationservice.getAllDetail(response)
+            );
+            window.sessionStorage.setItem(
+              'personeducationqualifications',
+              JSON.stringify(this.personeducationqualifications)
+            );
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
 
   personeducationqualificationGetOne(id) {
-    this.personeducationqualificationservice.getOne(id).subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else {
-          this.setPersoneducationqualification(this.personeducationqualificationservice.getDetail(response));
+    this.personeducationqualificationservice.getOne(id).subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else {
+            this.setPersoneducationqualification(
+              this.personeducationqualificationservice.getDetail(response)
+            );
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
   personeducationqualificationAdd(personeducationqualification) {
     personeducationqualification.person_ID = this.personID;
     personeducationqualification.institutecourse_ID = this.institutecourse.institutecourseID;
-    personeducationqualification.qualificationstatus_ID = this.qualificationstatus.qualificationstatusID;
+    personeducationqualification.qualificationstatus_ID =
+      this.qualificationstatus.qualificationstatusID;
     personeducationqualification.gradingsystem_ID = this.gradingsystem.gradingsystemID;
     personeducationqualification.educationsystem_ID = this.educationsystem.educationsystemID;
-    personeducationqualification.educationattendancemode_ID = this.educationattendancemode.educationattendancemodeID;
-    personeducationqualification.isactive = "Y";
+    personeducationqualification.educationattendancemode_ID =
+      this.educationattendancemode.educationattendancemodeID;
+    personeducationqualification.isactive = 'Y';
 
-    this.personeducationqualificationservice.add(personeducationqualification).subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else if (response.personqualification_ID) {
-          this.toastrservice.success("Success", "New Personeducationqualification Added");
-          this.setPersoneducationqualification(this.personeducationqualificationservice.getDetail(response));
-          this.refresh.next();
-          this.personeducationqualificationGetAll();
-          this.disabled = true;
-        } else {
-          this.toastrservice.error("Some thing went wrong");
+    this.personeducationqualificationservice.add(personeducationqualification).subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else if (response.personqualification_ID) {
+            this.toastrservice.success('Success', 'New Personeducationqualification Added');
+            this.setPersoneducationqualification(
+              this.personeducationqualificationservice.getDetail(response)
+            );
+            this.refresh.next();
+            this.personeducationqualificationGetAll();
+            this.disabled = true;
+          } else {
+            this.toastrservice.error('Some thing went wrong');
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
 
   personeducationqualificationUpdate(personeducationqualification) {
     personeducationqualification.person_ID = this.personID;
     personeducationqualification.institutecourse_ID = this.institutecourse.institutecourseID;
-    personeducationqualification.qualificationstatus_ID = this.qualificationstatus.qualificationstatusID;
+    personeducationqualification.qualificationstatus_ID =
+      this.qualificationstatus.qualificationstatusID;
     personeducationqualification.gradingsystem_ID = this.gradingsystem.gradingsystemID;
-    personeducationqualification.educationattendancemode_ID = this.educationattendancemode.educationattendancemodeID;
+    personeducationqualification.educationattendancemode_ID =
+      this.educationattendancemode.educationattendancemodeID;
     personeducationqualification.educationsystem_ID = this.educationsystem.educationsystemID;
     if (personeducationqualification.isactive == true) {
-      personeducationqualification.isactive = "Y";
+      personeducationqualification.isactive = 'Y';
     } else {
-      personeducationqualification.isactive = "N";
+      personeducationqualification.isactive = 'N';
     }
-    this.personeducationqualificationservice.update(personeducationqualification, personeducationqualification.personqualification_ID).subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else if (response.personqualification_ID) {
-          this.toastrservice.success("Success", " Person Education Qualification Updated");
-          this.setPersoneducationqualification(this.personeducationqualificationservice.getDetail(response));
-          this.refresh.next();
-          this.personeducationqualificationGetAll();
-          this.disabled = true;
-        } else {
-          this.toastrservice.error("Some thing went wrong");
+    this.personeducationqualificationservice
+      .update(personeducationqualification, personeducationqualification.personqualification_ID)
+      .subscribe(
+        (response) => {
+          if (response) {
+            if (response.error && response.status) {
+              this.toastrservice.warning('Message', ' ' + response.message);
+            } else if (response.personqualification_ID) {
+              this.toastrservice.success('Success', ' Person Education Qualification Updated');
+              this.setPersoneducationqualification(
+                this.personeducationqualificationservice.getDetail(response)
+              );
+              this.refresh.next();
+              this.personeducationqualificationGetAll();
+              this.disabled = true;
+            } else {
+              this.toastrservice.error('Some thing went wrong');
+            }
+          }
+        },
+        (error) => {
+          this.onfailservice.onFail(error);
         }
-      }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+      );
   }
 
   personeducationqualificationUpdateAll(personeducationqualifications) {
-    this.personeducationqualificationservice.updateAll(personeducationqualifications).subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else if (response.length > 0) {
-          this.toastrservice.success("Success", "Person Education Qualifications Updated");
-          this.setPersoneducationqualification(this.personeducationqualificationservice.getDetail(response));
-          this.refresh.next();
-        } else {
-          this.toastrservice.error("Some thing went wrong");
+    this.personeducationqualificationservice.updateAll(personeducationqualifications).subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else if (response.length > 0) {
+            this.toastrservice.success('Success', 'Person Education Qualifications Updated');
+            this.setPersoneducationqualification(
+              this.personeducationqualificationservice.getDetail(response)
+            );
+            this.refresh.next();
+          } else {
+            this.toastrservice.error('Some thing went wrong');
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
 
   personeducationqualificationSearch(str) {
     var search = {
-      search: str
-    }
-    this.personeducationqualificationservice.search(search).subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else {
-          this.personeducationqualifications = this.setPersoneducationqualifications(this.personeducationqualificationservice.getAllDetail(response));
-          window.sessionStorage.setItem("personeducationqualifications", JSON.stringify(this.personeducationqualifications));
-
+      search: str,
+    };
+    this.personeducationqualificationservice.search(search).subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else {
+            this.personeducationqualifications = this.setPersoneducationqualifications(
+              this.personeducationqualificationservice.getAllDetail(response)
+            );
+            window.sessionStorage.setItem(
+              'personeducationqualifications',
+              JSON.stringify(this.personeducationqualifications)
+            );
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
 
   personeducationqualificationSearchAll(str) {
     var search = {
-      search: str
-    }
-    this.personeducationqualificationservice.searchAll(search).subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else {
-          this.personeducationqualificationsAll = this.setPersoneducationqualifications(this.personeducationqualificationservice.getAllDetail(response));
-          window.sessionStorage.setItem("personeducationqualifications", JSON.stringify(this.personeducationqualifications));
-
+      search: str,
+    };
+    this.personeducationqualificationservice.searchAll(search).subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else {
+            this.personeducationqualificationsAll = this.setPersoneducationqualifications(
+              this.personeducationqualificationservice.getAllDetail(response)
+            );
+            window.sessionStorage.setItem(
+              'personeducationqualifications',
+              JSON.stringify(this.personeducationqualifications)
+            );
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
 
   personeducationqualificationAdvancedSearch(search) {
@@ -426,23 +513,31 @@ export class PersoneducationqualificationComponent implements OnInit {
     this.educationattendancemodeID = search.educationattendancemode_ID;
     this.educationattendancemodeCode = search.educationattendancemode_CODE;
 
-    this.personeducationqualificationservice.advancedSearch(search).subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else {
-          this.personeducationqualifications = response;
-          if (this.personeducationqualifications.length > 0) {
-            this.personeducationqualifications = this.setPersoneducationqualifications(this.personeducationqualificationservice.getDetail(this.personeducationqualifications[0]));
-            window.sessionStorage.setItem("personeducationqualifications", JSON.stringify(this.personeducationqualifications));
-
-          } else
-            this.add();
+    this.personeducationqualificationservice.advancedSearch(search).subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else {
+            this.personeducationqualifications = response;
+            if (this.personeducationqualifications.length > 0) {
+              this.personeducationqualifications = this.setPersoneducationqualifications(
+                this.personeducationqualificationservice.getDetail(
+                  this.personeducationqualifications[0]
+                )
+              );
+              window.sessionStorage.setItem(
+                'personeducationqualifications',
+                JSON.stringify(this.personeducationqualifications)
+              );
+            } else this.add();
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
 
   personeducationqualificationAdvancedSearchAll(search) {
@@ -455,19 +550,25 @@ export class PersoneducationqualificationComponent implements OnInit {
     this.educationattendancemodeID = search.educationattendancemode_ID;
     this.educationattendancemodeCode = search.educationattendancemode_CODE;
 
-    this.personeducationqualificationservice.advancedSearchAll(search).subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else {
-          this.personeducationqualificationsAll = this.setPersoneducationqualifications(this.personeducationqualificationservice.getAllDetail(response));
-          window.sessionStorage.setItem("personeducationqualifications", JSON.stringify(this.personeducationqualifications));
-
+    this.personeducationqualificationservice.advancedSearchAll(search).subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else {
+            this.personeducationqualificationsAll = this.setPersoneducationqualifications(
+              this.personeducationqualificationservice.getAllDetail(response)
+            );
+            window.sessionStorage.setItem(
+              'personeducationqualifications',
+              JSON.stringify(this.personeducationqualifications)
+            );
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
-
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { OnFailService } from '../../../services/on-fail.service';
-import { NgxSpinnerService } from "ngx-spinner";
+import { NgxSpinnerService } from 'ngx-spinner';
 import { Router } from '@angular/router';
 
 import { CompanyComponent } from 'src/app/components/company/company/company.component';
@@ -11,12 +11,12 @@ declare var $: any;
 @Component({
   selector: 'app-companies',
   templateUrl: './companies.component.html',
-  styleUrls: ['./companies.component.css']
+  styleUrls: ['./companies.component.css'],
 })
 export class CompaniesComponent implements OnInit {
-  @ViewChild("companies") companies: CompanyComponent;
-  @ViewChild("addcompany") addcompany: CompanyComponent;
-  @ViewChild("editcompany") editcompany: CompanyComponent;
+  @ViewChild('companies') companies: CompanyComponent;
+  @ViewChild('addcompany') addcompany: CompanyComponent;
+  @ViewChild('editcompany') editcompany: CompanyComponent;
 
   spinnercount = 0;
 
@@ -24,14 +24,12 @@ export class CompaniesComponent implements OnInit {
     private toastrservice: ToastrService,
     private onfailservice: OnFailService,
     private router: Router,
-    private spinner: NgxSpinnerService,
-  ) { }
+    private spinner: NgxSpinnerService
+  ) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
-  view() {
-  }
+  view() {}
 
   refresh() {
     this.companies.load(true);
@@ -39,12 +37,12 @@ export class CompaniesComponent implements OnInit {
   }
 
   show(row) {
-    this.router.navigate(["/home/company"], { queryParams: { company: row.data.company_ID } });
+    this.router.navigate(['/home/company'], { queryParams: { company: row.data.company_ID } });
   }
 
   addNew() {
     this.addcompany.add();
-    $("#add").modal("show");
+    $('#add').modal('show');
   }
 
   edit(row) {
@@ -62,20 +60,20 @@ export class CompaniesComponent implements OnInit {
       start_DATE: row.data.start_DATE,
       end_DATE: row.data.end_DATE,
       companylogo_PATH: row.data.companylogo_PATH,
-      file: File = null,
-      isactive: row.data.isactive
+      file: (File = null),
+      isactive: row.data.isactive,
     };
-    if (row.data.isactive == "Y") {
+    if (row.data.isactive == 'Y') {
       this.editcompany.company.isactive = true;
     } else {
       this.editcompany.company.isactive = false;
     }
-    $("#edit").modal("show");
+    $('#edit').modal('show');
   }
 
   cancel() {
-    $("#add").modal("hide");
-    $("#edit").modal("hide");
+    $('#add').modal('hide');
+    $('#edit').modal('hide');
   }
 
   spinnerOn() {

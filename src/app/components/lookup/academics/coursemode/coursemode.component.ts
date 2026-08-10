@@ -1,4 +1,3 @@
-
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { LookupService } from 'src/app/services/lookup.service';
@@ -7,7 +6,7 @@ import { OnFailService } from 'src/app/services/on-fail.service';
 @Component({
   selector: 'app-coursemode',
   templateUrl: './coursemode.component.html',
-  styleUrls: ['./coursemode.component.css']
+  styleUrls: ['./coursemode.component.css'],
 })
 export class CoursemodeComponent implements OnInit {
   @Input()
@@ -25,8 +24,8 @@ export class CoursemodeComponent implements OnInit {
   constructor(
     private lookupservice: LookupService,
     private toastrservice: ToastrService,
-    private onfailservice: OnFailService,
-  ) { }
+    private onfailservice: OnFailService
+  ) {}
 
   ngOnInit(): void {
     this.coursemodes = JSON.parse(window.sessionStorage.getItem('coursemodes'));
@@ -41,39 +40,44 @@ export class CoursemodeComponent implements OnInit {
   setCoursemodes(response) {
     if (this.disabled == false) {
       this.coursemodes = response;
-      window.sessionStorage.setItem("coursemodes", JSON.stringify(this.coursemodes));
+      window.sessionStorage.setItem('coursemodes', JSON.stringify(this.coursemodes));
     } else {
       this.coursemodesAll = response;
-      window.sessionStorage.setItem("coursemodesAll", JSON.stringify(this.coursemodesAll));
+      window.sessionStorage.setItem('coursemodesAll', JSON.stringify(this.coursemodesAll));
     }
   }
 
-  coursemodeGet(){
-    this.lookupservice.lookup("COURSEMODE").subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else{
-          this.setCoursemodes(response);
+  coursemodeGet() {
+    this.lookupservice.lookup('COURSEMODE').subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else {
+            this.setCoursemodes(response);
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
 
-  coursemodeGetAll(){
-    this.lookupservice.lookupAll("COURSEMODE").subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else{
-          this.setCoursemodes(response);
+  coursemodeGetAll() {
+    this.lookupservice.lookupAll('COURSEMODE').subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else {
+            this.setCoursemodes(response);
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
-
 }

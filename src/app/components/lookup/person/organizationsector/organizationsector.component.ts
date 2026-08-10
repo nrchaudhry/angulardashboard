@@ -7,7 +7,7 @@ import { OnFailService } from 'src/app/services/on-fail.service';
 @Component({
   selector: 'app-organizationsector',
   templateUrl: './organizationsector.component.html',
-  styleUrls: ['./organizationsector.component.css']
+  styleUrls: ['./organizationsector.component.css'],
 })
 export class OrganizationsectorComponent implements OnInit {
   @Input()
@@ -25,55 +25,65 @@ export class OrganizationsectorComponent implements OnInit {
   constructor(
     private lookupservice: LookupService,
     private toastrservice: ToastrService,
-    private onfailservice: OnFailService,
-  ) { }
+    private onfailservice: OnFailService
+  ) {}
 
   ngOnInit(): void {
     this.organizationsectors = JSON.parse(window.sessionStorage.getItem('organizationsectors'));
-    this.organizationsectorsAll = JSON.parse(window.sessionStorage.getItem('organizationsectorsAll'));
+    this.organizationsectorsAll = JSON.parse(
+      window.sessionStorage.getItem('organizationsectorsAll')
+    );
     if (this.organizationsectors == null) {
       this.organizationsectorGet();
-    } 
+    }
 
-if (this.organizationsectorsAll == null) {
+    if (this.organizationsectorsAll == null) {
       this.organizationsectorGetAll();
     }
   }
 
   setOrganizationsectors(response) {
-      this.organizationsectors = response;
-      window.sessionStorage.setItem("organizationsectors", JSON.stringify(this.organizationsectors));
-    
-      this.organizationsectorsAll = response;
-      window.sessionStorage.setItem("organizationsectorsAll", JSON.stringify(this.organizationsectorsAll));
-    }
+    this.organizationsectors = response;
+    window.sessionStorage.setItem('organizationsectors', JSON.stringify(this.organizationsectors));
 
-  organizationsectorGet(){
-    this.lookupservice.lookup("ORGANIZATIONSECTOR").subscribe(response => {
-      if (response) {
-        if (response.error && response.tutortype) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else{
-          this.setOrganizationsectors(response);
-        }
-      }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    this.organizationsectorsAll = response;
+    window.sessionStorage.setItem(
+      'organizationsectorsAll',
+      JSON.stringify(this.organizationsectorsAll)
+    );
   }
 
-  organizationsectorGetAll(){
-    this.lookupservice.lookupAll("ORGANIZATIONSECTOR").subscribe(response => {
-      if (response) {
-        if (response.error && response.tutortype) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else{
-          this.setOrganizationsectors(response);
+  organizationsectorGet() {
+    this.lookupservice.lookup('ORGANIZATIONSECTOR').subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.tutortype) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else {
+            this.setOrganizationsectors(response);
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
 
+  organizationsectorGetAll() {
+    this.lookupservice.lookupAll('ORGANIZATIONSECTOR').subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.tutortype) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else {
+            this.setOrganizationsectors(response);
+          }
+        }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
+      }
+    );
+  }
 }

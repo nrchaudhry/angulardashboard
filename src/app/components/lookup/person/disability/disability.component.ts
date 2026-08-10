@@ -1,4 +1,3 @@
-
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { LookupService } from 'src/app/services/lookup.service';
@@ -7,7 +6,7 @@ import { OnFailService } from 'src/app/services/on-fail.service';
 @Component({
   selector: 'app-disability',
   templateUrl: './disability.component.html',
-  styleUrls: ['./disability.component.css']
+  styleUrls: ['./disability.component.css'],
 })
 export class DisabilityComponent implements OnInit {
   @Input()
@@ -25,8 +24,8 @@ export class DisabilityComponent implements OnInit {
   constructor(
     private lookupservice: LookupService,
     private toastrservice: ToastrService,
-    private onfailservice: OnFailService,
-  ) { }
+    private onfailservice: OnFailService
+  ) {}
 
   ngOnInit(): void {
     this.disabilities = JSON.parse(window.sessionStorage.getItem('disabilities'));
@@ -41,39 +40,44 @@ export class DisabilityComponent implements OnInit {
   setDisabilities(response) {
     if (this.disabled == false) {
       this.disabilities = response;
-      window.sessionStorage.setItem("disabilities", JSON.stringify(this.disabilities));
+      window.sessionStorage.setItem('disabilities', JSON.stringify(this.disabilities));
     } else {
       this.disabilitiesAll = response;
-      window.sessionStorage.setItem("disabilitiesAll", JSON.stringify(this.disabilitiesAll));
+      window.sessionStorage.setItem('disabilitiesAll', JSON.stringify(this.disabilitiesAll));
     }
   }
 
-  disabilityGet(){
-    this.lookupservice.lookup("DISABILITY").subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else{
-          this.setDisabilities(response);
+  disabilityGet() {
+    this.lookupservice.lookup('DISABILITY').subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else {
+            this.setDisabilities(response);
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
 
-  disabilityGetAll(){
-    this.lookupservice.lookupAll("DISABILITY").subscribe(response => {
-      if (response) {
-        if (response.error && response.status) {
-          this.toastrservice.warning("Message", " " + response.message);
-        } else{
-          this.setDisabilities(response);
+  disabilityGetAll() {
+    this.lookupservice.lookupAll('DISABILITY').subscribe(
+      (response) => {
+        if (response) {
+          if (response.error && response.status) {
+            this.toastrservice.warning('Message', ' ' + response.message);
+          } else {
+            this.setDisabilities(response);
+          }
         }
+      },
+      (error) => {
+        this.onfailservice.onFail(error);
       }
-    }, error => {
-      this.onfailservice.onFail(error);
-    })
+    );
   }
-
 }

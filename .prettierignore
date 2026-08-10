@@ -1,0 +1,8 @@
+node_modules/
+dist/
+products/
+package-lock.json
+src/assets/
+**/*.min.js
+**/smartmenus*/
+**/plugins/

@@ -1,18 +1,22 @@
-
 <div class="form-group">
-  <label class="custom-label form-label">Worktype
-    <span style="color: red;" [hidden]="disabled" *ngIf="iscompulsory==true">*</span>
+  <label class="custom-label form-label"
+    >Worktype
+    <span style="color: red" [hidden]="disabled" *ngIf="iscompulsory == true">*</span>
   </label>
-  <div class="row" *ngIf="disabled==true">
+  <div class="row" *ngIf="disabled == true">
     <div class="col-md-12">
       <ng-select [(ngModel)]="worktypeID" [disabled]="disabled" name="worktypeID" maxlength="50">
-        <ng-option *ngFor="let worktype of worktypesAll" [value]="worktype.id" [disabled]="disabled">
+        <ng-option
+          *ngFor="let worktype of worktypesAll"
+          [value]="worktype.id"
+          [disabled]="disabled"
+        >
           {{ worktype.code }} - {{ worktype.description }}
         </ng-option>
       </ng-select>
     </div>
   </div>
-  <div class="row" *ngIf="disabled==false">
+  <div class="row" *ngIf="disabled == false">
     <div class="col-md-10">
       <ng-select [(ngModel)]="worktypeID" [disabled]="disabled" name="worktypeID" maxlength="50">
         <ng-option *ngFor="let worktype of worktypes" [value]="worktype.id" [disabled]="disabled">
@@ -27,4 +31,3 @@
     </div>
   </div>
 </div>
-
