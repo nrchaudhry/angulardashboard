@@ -11,13 +11,13 @@ import { CompanysubtypeComponent } from '../companysubtype/companysubtype.compon
 @Component({
   selector: 'app-company',
   templateUrl: './company.component.html',
-  styleUrls: ['./company.component.css'],
+  styleUrls: ['./company.component.css']
 })
 export class CompanyComponent implements OnInit {
-  @ViewChild('companyparent') companyparent: CompanyComponent;
-  @ViewChild('companysubtype') companysubtype: CompanysubtypeComponent;
-  @ViewChild('businessnature') businessnature: BusinessnatureComponent;
-  @ViewChild('companystatus') companystatus: CompanystatusComponent;
+  @ViewChild("companyparent") companyparent: CompanyComponent;
+  @ViewChild("companysubtype") companysubtype: CompanysubtypeComponent;
+  @ViewChild("businessnature") businessnature: BusinessnatureComponent;
+  @ViewChild("companystatus") companystatus: CompanystatusComponent;
 
   @Input()
   view: number = 1;
@@ -78,16 +78,16 @@ export class CompanyComponent implements OnInit {
     start_DATE: null,
     end_DATE: null,
     companylogo_PATH: null,
-    file: (File = null),
+    file: File = null,
     isactive: true,
-  };
+  }
 
   constructor(
     private companieservice: CompanyService,
     private toastrservice: ToastrService,
     private onfailservice: OnFailService,
-    private router: Router
-  ) {}
+    private router: Router,
+  ) { }
 
   ngOnInit(): void {
     this.load(this.isreload);
@@ -100,27 +100,15 @@ export class CompanyComponent implements OnInit {
     if (window.sessionStorage.getItem('companiesAll') != null) {
       this.companiesAll = JSON.parse(window.sessionStorage.getItem('companiesAll'));
     }
-    if (
-      this.companyID != 0 &&
-      !this.companyID &&
-      Number(window.sessionStorage.getItem('company')) > 0
-    ) {
+    if (this.companyID != 0 && !this.companyID && Number(window.sessionStorage.getItem('company')) > 0) {
       this.companyID = Number(window.sessionStorage.getItem('company'));
     }
 
-    if (
-      this.view >= 1 &&
-      this.view <= 2 &&
-      (this.companies == null || this.companies.length == 0 || reload == true)
-    ) {
+    if (this.view >= 1 && this.view <= 2 && (this.companies == null || this.companies.length == 0 || reload == true)) {
       this.companies == null;
       this.companyGet();
     }
-    if (
-      this.view >= 1 &&
-      this.view <= 2 &&
-      (this.companiesAll == null || this.companiesAll.length == 0 || reload == true)
-    ) {
+    if (this.view >= 1 && this.view <= 2 && (this.companiesAll == null || this.companiesAll.length == 0 || reload == true)) {
       this.companiesAll == null;
       this.companyGetAll();
     }
@@ -133,40 +121,32 @@ export class CompanyComponent implements OnInit {
       companystatus_CODE: this.companystatusCode,
       companyparent_ID: this.companyparentID,
       companyparent_CODE: this.companyparentCode,
-    };
+    }
     if (this.view >= 5 && this.view <= 6 && this.companyID) {
-      window.sessionStorage.setItem('company', this.companyID);
+      window.sessionStorage.setItem("company", this.companyID);
       this.companyGetOne(this.companyID);
       this.disabled = true;
-    } else if (
-      this.view >= 11 &&
-      this.view <= 29 &&
-      this.disabled == false &&
-      (this.companies == null || this.companies.length == 0 || reload == true)
-    ) {
+    } else if ((this.view >= 11 && this.view <= 29) && this.disabled == false && (this.companies == null || this.companies.length == 0 || reload == true)) {
       this.companies == null;
       this.companyAdvancedSearch(search);
-    } else if (
-      this.view >= 11 &&
-      this.view <= 29 &&
-      this.disabled == true &&
-      (this.companiesAll == null || this.companiesAll.length == 0 || reload == true)
-    ) {
+    } else if ((this.view >= 11 && this.view <= 29) && this.disabled == true && (this.companiesAll == null || this.companiesAll.length == 0 || reload == true)) {
       this.companiesAll == null;
       this.companyAdvancedSearchAll(search);
     }
   }
 
   onToolbarPreparing(e) {
-    e.toolbarOptions.items.unshift({
-      location: 'after',
-      widget: 'dxButton',
-      options: {
-        width: 136,
-        text: 'Refresh',
-        onClick: this.load.bind(this, true),
-      },
-    });
+    e.toolbarOptions.items.unshift(
+      {
+        location: 'after',
+        widget: 'dxButton',
+        options: {
+          width: 136,
+          text: 'Refresh',
+          onClick: this.load.bind(this, true),
+        },
+      }
+    );
   }
 
   onChange(companyID) {
@@ -204,7 +184,7 @@ export class CompanyComponent implements OnInit {
       start_DATE: null,
       end_DATE: null,
       companylogo_PATH: null,
-      file: (File = null),
+      file: File = null,
       isactive: true,
     };
   }
@@ -232,7 +212,7 @@ export class CompanyComponent implements OnInit {
   companyCancel() {
     this.disabled = true;
     if (this.company.company_ID == 0) {
-      this.router.navigate(['/home/companies'], {});
+      this.router.navigate(["/home/companies"], {});
     }
   }
 
@@ -241,7 +221,7 @@ export class CompanyComponent implements OnInit {
     this.businessnatureID = response.businessnature_ID;
     this.companyparentID = response.companyparent_ID;
     this.companystatusID = response.companystatus_ID;
-    if (response.isactive == 'Y') {
+    if (response.isactive == "Y") {
       response.isactive = true;
     } else {
       response.isactive = false;
@@ -256,65 +236,56 @@ export class CompanyComponent implements OnInit {
 
   companyGet() {
     this.spinnerOn.next();
-    this.companieservice.get().subscribe(
-      (response) => {
-        this.spinnerOff.next();
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.companies = this.setCompanies(this.companieservice.getAllDetail(response));
-            window.sessionStorage.setItem('companies', JSON.stringify(this.companies));
-          }
+    this.companieservice.get().subscribe(response => {
+      this.spinnerOff.next();
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else {
+          this.companies = this.setCompanies(this.companieservice.getAllDetail(response));
+          window.sessionStorage.setItem("companies", JSON.stringify(this.companies));
         }
-      },
-      (error) => {
-        this.spinnerOff.next();
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.spinnerOff.next();
+      this.onfailservice.onFail(error);
+    })
   }
 
   companyGetAll() {
     this.spinnerOn.next();
-    this.companieservice.getAll().subscribe(
-      (response) => {
-        this.spinnerOff.next();
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.companiesAll = this.setCompanies(this.companieservice.getAllDetail(response));
-            window.sessionStorage.setItem('companiesAll', JSON.stringify(this.companiesAll));
-          }
+    this.companieservice.getAll().subscribe(response => {
+      this.spinnerOff.next();
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else {
+          this.companiesAll = this.setCompanies(this.companieservice.getAllDetail(response));
+          window.sessionStorage.setItem("companiesAll", JSON.stringify(this.companiesAll));
         }
-      },
-      (error) => {
-        this.spinnerOff.next();
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.spinnerOff.next();
+      this.onfailservice.onFail(error);
+    })
   }
 
   companyGetOne(id) {
     this.spinnerOn.next();
     this.disabled = true;
-    this.companieservice.getOne(id).subscribe(
-      (response) => {
-        this.spinnerOff.next();
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.setCompany(this.companieservice.getDetail(response));
-          }
+    this.companieservice.getOne(id).subscribe(response => {
+      this.spinnerOff.next();
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else {
+          this.setCompany(this.companieservice.getDetail(response));
         }
-      },
-      (error) => {
-        this.spinnerOff.next();
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.spinnerOff.next();
+      this.onfailservice.onFail(error);
+    })
   }
 
   companyAdd(company) {
@@ -322,29 +293,26 @@ export class CompanyComponent implements OnInit {
     company.companysubtype_ID = this.companysubtypeID;
     company.businessnature_ID = this.businessnature.businessnatureID;
     company.companystatus_ID = this.companystatus.companystatusID;
-    company.isactive = 'Y';
+    company.isactive = "Y";
 
-    this.companieservice.add(company).subscribe(
-      (response) => {
-        this.spinnerOff.next();
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else if (response.company_ID) {
-            this.toastrservice.success('Success', 'New Intake Course Added');
-            this.setCompany(this.companieservice.getDetail(response));
-            this.refresh.next();
-            this.disabled = true;
-          } else {
-            this.toastrservice.error('Some thing went wrong');
-          }
+    this.companieservice.add(company).subscribe(response => {
+      this.spinnerOff.next();
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else if (response.company_ID) {
+          this.toastrservice.success("Success", "New Intake Course Added");
+          this.setCompany(this.companieservice.getDetail(response));
+          this.refresh.next();
+          this.disabled = true;
+        } else {
+          this.toastrservice.error("Some thing went wrong");
         }
-      },
-      (error) => {
-        this.spinnerOff.next();
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.spinnerOff.next();
+      this.onfailservice.onFail(error);
+    })
   }
 
   companyUpdate(company) {
@@ -354,106 +322,94 @@ export class CompanyComponent implements OnInit {
     company.companystatus_ID = this.companystatus.companystatusID;
 
     if (company.isactive == true) {
-      company.isactive = 'Y';
+      company.isactive = "Y";
     } else {
-      company.isactive = 'N';
+      company.isactive = "N";
     }
 
-    this.companieservice.update(company, company.company_ID).subscribe(
-      (response) => {
-        this.spinnerOff.next();
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else if (response.company_ID) {
-            this.toastrservice.success('Success', 'Intake Course Updated');
-            this.setCompany(this.companieservice.getDetail(response));
-            this.refresh.next();
-            this.disabled = true;
-          } else {
-            this.toastrservice.error('Some thing went wrong');
-          }
+    this.companieservice.update(company, company.company_ID).subscribe(response => {
+      this.spinnerOff.next();
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else if (response.company_ID) {
+          this.toastrservice.success("Success", "Intake Course Updated");
+          this.setCompany(this.companieservice.getDetail(response));
+          this.refresh.next();
+          this.disabled = true;
+        } else {
+          this.toastrservice.error("Some thing went wrong");
         }
-      },
-      (error) => {
-        this.spinnerOff.next();
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.spinnerOff.next();
+      this.onfailservice.onFail(error);
+    })
   }
 
   companyUpdateAll(companies) {
     this.spinnerOn.next();
-    this.companieservice.updateAll(companies).subscribe(
-      (response) => {
-        this.spinnerOff.next();
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else if (response.length > 0) {
-            this.toastrservice.success('Success', 'Intake Courses Updated');
-            this.setCompany(this.companieservice.getDetail(response));
-            this.refresh.next();
-          } else {
-            this.toastrservice.error('Some thing went wrong');
-          }
+    this.companieservice.updateAll(companies).subscribe(response => {
+      this.spinnerOff.next();
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else if (response.length > 0) {
+          this.toastrservice.success("Success", "Intake Courses Updated");
+          this.setCompany(this.companieservice.getDetail(response));
+          this.refresh.next();
+        } else {
+          this.toastrservice.error("Some thing went wrong");
         }
-      },
-      (error) => {
-        this.spinnerOff.next();
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.spinnerOff.next();
+      this.onfailservice.onFail(error);
+    })
   }
 
   companySearch(str) {
     this.spinnerOn.next();
     var search = {
-      search: str,
-    };
+      search: str
+    }
 
-    this.companieservice.search(search).subscribe(
-      (response) => {
-        this.spinnerOff.next();
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.companies = this.setCompanies(this.companieservice.getAllDetail(response));
-            window.sessionStorage.setItem('companies', JSON.stringify(this.companies));
-          }
+    this.companieservice.search(search).subscribe(response => {
+      this.spinnerOff.next();
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else {
+          this.companies = this.setCompanies(this.companieservice.getAllDetail(response));
+          window.sessionStorage.setItem("companies", JSON.stringify(this.companies));
         }
-      },
-      (error) => {
-        this.spinnerOff.next();
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.spinnerOff.next();
+      this.onfailservice.onFail(error);
+    })
   }
 
   companySearchAll(str) {
     this.spinnerOn.next();
     var search = {
-      search: str,
-    };
+      search: str
+    }
 
-    this.companieservice.searchAll(search).subscribe(
-      (response) => {
-        this.spinnerOff.next();
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.companiesAll = this.setCompanies(this.companieservice.getAllDetail(response));
-            window.sessionStorage.setItem('companiesAll', JSON.stringify(this.companiesAll));
-          }
+    this.companieservice.searchAll(search).subscribe(response => {
+      this.spinnerOff.next();
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else {
+          this.companiesAll = this.setCompanies(this.companieservice.getAllDetail(response));
+          window.sessionStorage.setItem("companiesAll", JSON.stringify(this.companiesAll));
         }
-      },
-      (error) => {
-        this.spinnerOff.next();
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.spinnerOff.next();
+      this.onfailservice.onFail(error);
+    })
   }
 
   companyAdvancedSearch(search) {
@@ -466,23 +422,20 @@ export class CompanyComponent implements OnInit {
     this.companystatusID = search.companystatus_ID;
     this.companystatusCode = search.companystatus_CODE;
 
-    this.companieservice.advancedSearch(search).subscribe(
-      (response) => {
-        this.spinnerOff.next();
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.companies = this.setCompanies(this.companieservice.getAllDetail(response));
-            window.sessionStorage.setItem('companies', JSON.stringify(this.companies));
-          }
+    this.companieservice.advancedSearch(search).subscribe(response => {
+      this.spinnerOff.next();
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else {
+          this.companies = this.setCompanies(this.companieservice.getAllDetail(response));
+          window.sessionStorage.setItem("companies", JSON.stringify(this.companies));
         }
-      },
-      (error) => {
-        this.spinnerOff.next();
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.spinnerOff.next();
+      this.onfailservice.onFail(error);
+    })
   }
 
   companyAdvancedSearchAll(search) {
@@ -495,22 +448,20 @@ export class CompanyComponent implements OnInit {
     this.companystatusID = search.companystatus_ID;
     this.companystatusCode = search.companystatus_CODE;
 
-    this.companieservice.advancedSearchAll(search).subscribe(
-      (response) => {
-        this.spinnerOff.next();
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.companiesAll = this.setCompanies(this.companieservice.getAllDetail(response));
-            window.sessionStorage.setItem('companiesAll', JSON.stringify(this.companiesAll));
-          }
+    this.companieservice.advancedSearchAll(search).subscribe(response => {
+      this.spinnerOff.next();
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else {
+          this.companiesAll = this.setCompanies(this.companieservice.getAllDetail(response));
+          window.sessionStorage.setItem("companiesAll", JSON.stringify(this.companiesAll));
         }
-      },
-      (error) => {
-        this.spinnerOff.next();
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.spinnerOff.next();
+      this.onfailservice.onFail(error);
+    })
   }
+
 }

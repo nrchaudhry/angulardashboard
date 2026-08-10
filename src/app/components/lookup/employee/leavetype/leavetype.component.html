@@ -1,29 +1,20 @@
 <div class="form-group">
-  <label class="custom-label form-label"
-    >Leave Type
-    <span style="color: red" [hidden]="disabled" *ngIf="iscompulsory == true">*</span>
+  <label class="custom-label form-label">Leave Type
+    <span style="color: red;" [hidden]="disabled" *ngIf="iscompulsory==true">*</span>
   </label>
-  <div class="row" *ngIf="disabled == true">
+  <div class="row" *ngIf="disabled==true">
     <div class="col-md-12">
       <ng-select [(ngModel)]="leavetypeID" [disabled]="disabled" name="leavetypeID" maxlength="50">
-        <ng-option
-          *ngFor="let leavetype of leavetypesAll"
-          [value]="leavetype.id"
-          [disabled]="disabled"
-        >
+        <ng-option *ngFor="let leavetype of leavetypesAll" [value]="leavetype.id" [disabled]="disabled">
           {{ leavetype.code }} - {{ leavetype.description }}
         </ng-option>
       </ng-select>
     </div>
   </div>
-  <div class="row" *ngIf="disabled == false">
+  <div class="row" *ngIf="disabled==false">
     <div class="col-md-10">
       <ng-select [(ngModel)]="leavetypeID" [disabled]="disabled" name="leavetypeID" maxlength="50">
-        <ng-option
-          *ngFor="let leavetype of leavetypes"
-          [value]="leavetype.id"
-          [disabled]="disabled"
-        >
+        <ng-option *ngFor="let leavetype of leavetypes" [value]="leavetype.id" [disabled]="disabled">
           {{ leavetype.code }} - {{ leavetype.description }}
         </ng-option>
       </ng-select>

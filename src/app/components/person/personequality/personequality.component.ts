@@ -8,6 +8,8 @@ import { ToastrService } from 'ngx-toastr';
 import { OnFailService } from '../../../services/on-fail.service';
 import { LocationsearchfilterComponent } from '../../location/locationsearchfilter/locationsearchfilter.component';
 
+
+
 import { DisabilityComponent } from '../../lookup/person/disability/disability.component';
 import { EthnicComponent } from '../../lookup/person/ethnic/ethnic.component';
 import { GenderComponent } from '../../lookup/person/gender/gender.component';
@@ -21,23 +23,23 @@ import { PersonequalityService } from './personequality.service';
 @Component({
   selector: 'app-personequality',
   templateUrl: './personequality.component.html',
-  styleUrls: ['./personequality.component.css'],
+  styleUrls: ['./personequality.component.css']
 })
 export class PersonequalityComponent implements OnInit {
-  @ViewChild('residential') residential: LocationsearchfilterComponent;
-  @ViewChild('domicile') domicile: LocationsearchfilterComponent;
-  @ViewChild('nationality') nationality: LocationsearchfilterComponent;
+  @ViewChild("residential") residential: LocationsearchfilterComponent;
+  @ViewChild("domicile") domicile: LocationsearchfilterComponent;
+  @ViewChild("nationality") nationality: LocationsearchfilterComponent;
 
-  @ViewChild('maritalstatus') maritalstatus: MaritalstatusComponent;
-  @ViewChild('religion') religion: ReligionComponent;
-  @ViewChild('ethnic') ethnic: EthnicComponent;
+  @ViewChild("maritalstatus") maritalstatus: MaritalstatusComponent;
+  @ViewChild("religion") religion: ReligionComponent;
+  @ViewChild("ethnic") ethnic: EthnicComponent;
 
-  @ViewChild('gender') gender: GenderComponent;
-  @ViewChild('sex') sex: SexComponent;
-  @ViewChild('sexualorientation') sexualorientation: SexualorientationComponent;
+  @ViewChild("gender") gender: GenderComponent;
+  @ViewChild("sex") sex: SexComponent;
+  @ViewChild("sexualorientation") sexualorientation: SexualorientationComponent;
 
-  @ViewChild('disability') disability: DisabilityComponent;
-  @ViewChild('immigrationstatus') immigrationstatus: ImmigrationstatusComponent;
+  @ViewChild("disability") disability: DisabilityComponent;
+  @ViewChild("immigrationstatus") immigrationstatus: ImmigrationstatusComponent;
 
   @Input()
   view: number = 1;
@@ -142,7 +144,7 @@ export class PersonequalityComponent implements OnInit {
   immigrationstatusDisabled: boolean = true;
   @Input()
   immigrationstatusHidden: boolean = false;
-
+  
   @Input()
   armedforcesindicatorID = null;
   @Input()
@@ -169,7 +171,7 @@ export class PersonequalityComponent implements OnInit {
   sexDisabled: boolean = true;
   @Input()
   sexHidden: boolean = false;
-
+  
   @Input()
   UKentryDisabled: boolean = true;
   @Input()
@@ -185,6 +187,7 @@ export class PersonequalityComponent implements OnInit {
   @Output() show = new EventEmitter();
   @Output() refresh = new EventEmitter();
   @Output() onpersonequalityChange = new EventEmitter();
+
 
   personequalities = [];
   personequalitiesAll = [];
@@ -224,15 +227,15 @@ export class PersonequalityComponent implements OnInit {
 
     iscriminalconviction: true,
     issmoker: true,
-    isactive: true,
-  };
+    isactive: true
+  }
 
   constructor(
     private personequalitieservice: PersonequalityService,
     private toastrservice: ToastrService,
     private onfailservice: OnFailService,
-    private router: Router
-  ) {}
+    private router: Router,
+  ) { }
 
   ngOnInit(): void {
     this.load(this.isreload);
@@ -242,7 +245,7 @@ export class PersonequalityComponent implements OnInit {
     if (!this.personID && Number(window.sessionStorage.getItem('person')) > 0) {
       this.personID = Number(window.sessionStorage.getItem('person'));
     } else {
-      redirectByHref(setting.redirctPath + '/#/home/personal');
+      redirectByHref(setting.redirctPath + "/#/home/personal");
     }
 
     if (window.sessionStorage.getItem('personequalities') != null) {
@@ -251,26 +254,15 @@ export class PersonequalityComponent implements OnInit {
     if (window.sessionStorage.getItem('personequalitiesAll') != null) {
       this.personequalitiesAll = JSON.parse(window.sessionStorage.getItem('personequalitiesAll'));
     }
-    if (
-      this.personequalityID != 0 &&
-      !this.personequalityID &&
-      Number(window.sessionStorage.getItem('personequality')) > 0
-    ) {
+    if (this.personequalityID != 0 && !this.personequalityID && Number(window.sessionStorage.getItem('personequality')) > 0) {
       this.personequalityID = Number(window.sessionStorage.getItem('personequality'));
     }
 
-    if (
-      this.view >= 1 &&
-      this.view <= 2 &&
-      (this.personequalities == null || this.personequalities.length == 0 || reload == true)
-    ) {
+    if (this.view >= 1 && this.view <= 2 && (this.personequalities == null || this.personequalities.length == 0 || reload == true)) {
       this.personequalities == null;
       this.personequalityGet();
     }
-    if (
-      ((this.view >= 1 && this.view <= 2) || this.view == 10) &&
-      (this.personequalitiesAll == null || this.personequalitiesAll.length == 0 || reload == true)
-    ) {
+    if (((this.view >= 1 && this.view <= 2) || this.view == 10) && (this.personequalitiesAll == null || this.personequalitiesAll.length == 0 || reload == true)) {
       this.personequalitiesAll == null;
       this.personequalityGetAll();
     }
@@ -299,40 +291,32 @@ export class PersonequalityComponent implements OnInit {
 
       disability_CODE: this.disableCode,
       immigrationstatus_CODE: this.immigrationstatusCode,
-    };
+    }
     if (this.view >= 5 && this.view <= 6 && this.personequalityID) {
-      window.sessionStorage.setItem('personequality', this.personequalityID);
+      window.sessionStorage.setItem("personequality", this.personequalityID);
       this.personequalityGetOne(this.personequalityID);
       this.disabled = true;
-    } else if (
-      this.view >= 11 &&
-      this.view <= 29 &&
-      this.disabled == false &&
-      (this.personequalities == null || this.personequalities.length == 0 || reload == true)
-    ) {
+    } else if ((this.view >= 11 && this.view <= 29) && this.disabled == false && (this.personequalities == null || this.personequalities.length == 0 || reload == true)) {
       this.personequalities == null;
       this.personequalityAdvancedSearch(search);
-    } else if (
-      this.view >= 11 &&
-      this.view <= 29 &&
-      this.disabled == true &&
-      (this.personequalitiesAll == null || this.personequalitiesAll.length == 0 || reload == true)
-    ) {
+    } else if ((this.view >= 11 && this.view <= 29) && this.disabled == true && (this.personequalitiesAll == null || this.personequalitiesAll.length == 0 || reload == true)) {
       this.personequalitiesAll == null;
       this.personequalityAdvancedSearchAll(search);
     }
   }
 
   onToolbarPreparing(e) {
-    e.toolbarOptions.items.unshift({
-      location: 'after',
-      widget: 'dxButton',
-      options: {
-        width: 136,
-        text: 'Refresh',
-        onClick: this.load.bind(this, true),
-      },
-    });
+    e.toolbarOptions.items.unshift(
+      {
+        location: 'after',
+        widget: 'dxButton',
+        options: {
+          width: 136,
+          text: 'Refresh',
+          onClick: this.load.bind(this, true),
+        },
+      }
+    );
   }
 
   add() {
@@ -350,59 +334,59 @@ export class PersonequalityComponent implements OnInit {
 
       maritalstatus_ID: {
         id: null,
-        entity_STATUS: null,
+        entity_STATUS: null
       },
       ethnic_ID: {
         id: null,
-        entity_STATUS: null,
+        entity_STATUS: null
       },
       religion_ID: {
         id: null,
-        entity_STATUS: null,
+        entity_STATUS: null
       },
       disable_ID: {
         id: null,
-        entity_STATUS: null,
+        entity_STATUS: null
       },
 
       gender_ID: {
         id: null,
-        entity_STATUS: null,
+        entity_STATUS: null
       },
       sex_ID: {
         id: null,
-        entity_STATUS: null,
+        entity_STATUS: null
       },
       sex_DESC: null,
 
       sexualorientation_ID: {
         id: null,
-        entity_STATUS: null,
+        entity_STATUS: null
       },
       sexualorientation_DESC: null,
 
       immigrationstatus_ID: {
         id: null,
-        entity_STATUS: null,
+        entity_STATUS: null
       },
       immigrationstatus_DESC: null,
       date_OF_UK_ENTRY: null,
 
       armedforcesindicator_ID: {
         id: null,
-        entity_STATUS: null,
+        entity_STATUS: null
       },
       armedforcesindicator_DESC: null,
       lookedafterchildindicator_ID: {
         id: null,
-        entity_STATUS: null,
+        entity_STATUS: null
       },
 
       convictiondetails: null,
 
       iscriminalconviction: true,
       issmoker: true,
-      isactive: true,
+      isactive: true
     };
   }
 
@@ -451,7 +435,7 @@ export class PersonequalityComponent implements OnInit {
     this.ethnicID = response.ethnic_ID;
     this.maritalstatusID = response.maritalstatus_ID;
 
-    if (response.isactive == 'Y') {
+    if (response.isactive == "Y") {
       response.isactive = true;
     } else {
       response.isactive = false;
@@ -460,72 +444,56 @@ export class PersonequalityComponent implements OnInit {
     this.disabled = true;
   }
 
+
   setPersonequalities(response) {
     this.cancel.next();
     return response;
   }
 
   personequalityGet() {
-    this.personequalitieservice.get().subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.personequalities = this.setPersonequalities(
-              this.personequalitieservice.getAllDetail(response)
-            );
-            window.sessionStorage.setItem(
-              'personequalities',
-              JSON.stringify(this.personequalities)
-            );
-          }
+    this.personequalitieservice.get().subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else {
+          this.personequalities = this.setPersonequalities(this.personequalitieservice.getAllDetail(response));
+          window.sessionStorage.setItem("personequalities", JSON.stringify(this.personequalities));
+
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   personequalityGetAll() {
-    this.personequalitieservice.getAll().subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.personequalitiesAll = this.setPersonequalities(
-              this.personequalitieservice.getAllDetail(response)
-            );
-            window.sessionStorage.setItem(
-              'personequalitiesAll',
-              JSON.stringify(this.personequalitiesAll)
-            );
-          }
+    this.personequalitieservice.getAll().subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else {
+          this.personequalitiesAll = this.setPersonequalities(this.personequalitieservice.getAllDetail(response));
+          window.sessionStorage.setItem("personequalitiesAll", JSON.stringify(this.personequalitiesAll));
+
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   personequalityGetOne(id) {
-    this.personequalitieservice.getOne(id).subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.setPersonequality(this.personequalitieservice.getDetail(response));
-          }
+    this.personequalitieservice.getOne(id).subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else {
+          this.setPersonequality(this.personequalitieservice.getDetail(response));
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   personequalityAdd(personequality) {
@@ -544,29 +512,26 @@ export class PersonequalityComponent implements OnInit {
 
     personequality.disable_ID = this.disability.disabilityID;
     personequality.immigrationstatus_ID = this.immigrationstatus.immigrationstatusID;
-    personequality.isactive = 'Y';
+    personequality.isactive = "Y";
 
-    this.personequalitieservice.add(personequality).subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else if (response.personequality_ID) {
-            this.toastrservice.success('Success', 'New Personequality Added');
-            this.personequalityGetAll();
-            this.setPersonequality(this.personequalitieservice.getDetail(response));
-            this.refresh.next();
-            this.personequalityGetAll();
-            this.disabled = true;
-          } else {
-            this.toastrservice.error('Some thing went wrong');
-          }
+    this.personequalitieservice.add(personequality).subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else if (response.personequality_ID) {
+          this.toastrservice.success("Success", "New Personequality Added");
+          this.personequalityGetAll();
+          this.setPersonequality(this.personequalitieservice.getDetail(response));
+          this.refresh.next();
+          this.personequalityGetAll();
+          this.disabled = true;
+        } else {
+          this.toastrservice.error("Some thing went wrong");
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   personequalityUpdate(personequality) {
@@ -586,194 +551,169 @@ export class PersonequalityComponent implements OnInit {
     personequality.disable_ID = this.disability.disabilityID;
     personequality.immigrationstatus_ID = this.immigrationstatus.immigrationstatusID;
     if (personequality.isactive == true) {
-      personequality.isactive = 'Y';
+      personequality.isactive = "Y";
     } else {
-      personequality.isactive = 'N';
+      personequality.isactive = "N";
     }
-    this.personequalitieservice.update(personequality, personequality.personequality_ID).subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else if (response.personequality_ID) {
-            this.toastrservice.success('Success', ' Personequality Updated');
-            this.setPersonequality(this.personequalitieservice.getDetail(response));
-            this.refresh.next();
-            this.personequalityGetAll();
-            this.disabled = true;
-          } else {
-            this.toastrservice.error('Some thing went wrong');
-          }
+    this.personequalitieservice.update(personequality, personequality.personequality_ID).subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else if (response.personequality_ID) {
+          this.toastrservice.success("Success", " Personequality Updated");
+          this.setPersonequality(this.personequalitieservice.getDetail(response));
+          this.refresh.next();
+          this.personequalityGetAll();
+          this.disabled = true;
+        } else {
+          this.toastrservice.error("Some thing went wrong");
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   personequalityUpdateAll(personequalities) {
-    this.personequalitieservice.updateAll(personequalities).subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else if (response.length > 0) {
-            this.toastrservice.success('Success', 'Modules Updated');
-            this.setPersonequality(this.personequalitieservice.getDetail(response));
-            this.refresh.next();
-          } else {
-            this.toastrservice.error('Some thing went wrong');
-          }
+    this.personequalitieservice.updateAll(personequalities).subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else if (response.length > 0) {
+          this.toastrservice.success("Success", "Modules Updated");
+          this.setPersonequality(this.personequalitieservice.getDetail(response));
+          this.refresh.next();
+        } else {
+          this.toastrservice.error("Some thing went wrong");
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   personequalitySearch(str) {
     var search = {
-      search: str,
-    };
-    this.personequalitieservice.search(search).subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.personequalities = this.setPersonequalities(
-              this.personequalitieservice.getAllDetail(response)
-            );
-            window.sessionStorage.setItem(
-              'personequalities',
-              JSON.stringify(this.personequalities)
-            );
-          }
+      search: str
+    }
+    this.personequalitieservice.search(search).subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else {
+          this.personequalities = this.setPersonequalities(this.personequalitieservice.getAllDetail(response));
+          window.sessionStorage.setItem("personequalities", JSON.stringify(this.personequalities));
+
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   personequalitySearchAll(str) {
     var search = {
-      search: str,
-    };
-    this.personequalitieservice.searchAll(search).subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.personequalitiesAll = this.setPersonequalities(
-              this.personequalitieservice.getAllDetail(response)
-            );
-            window.sessionStorage.setItem(
-              'personequalitiesAll',
-              JSON.stringify(this.personequalitiesAll)
-            );
-          }
+      search: str
+    }
+    this.personequalitieservice.searchAll(search).subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else {
+          this.personequalitiesAll = this.setPersonequalities(this.personequalitieservice.getAllDetail(response));
+          window.sessionStorage.setItem("personequalitiesAll", JSON.stringify(this.personequalitiesAll));
+
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   personequalityAdvancedSearch(search) {
     this.personID = search.person_ID;
-    (this.nationalityID = search.nationality_ID),
-      (this.residentialID = search.residential_ID),
-      (this.domicileID = search.domicile_ID),
-      (this.maritalstatusID = search.maritalstatus_ID),
-      (this.religionID = search.religion_ID),
-      (this.ethnicID = search.ethnic_ID),
-      (this.genderID = search.gender_ID),
-      (this.sexID = search.sex_ID),
-      (this.sexualorientationID = search.sexualorientation_ID);
+    this.nationalityID = search.nationality_ID,
+      this.residentialID = search.residential_ID,
+      this.domicileID = search.domicile_ID,
+      this.maritalstatusID = search.maritalstatus_ID,
+      this.religionID = search.religion_ID,
+      this.ethnicID = search.ethnic_ID,
+      this.genderID = search.gender_ID,
+      this.sexID = search.sex_ID,
+      this.sexualorientationID = search.sexualorientation_ID;
     this.disableID = search.disability_ID;
     this.immigrationstatusID = search.immigrationstatus_ID;
-    (this.nationalityCode = search.nationality_CODE),
-      (this.residentialCode = search.residential_CODE),
-      (this.domicileCode = search.domicile_CODE),
-      (this.maritalstatusCode = search.maritalstatus_CODE),
-      (this.religionCode = search.religion_CODE),
-      (this.ethnicCode = search.ethnic_CODE),
-      (this.genderCode = search.gender_CODE),
-      (this.sexCode = search.sex_CODE),
-      (this.sexualorientationCode = search.sexualorientation_CODE);
+    this.nationalityCode = search.nationality_CODE,
+      this.residentialCode = search.residential_CODE,
+      this.domicileCode = search.domicile_CODE,
+      this.maritalstatusCode = search.maritalstatus_CODE,
+      this.religionCode = search.religion_CODE,
+      this.ethnicCode = search.ethnic_CODE,
+      this.genderCode = search.gender_CODE,
+      this.sexCode = search.sex_CODE,
+      this.sexualorientationCode = search.sexualorientation_CODE;
 
     this.disableCode = search.disability_CODE;
     this.immigrationstatusCode = search.immigrationstatus_CODE;
 
-    this.personequalitieservice.advancedSearch(search).subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.personequalities = response;
-            if (this.personequalities.length > 0) {
-              this.setPersonequality(
-                this.personequalitieservice.getDetail(this.personequalities[0])
-              );
-              this.nationality.setLocation(this.personequality.nationalities);
-              this.residential.setLocation(this.personequality.residentials);
-              this.domicile.setLocation(this.personequality.domiciles);
-            } else this.add();
-          }
+    this.personequalitieservice.advancedSearch(search).subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else {
+          this.personequalities = response;
+          if (this.personequalities.length > 0) {
+            this.setPersonequality(this.personequalitieservice.getDetail(this.personequalities[0]));
+            this.nationality.setLocation(this.personequality.nationalities);
+            this.residential.setLocation(this.personequality.residentials);
+            this.domicile.setLocation(this.personequality.domiciles);
+          } else
+            this.add();
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   personequalityAdvancedSearchAll(search) {
     this.personID = search.person_ID;
-    (this.nationalityID = search.nationality_ID),
-      (this.residentialID = search.residential_ID),
-      (this.domicileID = search.domicile_ID),
-      (this.maritalstatusID = search.maritalstatus_ID),
-      (this.religionID = search.religion_ID),
-      (this.ethnicID = search.ethnic_ID),
-      (this.genderID = search.gender_ID),
-      (this.sexID = search.sex_ID),
-      (this.sexualorientationID = search.sexualorientation_ID);
+    this.nationalityID = search.nationality_ID,
+      this.residentialID = search.residential_ID,
+      this.domicileID = search.domicile_ID,
+      this.maritalstatusID = search.maritalstatus_ID,
+      this.religionID = search.religion_ID,
+      this.ethnicID = search.ethnic_ID,
+      this.genderID = search.gender_ID,
+      this.sexID = search.sex_ID,
+      this.sexualorientationID = search.sexualorientation_ID;
     this.disableID = search.disability_ID;
     this.immigrationstatusID = search.immigrationstatus_ID;
-    (this.nationalityCode = search.nationality_CODE),
-      (this.residentialCode = search.residential_CODE),
-      (this.domicileCode = search.domicile_CODE),
-      (this.maritalstatusCode = search.maritalstatus_CODE),
-      (this.religionCode = search.religion_CODE),
-      (this.ethnicCode = search.ethnic_CODE),
-      (this.genderCode = search.gender_CODE),
-      (this.sexCode = search.sex_CODE),
-      (this.sexualorientationCode = search.sexualorientation_CODE);
+    this.nationalityCode = search.nationality_CODE,
+      this.residentialCode = search.residential_CODE,
+      this.domicileCode = search.domicile_CODE,
+      this.maritalstatusCode = search.maritalstatus_CODE,
+      this.religionCode = search.religion_CODE,
+      this.ethnicCode = search.ethnic_CODE,
+      this.genderCode = search.gender_CODE,
+      this.sexCode = search.sex_CODE,
+      this.sexualorientationCode = search.sexualorientation_CODE;
 
     this.disableCode = search.disability_CODE;
     this.immigrationstatusCode = search.immigrationstatus_CODE;
 
-    this.personequalitieservice.advancedSearchAll(search).subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.setPersonequalities(this.personequalitieservice.getAllDetail(response));
-          }
+
+    this.personequalitieservice.advancedSearchAll(search).subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else {
+          this.setPersonequalities(this.personequalitieservice.getAllDetail(response));
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
+
 }

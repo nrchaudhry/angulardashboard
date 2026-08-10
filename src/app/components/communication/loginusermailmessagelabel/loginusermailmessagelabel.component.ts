@@ -10,19 +10,16 @@ import { LoginusermailmessagelabelService } from './loginusermailmessagelabel.se
 @Component({
   selector: 'app-loginusermailmessagelabel',
   templateUrl: './loginusermailmessagelabel.component.html',
-  styleUrls: ['./loginusermailmessagelabel.component.css'],
+  styleUrls: ['./loginusermailmessagelabel.component.css']
 })
 export class LoginusermailmessagelabelComponent implements OnInit {
-  @ViewChild('loginusermaillabel') loginusermaillabel: LoginusermaillabelComponent;
-  @ViewChild('addloginusermaillabel') addloginusermaillabel: LoginusermaillabelComponent;
-  @ViewChild('editloginusermaillabel') editloginusermaillabel: LoginusermaillabelComponent;
+  @ViewChild("loginusermaillabel") loginusermaillabel: LoginusermaillabelComponent;
+  @ViewChild("addloginusermaillabel") addloginusermaillabel: LoginusermaillabelComponent;
+  @ViewChild("editloginusermaillabel") editloginusermaillabel: LoginusermaillabelComponent;
 
-  @ViewChild('loginusermailmessagerecipient')
-  loginusermailmessagerecipient: LoginusermailmessagerecipientComponent;
-  @ViewChild('addloginusermailmessagerecipient')
-  addloginusermailmessagerecipient: LoginusermailmessagerecipientComponent;
-  @ViewChild('editloginusermailmessagerecipient')
-  editloginusermailmessagerecipient: LoginusermailmessagerecipientComponent;
+  @ViewChild("loginusermailmessagerecipient") loginusermailmessagerecipient: LoginusermailmessagerecipientComponent;
+  @ViewChild("addloginusermailmessagerecipient") addloginusermailmessagerecipient: LoginusermailmessagerecipientComponent;
+  @ViewChild("editloginusermailmessagerecipient") editloginusermailmessagerecipient: LoginusermailmessagerecipientComponent;
 
   @Input()
   view: number = 1;
@@ -36,7 +33,7 @@ export class LoginusermailmessagelabelComponent implements OnInit {
   maillabelID = null;
   @Input()
   mailmessagelabelID = null;
-
+  
   @Output() edit = new EventEmitter();
   @Output() cancel = new EventEmitter();
   @Output() show = new EventEmitter();
@@ -44,57 +41,46 @@ export class LoginusermailmessagelabelComponent implements OnInit {
   loginusermailmessagelabels = [];
   loginusermailmessagelabelsAll = [];
   loginusermailmessagelabel = {
-    mailmessagelabel_ID: 0,
-    maillabel_ID: 0,
-    mailmessagerecipient_ID: 0,
-    isactive: true,
-  };
-
+      mailmessagelabel_ID: 0,
+      maillabel_ID: 0,
+      mailmessagerecipient_ID: 0,
+      isactive:true,
+  }
+ 
   constructor(
     private loginusermailmessagelabelservice: LoginusermailmessagelabelService,
     private toastrservice: ToastrService,
     private onfailservice: OnFailService,
-    private router: Router
-  ) {}
+    private router : Router,
+  ) { }
 
   ngOnInit(): void {
-    this.loginusermailmessagelabels = JSON.parse(
-      window.sessionStorage.getItem('loginusermailmessagelabels')
-    );
-    this.loginusermailmessagelabelsAll = JSON.parse(
-      window.sessionStorage.getItem('loginusermailmessagelabelsAll')
-    );
+    this.loginusermailmessagelabels = JSON.parse(window.sessionStorage.getItem('loginusermailmessagelabels'));
+    this.loginusermailmessagelabelsAll = JSON.parse(window.sessionStorage.getItem('loginusermailmessagelabelsAll'));
     if (this.view == 1 && this.disabled == false && this.loginusermailmessagelabels == null) {
       this.loginusermailmessagelabelGet();
-    } else if (
-      this.view == 1 &&
-      this.disabled == true &&
-      this.loginusermailmessagelabelsAll == null
-    ) {
+    } else if (this.view == 1 && this.disabled == true && this.loginusermailmessagelabelsAll == null) {
       this.loginusermailmessagelabelGetAll();
-    } else if (this.view == 2 && this.loginusermailmessagelabelsAll == null) {
+    } else if (this. view == 2 && this.loginusermailmessagelabelsAll == null) {
       this.loginusermailmessagelabelGetAll();
     }
 
-    if (
-      this.mailmessagelabelID != 0 &&
-      !this.mailmessagelabelID &&
-      Number(window.sessionStorage.getItem('loginusermailmessagelabel')) > 0
-    ) {
+    if (this.mailmessagelabelID != 0 && !this.mailmessagelabelID && Number(window.sessionStorage.getItem('loginusermailmessagelabel'))>0) {
       this.mailmessagelabelID = Number(window.sessionStorage.getItem('loginusermailmessagelabel'));
-    } else if (this.view == 22 && this.maillabelID != null) {
+    }  else if (this. view == 22 && (this.maillabelID != null )) {
       this.loginusermailmessagelabelAdvancedSearchAll(this.maillabelID);
     }
-
+    
     if (this.view == 5 && this.mailmessagelabelID) {
-      window.sessionStorage.setItem('loginusermailmessagelabel', this.mailmessagelabelID);
+      window.sessionStorage.setItem("loginusermailmessagelabel", this.mailmessagelabelID);
       this.loginusermailmessagelabelGetOne(this.mailmessagelabelID);
     }
-
+    
     if (this.view == 11 && this.maillabelID && this.disabled == false) {
       this.loginusermailmessagelabelAdvancedSearch(this.maillabelID);
     } else if (this.view == 11 && this.maillabelID && this.disabled == true) {
       this.loginusermailmessagelabelAdvancedSearchAll(this.maillabelID);
+      
     } else if (this.view == 11) {
       this.mailmessagelabelID = null;
       this.loginusermailmessagelabelsAll = null;
@@ -105,30 +91,35 @@ export class LoginusermailmessagelabelComponent implements OnInit {
     //   this.loginusermaillabelDisabled = false;
     //   this.mailmessagelabelID = null;
     // }
+
   }
 
   onToolbarPreparing(e) {
-    e.toolbarOptions.items.unshift({
-      location: 'after',
-      widget: 'dxButton',
-      options: {
-        width: 136,
-        text: 'Refresh',
-        onClick: this.loginusermailmessagelabelGetAll.bind(this),
-      },
-    });
+    e.toolbarOptions.items.unshift(
+      {
+        location: 'after',
+        widget: 'dxButton',
+        options: {
+          width: 136,
+          text: 'Refresh',
+          onClick: this.loginusermailmessagelabelGetAll.bind(this),
+        },
+      }
+    );
   }
 
   onToolbarPreparingAdvanced(e) {
-    e.toolbarOptions.items.unshift({
-      location: 'after',
-      widget: 'dxButton',
-      options: {
-        width: 136,
-        text: 'Refresh',
-        onClick: this.loginusermailmessagelabelAdvancedSearchAll.bind(this, this.maillabelID),
-      },
-    });
+    e.toolbarOptions.items.unshift(
+      {
+        location: 'after',
+        widget: 'dxButton',
+        options: {
+          width: 136,
+          text: 'Refresh',
+          onClick: this.loginusermailmessagelabelAdvancedSearchAll.bind(this, this.maillabelID),
+        },
+      }
+    );
   }
 
   add() {
@@ -136,7 +127,7 @@ export class LoginusermailmessagelabelComponent implements OnInit {
       mailmessagelabel_ID: 0,
       maillabel_ID: 0,
       mailmessagerecipient_ID: 0,
-      isactive: true,
+      isactive:true,
     };
   }
 
@@ -156,19 +147,19 @@ export class LoginusermailmessagelabelComponent implements OnInit {
     this.cancel.next();
   }
 
-  loginusermailmessagelabelEdit() {
+  loginusermailmessagelabelEdit(){
     this.disabled = false;
   }
 
   loginusermailmessagelabelCancel() {
     this.disabled = true;
-    if (this.loginusermailmessagelabel.mailmessagelabel_ID == 0) {
-      this.router.navigate(['/home/loginusemailmessagelabels'], {});
+    if (this.loginusermailmessagelabel.mailmessagelabel_ID==0) {
+      this.router.navigate(["/home/loginusemailmessagelabels"], {});
     }
   }
 
   setLoginusermailmessagelabel(response) {
-    if (response.isactive == 'Y') {
+    if (response.isactive == "Y") {
       response.isactive = true;
     } else {
       response.isactive = false;
@@ -177,238 +168,186 @@ export class LoginusermailmessagelabelComponent implements OnInit {
   }
 
   setLoginusermailmessagelabels(response) {
-    if ((this.view == 1 || this.view == 11) && this.disabled == false) {
+    if ((this.view == 1 || this.view == 11)  && this.disabled == false) {
       this.loginusermailmessagelabels = response;
-      window.sessionStorage.setItem(
-        'loginusermailmessagelabels',
-        JSON.stringify(this.loginusermailmessagelabels)
-      );
+      window.sessionStorage.setItem("loginusermailmessagelabels", JSON.stringify(this.loginusermailmessagelabels));
     } else {
       this.loginusermailmessagelabelsAll = response;
-      window.sessionStorage.setItem(
-        'loginusermailmessagelabelsAll',
-        JSON.stringify(this.loginusermailmessagelabelsAll)
-      );
+      window.sessionStorage.setItem("loginusermailmessagelabelsAll", JSON.stringify(this.loginusermailmessagelabelsAll));
     }
     this.cancel.next();
   }
 
   loginusermailmessagelabelGet() {
-    this.loginusermailmessagelabelservice.get().subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.setLoginusermailmessagelabels(
-              this.loginusermailmessagelabelservice.getAllDetail(response)
-            );
-          }
+    this.loginusermailmessagelabelservice.get().subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else{
+          this.setLoginusermailmessagelabels(this.loginusermailmessagelabelservice.getAllDetail(response));
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   loginusermailmessagelabelGetAll() {
-    this.loginusermailmessagelabelservice.getAll().subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.setLoginusermailmessagelabels(
-              this.loginusermailmessagelabelservice.getAllDetail(response)
-            );
-          }
+    this.loginusermailmessagelabelservice.getAll().subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else{
+          this.setLoginusermailmessagelabels(this.loginusermailmessagelabelservice.getAllDetail(response));
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   loginusermailmessagelabelGetOne(id) {
     this.disabled = true;
-    this.loginusermailmessagelabelservice.getOne(id).subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.setLoginusermailmessagelabel(
-              this.loginusermailmessagelabelservice.getDetail(response)
-            );
-          }
+    this.loginusermailmessagelabelservice.getOne(id).subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else{
+          this.setLoginusermailmessagelabel(this.loginusermailmessagelabelservice.getDetail(response));
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   loginusermailmessagelabelAdd(loginusermailmessagelabel) {
-    loginusermailmessagelabel.isactive = 'Y';
+    loginusermailmessagelabel.isactive="Y";
 
-    if (this.view == 5) {
-      loginusermailmessagelabel.mailmessagerecipient_ID =
-        this.loginusermailmessagerecipient.mailmessagerecipientID;
+    if(this.view == 5){
+      loginusermailmessagelabel.mailmessagerecipient_ID = this.loginusermailmessagerecipient.mailmessagerecipientID;
       loginusermailmessagelabel.maillabel_ID = this.loginusermaillabel.maillabelID;
-    } else {
-      loginusermailmessagelabel.mailmessagerecipient_ID =
-        this.addloginusermailmessagerecipient.mailmessagerecipientID;
+    }else{ 
+      loginusermailmessagelabel.mailmessagerecipient_ID = this.addloginusermailmessagerecipient.mailmessagerecipientID;
       loginusermailmessagelabel.maillabel_ID = this.addloginusermaillabel.maillabelID;
     }
 
-    this.loginusermailmessagelabelservice.add(loginusermailmessagelabel).subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else if (response.mailmessagelabel_ID) {
-            this.toastrservice.success('Success', 'New Loginusermailmessagelabel Added');
-            this.loginusermailmessagelabelGetAll();
-            this.setLoginusermailmessagelabel(response);
-            this.disabled = true;
-          } else {
-            this.toastrservice.error('Some thing went wrong');
-          }
+    this.loginusermailmessagelabelservice.add(loginusermailmessagelabel).subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else if (response.mailmessagelabel_ID) {
+          this.toastrservice.success("Success", "New Loginusermailmessagelabel Added");
+          this.loginusermailmessagelabelGetAll();
+          this.setLoginusermailmessagelabel(response);
+          this.disabled = true;
+        } else {
+          this.toastrservice.error("Some thing went wrong");
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   loginusermailmessagelabelUpdate(loginusermailmessagelabel) {
-    if (this.view == 5) {
-      loginusermailmessagelabel.mailmessagerecipient_ID =
-        this.loginusermailmessagerecipient.mailmessagerecipientID;
+     if(this.view == 5){
+      loginusermailmessagelabel.mailmessagerecipient_ID = this.loginusermailmessagerecipient.mailmessagerecipientID;
       loginusermailmessagelabel.maillabel_ID = this.loginusermaillabel.maillabelID;
-    } else {
-      loginusermailmessagelabel.mailmessagerecipient_ID =
-        this.editloginusermailmessagerecipient.mailmessagerecipientID;
+    }else{ 
+      loginusermailmessagelabel.mailmessagerecipient_ID = this.editloginusermailmessagerecipient.mailmessagerecipientID;
       loginusermailmessagelabel.maillabel_ID = this.editloginusermaillabel.maillabelID;
     }
     if (loginusermailmessagelabel.isactive == true) {
-      loginusermailmessagelabel.isactive = 'Y';
+      loginusermailmessagelabel.isactive = "Y";
     } else {
-      loginusermailmessagelabel.isactive = 'N';
+      loginusermailmessagelabel.isactive = "N";
     }
-    this.loginusermailmessagelabelservice
-      .update(loginusermailmessagelabel, loginusermailmessagelabel.mailmessagelabel_ID)
-      .subscribe(
-        (response) => {
-          if (response) {
-            if (response.error && response.status) {
-              this.toastrservice.warning('Message', ' ' + response.message);
-            } else if (response.mailmessagelabel_ID) {
-              this.toastrservice.success('Success', ' Loginusermailmessagelabel Updated');
-              this.setLoginusermailmessagelabel(response);
-              this.loginusermailmessagelabelGetAll();
-            } else {
-              this.toastrservice.error('Some thing went wrong');
-            }
-          }
-        },
-        (error) => {
-          this.onfailservice.onFail(error);
+    this.loginusermailmessagelabelservice.update(loginusermailmessagelabel, loginusermailmessagelabel.mailmessagelabel_ID).subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else if (response.mailmessagelabel_ID) {
+          this.toastrservice.success("Success", " Loginusermailmessagelabel Updated");
+          this.setLoginusermailmessagelabel(response);
+          this.loginusermailmessagelabelGetAll();
+        } else {
+          this.toastrservice.error("Some thing went wrong");
         }
-      );
+      }
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   loginusermailmessagelabelSearch(str) {
     var search = {
-      search: str,
-    };
-    this.loginusermailmessagelabelservice.search(search).subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.setLoginusermailmessagelabels(
-              this.loginusermailmessagelabelservice.getAllDetail(response)
-            );
-          }
+      search: str
+    }
+    this.loginusermailmessagelabelservice.search(search).subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else{
+          this.setLoginusermailmessagelabels(this.loginusermailmessagelabelservice.getAllDetail(response));
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   loginusermailmessagelabelSearchAll(str) {
     var search = {
-      search: str,
-    };
-    this.loginusermailmessagelabelservice.searchAll(search).subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.setLoginusermailmessagelabels(
-              this.loginusermailmessagelabelservice.getAllDetail(response)
-            );
-          }
+      search: str
+    }
+    this.loginusermailmessagelabelservice.searchAll(search).subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else{
+          this.setLoginusermailmessagelabels(this.loginusermailmessagelabelservice.getAllDetail(response));
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   loginusermailmessagelabelAdvancedSearch(maillabelID) {
     this.maillabelID = maillabelID;
     var search = {
-      maillabel_ID: maillabelID,
-    };
-    this.loginusermailmessagelabelservice.advancedSearch(search).subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.setLoginusermailmessagelabels(
-              this.loginusermailmessagelabelservice.getAllDetail(response)
-            );
-          }
+      maillabel_ID: maillabelID
+    }
+    this.loginusermailmessagelabelservice.advancedSearch(search).subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else{
+          this.setLoginusermailmessagelabels(this.loginusermailmessagelabelservice.getAllDetail(response));
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   loginusermailmessagelabelAdvancedSearchAll(maillabelID) {
     this.maillabelID = maillabelID;
     var search = {
-      maillabel_ID: maillabelID,
-    };
-    this.loginusermailmessagelabelservice.advancedSearchAll(search).subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.setLoginusermailmessagelabels(
-              this.loginusermailmessagelabelservice.getAllDetail(response)
-            );
-          }
+      maillabel_ID: maillabelID
+    }
+    this.loginusermailmessagelabelservice.advancedSearchAll(search).subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else{
+          this.setLoginusermailmessagelabels(this.loginusermailmessagelabelservice.getAllDetail(response));
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
+
 }

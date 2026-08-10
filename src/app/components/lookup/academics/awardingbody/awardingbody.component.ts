@@ -1,3 +1,4 @@
+
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { LookupService } from 'src/app/services/lookup.service';
@@ -6,7 +7,7 @@ import { OnFailService } from 'src/app/services/on-fail.service';
 @Component({
   selector: 'app-awardingbody',
   templateUrl: './awardingbody.component.html',
-  styleUrls: ['./awardingbody.component.css'],
+  styleUrls: ['./awardingbody.component.css']
 })
 export class AwardingbodyComponent implements OnInit {
   @Input()
@@ -24,8 +25,8 @@ export class AwardingbodyComponent implements OnInit {
   constructor(
     private lookupservice: LookupService,
     private toastrservice: ToastrService,
-    private onfailservice: OnFailService
-  ) {}
+    private onfailservice: OnFailService,
+  ) { }
 
   ngOnInit(): void {
     this.awardingbodies = JSON.parse(window.sessionStorage.getItem('awardingbodies'));
@@ -33,49 +34,41 @@ export class AwardingbodyComponent implements OnInit {
 
     if (this.awardingbodies == null) {
       this.awardingbodyGet();
-    }
-
+    } 
+    
     if (this.awardingbodiesAll == null) {
       this.awardingbodyGetAll();
     }
   }
 
-  awardingbodyGet() {
-    this.lookupservice.lookup('AWARDINGBODY').subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.awardingbodies = response;
-            window.sessionStorage.setItem('awardingbodies', JSON.stringify(this.awardingbodies));
-          }
+  awardingbodyGet(){
+    this.lookupservice.lookup("AWARDINGBODY").subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else{
+          this.awardingbodies = response;
+          window.sessionStorage.setItem("awardingbodies", JSON.stringify(this.awardingbodies));
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
-  awardingbodyGetAll() {
-    this.lookupservice.lookupAll('AWARDINGBODY').subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.awardingbodiesAll = response;
-            window.sessionStorage.setItem(
-              'awardingbodiesAll',
-              JSON.stringify(this.awardingbodiesAll)
-            );
-          }
+  awardingbodyGetAll(){
+    this.lookupservice.lookupAll("AWARDINGBODY").subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else{
+          this.awardingbodiesAll = response;
+          window.sessionStorage.setItem("awardingbodiesAll", JSON.stringify(this.awardingbodiesAll));
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
+
 }

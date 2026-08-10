@@ -9,10 +9,10 @@ import { OrganizationtypeComponent } from '../../lookup/company/organizationtype
 @Component({
   selector: 'app-organization',
   templateUrl: './organization.component.html',
-  styleUrls: ['./organization.component.css'],
+  styleUrls: ['./organization.component.css']
 })
 export class OrganizationComponent implements OnInit {
-  @ViewChild('organizationtype') organizationtype: OrganizationtypeComponent;
+  @ViewChild("organizationtype") organizationtype: OrganizationtypeComponent;
 
   @Input()
   view: number = 1;
@@ -46,14 +46,14 @@ export class OrganizationComponent implements OnInit {
     organization_NAME: null,
     organization_DESC: null,
     isactive: true,
-  };
+  }
 
   constructor(
     private organizationservice: OrganizationService,
     private toastrservice: ToastrService,
     private onfailservice: OnFailService,
-    private router: Router
-  ) {}
+    private router: Router,
+  ) { }
 
   ngOnInit(): void {
     this.load(this.isreload);
@@ -66,26 +66,15 @@ export class OrganizationComponent implements OnInit {
     if (window.sessionStorage.getItem('organizationsAll') != null) {
       this.organizationsAll = JSON.parse(window.sessionStorage.getItem('organizationsAll'));
     }
-    if (
-      this.organizationID != 0 &&
-      !this.organizationID &&
-      Number(window.sessionStorage.getItem('organization')) > 0
-    ) {
+    if (this.organizationID != 0 && !this.organizationID && Number(window.sessionStorage.getItem('organization')) > 0) {
       this.organizationID = Number(window.sessionStorage.getItem('organization'));
     }
 
-    if (
-      this.view >= 1 &&
-      this.view <= 2 &&
-      (this.organizations == null || this.organizations.length == 0 || reload == true)
-    ) {
+    if (this.view >= 1 && this.view <= 2 && (this.organizations == null || this.organizations.length == 0 || reload == true)) {
       this.organizations == null;
       this.organizationGet();
     }
-    if (
-      ((this.view >= 1 && this.view <= 2) || this.view == 10) &&
-      (this.organizationsAll == null || this.organizationsAll.length == 0 || reload == true)
-    ) {
+    if (((this.view >= 1 && this.view <= 2) || this.view == 10) && (this.organizationsAll == null || this.organizationsAll.length == 0 || reload == true)) {
       this.organizationsAll == null;
       this.organizationGetAll();
     }
@@ -93,40 +82,33 @@ export class OrganizationComponent implements OnInit {
     var search = {
       organizationtype_ID: this.organizationtypeID,
       organizationtype_CODE: this.organizationtypeCode,
-    };
+
+    }
     if (this.view >= 5 && this.view <= 6 && this.organizationID) {
-      window.sessionStorage.setItem('organization', this.organizationID);
+      window.sessionStorage.setItem("organization", this.organizationID);
       this.organizationGetOne(this.organizationID);
       this.disabled = true;
-    } else if (
-      this.view >= 11 &&
-      this.view <= 29 &&
-      this.disabled == false &&
-      (this.organizations == null || this.organizations.length == 0 || reload == true)
-    ) {
+    } else if ((this.view >= 11 && this.view <= 29) && this.disabled == false && (this.organizations == null || this.organizations.length == 0 || reload == true)) {
       this.organizations == null;
       this.organizationAdvancedSearch(search);
-    } else if (
-      this.view >= 11 &&
-      this.view <= 29 &&
-      this.disabled == true &&
-      (this.organizationsAll == null || this.organizationsAll.length == 0 || reload == true)
-    ) {
+    } else if ((this.view >= 11 && this.view <= 29) && this.disabled == true && (this.organizationsAll == null || this.organizationsAll.length == 0 || reload == true)) {
       this.organizationsAll == null;
       this.organizationAdvancedSearchAll(search);
     }
   }
 
   onToolbarPreparing(e) {
-    e.toolbarOptions.items.unshift({
-      location: 'after',
-      widget: 'dxButton',
-      options: {
-        width: 136,
-        text: 'Refresh',
-        onClick: this.load.bind(this, true),
-      },
-    });
+    e.toolbarOptions.items.unshift(
+      {
+        location: 'after',
+        widget: 'dxButton',
+        options: {
+          width: 136,
+          text: 'Refresh',
+          onClick: this.load.bind(this, true),
+        },
+      }
+    );
   }
 
   add() {
@@ -139,7 +121,9 @@ export class OrganizationComponent implements OnInit {
     };
   }
 
-  onClickedRow(row) {}
+  onClickedRow(row) {
+
+  }
 
   update(row) {
     this.edit.next(row);
@@ -164,7 +148,7 @@ export class OrganizationComponent implements OnInit {
   organizationCancel() {
     this.disabled = true;
     if (this.organization.organization_ID == 0) {
-      this.router.navigate(['/home/organizations'], {});
+      this.router.navigate(["/home/organizations"], {});
     }
   }
 
@@ -181,7 +165,7 @@ export class OrganizationComponent implements OnInit {
     this.organizationtypeID = response.organizationtype_ID;
     this.organizationID = response.organization_ID;
 
-    if (response.isactive == 'Y') {
+    if (response.isactive == "Y") {
       response.isactive = true;
     } else {
       response.isactive = false;
@@ -195,237 +179,187 @@ export class OrganizationComponent implements OnInit {
   }
 
   organizationGet() {
-    this.organizationservice.get().subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.organizations = this.setOrganizations(
-              this.organizationservice.getAllDetail(response)
-            );
-            window.sessionStorage.setItem('organizations', JSON.stringify(this.organizations));
-          }
+    this.organizationservice.get().subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else {
+          this.organizations = this.setOrganizations(this.organizationservice.getAllDetail(response));
+          window.sessionStorage.setItem("organizations", JSON.stringify(this.organizations));
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   organizationGetAll() {
-    this.organizationservice.getAll().subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.organizationsAll = this.setOrganizations(
-              this.organizationservice.getAllDetail(response)
-            );
-            window.sessionStorage.setItem(
-              'organizationsAll',
-              JSON.stringify(this.organizationsAll)
-            );
-          }
+    this.organizationservice.getAll().subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else {
+          this.organizationsAll = this.setOrganizations(this.organizationservice.getAllDetail(response));
+          window.sessionStorage.setItem("organizationsAll", JSON.stringify(this.organizationsAll));
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   organizationGetOne(id) {
     this.disabled = true;
-    this.organizationservice.getOne(id).subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.setOrganization(this.organizationservice.getDetail(response));
-          }
+    this.organizationservice.getOne(id).subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else {
+          this.setOrganization(this.organizationservice.getDetail(response));
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   organizationAdd(organization) {
     // organization.organizationtype_ID = this.organizationtype.organizationtypeID;
-    organization.isactive = 'Y';
+    organization.isactive = "Y";
 
-    this.organizationservice.add(organization).subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else if (response.organization_ID) {
-            this.toastrservice.success('Success', 'New Organization Added');
-            this.setOrganization(this.organizationservice.getDetail(response));
-            this.refresh.next();
-            this.organizationGetAll();
-            this.disabled = true;
-          } else {
-            this.toastrservice.error('Some thing went wrong');
-          }
+    this.organizationservice.add(organization).subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else if (response.organization_ID) {
+          this.toastrservice.success("Success", "New Organization Added");
+          this.setOrganization(this.organizationservice.getDetail(response));
+          this.refresh.next();
+          this.organizationGetAll();
+          this.disabled = true;
+        } else {
+          this.toastrservice.error("Some thing went wrong");
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   organizationUpdate(organization) {
     // organization.organizationtype_ID = this.organizationtype.organizationtypeID;
 
     if (organization.isactive == true) {
-      organization.isactive = 'Y';
+      organization.isactive = "Y";
     } else {
-      organization.isactive = 'N';
+      organization.isactive = "N";
     }
-    this.organizationservice.update(organization, organization.organization_ID).subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else if (response.organization_ID) {
-            this.toastrservice.success('Success', 'Organization Updated');
-            this.setOrganization(this.organizationservice.getDetail(response));
-            this.refresh.next();
-            this.organizationGetAll();
-            this.disabled = true;
-          } else {
-            this.toastrservice.error('Some thing went wrong');
-          }
+    this.organizationservice.update(organization, organization.organization_ID).subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else if (response.organization_ID) {
+          this.toastrservice.success("Success", "Organization Updated");
+          this.setOrganization(this.organizationservice.getDetail(response));
+          this.refresh.next();
+          this.organizationGetAll();
+          this.disabled = true;
+        } else {
+          this.toastrservice.error("Some thing went wrong");
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   organizationUpdateAll(organizations) {
-    this.organizationservice.updateAll(organizations).subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else if (response.length > 0) {
-            this.toastrservice.success('Success', 'Organizations Updated');
-            this.refresh.next();
-          } else {
-            this.toastrservice.error('Some thing went wrong');
-          }
+    this.organizationservice.updateAll(organizations).subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else if (response.length > 0) {
+          this.toastrservice.success("Success", "Organizations Updated");
+          this.refresh.next();
+        } else {
+          this.toastrservice.error("Some thing went wrong");
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   organizationSearch(str) {
     var search = {
-      search: str,
-    };
-    this.organizationservice.search(search).subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.organizations = this.setOrganizations(
-              this.organizationservice.getAllDetail(response)
-            );
-            window.sessionStorage.setItem('organizations', JSON.stringify(this.organizations));
-          }
+      search: str
+    }
+    this.organizationservice.search(search).subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else {
+          this.organizations = this.setOrganizations(this.organizationservice.getAllDetail(response));
+          window.sessionStorage.setItem("organizations", JSON.stringify(this.organizations));
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   organizationSearchAll(str) {
     var search = {
-      search: str,
-    };
-    this.organizationservice.searchAll(search).subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.organizationsAll = this.setOrganizations(
-              this.organizationservice.getAllDetail(response)
-            );
-            window.sessionStorage.setItem(
-              'organizationsAll',
-              JSON.stringify(this.organizationsAll)
-            );
-          }
+      search: str
+    }
+    this.organizationservice.searchAll(search).subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else {
+          this.organizationsAll = this.setOrganizations(this.organizationservice.getAllDetail(response));
+          window.sessionStorage.setItem("organizationsAll", JSON.stringify(this.organizationsAll));
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   organizationAdvancedSearch(search) {
     this.organizationtypeID = search.organizationtype_ID;
     this.organizationtypeCode = search.organizationtype_CODE;
 
-    this.organizationservice.advancedSearch(search).subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.organizations = this.setOrganizations(
-              this.organizationservice.getAllDetail(response)
-            );
-            window.sessionStorage.setItem('organizations', JSON.stringify(this.organizations));
-          }
+    this.organizationservice.advancedSearch(search).subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else {
+          this.organizations = this.setOrganizations(this.organizationservice.getAllDetail(response));
+          window.sessionStorage.setItem("organizations", JSON.stringify(this.organizations));
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   organizationAdvancedSearchAll(search) {
     this.organizationtypeID = search.organizationtype_ID;
     this.organizationtypeCode = search.organizationtype_CODE;
 
-    this.organizationservice.advancedSearchAll(search).subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.organizationsAll = this.setOrganizations(
-              this.organizationservice.getAllDetail(response)
-            );
-            window.sessionStorage.setItem(
-              'organizationsAll',
-              JSON.stringify(this.organizationsAll)
-            );
-          }
+    this.organizationservice.advancedSearchAll(search).subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else {
+          this.organizationsAll = this.setOrganizations(this.organizationservice.getAllDetail(response));
+          window.sessionStorage.setItem("organizationsAll", JSON.stringify(this.organizationsAll));
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
+
 }

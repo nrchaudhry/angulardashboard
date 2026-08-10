@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { HttpClientModule } from '@angular/common/http';
 import { NgSelectModule } from '@ng-select/ng-select';
 import {
@@ -18,7 +18,7 @@ import {
   DxSelectBoxModule,
   DxDropDownButtonModule,
 } from 'devextreme-angular';
-import { IconPickerModule } from 'ngx-icon-picker';
+import { IconPickerModule } from "ngx-icon-picker";
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
@@ -158,6 +158,7 @@ import { LoginusermailmessageattachmentComponent } from 'src/app/components/comm
 import { LoginusermailmessagelabelComponent } from 'src/app/components/communication/loginusermailmessagelabel/loginusermailmessagelabel.component';
 import { LoginusermailmessagerecipientComponent } from 'src/app/components/communication/loginusermailmessagerecipient/loginusermailmessagerecipient.component';
 
+
 import { EmailviewComponent } from '../persons/personcommunicationemails/emailview/emailview.component';
 import { PersoncommunicationemailsComponent } from '../persons/personcommunicationemails/personcommunicationemails.component';
 import { LetterviewComponent } from '../persons/personcommunicationletters/letterview/letterview.component';
@@ -275,7 +276,7 @@ import { CompanyviewComponent } from '../companies/companies/companyview/company
     BusinessnatureComponent,
     CompanystatusComponent,
     CompanytypeComponent,
-
+    
     //lookup//academics
     AssessmenttypeComponent,
     CoursemoduletypeComponent,
@@ -333,10 +334,10 @@ import { CompanyviewComponent } from '../companies/companies/companyview/company
 
     //Company//
     CompanyComponent,
-    OrganizationComponent,
-    CompanysubtypeComponent,
+    OrganizationComponent, 
+    CompanysubtypeComponent, 
     CompanycontactaddressComponent,
-    CompanycontactComponent,
+    CompanycontactComponent, 
 
     //Communication//
     EmailsettingComponent,
@@ -379,10 +380,14 @@ import { CompanyviewComponent } from '../companies/companies/companyview/company
 
     CompaniesComponent,
     CompanyviewComponent,
-  ],
-})
-export class HomeModule {
-  constructor() {}
 
-  ngOnInit(): void {}
+  ]
+})
+
+export class HomeModule {
+
+  constructor() { }
+
+  ngOnInit(): void {
+  }
 }

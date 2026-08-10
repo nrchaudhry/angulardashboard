@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { OnFailService } from '../../../services/on-fail.service';
 
-import { PersonequalityComponent } from '../../../components/person/personequality/personequality.component';
+import { PersonequalityComponent } from '../../../components/person/personequality/personequality.component'
 import { PersonequalityService } from '../../../components/person/personequality/personequality.service';
 import { RouterLinkWithHref } from '@angular/router';
 
@@ -11,26 +11,28 @@ declare var $: any;
 @Component({
   selector: 'app-personequalities',
   templateUrl: './personequalities.component.html',
-  styleUrls: ['./personequalities.component.css'],
+  styleUrls: ['./personequalities.component.css']
 })
 export class PersonequalitiesComponent implements OnInit {
-  @ViewChild('personequalities') personequalities: PersonequalityComponent;
-  @ViewChild('addpersonequality') addpersonequality: PersonequalityComponent;
-  @ViewChild('editpersonequality') editpersonequality: PersonequalityComponent;
+  @ViewChild("personequalities") personequalities: PersonequalityComponent;
+  @ViewChild("addpersonequality") addpersonequality: PersonequalityComponent;
+  @ViewChild("editpersonequality") editpersonequality: PersonequalityComponent;
 
   constructor(
     private personequalitieservice: PersonequalityService,
     private toastrservice: ToastrService,
-    private onfailservice: OnFailService
-  ) {}
+    private onfailservice: OnFailService,
+  ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
-  view() {}
+  view() {
+  }
 
   addNew() {
     this.addpersonequality.add();
-    $('#add').modal('show');
+    $("#add").modal("show");
   }
 
   refresh() {
@@ -67,17 +69,18 @@ export class PersonequalitiesComponent implements OnInit {
       date_OF_UK_ENTRY: row.data.date_OF_UK_ENTRY,
       iscriminalconviction: row.data.iscriminalconviction,
       issmoker: row.data.issmoker,
-      isactive: row.data.isactive,
+      isactive: row.data.isactive
     };
-    if (row.data.isactive == 'Y') {
+    if (row.data.isactive == "Y") {
       this.editpersonequality.personequality.isactive = true;
     } else {
       this.editpersonequality.personequality.isactive = false;
     }
-    $('#edit').modal('show');
+    $("#edit").modal("show");
   }
   cancel() {
-    $('#add').modal('hide');
-    $('#edit').modal('hide');
+    $("#add").modal("hide");
+    $("#edit").modal("hide");
   }
+
 }

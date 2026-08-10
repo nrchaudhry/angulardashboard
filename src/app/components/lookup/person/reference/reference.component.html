@@ -1,29 +1,21 @@
+
 <div class="form-group">
-  <label class="custom-label form-label"
-    >Reference
-    <span style="color: red" [hidden]="disabled" *ngIf="iscompulsory == true">*</span>
+  <label class="custom-label form-label">Reference
+    <span style="color: red;" [hidden]="disabled" *ngIf="iscompulsory==true">*</span>
   </label>
-  <div class="row" *ngIf="disabled == true">
+  <div class="row" *ngIf="disabled==true">
     <div class="col-md-12">
       <ng-select [(ngModel)]="referenceID" [disabled]="disabled" name="referenceID" maxlength="50">
-        <ng-option
-          *ngFor="let reference of referencesAll"
-          [value]="reference.id"
-          [disabled]="disabled"
-        >
+        <ng-option *ngFor="let reference of referencesAll" [value]="reference.id" [disabled]="disabled">
           {{ reference.code }} - {{ reference.description }}
         </ng-option>
       </ng-select>
     </div>
   </div>
-  <div class="row" *ngIf="disabled == false">
+  <div class="row" *ngIf="disabled==false">
     <div class="col-md-10">
       <ng-select [(ngModel)]="referenceID" [disabled]="disabled" name="referenceID" maxlength="50">
-        <ng-option
-          *ngFor="let reference of references"
-          [value]="reference.id"
-          [disabled]="disabled"
-        >
+        <ng-option *ngFor="let reference of references" [value]="reference.id" [disabled]="disabled">
           {{ reference.code }} - {{ reference.description }}
         </ng-option>
       </ng-select>
@@ -35,3 +27,4 @@
     </div>
   </div>
 </div>
+

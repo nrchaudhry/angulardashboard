@@ -7,12 +7,8 @@
         <div class="card-header">
           <div class="align-items-center row">
             <div class="col">
-              <a
-                href="javascript:void"
-                aria-controls="collapse-customerinfo1"
-                aria-expanded="true"
-                class="card-title"
-                >COMMUNICATIONSMS
+              <a href="javascript:void" aria-controls="collapse-customerinfo1" aria-expanded="true"
+                class="card-title">COMMUNICATIONSMS
               </a>
             </div>
             <div class="col-auto">
@@ -25,11 +21,8 @@
         <div class="card-body">
           <div class="row">
             <div class="col-lg-12">
-              <app-personcommunicationsms
-                #personcommunicationsmss
-                [view]="2"
-                (show)="show($event)"
-              ></app-personcommunicationsms>
+              <app-personcommunicationsms #personcommunicationsmss [view]=2
+                (show)="show($event)"></app-personcommunicationsms>
             </div>
           </div>
         </div>
@@ -38,32 +31,14 @@
   </div>
 </div>
 
-<div
-  aria-labelledby="exampleModalLabel"
-  class="modal fade show"
-  id="addpersoncommunicationsms"
-  role="dialog"
-  tabindex="-1"
->
-  <app-personcommunicationsms
-    #addpersoncommunicationsms
-    [view]="3"
-    (refresh)="refresh()"
-    (cancel)="cancel()"
-  ></app-personcommunicationsms>
+<div aria-labelledby="exampleModalLabel" class="modal fade show" id="addpersoncommunicationsms" role="dialog"
+  tabindex="-1">
+  <app-personcommunicationsms #addpersoncommunicationsms [view]=3 (refresh)="refresh()"
+    (cancel)="cancel()"></app-personcommunicationsms>
 </div>
 
-<div
-  aria-labelledby="exampleModalLabel"
-  class="modal fade show"
-  id="editpersoncommunicationsms"
-  role="dialog"
-  tabindex="-1"
->
-  <app-personcommunicationsms
-    #editpersoncommunicationsms
-    [view]="4"
-    (refresh)="refresh()"
-    (cancel)="cancel()"
-  ></app-personcommunicationsms>
+<div aria-labelledby="exampleModalLabel" class="modal fade show" id="editpersoncommunicationsms" role="dialog"
+  tabindex="-1">
+  <app-personcommunicationsms #editpersoncommunicationsms [view]=4 (refresh)="refresh()"
+    (cancel)="cancel()"></app-personcommunicationsms>
 </div>

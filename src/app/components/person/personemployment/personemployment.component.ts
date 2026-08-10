@@ -7,6 +7,7 @@ import { redirectByHref } from '../../../utilities/Shared_Funtions';
 
 import { LocationsearchfilterComponent } from '../../location/locationsearchfilter/locationsearchfilter.component';
 
+
 import { Router } from '@angular/router';
 import { CareerlevelComponent } from '../../lookup/person/careerlevel/careerlevel.component';
 import { OrganizationcategoryComponent } from '../../lookup/company/organizationcategory/organizationcategory.component';
@@ -20,17 +21,18 @@ import { PersonemploymentService } from './personemployment.service';
 @Component({
   selector: 'app-personemployment',
   templateUrl: './personemployment.component.html',
-  styleUrls: ['./personemployment.component.css'],
+  styleUrls: ['./personemployment.component.css']
 })
 export class PersonemploymentComponent implements OnInit {
-  @ViewChild('person') person: PersonComponent;
-  @ViewChild('worktype') worktype: WorktypeComponent;
-  @ViewChild('workfield') workfield: WorkfieldComponent;
-  @ViewChild('careerlevel') careerlevel: CareerlevelComponent;
-  @ViewChild('organizationcategory') organizationcategory: OrganizationcategoryComponent;
-  @ViewChild('organizationsector') organizationsector: OrganizationsectorComponent;
-  @ViewChild('organizationtype') organizationtype: OrganizationtypeComponent;
-  @ViewChild('locationsearchfilter') locationsearchfilter: LocationsearchfilterComponent;
+  @ViewChild("person") person: PersonComponent;
+  @ViewChild("worktype") worktype: WorktypeComponent;
+  @ViewChild("workfield") workfield: WorkfieldComponent;
+  @ViewChild("careerlevel") careerlevel: CareerlevelComponent;
+  @ViewChild("organizationcategory") organizationcategory: OrganizationcategoryComponent;
+  @ViewChild("organizationsector") organizationsector: OrganizationsectorComponent;
+  @ViewChild("organizationtype") organizationtype: OrganizationtypeComponent;
+  @ViewChild("locationsearchfilter") locationsearchfilter: LocationsearchfilterComponent;
+
 
   @Input()
   view: number = 1;
@@ -102,32 +104,32 @@ export class PersonemploymentComponent implements OnInit {
     location_ID: null,
     locations: [],
     workfield_ID: {
-      id: null,
+      id: null
     },
     careerlevel_ID: {
-      id: null,
+      id: null
     },
     worktype_ID: {
-      id: null,
+      id: null
     },
     organizationtype_ID: {
-      id: null,
+      id: null
     },
     organizationsector_ID: {
-      id: null,
+      id: null
     },
     organizationcategory_ID: {
-      id: null,
+      id: null
     },
-    isactive: true,
-  };
+    isactive: true
+  }
 
   constructor(
     private personemploymentservice: PersonemploymentService,
     private toastrservice: ToastrService,
     private onfailservice: OnFailService,
-    private router: Router
-  ) {}
+    private router: Router,
+  ) { }
 
   ngOnInit(): void {
     this.load(this.isreload);
@@ -137,7 +139,7 @@ export class PersonemploymentComponent implements OnInit {
     if (!this.personID && Number(window.sessionStorage.getItem('person')) > 0) {
       this.personID = Number(window.sessionStorage.getItem('person'));
     } else {
-      redirectByHref(setting.redirctPath + '/#/home/personal');
+      redirectByHref(setting.redirctPath + "/#/home/personal");
     }
 
     if (window.sessionStorage.getItem('personemployments') != null) {
@@ -146,26 +148,15 @@ export class PersonemploymentComponent implements OnInit {
     if (window.sessionStorage.getItem('personemploymentsAll') != null) {
       this.personemploymentsAll = JSON.parse(window.sessionStorage.getItem('personemploymentsAll'));
     }
-    if (
-      this.personID != 0 &&
-      !this.personID &&
-      Number(window.sessionStorage.getItem('person')) > 0
-    ) {
+    if (this.personID != 0 && !this.personID && Number(window.sessionStorage.getItem('person')) > 0) {
       this.personID = Number(window.sessionStorage.getItem('person'));
     }
 
-    if (
-      this.view >= 1 &&
-      this.view <= 2 &&
-      (this.personemployments == null || this.personemployments.length == 0 || reload == true)
-    ) {
+    if (this.view >= 1 && this.view <= 2 && (this.personemployments == null || this.personemployments.length == 0 || reload == true)) {
       this.personemployments == null;
       this.personemploymentGet();
     }
-    if (
-      ((this.view >= 1 && this.view <= 2) || this.view == 10) &&
-      (this.personemploymentsAll == null || this.personemploymentsAll.length == 0 || reload == true)
-    ) {
+    if (((this.view >= 1 && this.view <= 2) || this.view == 10) && (this.personemploymentsAll == null || this.personemploymentsAll.length == 0 || reload == true)) {
       this.personemploymentsAll == null;
       this.personemploymentGetAll();
     }
@@ -185,41 +176,33 @@ export class PersonemploymentComponent implements OnInit {
       organizationcategory_CODE: this.organizationcategoryCode,
       organizationtype_ID: this.organizationtypeID,
       organizationtype_CODE: this.organizationtypeCode,
-    };
+    }
 
     if (this.view >= 5 && this.view <= 6 && this.personemploymentID) {
-      window.sessionStorage.setItem('personemployment', this.personemploymentID);
+      window.sessionStorage.setItem("personemployment", this.personemploymentID);
       this.personemploymentGetOne(this.personemploymentID);
       this.disabled = true;
-    } else if (
-      this.view >= 11 &&
-      this.view <= 29 &&
-      this.disabled == false &&
-      (this.personemployments == null || this.personemployments.length == 0 || reload == true)
-    ) {
+    } else if ((this.view >= 11 && this.view <= 29) && this.disabled == false && (this.personemployments == null || this.personemployments.length == 0 || reload == true)) {
       this.personemployments == null;
       this.personemploymentAdvancedSearch(search);
-    } else if (
-      this.view >= 11 &&
-      this.view <= 29 &&
-      this.disabled == true &&
-      (this.personemploymentsAll == null || this.personemploymentsAll.length == 0 || reload == true)
-    ) {
+    } else if ((this.view >= 11 && this.view <= 29) && this.disabled == true && (this.personemploymentsAll == null || this.personemploymentsAll.length == 0 || reload == true)) {
       this.personemploymentsAll == null;
       this.personemploymentAdvancedSearchAll(search);
     }
   }
 
   onToolbarPreparing(e) {
-    e.toolbarOptions.items.unshift({
-      location: 'after',
-      widget: 'dxButton',
-      options: {
-        width: 136,
-        text: 'Refresh',
-        onClick: this.load.bind(this, true),
-      },
-    });
+    e.toolbarOptions.items.unshift(
+      {
+        location: 'after',
+        widget: 'dxButton',
+        options: {
+          width: 136,
+          text: 'Refresh',
+          onClick: this.load.bind(this, true),
+        },
+      }
+    );
   }
 
   update(row) {
@@ -245,7 +228,7 @@ export class PersonemploymentComponent implements OnInit {
   personemploymentCancel() {
     this.disabled = true;
     if (this.personemployment.personemployment_ID == 0) {
-      this.router.navigate(['/home/personemployments'], {});
+      this.router.navigate(["/home/personemployments"], {});
     }
   }
 
@@ -283,7 +266,7 @@ export class PersonemploymentComponent implements OnInit {
       organizationtype_ID: null,
       organizationsector_ID: null,
       organizationcategory_ID: null,
-      isactive: true,
+      isactive: true
     };
   }
 
@@ -298,7 +281,7 @@ export class PersonemploymentComponent implements OnInit {
     this.organizationsectorID = response.organizationsector_ID;
     this.organizationcategoryID = response.organizationcategory_ID;
 
-    if (response.isactive == 'Y') {
+    if (response.isactive == "Y") {
       response.isactive = true;
     } else {
       response.isactive = false;
@@ -313,68 +296,51 @@ export class PersonemploymentComponent implements OnInit {
   }
 
   personemploymentGet() {
-    this.personemploymentservice.get().subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.personemployments = this.setPersonEmployments(
-              this.personemploymentservice.getAllDetail(response)
-            );
-            window.sessionStorage.setItem(
-              'personemployments',
-              JSON.stringify(this.personemployments)
-            );
-          }
+    this.personemploymentservice.get().subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else {
+          this.personemployments = this.setPersonEmployments(this.personemploymentservice.getAllDetail(response));
+          window.sessionStorage.setItem("personemployments", JSON.stringify(this.personemployments));
+
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   personemploymentGetOne(id) {
-    this.personemploymentservice.getOne(id).subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.setPersonEmployment(this.personemploymentservice.getDetail(response));
-            // if (this.locationsearchfilter != null)
-            //   this.locationsearchfilter.setLocation(this.personemployment.locations);
-          }
+    this.personemploymentservice.getOne(id).subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else {
+          this.setPersonEmployment(this.personemploymentservice.getDetail(response));
+          // if (this.locationsearchfilter != null)
+          //   this.locationsearchfilter.setLocation(this.personemployment.locations);
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   personemploymentGetAll() {
-    this.personemploymentservice.getAll().subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.personemploymentsAll = this.setPersonEmployments(
-              this.personemploymentservice.getAllDetail(response)
-            );
-            window.sessionStorage.setItem(
-              'personemployments',
-              JSON.stringify(this.personemployments)
-            );
-          }
+    this.personemploymentservice.getAll().subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else {
+          this.personemploymentsAll = this.setPersonEmployments(this.personemploymentservice.getAllDetail(response));
+          window.sessionStorage.setItem("personemployments", JSON.stringify(this.personemployments));
+
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   personemploymentAdd(personemployment) {
@@ -386,28 +352,25 @@ export class PersonemploymentComponent implements OnInit {
     personemployment.organizationsector_ID = this.organizationsector.organizationsectorID;
     personemployment.organizationcategory_ID = this.organizationcategory.organizationcategoryID;
     personemployment.organizationtype_ID = this.organizationtype.organizationtypeID;
-    personemployment.isactive = 'Y';
+    personemployment.isactive = "Y";
 
-    this.personemploymentservice.add(personemployment).subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else if (response.personemployment_ID) {
-            this.toastrservice.success('Success', 'New Personemployments Added');
-            this.setPersonEmployment(this.personemploymentservice.getDetail(response));
-            this.refresh.next();
-            this.personemploymentGetAll();
-            this.disabled = true;
-          } else {
-            this.toastrservice.error('Some thing went wrong');
-          }
+    this.personemploymentservice.add(personemployment).subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else if (response.personemployment_ID) {
+          this.toastrservice.success("Success", "New Personemployments Added");
+          this.setPersonEmployment(this.personemploymentservice.getDetail(response));
+          this.refresh.next();
+          this.personemploymentGetAll();
+          this.disabled = true;
+        } else {
+          this.toastrservice.error("Some thing went wrong");
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   personemploymentUpdate(personemployment) {
@@ -420,105 +383,82 @@ export class PersonemploymentComponent implements OnInit {
     personemployment.organizationcategory_ID = this.organizationcategory.organizationcategoryID;
     personemployment.organizationtype_ID = this.organizationtype.organizationtypeID;
     if (personemployment.isactive == true) {
-      personemployment.isactive = 'Y';
+      personemployment.isactive = "Y";
     } else {
-      personemployment.isactive = 'N';
+      personemployment.isactive = "N";
     }
-    this.personemploymentservice
-      .update(personemployment, personemployment.personemployment_ID)
-      .subscribe(
-        (response) => {
-          if (response) {
-            if (response.error && response.status) {
-              this.toastrservice.warning('Message', ' ' + response.message);
-            } else if (response.personemployment_ID) {
-              this.toastrservice.success('Success', ' Personemployments Updated');
-              this.setPersonEmployment(this.personemploymentservice.getDetail(response));
-              this.refresh.next();
-              this.personemploymentGetAll();
-              this.disabled = true;
-            } else {
-              this.toastrservice.error('Some thing went wrong');
-            }
-          }
-        },
-        (error) => {
-          this.onfailservice.onFail(error);
+    this.personemploymentservice.update(personemployment, personemployment.personemployment_ID).subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else if (response.personemployment_ID) {
+          this.toastrservice.success("Success", " Personemployments Updated");
+          this.setPersonEmployment(this.personemploymentservice.getDetail(response));
+          this.refresh.next();
+          this.personemploymentGetAll();
+          this.disabled = true;
+        } else {
+          this.toastrservice.error("Some thing went wrong");
         }
-      );
+      }
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   personemploymentUpdateAll(personemployments) {
-    this.personemploymentservice.updateAll(personemployments).subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else if (response.length > 0) {
-            this.toastrservice.success('Success', 'Personemployments Updated');
-            this.setPersonEmployment(this.personemploymentservice.getDetail(response));
-            this.refresh.next();
-          } else {
-            this.toastrservice.error('Some thing went wrong');
-          }
+    this.personemploymentservice.updateAll(personemployments).subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else if (response.length > 0) {
+          this.toastrservice.success("Success", "Personemployments Updated");
+          this.setPersonEmployment(this.personemploymentservice.getDetail(response));
+          this.refresh.next();
+        } else {
+          this.toastrservice.error("Some thing went wrong");
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   personemploymentSearch(str) {
     var search = {
-      search: str,
-    };
-    this.personemploymentservice.search(search).subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.personemployments = this.setPersonEmployments(
-              this.personemploymentservice.getAllDetail(response)
-            );
-            window.sessionStorage.setItem(
-              'personemployments',
-              JSON.stringify(this.personemployments)
-            );
-          }
+      search: str
+    }
+    this.personemploymentservice.search(search).subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else {
+          this.personemployments = this.setPersonEmployments(this.personemploymentservice.getAllDetail(response));
+          window.sessionStorage.setItem("personemployments", JSON.stringify(this.personemployments));
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   personemploymentSearchAll(str) {
     var search = {
-      search: str,
-    };
-    this.personemploymentservice.searchAll(search).subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.personemploymentsAll = this.setPersonEmployments(
-              this.personemploymentservice.getAllDetail(response)
-            );
-            window.sessionStorage.setItem(
-              'personemployments',
-              JSON.stringify(this.personemployments)
-            );
-          }
+      search: str
+    }
+    this.personemploymentservice.searchAll(search).subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else {
+          this.personemploymentsAll = this.setPersonEmployments(this.personemploymentservice.getAllDetail(response));
+          window.sessionStorage.setItem("personemployments", JSON.stringify(this.personemployments));
+
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   personemploymentAdvancedSearch(search) {
@@ -536,20 +476,17 @@ export class PersonemploymentComponent implements OnInit {
     this.organizationcategoryCode = search.organizationcategory_CODE;
     this.organizationtypeID = search.organizationtype_ID;
     this.organizationtypeCode = search.organizationtype_CODE;
-    this.personemploymentservice.advancedSearch(search).subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.setPersonEmployments(this.personemploymentservice.getAllDetail(response));
-          }
+    this.personemploymentservice.advancedSearch(search).subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else {
+          this.setPersonEmployments(this.personemploymentservice.getAllDetail(response));
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   personemploymentAdvancedSearchAll(search) {
@@ -568,19 +505,17 @@ export class PersonemploymentComponent implements OnInit {
     this.organizationtypeID = search.organizationtype_ID;
     this.organizationtypeCode = search.organizationtype_CODE;
 
-    this.personemploymentservice.advancedSearchAll(search).subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.setPersonEmployments(this.personemploymentservice.getAllDetail(response));
-          }
+    this.personemploymentservice.advancedSearchAll(search).subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else {
+          this.setPersonEmployments(this.personemploymentservice.getAllDetail(response));
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
+
 }

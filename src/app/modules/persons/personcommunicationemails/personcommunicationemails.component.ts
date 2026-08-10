@@ -1,35 +1,36 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { PersoncommunicationemailComponent } from '../../../components/person/personcommunicationemail/personcommunicationemail.component';
+import { PersoncommunicationemailComponent } from '../../../components/person/personcommunicationemail/personcommunicationemail.component'
 
 declare var $: any;
 
 @Component({
   selector: 'app-personcommunicationemails',
   templateUrl: './personcommunicationemails.component.html',
-  styleUrls: ['./personcommunicationemails.component.css'],
+  styleUrls: ['./personcommunicationemails.component.css']
 })
 export class PersoncommunicationemailsComponent implements OnInit {
-  @ViewChild('personcommunicationemails')
-  personcommunicationemails: PersoncommunicationemailComponent;
-  @ViewChild('addpersoncommunicationemail')
-  addpersoncommunicationemail: PersoncommunicationemailComponent;
-  @ViewChild('editpersoncommunicationemail')
-  editpersoncommunicationemail: PersoncommunicationemailComponent;
+  @ViewChild("personcommunicationemails") personcommunicationemails: PersoncommunicationemailComponent;
+  @ViewChild("addpersoncommunicationemail") addpersoncommunicationemail: PersoncommunicationemailComponent;
+  @ViewChild("editpersoncommunicationemail") editpersoncommunicationemail: PersoncommunicationemailComponent;
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+  ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
-  view() {}
+  view() {
+  }
 
   show(row) {
-    this.router.navigate(['/home/emails'], { queryParams: {} });
+    this.router.navigate(["/home/emails"], { queryParams: {} });
   }
 
   addNew() {
-    this.router.navigate(['/home/emails'], {});
+    this.router.navigate(["/home/emails"], {});
   }
 
   refresh() {
@@ -43,18 +44,19 @@ export class PersoncommunicationemailsComponent implements OnInit {
       personcontact_ID: row.data.personcontact_ID,
       email_DATETIME: row.data.email_DATETIME,
       email_CONTENT: row.data.email_CONTENT,
-      isactive: row.data.isactive,
+      isactive: row.data.isactive
     };
-    if (row.data.isactive == 'Y') {
+    if (row.data.isactive == "Y") {
       this.editpersoncommunicationemail.personcommunicationemail.isactive = true;
     } else {
       this.editpersoncommunicationemail.personcommunicationemail.isactive = false;
     }
-    $('#editpersoncommunicationemail').modal('show');
+    $("#editpersoncommunicationemail").modal("show");
   }
 
   cancel() {
-    $('#addpersoncommunicationemail').modal('hide');
-    $('#editpersoncommunicationemail').modal('hide');
+    $("#addpersoncommunicationemail").modal("hide");
+    $("#editpersoncommunicationemail").modal("hide");
   }
+
 }

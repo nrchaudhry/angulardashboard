@@ -13,13 +13,13 @@ import { DxDataGridComponent } from 'devextreme-angular';
 @Component({
   selector: 'app-employee',
   templateUrl: './employee.component.html',
-  styleUrls: ['./employee.component.css'],
+  styleUrls: ['./employee.component.css']
 })
 export class EmployeeComponent implements OnInit {
-  @ViewChild('grid') dataGrid: DxDataGridComponent;
+  @ViewChild("grid") dataGrid: DxDataGridComponent;
 
-  @ViewChild('person') person: PersonComponent;
-  @ViewChild('company') company: CompanyComponent;
+  @ViewChild("person") person: PersonComponent;
+  @ViewChild("company") company: CompanyComponent;
 
   @Input()
   view: number = 1;
@@ -57,26 +57,23 @@ export class EmployeeComponent implements OnInit {
     company_ID: 0,
     issalerep: false,
     isactive: true,
-  };
+  }
 
   constructor(
     private employeeservice: EmployeeService,
     private toastrservice: ToastrService,
     private onfailservice: OnFailService,
-    private router: Router
-  ) {}
+    private router: Router,
+  ) { }
 
   ngOnInit(): void {
-    this.employeeservice.getTitle().subscribe(
-      (res) => {
-        if (res) {
-          this.titles = res;
-        }
-      },
-      (error) => {
-        return;
+    this.employeeservice.getTitle().subscribe(res => {
+      if (res) {
+        this.titles = res;
       }
-    );
+    }, error => {
+      return;
+    });
     this.load(this.isreload);
   }
 
@@ -84,26 +81,15 @@ export class EmployeeComponent implements OnInit {
     this.employees = JSON.parse(window.sessionStorage.getItem('employees'));
     this.employeesAll = JSON.parse(window.sessionStorage.getItem('employeesAll'));
 
-    if (
-      this.employeeID != 0 &&
-      !this.employeeID &&
-      Number(window.sessionStorage.getItem('employee')) > 0
-    ) {
+    if (this.employeeID != 0 && !this.employeeID && Number(window.sessionStorage.getItem('employee')) > 0) {
       this.employeeID = Number(window.sessionStorage.getItem('employee'));
     }
 
-    if (
-      this.view >= 1 &&
-      this.view <= 2 &&
-      (this.employees == null || this.employees.length == 0 || reload == true)
-    ) {
+    if (this.view >= 1 && this.view <= 2 && (this.employees == null || this.employees.length == 0 || reload == true)) {
       this.employees = null;
       this.employeeGet();
     }
-    if (
-      ((this.view >= 1 && this.view <= 2) || this.view == 10) &&
-      (this.employeesAll == null || this.employeesAll.length == 0 || reload == true)
-    ) {
+    if (((this.view >= 1 && this.view <= 2) || this.view == 10) && (this.employeesAll == null || this.employeesAll.length == 0 || reload == true)) {
       this.employeesAll = null;
       this.employeeGetAll();
     }
@@ -111,41 +97,33 @@ export class EmployeeComponent implements OnInit {
     var search = {
       person_ID: this.personID,
       company_ID: this.companyID,
-    };
+    }
 
     if (this.view >= 5 && this.view <= 6 && this.employeeID) {
-      window.sessionStorage.setItem('employee', this.employeeID);
+      window.sessionStorage.setItem("employee", this.employeeID);
       this.employeeGetOne(this.employeeID);
       this.disabled = true;
-    } else if (
-      this.view >= 11 &&
-      this.view <= 29 &&
-      this.disabled == false &&
-      (this.employees == null || this.employees.length == 0 || reload == true)
-    ) {
+    } else if ((this.view >= 11 && this.view <= 29) && this.disabled == false && (this.employees == null || this.employees.length == 0 || reload == true)) {
       this.employees = null;
       this.employeeAdvancedSearch(search);
-    } else if (
-      this.view >= 11 &&
-      this.view <= 29 &&
-      this.disabled == true &&
-      (this.employeesAll == null || this.employeesAll.length == 0 || reload == true)
-    ) {
+    } else if ((this.view >= 11 && this.view <= 29) && this.disabled == true && (this.employeesAll == null || this.employeesAll.length == 0 || reload == true)) {
       this.employeesAll = null;
       this.employeeAdvancedSearchAll(search);
     }
   }
 
   onToolbarPreparing(e) {
-    e.toolbarOptions.items.unshift({
-      location: 'after',
-      widget: 'dxButton',
-      options: {
-        width: 136,
-        text: 'Refresh',
-        onClick: this.load.bind(this, true),
-      },
-    });
+    e.toolbarOptions.items.unshift(
+      {
+        location: 'after',
+        widget: 'dxButton',
+        options: {
+          width: 136,
+          text: 'Refresh',
+          onClick: this.load.bind(this, true),
+        },
+      }
+    );
   }
 
   add() {
@@ -159,7 +137,7 @@ export class EmployeeComponent implements OnInit {
       company_ID: 0,
       issalerep: false,
       isactive: true,
-    };
+    }
   }
 
   update(row) {
@@ -185,7 +163,7 @@ export class EmployeeComponent implements OnInit {
   employeeCancel() {
     this.disabled = true;
     if (this.employee.employee_ID == 0) {
-      this.router.navigate(['/home/employees'], {});
+      this.router.navigate(["/home/employees"], {});
     }
   }
 
@@ -202,12 +180,12 @@ export class EmployeeComponent implements OnInit {
     this.employeeID = response.employee_ID;
     this.personID = response.person_ID;
     this.companyID = response.company_ID;
-    if (response.isactive == 'Y') {
+    if (response.isactive == "Y") {
       response.isactive = true;
     } else {
       response.isactive = false;
     }
-    if (response.issalerep == 'Y') {
+    if (response.issalerep == "Y") {
       response.issalerep = true;
     } else {
       response.issalerep = false;
@@ -221,223 +199,194 @@ export class EmployeeComponent implements OnInit {
   }
 
   employeeGet() {
-    this.employeeservice.get().subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.employees = this.setEmployees(this.employeeservice.getAllDetail(response));
-            window.sessionStorage.setItem('employees', JSON.stringify(this.employees));
-          }
+    this.employeeservice.get().subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else {
+          this.employees = this.setEmployees(this.employeeservice.getAllDetail(response));
+          window.sessionStorage.setItem("employees", JSON.stringify(this.employees));
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   employeeGetAll() {
-    this.employeeservice.getAll().subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.employeesAll = this.setEmployees(this.employeeservice.getAllDetail(response));
-            window.sessionStorage.setItem('employeesAll', JSON.stringify(this.employeesAll));
-          }
+    this.employeeservice.getAll().subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else {
+          this.employeesAll = this.setEmployees(this.employeeservice.getAllDetail(response));
+          window.sessionStorage.setItem("employeesAll", JSON.stringify(this.employeesAll));
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   employeeGetOne(id) {
     this.disabled = true;
-    this.employeeservice.getOne(id).subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.setEmployee(this.employeeservice.getDetail(response));
-          }
+    this.employeeservice.getOne(id).subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else {
+          this.setEmployee(this.employeeservice.getDetail(response));
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   employeeAdd(employee) {
     if (employee.issalerep == true) {
-      employee.issalerep = 'Y';
+      employee.issalerep = "Y";
     } else {
-      employee.issalerep = 'N';
+      employee.issalerep = "N";
     }
-    employee.isactive = 'Y';
+    employee.isactive = "Y";
 
-    this.employeeservice.add(employee).subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else if (response.employee_ID) {
-            this.toastrservice.success('Success', 'New Employee Added');
-            this.setEmployee(this.employeeservice.getDetail(response));
-            this.refresh.next();
-            this.employeeGetAll();
-            this.disabled = true;
-          } else {
-            this.toastrservice.error('Some thing went wrong');
-          }
+    this.employeeservice.add(employee).subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else if (response.employee_ID) {
+          this.toastrservice.success("Success", "New Employee Added");
+          this.setEmployee(this.employeeservice.getDetail(response));
+          this.refresh.next();
+          this.employeeGetAll();
+          this.disabled = true;
+        } else {
+          this.toastrservice.error("Some thing went wrong");
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   employeeUpdate(employee) {
     if (employee.issalerep == true) {
-      employee.issalerep = 'Y';
+      employee.issalerep = "Y";
     } else {
-      employee.issalerep = 'N';
+      employee.issalerep = "N";
     }
     if (employee.isactive == true) {
-      employee.isactive = 'Y';
+      employee.isactive = "Y";
     } else {
-      employee.isactive = 'N';
+      employee.isactive = "N";
     }
 
-    this.employeeservice.update(employee, employee.employee_ID).subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else if (response.employee_ID) {
-            this.toastrservice.success('Success', 'Employee Updated');
-            this.setEmployee(this.employeeservice.getDetail(response));
-            this.refresh.next();
-            this.employeeGetAll();
-            this.disabled = true;
-          } else {
-            this.toastrservice.error('Some thing went wrong');
-          }
+    this.employeeservice.update(employee, employee.employee_ID).subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else if (response.employee_ID) {
+          this.toastrservice.success("Success", "Employee Updated");
+          this.setEmployee(this.employeeservice.getDetail(response));
+          this.refresh.next();
+          this.employeeGetAll();
+          this.disabled = true;
+        } else {
+          this.toastrservice.error("Some thing went wrong");
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   employeeUpdateAll(employees) {
-    this.employeeservice.updateAll(employees).subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else if (response.length > 0) {
-            this.toastrservice.success('Success', 'Employee Updated');
-            this.setEmployee(this.employeeservice.getDetail(response));
-            this.refresh.next();
-          } else {
-            this.toastrservice.error('Some thing went wrong');
-          }
+    this.employeeservice.updateAll(employees).subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else if (response.length > 0) {
+          this.toastrservice.success("Success", "Employee Updated");
+          this.setEmployee(this.employeeservice.getDetail(response));
+          this.refresh.next();
+        } else {
+          this.toastrservice.error("Some thing went wrong");
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   employeeSearch(str) {
     var search = {
-      search: str,
-    };
-    this.employeeservice.search(search).subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.employees = this.setEmployees(this.employeeservice.getAllDetail(response));
-            window.sessionStorage.setItem('employees', JSON.stringify(this.employees));
-          }
+      search: str
+    }
+    this.employeeservice.search(search).subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else {
+          this.employees = this.setEmployees(this.employeeservice.getAllDetail(response));
+          window.sessionStorage.setItem("employees", JSON.stringify(this.employees));
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   employeeSearchAll(str) {
     var search = {
-      search: str,
-    };
-    this.employeeservice.searchAll(search).subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.employeesAll = this.setEmployees(this.employeeservice.getAllDetail(response));
-            window.sessionStorage.setItem('employeesAll', JSON.stringify(this.employeesAll));
-          }
+      search: str
+    }
+    this.employeeservice.searchAll(search).subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else {
+          this.employeesAll = this.setEmployees(this.employeeservice.getAllDetail(response));
+          window.sessionStorage.setItem("employeesAll", JSON.stringify(this.employeesAll));
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   employeeAdvancedSearch(search) {
     this.personID = search.person_ID;
     this.companyID = search.company_ID;
-    this.employeeservice.advancedSearch(search).subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.employees = this.setEmployees(this.employeeservice.getAllDetail(response));
-            window.sessionStorage.setItem('employees', JSON.stringify(this.employees));
-          }
+    this.employeeservice.advancedSearch(search).subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else {
+          this.employees = this.setEmployees(this.employeeservice.getAllDetail(response));
+          window.sessionStorage.setItem("employees", JSON.stringify(this.employees));
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   employeeAdvancedSearchAll(search) {
     this.personID = search.person_ID;
     this.companyID = search.company_ID;
-    this.employeeservice.advancedSearchAll(search).subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.employeesAll = this.setEmployees(this.employeeservice.getAllDetail(response));
-            window.sessionStorage.setItem('employeesAll', JSON.stringify(this.employeesAll));
-          }
+    this.employeeservice.advancedSearchAll(search).subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else {
+          this.employeesAll = this.setEmployees(this.employeeservice.getAllDetail(response));
+          window.sessionStorage.setItem("employeesAll", JSON.stringify(this.employeesAll));
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
+
 }

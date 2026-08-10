@@ -15,22 +15,22 @@ import { SequencenumberComponent } from '../../common/sequencenumber/sequencenum
 @Component({
   selector: 'app-course',
   templateUrl: './course.component.html',
-  styleUrls: ['./course.component.css'],
+  styleUrls: ['./course.component.css']
 })
 export class CourseComponent implements OnInit {
-  @ViewChild('qualification') qualification: QualificationComponent;
+  @ViewChild("qualification") qualification: QualificationComponent;
 
-  @ViewChild('provisiontype') provisiontype: ProvisiontypeComponent;
-  @ViewChild('courseaim') courseaim: CourseaimComponent;
-  @ViewChild('teachertrainingcourse') teachertrainingcourse: TeachertrainingcourseComponent;
-  @ViewChild('regulatorybody') regulatorybody: RegulatorybodyComponent;
-  @ViewChild('qualificationtype') qualificationtype: QualificationtypeComponent;
+  @ViewChild("provisiontype") provisiontype: ProvisiontypeComponent;
+  @ViewChild("courseaim") courseaim: CourseaimComponent;
+  @ViewChild("teachertrainingcourse") teachertrainingcourse: TeachertrainingcourseComponent;
+  @ViewChild("regulatorybody") regulatorybody: RegulatorybodyComponent;
+  @ViewChild("qualificationtype") qualificationtype: QualificationtypeComponent;
 
-  @ViewChild('courselevel') courselevel: SequencenumberComponent;
-  @ViewChild('minimumduration') minimumduration: SequencenumberComponent;
-  @ViewChild('maximumduration') maximumduration: SequencenumberComponent;
-  @ViewChild('minimumcredithours') minimumcredithours: SequencenumberComponent;
-  @ViewChild('maximumcredithours') maximumcredithours: SequencenumberComponent;
+  @ViewChild("courselevel") courselevel: SequencenumberComponent;
+  @ViewChild("minimumduration") minimumduration: SequencenumberComponent;
+  @ViewChild("maximumduration") maximumduration: SequencenumberComponent;
+  @ViewChild("minimumcredithours") minimumcredithours: SequencenumberComponent;
+  @ViewChild("maximumcredithours") maximumcredithours: SequencenumberComponent;
 
   @Input()
   view: number = 1;
@@ -101,14 +101,14 @@ export class CourseComponent implements OnInit {
     optional_MODULES: null,
     studyskill_MODULES: null,
     isactive: true,
-  };
+  }
 
   constructor(
     private courseservice: CourseService,
     private toastrservice: ToastrService,
     private onfailservice: OnFailService,
-    private router: Router
-  ) {}
+    private router: Router,
+  ) { }
 
   ngOnInit(): void {
     this.load(this.isreload);
@@ -121,26 +121,15 @@ export class CourseComponent implements OnInit {
     if (window.sessionStorage.getItem('coursesAll') != null) {
       this.coursesAll = JSON.parse(window.sessionStorage.getItem('coursesAll'));
     }
-    if (
-      this.courseID != 0 &&
-      !this.courseID &&
-      Number(window.sessionStorage.getItem('course')) > 0
-    ) {
+    if (this.courseID != 0 && !this.courseID && Number(window.sessionStorage.getItem('course')) > 0) {
       this.courseID = Number(window.sessionStorage.getItem('course'));
     }
 
-    if (
-      this.view >= 1 &&
-      this.view <= 2 &&
-      (this.courses == null || this.courses.length == 0 || reload == true)
-    ) {
+    if (this.view >= 1 && this.view <= 2 && (this.courses == null || this.courses.length == 0 || reload == true)) {
       this.courses == null;
       this.courseGet();
     }
-    if (
-      ((this.view >= 1 && this.view <= 2) || this.view == 10) &&
-      (this.coursesAll == null || this.coursesAll.length == 0 || reload == true)
-    ) {
+    if (((this.view >= 1 && this.view <= 2) || this.view == 10) && (this.coursesAll == null || this.coursesAll.length == 0 || reload == true)) {
       this.coursesAll == null;
       this.courseGetAll();
     }
@@ -158,40 +147,32 @@ export class CourseComponent implements OnInit {
       regulatorybody_CODE: this.regulatorybodyCode,
       qualificationtype_ID: this.qualificationtypeID,
       qualificationtype_CODE: this.qualificationtypeCode,
-    };
+    }
     if (this.view >= 5 && this.view <= 6 && this.courseID) {
-      window.sessionStorage.setItem('course', this.courseID);
+      window.sessionStorage.setItem("course", this.courseID);
       this.courseGetOne(this.courseID);
       this.disabled = true;
-    } else if (
-      this.view >= 11 &&
-      this.view <= 29 &&
-      this.disabled == false &&
-      (this.courses == null || this.courses.length == 0 || reload == true)
-    ) {
+    } else if ((this.view >= 11 && this.view <= 29) && this.disabled == false && (this.courses == null || this.courses.length == 0 || reload == true)) {
       this.courses == null;
       this.courseAdvancedSearch(search);
-    } else if (
-      this.view >= 11 &&
-      this.view <= 29 &&
-      this.disabled == true &&
-      (this.coursesAll == null || this.coursesAll.length == 0 || reload == true)
-    ) {
+    } else if ((this.view >= 11 && this.view <= 29) && this.disabled == true && (this.coursesAll == null || this.coursesAll.length == 0 || reload == true)) {
       this.coursesAll == null;
       this.courseAdvancedSearchAll(search);
     }
   }
 
   onToolbarPreparing(e) {
-    e.toolbarOptions.items.unshift({
-      location: 'after',
-      widget: 'dxButton',
-      options: {
-        width: 136,
-        text: 'Refresh',
-        onClick: this.load.bind(this, true),
-      },
-    });
+    e.toolbarOptions.items.unshift(
+      {
+        location: 'after',
+        widget: 'dxButton',
+        options: {
+          width: 136,
+          text: 'Refresh',
+          onClick: this.load.bind(this, true),
+        },
+      }
+    );
   }
 
   add() {
@@ -245,7 +226,7 @@ export class CourseComponent implements OnInit {
   courseCancel() {
     this.disabled = true;
     if (this.course.course_ID == 0) {
-      this.router.navigate(['/home/courses'], {});
+      this.router.navigate(["/home/courses"], {});
     }
   }
 
@@ -266,8 +247,8 @@ export class CourseComponent implements OnInit {
     this.regulatorybodyID = response.regulatorybody_ID;
     this.teachertrainingcourseID = response.teachertrainingcourse_ID;
     this.courseaimID = response.courseaim_ID;
-
-    if (response.isactive == 'Y') {
+    
+    if (response.isactive == "Y") {
       response.isactive = true;
     } else {
       response.isactive = false;
@@ -281,57 +262,48 @@ export class CourseComponent implements OnInit {
   }
 
   courseGet() {
-    this.courseservice.get().subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.courses = this.setCourses(this.courseservice.getAllDetail(response));
-            window.sessionStorage.setItem('courses', JSON.stringify(this.courses));
-          }
+    this.courseservice.get().subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else {
+          this.courses = this.setCourses(this.courseservice.getAllDetail(response));
+          window.sessionStorage.setItem("courses", JSON.stringify(this.courses));
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   courseGetAll() {
-    this.courseservice.getAll().subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.coursesAll = this.setCourses(this.courseservice.getAllDetail(response));
-            window.sessionStorage.setItem('coursesAll', JSON.stringify(this.coursesAll));
-          }
+    this.courseservice.getAll().subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else {
+          this.coursesAll = this.setCourses(this.courseservice.getAllDetail(response));
+          window.sessionStorage.setItem("coursesAll", JSON.stringify(this.coursesAll));
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   courseGetOne(id) {
     this.disabled = true;
-    this.courseservice.getOne(id).subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.setCourse(this.courseservice.getDetail(response));
-          }
+    this.courseservice.getOne(id).subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else {
+          this.setCourse(this.courseservice.getDetail(response));
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   courseAdd(course) {
@@ -369,28 +341,25 @@ export class CourseComponent implements OnInit {
     if (this.maximumcredithours != null) {
       course.maximum_CREDITHOURS = this.maximumcredithours.value;
     }
-    course.isactive = 'Y';
+    course.isactive = "Y";
 
-    this.courseservice.add(course).subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else if (response.course_ID) {
-            this.toastrservice.success('Success', 'New Course Added');
-            this.setCourse(this.courseservice.getDetail(response));
-            this.refresh.next();
-            this.courseGetAll();
-            this.disabled = true;
-          } else {
-            this.toastrservice.error('Some thing went wrong');
-          }
+    this.courseservice.add(course).subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else if (response.course_ID) {
+          this.toastrservice.success("Success", "New Course Added");
+          this.setCourse(this.courseservice.getDetail(response));
+          this.refresh.next();
+          this.courseGetAll();
+          this.disabled = true;
+        } else {
+          this.toastrservice.error("Some thing went wrong");
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   courseUpdate(course) {
@@ -430,92 +399,80 @@ export class CourseComponent implements OnInit {
     }
 
     if (course.isactive == true) {
-      course.isactive = 'Y';
+      course.isactive = "Y";
     } else {
-      course.isactive = 'N';
+      course.isactive = "N";
     }
-    this.courseservice.update(course, course.course_ID).subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else if (response.course_ID) {
-            this.toastrservice.success('Success', 'Course Updated');
-            this.setCourse(this.courseservice.getDetail(response));
-            this.refresh.next();
-            this.courseGetAll();
-            this.disabled = true;
-          } else {
-            this.toastrservice.error('Some thing went wrong');
-          }
+    this.courseservice.update(course, course.course_ID).subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else if (response.course_ID) {
+          this.toastrservice.success("Success", "Course Updated");
+          this.setCourse(this.courseservice.getDetail(response));
+          this.refresh.next();
+          this.courseGetAll();
+          this.disabled = true;
+        } else {
+          this.toastrservice.error("Some thing went wrong");
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   courseUpdateAll(courses) {
-    this.courseservice.updateAll(courses).subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else if (response.length > 0) {
-            this.toastrservice.success('Success', 'Courses Updated');
-            this.refresh.next();
-          } else {
-            this.toastrservice.error('Some thing went wrong');
-          }
+    this.courseservice.updateAll(courses).subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else if (response.length > 0) {
+          this.toastrservice.success("Success", "Courses Updated");
+          this.refresh.next();
+        } else {
+          this.toastrservice.error("Some thing went wrong");
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   courseSearch(str) {
     var search = {
-      search: str,
-    };
-    this.courseservice.search(search).subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.courses = this.setCourses(this.courseservice.getAllDetail(response));
-            window.sessionStorage.setItem('courses', JSON.stringify(this.courses));
-          }
+      search: str
+    }
+    this.courseservice.search(search).subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else {
+          this.courses = this.setCourses(this.courseservice.getAllDetail(response));
+          window.sessionStorage.setItem("courses", JSON.stringify(this.courses));
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   courseSearchAll(str) {
     var search = {
-      search: str,
-    };
-    this.courseservice.searchAll(search).subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.coursesAll = this.setCourses(this.courseservice.getAllDetail(response));
-            window.sessionStorage.setItem('coursesAll', JSON.stringify(this.coursesAll));
-          }
+      search: str
+    }
+    this.courseservice.searchAll(search).subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else {
+          this.coursesAll = this.setCourses(this.courseservice.getAllDetail(response));
+          window.sessionStorage.setItem("coursesAll", JSON.stringify(this.coursesAll));
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   courseAdvancedSearch(search) {
@@ -531,21 +488,18 @@ export class CourseComponent implements OnInit {
     this.teachertrainingcourseCode = search.teachertrainingcourse_CODE;
     this.qualificationtypeID = search.qualificationtype_ID;
     this.qualificationtypeCode = search.qualificationtype_CODE;
-    this.courseservice.advancedSearch(search).subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.courses = this.setCourses(this.courseservice.getAllDetail(response));
-            window.sessionStorage.setItem('courses', JSON.stringify(this.courses));
-          }
+    this.courseservice.advancedSearch(search).subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else {
+          this.courses = this.setCourses(this.courseservice.getAllDetail(response));
+          window.sessionStorage.setItem("courses", JSON.stringify(this.courses));
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   courseAdvancedSearchAll(search) {
@@ -561,20 +515,18 @@ export class CourseComponent implements OnInit {
     this.teachertrainingcourseCode = search.teachertrainingcourse_CODE;
     this.qualificationtypeID = search.qualificationtype_ID;
     this.qualificationtypeCode = search.qualificationtype_CODE;
-    this.courseservice.advancedSearchAll(search).subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.coursesAll = this.setCourses(this.courseservice.getAllDetail(response));
-            window.sessionStorage.setItem('coursesAll', JSON.stringify(this.coursesAll));
-          }
+    this.courseservice.advancedSearchAll(search).subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else {
+          this.coursesAll = this.setCourses(this.courseservice.getAllDetail(response));
+          window.sessionStorage.setItem("coursesAll", JSON.stringify(this.coursesAll));
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
+
 }

@@ -5,17 +5,20 @@ import { PersoncontactaddressComponent } from 'src/app/components/person/personc
 @Component({
   selector: 'app-personcontactaddressview',
   templateUrl: './personcontactaddressview.component.html',
-  styleUrls: ['./personcontactaddressview.component.css'],
+  styleUrls: ['./personcontactaddressview.component.css']
 })
 export class PersoncontactaddressviewComponent implements OnInit {
-  @ViewChild('personcontactaddress') personcontactaddress: PersoncontactaddressComponent;
+  @ViewChild("personcontactaddress") personcontactaddress: PersoncontactaddressComponent;
 
   personcontactaddressID = 0;
 
-  constructor(private route: ActivatedRoute, private router: Router) {}
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+  ) { }
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe((params) => {
+    this.route.queryParams.subscribe(params => {
       if (params.personcontactaddress) {
         this.personcontactaddressID = params.personcontactaddress;
       }
@@ -28,6 +31,6 @@ export class PersoncontactaddressviewComponent implements OnInit {
   }
 
   cancel() {
-    this.router.navigate(['/home/personal'], { queryParams: {} });
+    this.router.navigate(["/home/personal"], { queryParams: {} });
   }
 }

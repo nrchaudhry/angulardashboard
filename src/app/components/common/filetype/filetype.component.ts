@@ -7,7 +7,7 @@ import { OnFailService } from 'src/app/services/on-fail.service';
 @Component({
   selector: 'app-filetype',
   templateUrl: './filetype.component.html',
-  styleUrls: ['./filetype.component.css'],
+  styleUrls: ['./filetype.component.css']
 })
 export class FiletypeComponent implements OnInit {
   @Input()
@@ -25,8 +25,8 @@ export class FiletypeComponent implements OnInit {
   constructor(
     private lookupservice: LookupService,
     private toastrservice: ToastrService,
-    private onfailservice: OnFailService
-  ) {}
+    private onfailservice: OnFailService,
+  ) { }
 
   ngOnInit(): void {
     this.filetypes = JSON.parse(window.sessionStorage.getItem('filetypes'));
@@ -39,44 +39,39 @@ export class FiletypeComponent implements OnInit {
   }
 
   setFiletypes(response) {
-    this.filetypes = response;
-    window.sessionStorage.setItem('filetypes', JSON.stringify(this.filetypes));
+      this.filetypes = response;
+      window.sessionStorage.setItem("filetypes", JSON.stringify(this.filetypes));
+  
+      this.filetypesAll = response;
+      window.sessionStorage.setItem("filetypesAll", JSON.stringify(this.filetypesAll));
+    }
 
-    this.filetypesAll = response;
-    window.sessionStorage.setItem('filetypesAll', JSON.stringify(this.filetypesAll));
-  }
-
-  filetypeGet() {
-    this.lookupservice.lookup('FILETYPE').subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.setFiletypes(response);
-          }
+  filetypeGet(){
+    this.lookupservice.lookup("FILETYPE").subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else{
+          this.setFiletypes(response);
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
-  filetypeGetAll() {
-    this.lookupservice.lookupAll('FILETYPE').subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.setFiletypes(response);
-          }
+  filetypeGetAll(){
+    this.lookupservice.lookupAll("FILETYPE").subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else{
+          this.setFiletypes(response);
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
+
 }

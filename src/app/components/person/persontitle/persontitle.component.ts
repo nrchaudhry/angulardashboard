@@ -8,7 +8,7 @@ import { LookupService } from 'src/app/services/lookup.service';
 @Component({
   selector: 'app-persontitle',
   templateUrl: './persontitle.component.html',
-  styleUrls: ['./persontitle.component.css'],
+  styleUrls: ['./persontitle.component.css']
 })
 export class PersontitleComponent implements OnInit {
   @Input()
@@ -22,7 +22,9 @@ export class PersontitleComponent implements OnInit {
 
   titles = [];
 
-  constructor(private httpcallservieservice: HttpCallServieService) {}
+  constructor(
+    private httpcallservieservice: HttpCallServieService,
+  ) { }
 
   ngOnInit(): void {
     this.titles = JSON.parse(window.sessionStorage.getItem('titles'));
@@ -33,19 +35,17 @@ export class PersontitleComponent implements OnInit {
 
   setTitles(response) {
     this.titles = response;
-    window.sessionStorage.setItem('titles', JSON.stringify(this.titles));
+    window.sessionStorage.setItem("titles", JSON.stringify(this.titles));
   }
 
-  titleGet() {
-    this.httpcallservieservice.getTitle().subscribe(
-      (res) => {
-        if (res) {
-          this.titles = res;
-        }
-      },
-      (error) => {
-        return;
+  titleGet(){
+    this.httpcallservieservice.getTitle().subscribe(res => {
+      if (res) {
+        this.titles = res;
       }
+    }, error => {
+      return;
+    } 
     );
   }
 }

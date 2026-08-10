@@ -6,7 +6,7 @@ import { OnFailService } from 'src/app/services/on-fail.service';
 @Component({
   selector: 'app-employeementtype',
   templateUrl: './employeementtype.component.html',
-  styleUrls: ['./employeementtype.component.css'],
+  styleUrls: ['./employeementtype.component.css']
 })
 export class EmployeementtypeComponent implements OnInit {
   @Input()
@@ -24,8 +24,8 @@ export class EmployeementtypeComponent implements OnInit {
   constructor(
     private lookupservice: LookupService,
     private toastrservice: ToastrService,
-    private onfailservice: OnFailService
-  ) {}
+    private onfailservice: OnFailService,
+  ) { }
 
   ngOnInit(): void {
     this.employeementtypes = JSON.parse(window.sessionStorage.getItem('employeementtypes'));
@@ -39,46 +39,38 @@ export class EmployeementtypeComponent implements OnInit {
 
   setEmployeementtypes(response) {
     this.employeementtypes = response;
-    window.sessionStorage.setItem('employeementtypes', JSON.stringify(this.employeementtypes));
+    window.sessionStorage.setItem("employeementtypes", JSON.stringify(this.employeementtypes));
 
     this.employeementtypesAll = response;
-    window.sessionStorage.setItem(
-      'employeementtypesAll',
-      JSON.stringify(this.employeementtypesAll)
-    );
+    window.sessionStorage.setItem("employeementtypesAll", JSON.stringify(this.employeementtypesAll));
   }
 
   employeementtypeGet() {
-    this.lookupservice.lookup('EMPLOYEEMENTTYPE').subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.setEmployeementtypes(response);
-          }
+    this.lookupservice.lookup("EMPLOYEEMENTTYPE").subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else {
+          this.setEmployeementtypes(response);
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   employeementtypeGetAll() {
-    this.lookupservice.lookupAll('EMPLOYEEMENTTYPE').subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.setEmployeementtypes(response);
-          }
+    this.lookupservice.lookupAll("EMPLOYEEMENTTYPE").subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else {
+          this.setEmployeementtypes(response);
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
+
 }

@@ -5,11 +5,24 @@ import { RouterModule } from '@angular/router';
 
 import { HeaderComponent } from '../../partials/header/header.component';
 
-const components = [HeaderComponent];
+const components = [
+  HeaderComponent
+]
 
 @NgModule({
-  declarations: [components],
-  imports: [RouterModule, FormsModule, CommonModule],
-  exports: [components, FormsModule, CommonModule],
+  declarations: [
+    components
+  ],
+  imports: [
+    RouterModule,
+    FormsModule,
+    CommonModule,
+  ],
+  exports: [
+    components,
+    FormsModule,
+    CommonModule,
+  ]
+
 })
-export class SharedModule {}
+export class SharedModule { }

@@ -5,18 +5,21 @@ import { PersondocumentComponent } from 'src/app/components/person/persondocumen
 @Component({
   selector: 'app-persondocumentview',
   templateUrl: './persondocumentview.component.html',
-  styleUrls: ['./persondocumentview.component.css'],
+  styleUrls: ['./persondocumentview.component.css']
 })
 export class PersondocumentviewComponent implements OnInit {
-  @ViewChild('persondocuments') persondocuments: PersondocumentComponent;
+  @ViewChild("persondocuments") persondocuments: PersondocumentComponent;
 
   persondocumentID = 0;
   person_ID = 0;
 
-  constructor(private route: ActivatedRoute, private router: Router) {}
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+  ) { }
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe((params) => {
+    this.route.queryParams.subscribe(params => {
       if (params.persondocument) {
         this.persondocumentID = params.persondocument;
       }
@@ -29,7 +32,7 @@ export class PersondocumentviewComponent implements OnInit {
   }
 
   cancel() {
-    this.router.navigate(['/home/documents'], { queryParams: {} });
+    this.router.navigate(["/home/documents"], { queryParams: {} });
   }
 
   next() {

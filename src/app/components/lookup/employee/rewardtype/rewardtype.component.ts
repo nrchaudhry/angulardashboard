@@ -7,7 +7,7 @@ import { OnFailService } from 'src/app/services/on-fail.service';
 @Component({
   selector: 'app-rewardtype',
   templateUrl: './rewardtype.component.html',
-  styleUrls: ['./rewardtype.component.css'],
+  styleUrls: ['./rewardtype.component.css']
 })
 export class RewardtypeComponent implements OnInit {
   @Input()
@@ -25,8 +25,8 @@ export class RewardtypeComponent implements OnInit {
   constructor(
     private lookupservice: LookupService,
     private toastrservice: ToastrService,
-    private onfailservice: OnFailService
-  ) {}
+    private onfailservice: OnFailService,
+  ) { }
 
   ngOnInit(): void {
     this.rewardtypes = JSON.parse(window.sessionStorage.getItem('rewardtypes'));
@@ -40,43 +40,38 @@ export class RewardtypeComponent implements OnInit {
 
   setRewardtypes(response) {
     this.rewardtypes = response;
-    window.sessionStorage.setItem('rewardtypes', JSON.stringify(this.rewardtypes));
+    window.sessionStorage.setItem("rewardtypes", JSON.stringify(this.rewardtypes));
 
     this.rewardtypesAll = response;
-    window.sessionStorage.setItem('rewardtypesAll', JSON.stringify(this.rewardtypesAll));
+    window.sessionStorage.setItem("rewardtypesAll", JSON.stringify(this.rewardtypesAll));
   }
 
   rewardtypeGet() {
-    this.lookupservice.lookup('REWARDTYPE').subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.setRewardtypes(response);
-          }
+    this.lookupservice.lookup("REWARDTYPE").subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else {
+          this.setRewardtypes(response);
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   rewardtypeGetAll() {
-    this.lookupservice.lookupAll('REWARDTYPE').subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.setRewardtypes(response);
-          }
+    this.lookupservice.lookupAll("REWARDTYPE").subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else {
+          this.setRewardtypes(response);
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
+
 }

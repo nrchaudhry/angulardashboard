@@ -3,7 +3,7 @@ import { ToastrService } from 'ngx-toastr';
 import { OnFailService } from '../../../services/on-fail.service';
 import { Router } from '@angular/router';
 
-import { PersonidentityComponent } from '../../../components/person/personidentity/personidentity.component';
+import { PersonidentityComponent } from '../../../components/person/personidentity/personidentity.component'
 import { PersonidentityService } from '../../../components/person/personidentity/personidentity.service';
 
 declare var $: any;
@@ -11,23 +11,25 @@ declare var $: any;
 @Component({
   selector: 'app-personidentities',
   templateUrl: './personidentities.component.html',
-  styleUrls: ['./personidentities.component.css'],
+  styleUrls: ['./personidentities.component.css']
 })
 export class PersonidentitiesComponent implements OnInit {
-  @ViewChild('personidentities') personidentities: PersonidentityComponent;
-  @ViewChild('addpersonidentity') addpersonidentity: PersonidentityComponent;
-  @ViewChild('editpersonidentity') editpersonidentity: PersonidentityComponent;
+  @ViewChild("personidentities") personidentities: PersonidentityComponent;
+  @ViewChild("addpersonidentity") addpersonidentity: PersonidentityComponent;
+  @ViewChild("editpersonidentity") editpersonidentity: PersonidentityComponent;
 
   constructor(
     private personidentityservice: PersonidentityService,
     private toastrservice: ToastrService,
     private onfailservice: OnFailService,
-    private router: Router
-  ) {}
+    private router: Router,
+  ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
-  view() {}
+  view() {
+  }
 
   refresh() {
     this.personidentities.load(true);
@@ -35,14 +37,12 @@ export class PersonidentitiesComponent implements OnInit {
   }
 
   show(row) {
-    this.router.navigate(['/home/personidentity'], {
-      queryParams: { personidentity: row.data.personidentity_ID },
-    });
+    this.router.navigate(["/home/personidentity"], { queryParams: { personidentity: row.data.personidentity_ID } });
   }
 
   addNew() {
     this.addpersonidentity.add();
-    $('#add').modal('show');
+    $("#add").modal("show");
   }
 
   edit(row) {
@@ -53,19 +53,20 @@ export class PersonidentitiesComponent implements OnInit {
       document_PATH: row.data.document_PATH,
       identitytype_ID: row.data.identitytype_ID,
       identity_DESC: row.data.identity_DESC,
-      isactive: row.data.isactive,
+      isactive: row.data.isactive
     };
 
-    if (row.data.isactive == 'Y') {
+    if (row.data.isactive == "Y") {
       this.editpersonidentity.personidentity.isactive = true;
     } else {
       this.editpersonidentity.personidentity.isactive = false;
     }
-    $('#edit').modal('show');
+    $("#edit").modal("show");
   }
 
   cancel() {
-    $('#add').modal('hide');
-    $('#edit').modal('hide');
+    $("#add").modal("hide");
+    $("#edit").modal("hide");
   }
+
 }

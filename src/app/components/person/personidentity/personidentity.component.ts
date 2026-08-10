@@ -11,10 +11,10 @@ import { IdentitytypeComponent } from '../../lookup/person/identitytype/identity
 @Component({
   selector: 'app-personidentity',
   templateUrl: './personidentity.component.html',
-  styleUrls: ['./personidentity.component.css'],
+  styleUrls: ['./personidentity.component.css']
 })
 export class PersonidentityComponent implements OnInit {
-  @ViewChild('identitytype') identitytype: IdentitytypeComponent;
+  @ViewChild("identitytype") identitytype: IdentitytypeComponent;
 
   @Input()
   view: number = 1;
@@ -49,14 +49,14 @@ export class PersonidentityComponent implements OnInit {
     identitytype_ID: null,
     identity_DESC: null,
     isactive: true,
-  };
+  }
 
   constructor(
     private personidentityservice: PersonidentityService,
     private toastrservice: ToastrService,
     private onfailservice: OnFailService,
-    private router: Router
-  ) {}
+    private router: Router,
+  ) { }
 
   ngOnInit(): void {
     this.load(this.isreload);
@@ -66,7 +66,7 @@ export class PersonidentityComponent implements OnInit {
     if (!this.personID && Number(window.sessionStorage.getItem('person')) > 0) {
       this.personID = Number(window.sessionStorage.getItem('person'));
     } else {
-      redirectByHref(setting.redirctPath + '/#/home/personal');
+      redirectByHref(setting.redirctPath + "/#/home/personal");
     }
 
     if (window.sessionStorage.getItem('personidentities') != null) {
@@ -75,26 +75,15 @@ export class PersonidentityComponent implements OnInit {
     if (window.sessionStorage.getItem('personidentitiesAll') != null) {
       this.personidentitiesAll = JSON.parse(window.sessionStorage.getItem('personidentitiesAll'));
     }
-    if (
-      this.personID != 0 &&
-      !this.personID &&
-      Number(window.sessionStorage.getItem('person')) > 0
-    ) {
+    if (this.personID != 0 && !this.personID && Number(window.sessionStorage.getItem('person')) > 0) {
       this.personID = Number(window.sessionStorage.getItem('person'));
     }
 
-    if (
-      this.view >= 1 &&
-      this.view <= 2 &&
-      (this.personidentities == null || this.personidentities.length == 0 || reload == true)
-    ) {
+    if (this.view >= 1 && this.view <= 2 && (this.personidentities == null || this.personidentities.length == 0 || reload == true)) {
       this.personidentities == null;
       this.personidentityGet();
     }
-    if (
-      ((this.view >= 1 && this.view <= 2) || this.view == 10) &&
-      (this.personidentitiesAll == null || this.personidentitiesAll.length == 0 || reload == true)
-    ) {
+    if (((this.view >= 1 && this.view <= 2) || this.view == 10) && (this.personidentitiesAll == null || this.personidentitiesAll.length == 0 || reload == true)) {
       this.personidentitiesAll == null;
       this.personidentityGetAll();
     }
@@ -102,40 +91,32 @@ export class PersonidentityComponent implements OnInit {
     var search = {
       person_ID: this.personID,
       identitytype_ID: this.identitytypeID,
-    };
+    }
     if (this.view >= 5 && this.view <= 6 && this.personidentityID) {
-      window.sessionStorage.setItem('personidentity', this.personidentityID);
+      window.sessionStorage.setItem("personidentity", this.personidentityID);
       this.personidentityGetOne(this.personidentityID);
       this.disabled = true;
-    } else if (
-      this.view >= 11 &&
-      this.view <= 29 &&
-      this.disabled == false &&
-      (this.personidentities == null || this.personidentities.length == 0 || reload == true)
-    ) {
+    } else if ((this.view >= 11 && this.view <= 29) && this.disabled == false && (this.personidentities == null || this.personidentities.length == 0 || reload == true)) {
       this.personidentities == null;
       this.personidentityAdvancedSearch(search);
-    } else if (
-      this.view >= 11 &&
-      this.view <= 29 &&
-      this.disabled == true &&
-      (this.personidentitiesAll == null || this.personidentitiesAll.length == 0 || reload == true)
-    ) {
+    } else if ((this.view >= 11 && this.view <= 29) && this.disabled == true && (this.personidentitiesAll == null || this.personidentitiesAll.length == 0 || reload == true)) {
       this.personidentitiesAll == null;
       this.personidentityAdvancedSearchAll(search);
     }
   }
 
   onToolbarPreparing(e) {
-    e.toolbarOptions.items.unshift({
-      location: 'after',
-      widget: 'dxButton',
-      options: {
-        width: 136,
-        text: 'Refresh',
-        onClick: this.load.bind(this, true),
-      },
-    });
+    e.toolbarOptions.items.unshift(
+      {
+        location: 'after',
+        widget: 'dxButton',
+        options: {
+          width: 136,
+          text: 'Refresh',
+          onClick: this.load.bind(this, true),
+        },
+      }
+    );
   }
 
   onChange(personidentityID) {
@@ -182,7 +163,7 @@ export class PersonidentityComponent implements OnInit {
   personidentityCancel() {
     this.disabled = true;
     if (this.personidentity.personidentity_ID == 0) {
-      this.router.navigate(['/home/personidentities'], {});
+      this.router.navigate(["/home/personidentities"], {});
     }
   }
 
@@ -191,7 +172,7 @@ export class PersonidentityComponent implements OnInit {
     this.personID = response.person_ID;
     this.identitytypeID = response.identitytype_ID;
 
-    if (response.isactive == 'Y') {
+    if (response.isactive == "Y") {
       response.isactive = true;
     } else {
       response.isactive = false;
@@ -205,94 +186,72 @@ export class PersonidentityComponent implements OnInit {
   }
 
   personidentityGet() {
-    this.personidentityservice.get().subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.personidentities = this.setPersonidentities(
-              this.personidentityservice.getAllDetail(response)
-            );
-            window.sessionStorage.setItem(
-              'personidentities',
-              JSON.stringify(this.personidentities)
-            );
-          }
+    this.personidentityservice.get().subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else {
+          this.personidentities = this.setPersonidentities(this.personidentityservice.getAllDetail(response));
+          window.sessionStorage.setItem("personidentities", JSON.stringify(this.personidentities));
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   personidentityGetAll() {
-    this.personidentityservice.getAll().subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.personidentitiesAll = this.setPersonidentities(
-              this.personidentityservice.getAllDetail(response)
-            );
-            window.sessionStorage.setItem(
-              'personidentitiesAll',
-              JSON.stringify(this.personidentitiesAll)
-            );
-          }
+    this.personidentityservice.getAll().subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else {
+          this.personidentitiesAll = this.setPersonidentities(this.personidentityservice.getAllDetail(response));
+          window.sessionStorage.setItem("personidentitiesAll", JSON.stringify(this.personidentitiesAll));
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   personidentityGetOne(id) {
     this.disabled = true;
-    this.personidentityservice.getOne(id).subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else if (response.personidentity_ID) {
-            this.setPersonidentity(this.personidentityservice.getDetail(response));
-          }
+    this.personidentityservice.getOne(id).subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else if (response.personidentity_ID) {
+          this.setPersonidentity(this.personidentityservice.getDetail(response));
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   personidentityAdd(personidentity) {
     personidentity.person_ID = this.personID;
     personidentity.identitytype_ID = this.identitytype.identitytypeID;
-    personidentity.isactive = 'Y';
+    personidentity.isactive = "Y";
 
-    this.personidentityservice.add(personidentity).subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else if (response.personidentity_ID) {
-            this.toastrservice.success('Success', 'New Person Contact Address Added');
-            this.setPersonidentity(this.personidentityservice.getDetail(response));
-            this.refresh.next();
-            this.personidentityGetAll();
-            this.disabled = true;
-          } else {
-            this.toastrservice.error('Some thing went wrong');
-          }
+    this.personidentityservice.add(personidentity).subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else if (response.personidentity_ID) {
+          this.toastrservice.success("Success", "New Person Contact Address Added");
+          this.setPersonidentity(this.personidentityservice.getDetail(response));
+          this.refresh.next();
+          this.personidentityGetAll();
+          this.disabled = true;
+        } else {
+          this.toastrservice.error("Some thing went wrong");
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   personidentityUpdate(personidentity) {
@@ -300,159 +259,122 @@ export class PersonidentityComponent implements OnInit {
     personidentity.identitytype_ID = this.identitytype.identitytypeID;
 
     if (personidentity.ispermanent == true) {
-      personidentity.ispermanent = 'Y';
+      personidentity.ispermanent = "Y";
     } else {
-      personidentity.ispermanent = 'N';
+      personidentity.ispermanent = "N";
     }
     if (personidentity.isactive == true) {
-      personidentity.isactive = 'Y';
+      personidentity.isactive = "Y";
     } else {
-      personidentity.isactive = 'N';
+      personidentity.isactive = "N";
     }
-    this.personidentityservice.update(personidentity, personidentity.personidentity_ID).subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else if (response.personidentity_ID) {
-            this.toastrservice.success('Success', 'Person Contact Address Updated');
-            this.setPersonidentity(this.personidentityservice.getDetail(response));
-            this.refresh.next();
-            this.personidentityGetAll();
-            this.disabled = true;
-          } else {
-            this.toastrservice.error('Some thing went wrong');
-          }
+    this.personidentityservice.update(personidentity, personidentity.personidentity_ID).subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else if (response.personidentity_ID) {
+          this.toastrservice.success("Success", "Person Contact Address Updated");
+          this.setPersonidentity(this.personidentityservice.getDetail(response));
+          this.refresh.next();
+          this.personidentityGetAll();
+          this.disabled = true;
+        } else {
+          this.toastrservice.error("Some thing went wrong");
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   personidentityUpdateAll(personidentities) {
-    this.personidentityservice.updateAll(personidentities).subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else if (response.length > 0) {
-            this.toastrservice.success('Success', 'Person Contact Addresses Updated');
-            this.setPersonidentity(this.personidentityservice.getDetail(response));
-            this.refresh.next();
-          } else {
-            this.toastrservice.error('Some thing went wrong');
-          }
+    this.personidentityservice.updateAll(personidentities).subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else if (response.length > 0) {
+          this.toastrservice.success("Success", "Person Contact Addresses Updated");
+          this.setPersonidentity(this.personidentityservice.getDetail(response));
+          this.refresh.next();
+        } else {
+          this.toastrservice.error("Some thing went wrong");
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   personidentitySearch(str) {
     var search = {
-      search: str,
-    };
-    this.personidentityservice.search(search).subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.personidentities = this.setPersonidentities(
-              this.personidentityservice.getAllDetail(response)
-            );
-            window.sessionStorage.setItem(
-              'personidentities',
-              JSON.stringify(this.personidentities)
-            );
-          }
+      search: str
+    }
+    this.personidentityservice.search(search).subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else {
+          this.personidentities = this.setPersonidentities(this.personidentityservice.getAllDetail(response));
+          window.sessionStorage.setItem("personidentities", JSON.stringify(this.personidentities));
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   personidentitySearchAll(str) {
     var search = {
-      search: str,
-    };
-    this.personidentityservice.searchAll(search).subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.personidentitiesAll = this.setPersonidentities(
-              this.personidentityservice.getAllDetail(response)
-            );
-            window.sessionStorage.setItem(
-              'personidentitiesAll',
-              JSON.stringify(this.personidentitiesAll)
-            );
-          }
+      search: str
+    }
+    this.personidentityservice.searchAll(search).subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else {
+          this.personidentitiesAll = this.setPersonidentities(this.personidentityservice.getAllDetail(response));
+          window.sessionStorage.setItem("personidentitiesAll", JSON.stringify(this.personidentitiesAll));
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   personidentityAdvancedSearch(search) {
     this.identitytypeID = search.identitytype_ID;
     this.personID = search.person_ID;
 
-    this.personidentityservice.advancedSearch(search).subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.personidentities = this.setPersonidentities(
-              this.personidentityservice.getAllDetail(response)
-            );
-            window.sessionStorage.setItem(
-              'personidentities',
-              JSON.stringify(this.personidentities)
-            );
-          }
+    this.personidentityservice.advancedSearch(search).subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else {
+          this.personidentities = this.setPersonidentities(this.personidentityservice.getAllDetail(response));
+          window.sessionStorage.setItem("personidentities", JSON.stringify(this.personidentities));
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   personidentityAdvancedSearchAll(search) {
     this.identitytypeID = search.identitytype_ID;
     this.personID = search.person_ID;
 
-    this.personidentityservice.advancedSearchAll(search).subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.personidentitiesAll = this.setPersonidentities(
-              this.personidentityservice.getAllDetail(response)
-            );
-            window.sessionStorage.setItem(
-              'personidentitiesAll',
-              JSON.stringify(this.personidentitiesAll)
-            );
-          }
+    this.personidentityservice.advancedSearchAll(search).subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else {
+          this.personidentitiesAll = this.setPersonidentities(this.personidentityservice.getAllDetail(response));
+          window.sessionStorage.setItem("personidentitiesAll", JSON.stringify(this.personidentitiesAll));
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
+
 }

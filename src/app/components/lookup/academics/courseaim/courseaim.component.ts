@@ -1,3 +1,4 @@
+
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { LookupService } from 'src/app/services/lookup.service';
@@ -6,7 +7,7 @@ import { OnFailService } from 'src/app/services/on-fail.service';
 @Component({
   selector: 'app-courseaim',
   templateUrl: './courseaim.component.html',
-  styleUrls: ['./courseaim.component.css'],
+  styleUrls: ['./courseaim.component.css']
 })
 export class CourseaimComponent implements OnInit {
   @Input()
@@ -24,8 +25,8 @@ export class CourseaimComponent implements OnInit {
   constructor(
     private lookupservice: LookupService,
     private toastrservice: ToastrService,
-    private onfailservice: OnFailService
-  ) {}
+    private onfailservice: OnFailService,
+  ) { }
 
   ngOnInit(): void {
     this.courseaims = JSON.parse(window.sessionStorage.getItem('courseaims'));
@@ -33,46 +34,41 @@ export class CourseaimComponent implements OnInit {
 
     if (this.courseaims == null) {
       this.courseaimGet();
-    }
-
+    } 
+    
     if (this.courseaimsAll == null) {
       this.courseaimGetAll();
     }
   }
 
-  courseaimGet() {
-    this.lookupservice.lookup('courseaim').subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.courseaims = response;
-            window.sessionStorage.setItem('courseaims', JSON.stringify(this.courseaims));
-          }
+  courseaimGet(){
+    this.lookupservice.lookup("courseaim").subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else{
+          this.courseaims = response;
+          window.sessionStorage.setItem("courseaims", JSON.stringify(this.courseaims));
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
-  courseaimGetAll() {
-    this.lookupservice.lookupAll('courseaim').subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.courseaimsAll = response;
-            window.sessionStorage.setItem('courseaimsAll', JSON.stringify(this.courseaimsAll));
-          }
+  courseaimGetAll(){
+    this.lookupservice.lookupAll("courseaim").subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else{
+          this.courseaimsAll = response;
+          window.sessionStorage.setItem("courseaimsAll", JSON.stringify(this.courseaimsAll));
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
+
 }

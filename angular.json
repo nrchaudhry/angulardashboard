@@ -23,7 +23,9 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "aot": true,
-            "assets": ["src/assets"],
+            "assets": [
+              "src/assets"
+            ],
             "styles": [
               "node_modules/devextreme/dist/css/dx.common.css",
               "node_modules/devextreme/dist/css/dx.light.css",
@@ -88,7 +90,9 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
-            "assets": ["src/assets"],
+            "assets": [
+              "src/assets"
+            ],
             "styles": [
               "node_modules/devextreme/dist/css/dx.light.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
@@ -105,8 +109,14 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["tsconfig.app.json", "tsconfig.spec.json", "e2e/tsconfig.json"],
-            "exclude": ["**/node_modules/**"]
+            "tsConfig": [
+              "tsconfig.app.json",
+              "tsconfig.spec.json",
+              "e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "e2e": {

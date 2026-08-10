@@ -3,7 +3,7 @@ import { ToastrService } from 'ngx-toastr';
 import { OnFailService } from '../../../services/on-fail.service';
 import { Router } from '@angular/router';
 
-import { PersoncontactComponent } from '../../../components/person/personcontact/personcontact.component';
+import { PersoncontactComponent } from '../../../components/person/personcontact/personcontact.component'
 import { PersoncontactService } from '../../../components/person/personcontact/personcontact.service';
 
 declare var $: any;
@@ -11,23 +11,25 @@ declare var $: any;
 @Component({
   selector: 'app-personcontacts',
   templateUrl: './personcontacts.component.html',
-  styleUrls: ['./personcontacts.component.css'],
+  styleUrls: ['./personcontacts.component.css']
 })
 export class PersoncontactsComponent implements OnInit {
-  @ViewChild('personcontacts') personcontacts: PersoncontactComponent;
-  @ViewChild('addpersoncontact') addpersoncontact: PersoncontactComponent;
-  @ViewChild('editpersoncontact') editpersoncontact: PersoncontactComponent;
+  @ViewChild("personcontacts") personcontacts: PersoncontactComponent;
+  @ViewChild("addpersoncontact") addpersoncontact: PersoncontactComponent;
+  @ViewChild("editpersoncontact") editpersoncontact: PersoncontactComponent;
 
   constructor(
     private accountclassificationservice: PersoncontactService,
     private toastrservice: ToastrService,
     private onfailservice: OnFailService,
-    private router: Router
-  ) {}
+    private router: Router,
+  ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
-  view() {}
+  view() {
+  }
 
   refresh() {
     this.personcontacts.load(true);
@@ -35,14 +37,12 @@ export class PersoncontactsComponent implements OnInit {
   }
 
   show(row) {
-    this.router.navigate(['/home/personcontact'], {
-      queryParams: { personcontact: row.data.personcontact_ID },
-    });
+    this.router.navigate(["/home/personcontact"], { queryParams: { personcontact: row.data.personcontact_ID } });
   }
 
   addNew() {
     this.addpersoncontact.add();
-    $('#add').modal('show');
+    $("#add").modal("show");
   }
 
   edit(row) {
@@ -53,28 +53,29 @@ export class PersoncontactsComponent implements OnInit {
       contact_VALUE: row.data.contact_VALUE,
       ispreaferd: row.data.ispreaferd,
       isverified: row.data.isverified,
-      isactive: row.data.isactive,
+      isactive: row.data.isactive
     };
-    if (row.data.ispreaferd == 'Y') {
+    if (row.data.ispreaferd == "Y") {
       this.editpersoncontact.personcontact.ispreaferd = true;
     } else {
       this.editpersoncontact.personcontact.ispreaferd = false;
     }
-    if (row.data.isverified == 'Y') {
+    if (row.data.isverified == "Y") {
       this.editpersoncontact.personcontact.isverified = true;
     } else {
       this.editpersoncontact.personcontact.isverified = false;
     }
-    if (row.data.isactive == 'Y') {
+    if (row.data.isactive == "Y") {
       this.editpersoncontact.personcontact.isactive = true;
     } else {
       this.editpersoncontact.personcontact.isactive = false;
     }
-    $('#edit').modal('show');
+    $("#edit").modal("show");
   }
 
   cancel() {
-    $('#add').modal('hide');
-    $('#edit').modal('hide');
+    $("#add").modal("hide");
+    $("#edit").modal("hide");
   }
+
 }

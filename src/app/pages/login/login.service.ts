@@ -1,15 +1,21 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers } from '@angular/http';
-import { Router } from '@angular/router';
+import { Http, Headers } from '@angular/http'
+import { Router } from "@angular/router";
 import { ToastrService } from 'ngx-toastr';
 
 import { setting } from 'src/app/setting';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root"
 })
+
 export class LoginService {
-  constructor(private http: Http, private _router: Router, private _toastr: ToastrService) {}
+
+  constructor(
+    private http: Http,
+    private _router: Router,
+    private _toastr: ToastrService,
+  ) { }
 
   authToken: any;
   user: any;
@@ -17,7 +23,7 @@ export class LoginService {
 
   saveToken(token) {
     if (token) {
-      localStorage.setItem('access_token', token);
+      localStorage.setItem("access_token", token);
       return true;
     } else {
       return false;
@@ -34,7 +40,7 @@ export class LoginService {
   }
 
   loadToken() {
-    const token = localStorage.getItem('access_token');
+    const token = localStorage.getItem("access_token");
     this.authToken = token;
   }
 
@@ -46,16 +52,14 @@ export class LoginService {
 
   logout() {
     localStorage.removeItem(setting.application_ID);
-    localStorage.removeItem('access_token');
-    window.location.assign(
-      setting.LoginAppPath + 'home/logout?application_ID=' + setting.application_ID
-    );
+    localStorage.removeItem("access_token");
+    window.location.assign(setting.LoginAppPath + "home/logout?application_ID=" + setting.application_ID);
     return true;
   }
 
   logged() {
     const getUser = localStorage.getItem(setting.application_ID);
-    const _application_name_access_token_ = localStorage.getItem('access_token');
+    const _application_name_access_token_ = localStorage.getItem("access_token");
     if (getUser && _application_name_access_token_) {
       return true;
     } else {

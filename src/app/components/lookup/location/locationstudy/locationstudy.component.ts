@@ -1,3 +1,4 @@
+
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { LookupService } from 'src/app/services/lookup.service';
@@ -6,7 +7,7 @@ import { OnFailService } from 'src/app/services/on-fail.service';
 @Component({
   selector: 'app-locationstudy',
   templateUrl: './locationstudy.component.html',
-  styleUrls: ['./locationstudy.component.css'],
+  styleUrls: ['./locationstudy.component.css']
 })
 export class LocationstudyComponent implements OnInit {
   @Input()
@@ -24,8 +25,8 @@ export class LocationstudyComponent implements OnInit {
   constructor(
     private lookupservice: LookupService,
     private toastrservice: ToastrService,
-    private onfailservice: OnFailService
-  ) {}
+    private onfailservice: OnFailService,
+  ) { }
 
   ngOnInit(): void {
     this.locationstudies = JSON.parse(window.sessionStorage.getItem('locationstudies'));
@@ -40,44 +41,39 @@ export class LocationstudyComponent implements OnInit {
   setLocationstudies(response) {
     if (this.disabled == false) {
       this.locationstudies = response;
-      window.sessionStorage.setItem('locationstudies', JSON.stringify(this.locationstudies));
+      window.sessionStorage.setItem("locationstudies", JSON.stringify(this.locationstudies));
     } else {
       this.locationstudiesAll = response;
-      window.sessionStorage.setItem('locationstudiesAll', JSON.stringify(this.locationstudiesAll));
+      window.sessionStorage.setItem("locationstudiesAll", JSON.stringify(this.locationstudiesAll));
     }
   }
 
-  locationstudyGet() {
-    this.lookupservice.lookup('LOCATIONSTUDY').subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.setLocationstudies(response);
-          }
+  locationstudyGet(){
+    this.lookupservice.lookup("LOCATIONSTUDY").subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else{
+          this.setLocationstudies(response);
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
-  locationstudyGetAll() {
-    this.lookupservice.lookupAll('LOCATIONSTUDY').subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.setLocationstudies(response);
-          }
+  locationstudyGetAll(){
+    this.lookupservice.lookupAll("LOCATIONSTUDY").subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else{
+          this.setLocationstudies(response);
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
+
 }

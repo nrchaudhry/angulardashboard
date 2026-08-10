@@ -1,16 +1,12 @@
-<div *ngIf="view == 0 && person != null" class="collapse-card-h container">
+<div *ngIf="view==0 && person != null" class="collapse-card-h container">
   <div class="row">
     <div class="col-md-12">
       <div class="card-primary card">
         <div class="card-header">
           <div class="align-items-center row">
             <div class="col">
-              <a
-                href="javascript:void"
-                aria-controls="collapse-customerinfo1"
-                aria-expanded="true"
-                class="card-title"
-                >Personal
+              <a href="javascript:void" aria-controls="collapse-customerinfo1" aria-expanded="true"
+                class="card-title">Personal
               </a>
             </div>
           </div>
@@ -18,49 +14,28 @@
         <div class="card-body">
           <div class="row">
             <div class="col-md-1">
-              <label class="custom-label" for="surname"
-                >Title
-                <span style="color: red" [hidden]="disabled">*</span>
+              <label class="custom-label" for="surname">Title
+                <span style="color: red;" [hidden]="disabled">*</span>
               </label>
-              <input
-                type="text"
-                [(ngModel)]="person.title"
-                class="form-control"
-                name="title"
-                maxlength="50"
-                [disabled]="disabled"
-              />
+              <input type="text" [(ngModel)]="person.title" class="form-control" name="title" maxlength="50"
+                [disabled]='disabled'>
             </div>
             <div class="col-md-7">
               <div class="form-group">
-                <label class="custom-label form-label"
-                  >Names
-                  <span style="color: red" [hidden]="disabled">*</span>
+                <label class="custom-label form-label">Names
+                  <span style="color: red;" [hidden]="disabled">*</span>
                 </label>
-                <input
-                  type="text"
-                  [(ngModel)]="person.forenames"
-                  class="form-control"
-                  name="forenames"
-                  maxlength="50"
-                  [disabled]="disabled"
-                />
+                <input type="text" [(ngModel)]="person.forenames" class="form-control" name="forenames" maxlength="50"
+                  [disabled]='disabled'>
               </div>
             </div>
             <div class="col-md-4">
               <div class="form-group">
-                <label class="control-label form-label"
-                  >Surname
-                  <span style="color: red" [hidden]="disabled">*</span>
+                <label class="control-label form-label">Surname
+                  <span style="color: red;" [hidden]="disabled">*</span>
                 </label>
-                <input
-                  type="text"
-                  [(ngModel)]="person.surname"
-                  class="form-control"
-                  name="surname"
-                  maxlength="50"
-                  [disabled]="disabled"
-                />
+                <input type="text" [(ngModel)]="person.surname" class="form-control" name="surname" maxlength="50"
+                  [disabled]='disabled'>
               </div>
             </div>
           </div>
@@ -70,26 +45,20 @@
   </div>
 </div>
 
-<div *ngIf="view == 1" class="form-group">
-  <label class="custom-label form-label"
-    >Person
-    <span style="color: red" [hidden]="disabled" *ngIf="iscompulsory == true">*</span>
+<div *ngIf="view==1" class="form-group">
+  <label class="custom-label form-label">Person
+    <span style="color: red;" [hidden]="disabled" *ngIf="iscompulsory==true">*</span>
   </label>
-  <div class="row" *ngIf="disabled == true">
+  <div class="row" *ngIf="disabled==true">
     <div class="col-md-12">
-      <ng-select
-        [(ngModel)]="personID"
-        [disabled]="disabled"
-        name="personID"
-        (change)="onChange($event)"
-      >
+      <ng-select [(ngModel)]="personID" [disabled]="disabled" name="personID" (change)="onChange($event)">
         <ng-option *ngFor="let person of personsAll" [value]="person.person_ID">
           {{ person.title }} - {{ person.forenames }} - {{ person.surname }}
         </ng-option>
       </ng-select>
     </div>
   </div>
-  <div class="row" *ngIf="disabled == false">
+  <div class="row" *ngIf="disabled==false">
     <div class="col-md-10">
       <ng-select [(ngModel)]="personID" name="personID" (change)="onChange($event)">
         <ng-option *ngFor="let person of persons" [value]="person.person_ID" [disabled]="disabled">
@@ -105,33 +74,23 @@
   </div>
 </div>
 
-<div *ngIf="view == 10" class="form-group">
-  <label class="custom-label form-label"
-    >Person
-    <span style="color: red" [hidden]="disabled" *ngIf="iscompulsory == true">*</span>
+<div *ngIf="view==10" class="form-group">
+  <label class="custom-label form-label">Person
+    <span style="color: red;" [hidden]="disabled" *ngIf="iscompulsory==true">*</span>
   </label>
-  <div class="row" *ngIf="disabled == true">
+  <div class="row" *ngIf="disabled==true">
     <div class="col-md-12">
-      <ng-select
-        [(ngModel)]="personID"
-        [disabled]="disabled"
-        name="personID"
-        (change)="onChange($event)"
-      >
+      <ng-select [(ngModel)]="personID" [disabled]="disabled" name="personID" (change)="onChange($event)">
         <ng-option *ngFor="let person of personsAll" [value]="person.person_ID">
           {{ person.title }} - {{ person.forenames }} - {{ person.surname }}
         </ng-option>
       </ng-select>
     </div>
   </div>
-  <div class="row" *ngIf="disabled == false">
+  <div class="row" *ngIf="disabled==false">
     <div class="col-md-10">
       <ng-select [(ngModel)]="personID" name="personID" (change)="onChange($event)">
-        <ng-option
-          *ngFor="let person of personsAll"
-          [value]="person.person_ID"
-          [disabled]="disabled"
-        >
+        <ng-option *ngFor="let person of personsAll" [value]="person.person_ID" [disabled]="disabled">
           {{ person.title }} - {{ person.forenames }} - {{ person.surname }}
         </ng-option>
       </ng-select>
@@ -144,32 +103,22 @@
   </div>
 </div>
 
-<div *ngIf="view == 11" class="form-group">
-  <label class="custom-label form-label"
-    >Person
-    <span style="color: red" [hidden]="disabled" *ngIf="iscompulsory == true">*</span>
+<div *ngIf="view==11" class="form-group">
+  <label class="custom-label form-label">Person
+    <span style="color: red;" [hidden]="disabled" *ngIf="iscompulsory==true">*</span>
   </label>
-  <div class="row" *ngIf="disabled == true">
+  <div class="row" *ngIf="disabled==true">
     <div class="col-md-12">
       <ng-select [(ngModel)]="personID" [disabled]="disabled" name="personID">
-        <ng-option
-          *ngFor="let person of personsAll"
-          [value]="person.person_ID"
-          [disabled]="disabled"
-        >
+        <ng-option *ngFor="let person of personsAll" [value]="person.person_ID" [disabled]="disabled">
           {{ person.title }} - {{ person.forenames }} - {{ person.surname }}
         </ng-option>
       </ng-select>
     </div>
   </div>
-  <div class="row" *ngIf="disabled == false">
+  <div class="row" *ngIf="disabled==false">
     <div class="col-md-10">
-      <ng-select
-        [(ngModel)]="personID"
-        [disabled]="disabled"
-        name="personID"
-        (change)="onChange($event)"
-      >
+      <ng-select [(ngModel)]="personID" [disabled]="disabled" name="personID" (change)="onChange($event)">
         <ng-option *ngFor="let person of persons" [value]="person.person_ID" [disabled]="disabled">
           {{ person.title }} - {{ person.forenames }} - {{ person.surname }}
         </ng-option>
@@ -183,42 +132,23 @@
   </div>
 </div>
 
-<div *ngIf="view == 19" class="form-group">
-  <label class="custom-label form-label"
-    >Person
-    <span style="color: red" [hidden]="disabled" *ngIf="iscompulsory == true">*</span>
+<div *ngIf="view==19" class="form-group">
+  <label class="custom-label form-label">Person
+    <span style="color: red;" [hidden]="disabled" *ngIf="iscompulsory==true">*</span>
   </label>
-  <div class="row" *ngIf="disabled == true">
+  <div class="row" *ngIf="disabled==true">
     <div class="col-md-12">
-      <ng-select
-        [(ngModel)]="personID"
-        [disabled]="disabled"
-        name="personID"
-        (change)="onChange($event)"
-      >
-        <ng-option
-          *ngFor="let person of personsAll"
-          [value]="person.person_ID"
-          [disabled]="disabled"
-        >
+      <ng-select [(ngModel)]="personID" [disabled]="disabled" name="personID" (change)="onChange($event)">
+        <ng-option *ngFor="let person of personsAll" [value]="person.person_ID" [disabled]="disabled">
           {{ person.title }} - {{ person.forenames }} - {{ person.surname }}
         </ng-option>
       </ng-select>
     </div>
   </div>
-  <div class="row" *ngIf="disabled == false">
+  <div class="row" *ngIf="disabled==false">
     <div class="col-md-10">
-      <ng-select
-        [(ngModel)]="personID"
-        [disabled]="disabled"
-        name="personID"
-        (change)="onChange($event)"
-      >
-        <ng-option
-          *ngFor="let person of personsAll"
-          [value]="person.person_ID"
-          [disabled]="disabled"
-        >
+      <ng-select [(ngModel)]="personID" [disabled]="disabled" name="personID" (change)="onChange($event)">
+        <ng-option *ngFor="let person of personsAll" [value]="person.person_ID" [disabled]="disabled">
           {{ person.title }} - {{ person.forenames }} - {{ person.surname }}
         </ng-option>
       </ng-select>
@@ -231,26 +161,13 @@
   </div>
 </div>
 
-<div *ngIf="view == 2" class="form-group">
+<div *ngIf="view==2" class="form-group">
   <div class="outer-div">
     <div class="grid-wrapper">
-      <dx-data-grid
-        #grid
-        id="gridContainer"
-        [dataSource]="personsAll"
-        keyExpr="person_ID"
-        [showColumnLines]="true"
-        [showRowLines]="true"
-        [showBorders]="true"
-        [rowAlternationEnabled]="true"
-        [allowColumnResizing]="true"
-        [columnMinWidth]="30"
-        [columnAutoWidth]="true"
-        [remoteOperations]="true"
-        height="600"
-        width="100%"
-        (onToolbarPreparing)="onToolbarPreparing($event)"
-      >
+      <dx-data-grid #grid id="gridContainer" [dataSource]="personsAll" keyExpr="person_ID" [showColumnLines]="true"
+        [showRowLines]="true" [showBorders]="true" [rowAlternationEnabled]="true" [allowColumnResizing]="true"
+        [columnMinWidth]="30" [columnAutoWidth]="true" [remoteOperations]="true" height="600" width="100%"
+        (onToolbarPreparing)="onToolbarPreparing($event)">
         <dxo-filter-row [visible]="true"></dxo-filter-row>
         <dxo-header-filter [visible]="true"></dxo-header-filter>
         <dxo-search-panel [visible]="true"></dxo-search-panel>
@@ -259,127 +176,49 @@
         <dxo-scrolling mode="virtual"></dxo-scrolling>
         <dxo-sorting mode="multiple"></dxo-sorting>
         <dxo-selection mode="single"></dxo-selection>
-        <dxi-column
-          [width]="75"
-          [allowFiltering]="false"
-          [allowSorting]="false"
-          alignment="center"
-          cellTemplate="cellTemplate"
-        ></dxi-column>
-        <dxi-column
-          [width]="200"
-          dataField="person_ID"
-          caption="Person ID"
-          cssClass="myClass"
-          alignment="center"
-        ></dxi-column>
-        <dxi-column
-          [width]="200"
-          dataField="title"
-          caption="Title"
-          cssClass="myClass"
-          alignment="center"
-        >
+        <dxi-column [width]="75" [allowFiltering]="false" [allowSorting]="false" alignment="center"
+          cellTemplate="cellTemplate"></dxi-column>
+        <dxi-column [width]="200" dataField="person_ID" caption="Person ID" cssClass="myClass"
+          alignment="center"></dxi-column>
+        <dxi-column [width]="200" dataField="title" caption="Title" cssClass="myClass" alignment="center">
         </dxi-column>
-        <dxi-column
-          [width]="200"
-          dataField="surname"
-          caption="Surname"
-          cssClass="myClass"
-          alignment="center"
-        >
+        <dxi-column [width]="200" dataField="surname" caption="Surname" cssClass="myClass" alignment="center">
         </dxi-column>
-        <dxi-column
-          [width]="200"
-          dataField="forenames"
-          caption="Name"
-          cssClass="myClass"
-          alignment="center"
-        ></dxi-column>
-        <dxi-column
-          [width]="200"
-          dataField="previoussurname"
-          caption="Previous Surname"
-          cssClass="myClass"
-          alignment="center"
-        ></dxi-column>
-        <dxi-column
-          [width]="200"
-          dataField="middlename"
-          caption="Middle Name"
-          cssClass="myClass"
-          alignment="center"
-        ></dxi-column>
-        <dxi-column
-          [width]="200"
-          dataField="nickname"
-          caption="Nickname"
-          cssClass="myClass"
-          alignment="center"
-        >
+        <dxi-column [width]="200" dataField="forenames" caption="Name" cssClass="myClass"
+          alignment="center"></dxi-column>
+        <dxi-column [width]="200" dataField="previoussurname" caption="Previous Surname" cssClass="myClass"
+          alignment="center"></dxi-column>
+        <dxi-column [width]="200" dataField="middlename" caption="Middle Name" cssClass="myClass"
+          alignment="center"></dxi-column>
+        <dxi-column [width]="200" dataField="nickname" caption="Nickname" cssClass="myClass" alignment="center">
         </dxi-column>
-        <dxi-column
-          [width]="200"
-          dataField="birth_DATE"
-          caption="Birth Date"
-          cssClass="myClass"
-          alignment="center"
-        ></dxi-column>
-        <dxi-column
-          [width]="200"
-          dataField="birth_TIME"
-          caption="Birth Time"
-          cssClass="myClass"
-          alignment="center"
-        ></dxi-column>
+        <dxi-column [width]="200" dataField="birth_DATE" caption="Birth Date" cssClass="myClass"
+          alignment="center"></dxi-column>
+        <dxi-column [width]="200" dataField="birth_TIME" caption="Birth Time" cssClass="myClass"
+          alignment="center"></dxi-column>
         <!-- <dxi-column [width]="200" dataField="birthplace" caption="Birth Place" cssClass="myClass"
                     alignment="center"></dxi-column> -->
-        <dxi-column
-          [width]="200"
-          dataField="personimg_PATH"
-          caption="Person Img Path"
-          cssClass="myClass"
-          alignment="center"
-        ></dxi-column>
-        <dxi-column
-          [width]="100"
-          dataField="isactive"
-          caption="Active"
-          cssClass="myClass"
-          alignment="center"
-        >
+        <dxi-column [width]="200" dataField="personimg_PATH" caption="Person Img Path" cssClass="myClass"
+          alignment="center"></dxi-column>
+        <dxi-column [width]="100" dataField="isactive" caption="Active" cssClass="myClass" alignment="center">
         </dxi-column>
 
         <div *dxTemplate="let data of 'cellTemplate'">
           <a href="javascript:void" class="" (click)="showView(data)">
-            <i class="fa fa-eye" aria-hidden="true"></i
-          ></a>
+            <i class="fa fa-eye" aria-hidden="true"></i></a>
         </div>
       </dx-data-grid>
     </div>
   </div>
 </div>
 
-<div *ngIf="view == 22" class="form-group">
+<div *ngIf="view==22" class="form-group">
   <div class="outer-div">
     <div class="grid-wrapper">
-      <dx-data-grid
-        #grid
-        id="gridContainer"
-        [dataSource]="persons"
-        keyExpr="person_ID"
-        [showColumnLines]="true"
-        [showRowLines]="true"
-        [showBorders]="true"
-        [rowAlternationEnabled]="true"
-        [allowColumnResizing]="true"
-        [columnMinWidth]="30"
-        [columnAutoWidth]="true"
-        [remoteOperations]="true"
-        height="600"
-        width="100%"
-        (onToolbarPreparing)="onToolbarPreparing($event)"
-      >
+      <dx-data-grid #grid id="gridContainer" [dataSource]="persons" keyExpr="person_ID" [showColumnLines]="true"
+        [showRowLines]="true" [showBorders]="true" [rowAlternationEnabled]="true" [allowColumnResizing]="true"
+        [columnMinWidth]="30" [columnAutoWidth]="true" [remoteOperations]="true" height="600" width="100%"
+        (onToolbarPreparing)="onToolbarPreparing($event)">
         <dxo-filter-row [visible]="true"></dxo-filter-row>
         <dxo-header-filter [visible]="true"></dxo-header-filter>
         <dxo-search-panel [visible]="true"></dxo-search-panel>
@@ -388,116 +227,45 @@
         <dxo-scrolling mode="virtual"></dxo-scrolling>
         <dxo-sorting mode="multiple"></dxo-sorting>
         <dxo-selection mode="single"></dxo-selection>
-        <dxi-column
-          [width]="75"
-          [allowFiltering]="false"
-          [allowSorting]="false"
-          alignment="center"
-          cellTemplate="cellTemplate"
-        ></dxi-column>
+        <dxi-column [width]="75" [allowFiltering]="false" [allowSorting]="false" alignment="center"
+          cellTemplate="cellTemplate"></dxi-column>
 
-        <dxi-column
-          [width]="200"
-          dataField="person_ID"
-          caption="Person ID"
-          cssClass="myClass"
-          alignment="center"
-        ></dxi-column>
-        <dxi-column
-          [width]="200"
-          dataField="title"
-          caption="Title"
-          cssClass="myClass"
-          alignment="center"
-        >
+        <dxi-column [width]="200" dataField="person_ID" caption="Person ID" cssClass="myClass"
+          alignment="center"></dxi-column>
+        <dxi-column [width]="200" dataField="title" caption="Title" cssClass="myClass" alignment="center">
         </dxi-column>
-        <dxi-column
-          [width]="200"
-          dataField="surname"
-          caption="Surname"
-          cssClass="myClass"
-          alignment="center"
-        >
+        <dxi-column [width]="200" dataField="surname" caption="Surname" cssClass="myClass" alignment="center">
         </dxi-column>
-        <dxi-column
-          [width]="200"
-          dataField="forenames"
-          caption="Name"
-          cssClass="myClass"
-          alignment="center"
-        ></dxi-column>
-        <dxi-column
-          [width]="200"
-          dataField="previoussurname"
-          caption="Previous Surname"
-          cssClass="myClass"
-          alignment="center"
-        ></dxi-column>
-        <dxi-column
-          [width]="200"
-          dataField="middlename"
-          caption="Middle Name"
-          cssClass="myClass"
-          alignment="center"
-        ></dxi-column>
-        <dxi-column
-          [width]="200"
-          dataField="nickname"
-          caption="Nickname"
-          cssClass="myClass"
-          alignment="center"
-        >
+        <dxi-column [width]="200" dataField="forenames" caption="Name" cssClass="myClass"
+          alignment="center"></dxi-column>
+        <dxi-column [width]="200" dataField="previoussurname" caption="Previous Surname" cssClass="myClass"
+          alignment="center"></dxi-column>
+        <dxi-column [width]="200" dataField="middlename" caption="Middle Name" cssClass="myClass"
+          alignment="center"></dxi-column>
+        <dxi-column [width]="200" dataField="nickname" caption="Nickname" cssClass="myClass" alignment="center">
         </dxi-column>
-        <dxi-column
-          [width]="200"
-          dataField="birth_DATE"
-          caption="Birth Date"
-          cssClass="myClass"
-          alignment="center"
-        ></dxi-column>
-        <dxi-column
-          [width]="200"
-          dataField="birth_TIME"
-          caption="Birth Time"
-          cssClass="myClass"
-          alignment="center"
-        ></dxi-column>
+        <dxi-column [width]="200" dataField="birth_DATE" caption="Birth Date" cssClass="myClass"
+          alignment="center"></dxi-column>
+        <dxi-column [width]="200" dataField="birth_TIME" caption="Birth Time" cssClass="myClass"
+          alignment="center"></dxi-column>
         <!-- <dxi-column [width]="200" dataField="birthplace" caption="Birth Place" cssClass="myClass"
                     alignment="center"></dxi-column> -->
-        <dxi-column
-          [width]="200"
-          dataField="personimg_PATH"
-          caption="Person Img Path"
-          cssClass="myClass"
-          alignment="center"
-        ></dxi-column>
-        <dxi-column
-          [width]="100"
-          dataField="isactive"
-          caption="Active"
-          cssClass="myClass"
-          alignment="center"
-        >
+        <dxi-column [width]="200" dataField="personimg_PATH" caption="Person Img Path" cssClass="myClass"
+          alignment="center"></dxi-column>
+        <dxi-column [width]="100" dataField="isactive" caption="Active" cssClass="myClass" alignment="center">
         </dxi-column>
 
         <div *dxTemplate="let data of 'cellTemplate'">
           <a href="javascript:void" class="" (click)="update(data)">
-            <i class="fa fa-pencil-square-o" aria-hidden="true"></i
-          ></a>
+            <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
         </div>
       </dx-data-grid>
     </div>
   </div>
 </div>
 
-<div *ngIf="view == 3" class="fcorm-group">
-  <form
-    action=""
-    class="form"
-    (ngSubmit)="f.form.valid && personAdd(person)"
-    #f="ngForm"
-    novalidate
-  >
+<div *ngIf="view==3" class="fcorm-group">
+  <form action="" class="form" (ngSubmit)="f.form.valid && personAdd(person)" #f="ngForm" novalidate>
     <div class="modal-body">
       <div class="row">
         <div class="col-md-4">
@@ -505,105 +273,54 @@
         </div>
         <div class="col-md-4">
           <div class="form-group">
-            <label class="control-label"> Person Name <span style="color: red">*</span></label>
-            <input
-              type="text"
-              class="form-control"
-              name="forenames"
-              [(ngModel)]="person.forenames"
-              maxlength="50"
-              required
-            />
+            <label class="control-label"> Person Name <span style="color:red">*</span></label>
+            <input type="text" class="form-control" name="forenames" [(ngModel)]="person.forenames" maxlength="50"
+              required>
           </div>
         </div>
         <div class="col-md-4">
           <div class="form-group">
-            <label class="control-label"> Person Surname <span style="color: red">*</span></label>
-            <input
-              type="text"
-              class="form-control"
-              name="surname"
-              [(ngModel)]="person.surname"
-              maxlength="50"
-              required
-            />
+            <label class="control-label"> Person Surname <span style="color:red">*</span></label>
+            <input type="text" class="form-control" name="surname" [(ngModel)]="person.surname" maxlength="50" required>
           </div>
         </div>
       </div>
       <div class="row">
         <div class="col-md-4">
           <div class="form-group">
-            <label class="control-label">
-              Person Previous Surname <span style="color: red">*</span></label
-            >
-            <input
-              type="text"
-              class="form-control"
-              name="previoussurname"
-              [(ngModel)]="person.previoussurname"
-              maxlength="50"
-              required
-            />
+            <label class="control-label"> Person Previous Surname <span style="color:red">*</span></label>
+            <input type="text" class="form-control" name="previoussurname" [(ngModel)]="person.previoussurname"
+              maxlength="50" required>
           </div>
         </div>
         <div class="col-md-4">
           <div class="form-group">
-            <label class="control-label">
-              Person Middle Name <span style="color: red">*</span></label
-            >
-            <input
-              type="text"
-              class="form-control"
-              name="middlename"
-              [(ngModel)]="person.middlename"
-              maxlength="50"
-              required
-            />
+            <label class="control-label"> Person Middle Name <span style="color:red">*</span></label>
+            <input type="text" class="form-control" name="middlename" [(ngModel)]="person.middlename" maxlength="50"
+              required>
           </div>
         </div>
         <div class="col-md-4">
           <div class="form-group">
-            <label class="control-label"> Person Nickname <span style="color: red">*</span></label>
-            <input
-              type="text"
-              class="form-control"
-              name="nickname"
-              [(ngModel)]="person.nickname"
-              maxlength="50"
-              required
-            />
+            <label class="control-label"> Person Nickname <span style="color:red">*</span></label>
+            <input type="text" class="form-control" name="nickname" [(ngModel)]="person.nickname" maxlength="50"
+              required>
           </div>
         </div>
       </div>
       <div class="row">
         <div class="col-md-4">
           <div class="form-group">
-            <label class="control-label">
-              Person Birth Date <span style="color: red">*</span></label
-            >
-            <input
-              type="date"
-              class="form-control"
-              name="birth_DATE"
-              [(ngModel)]="person.birth_DATE"
-              maxlength="50"
-              required
-            />
+            <label class="control-label"> Person Birth Date <span style="color:red">*</span></label>
+            <input type="date" class="form-control" name="birth_DATE" [(ngModel)]="person.birth_DATE" maxlength="50"
+              required>
           </div>
         </div>
         <div class="col-md-4">
           <div class="form-group">
-            <label class="control-label">
-              Person Birth Time <span style="color: red">*</span></label
-            >
-            <input
-              type="time"
-              class="form-control"
-              name="birth_TIME"
-              [(ngModel)]="person.birth_TIME"
-              maxlength="50"
-              required
-            />
+            <label class="control-label"> Person Birth Time <span style="color:red">*</span></label>
+            <input type="time" class="form-control" name="birth_TIME" [(ngModel)]="person.birth_TIME" maxlength="50"
+              required>
           </div>
         </div>
       </div>
@@ -612,11 +329,7 @@
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">Birth Place</h5>
-              <app-locationsearchfilter
-                #locationsearchfilter
-                [view]="3"
-                [locationID]="person.birthplace_ID"
-              >
+              <app-locationsearchfilter #locationsearchfilter [view]="3" [locationID]="person.birthplace_ID">
               </app-locationsearchfilter>
             </div>
           </div>
@@ -625,15 +338,9 @@
       <div class="row">
         <div class="col-md-4">
           <div class="form-group">
-            <label class="control-label"> Person Img Path <span style="color: red">*</span></label>
-            <input
-              type="text"
-              class="form-control"
-              name="personimg_PATH"
-              [(ngModel)]="person.personimg_PATH"
-              maxlength="50"
-              required
-            />
+            <label class="control-label"> Person Img Path <span style="color:red">*</span></label>
+            <input type="text" class="form-control" name="personimg_PATH" [(ngModel)]="person.personimg_PATH"
+              maxlength="50" required>
           </div>
         </div>
       </div>
@@ -647,14 +354,8 @@
   </form>
 </div>
 
-<div *ngIf="view == 4" class="form-group">
-  <form
-    action=""
-    class="form"
-    (ngSubmit)="f.form.valid && personAdd(person)"
-    #f="ngForm"
-    novalidate
-  >
+<div *ngIf="view==4" class="form-group">
+  <form action="" class="form" (ngSubmit)="f.form.valid && personAdd(person)" #f="ngForm" novalidate>
     <div class="modal-body">
       <div class="row">
         <div class="col-md-4">
@@ -662,105 +363,54 @@
         </div>
         <div class="col-md-4">
           <div class="form-group">
-            <label class="control-label"> Person Name <span style="color: red">*</span></label>
-            <input
-              type="text"
-              class="form-control"
-              name="forenames"
-              [(ngModel)]="person.forenames"
-              maxlength="50"
-              required
-            />
+            <label class="control-label"> Person Name <span style="color:red">*</span></label>
+            <input type="text" class="form-control" name="forenames" [(ngModel)]="person.forenames" maxlength="50"
+              required>
           </div>
         </div>
         <div class="col-md-4">
           <div class="form-group">
-            <label class="control-label"> Person Surname <span style="color: red">*</span></label>
-            <input
-              type="text"
-              class="form-control"
-              name="surname"
-              [(ngModel)]="person.surname"
-              maxlength="50"
-              required
-            />
+            <label class="control-label"> Person Surname <span style="color:red">*</span></label>
+            <input type="text" class="form-control" name="surname" [(ngModel)]="person.surname" maxlength="50" required>
           </div>
         </div>
       </div>
       <div class="row">
         <div class="col-md-4">
           <div class="form-group">
-            <label class="control-label">
-              Person Previous Surname <span style="color: red">*</span></label
-            >
-            <input
-              type="text"
-              class="form-control"
-              name="previoussurname"
-              [(ngModel)]="person.previoussurname"
-              maxlength="50"
-              required
-            />
+            <label class="control-label"> Person Previous Surname <span style="color:red">*</span></label>
+            <input type="text" class="form-control" name="previoussurname" [(ngModel)]="person.previoussurname"
+              maxlength="50" required>
           </div>
         </div>
         <div class="col-md-4">
           <div class="form-group">
-            <label class="control-label">
-              Person Middle Name <span style="color: red">*</span></label
-            >
-            <input
-              type="text"
-              class="form-control"
-              name="middlename"
-              [(ngModel)]="person.middlename"
-              maxlength="50"
-              required
-            />
+            <label class="control-label"> Person Middle Name <span style="color:red">*</span></label>
+            <input type="text" class="form-control" name="middlename" [(ngModel)]="person.middlename" maxlength="50"
+              required>
           </div>
         </div>
         <div class="col-md-4">
           <div class="form-group">
-            <label class="control-label"> Nickname <span style="color: red">*</span></label>
-            <input
-              type="text"
-              class="form-control"
-              name="nickname"
-              [(ngModel)]="person.nickname"
-              maxlength="50"
-              required
-            />
+            <label class="control-label"> Nickname <span style="color:red">*</span></label>
+            <input type="text" class="form-control" name="nickname" [(ngModel)]="person.nickname" maxlength="50"
+              required>
           </div>
         </div>
       </div>
       <div class="row">
         <div class="col-md-4">
           <div class="form-group">
-            <label class="control-label">
-              Person Birth Date <span style="color: red">*</span></label
-            >
-            <input
-              type="date"
-              class="form-control"
-              name="birth_DATE"
-              [(ngModel)]="person.birth_DATE"
-              maxlength="50"
-              required
-            />
+            <label class="control-label"> Person Birth Date <span style="color:red">*</span></label>
+            <input type="date" class="form-control" name="birth_DATE" [(ngModel)]="person.birth_DATE" maxlength="50"
+              required>
           </div>
         </div>
         <div class="col-md-4">
           <div class="form-group">
-            <label class="control-label">
-              Person Birth Time <span style="color: red">*</span></label
-            >
-            <input
-              type="time"
-              class="form-control"
-              name="birth_TIME"
-              [(ngModel)]="person.birth_TIME"
-              maxlength="50"
-              required
-            />
+            <label class="control-label"> Person Birth Time <span style="color:red">*</span></label>
+            <input type="time" class="form-control" name="birth_TIME" [(ngModel)]="person.birth_TIME" maxlength="50"
+              required>
           </div>
         </div>
       </div>
@@ -769,11 +419,7 @@
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">Birth Place</h5>
-              <app-locationsearchfilter
-                #locationsearchfilter
-                [view]="3"
-                [locationID]="person.birthplace_ID"
-              >
+              <app-locationsearchfilter #locationsearchfilter [view]="3" [locationID]="person.birthplace_ID">
               </app-locationsearchfilter>
             </div>
           </div>
@@ -782,15 +428,9 @@
       <div class="row">
         <div class="col-md-4">
           <div class="form-group">
-            <label class="control-label"> Person Img Path <span style="color: red">*</span></label>
-            <input
-              type="text"
-              class="form-control"
-              name="personimg_PATH"
-              [(ngModel)]="person.personimg_PATH"
-              maxlength="50"
-              required
-            />
+            <label class="control-label"> Person Img Path <span style="color:red">*</span></label>
+            <input type="text" class="form-control" name="personimg_PATH" [(ngModel)]="person.personimg_PATH"
+              maxlength="50" required>
           </div>
         </div>
       </div>
@@ -804,35 +444,23 @@
   </form>
 </div>
 
-<div *ngIf="view == 5" class="fcorm-group">
+<div *ngIf="view==5" class="fcorm-group">
   <div class="card-primary card">
     <div class="card-header">
       <div class="align-items-center row">
-        <div class="col" *ngIf="person.person_ID == 0">
-          <a
-            href="javascript:void"
-            aria-controls="collapse-personinfo1"
-            aria-expanded="true"
-            class="card-title"
-            >Add New Person
+        <div class="col" *ngIf="person.person_ID==0">
+          <a href="javascript:void" aria-controls="collapse-personinfo1" aria-expanded="true" class="card-title">Add New
+            Person
           </a>
         </div>
-        <div class="col" *ngIf="person.person_ID != 0 && disabled == false">
-          <a
-            href="javascript:void"
-            aria-controls="collapse-personinfo1"
-            aria-expanded="true"
-            class="card-title"
-            >Edit Person
+        <div class="col" *ngIf="person.person_ID!=0 && disabled==false">
+          <a href="javascript:void" aria-controls="collapse-personinfo1" aria-expanded="true" class="card-title">Edit
+            Person
           </a>
         </div>
-        <div class="col" *ngIf="person.person_ID != 0 && disabled == true">
-          <a
-            href="javascript:void"
-            aria-controls="collapse-personinfo1"
-            aria-expanded="true"
-            class="card-title"
-            >Person Detail
+        <div class="col" *ngIf="person.person_ID!=0 && disabled==true">
+          <a href="javascript:void" aria-controls="collapse-personinfo1" aria-expanded="true" class="card-title">Person
+            Detail
           </a>
         </div>
       </div>
@@ -845,39 +473,25 @@
               <div class="row">
                 <div class="col-md-4">
                   <div class="form-group">
-                    <app-persontitle [title]="person.title" [disabled]="disabled">
+                    <app-persontitle [title]="person.title" [disabled]='disabled'>
                     </app-persontitle>
                   </div>
                 </div>
                 <div class="col-md-4">
                   <div class="form-group">
-                    <label class="custom-label form-label"
-                      >Names<span style="color: red" [hidden]="disabled">*</span>
+                    <label class="custom-label form-label">Names<span style="color: red;" [hidden]="disabled">*</span>
                     </label>
-                    <input
-                      type="text"
-                      [(ngModel)]="person.forenames"
-                      class="form-control"
-                      name="forenames"
-                      maxlength="50"
-                      [disabled]="disabled"
-                    />
+                    <input type="text" [(ngModel)]="person.forenames" class="form-control" name="forenames"
+                      maxlength="50" [disabled]='disabled'>
                   </div>
                 </div>
                 <div class="col-md-4">
                   <div class="form-group">
-                    <label class="control-label form-label"
-                      >Surname
-                      <span style="color: red" [hidden]="disabled">*</span>
+                    <label class="control-label form-label">Surname
+                      <span style="color: red;" [hidden]="disabled">*</span>
                     </label>
-                    <input
-                      type="text"
-                      [(ngModel)]="person.surname"
-                      class="form-control"
-                      name="surname"
-                      maxlength="50"
-                      [disabled]="disabled"
-                    />
+                    <input type="text" [(ngModel)]="person.surname" class="form-control" name="surname" maxlength="50"
+                      [disabled]='disabled'>
                   </div>
                 </div>
               </div>
@@ -885,40 +499,22 @@
                 <div class="col-md-4">
                   <div class="form-group">
                     <label class="custom-label form-label">Middlename</label>
-                    <input
-                      type="text"
-                      [(ngModel)]="person.middlename"
-                      class="form-control"
-                      name="middlename"
-                      maxlength="50"
-                      [disabled]="disabled"
-                    />
+                    <input type="text" [(ngModel)]="person.middlename" class="form-control" name="middlename"
+                      maxlength="50" [disabled]='disabled'>
                   </div>
                 </div>
                 <div class="col-md-4">
                   <div class="form-group">
                     <label class="control-label form-label">Previous Surname</label>
-                    <input
-                      type="text"
-                      [(ngModel)]="person.previoussurname"
-                      class="form-control"
-                      name="previoussurname"
-                      maxlength="50"
-                      [disabled]="disabled"
-                    />
+                    <input type="text" [(ngModel)]="person.previoussurname" class="form-control" name="previoussurname"
+                      maxlength="50" [disabled]='disabled'>
                   </div>
                 </div>
                 <div class="col-md-4">
                   <div class="form-group">
                     <label class="custom-label form-label">Nickname</label>
-                    <input
-                      type="text"
-                      [(ngModel)]="person.nickname"
-                      class="form-control"
-                      name="nickname"
-                      maxlength="50"
-                      [disabled]="disabled"
-                    />
+                    <input type="text" [(ngModel)]="person.nickname" class="form-control" name="nickname" maxlength="50"
+                      [disabled]='disabled'>
                   </div>
                 </div>
               </div>
@@ -926,27 +522,15 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label class="custom-label form-label">Birth Date</label>
-                    <input
-                      type="date"
-                      [(ngModel)]="person.birth_DATE"
-                      class="form-control"
-                      name="birth_DATE"
-                      maxlength="50"
-                      [disabled]="disabled"
-                    />
+                    <input type="date" [(ngModel)]="person.birth_DATE" class="form-control" name="birth_DATE"
+                      maxlength="50" [disabled]='disabled'>
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
                     <label class="custom-label form-label">Birth Time</label>
-                    <input
-                      type="time"
-                      [(ngModel)]="person.birth_TIME"
-                      class="form-control"
-                      name="birth_TIME"
-                      maxlength="50"
-                      [disabled]="disabled"
-                    />
+                    <input type="time" [(ngModel)]="person.birth_TIME" class="form-control" name="birth_TIME"
+                      maxlength="50" [disabled]='disabled'>
                   </div>
                 </div>
               </div>
@@ -955,12 +539,8 @@
                   <div class="card">
                     <div class="card-body">
                       <h5 class="card-title">Birth Place</h5>
-                      <app-locationsearchfilter
-                        #locationsearchfilter
-                        [view]="3"
-                        [disabled]="disabled"
-                        [locationID]="person.birthplace_ID"
-                      >
+                      <app-locationsearchfilter #locationsearchfilter [view]="3" [disabled]='disabled'
+                        [locationID]="person.birthplace_ID">
                       </app-locationsearchfilter>
                     </div>
                   </div>
@@ -969,23 +549,14 @@
             </div>
             <div class="col-md-3">
               <div class="row">
-                <div class="col-md-1"></div>
+                <div class="col-md-1">
+                </div>
                 <div class="col-md-11">
                   <div class="form-group">
-                    <img
-                      src="{{ person.personimg_PATH }}"
-                      width="100%"
-                      height="100%"
-                      onerror="this.src='https://cwiztech.com/apply/images/user.png'"
-                    />
-                    <input
-                      type="file"
-                      class="form-control"
-                      name="personimg_PATH"
-                      (change)="onFileSelection($event)"
-                      [disabled]="disabled"
-                      required
-                    />
+                    <img src="{{ person.personimg_PATH }}" width="100%" height="100%"
+                      onerror="this.src='https://cwiztech.com/apply/images/user.png'">
+                    <input type="file" class="form-control" name="personimg_PATH" (change)="onFileSelection($event)"
+                      [disabled]="disabled" required />
                   </div>
                 </div>
               </div>
@@ -993,18 +564,13 @@
           </div>
         </div>
       </div>
-      <div class="row" *ngIf="person.person_ID != 0">
+      <div class="row" *ngIf="person.person_ID!=0">
         <div class="col-md-12">
           <div class="form-group">
             <div class="checkbox">
               <label class="control-label">
-                <input
-                  type="checkbox"
-                  [checked]="person.isactive"
-                  [(ngModel)]="person.isactive"
-                  [disabled]="disabled"
-                  name="isactive"
-                />
+                <input type="checkbox" [checked]="person.isactive" [(ngModel)]="person.isactive" [disabled]="disabled"
+                  name="isactive">
                 Active
               </label>
             </div>
@@ -1013,43 +579,18 @@
       </div>
       <div class="row">
         <div class="col-md-12">
-          <button
-            *ngIf="person.person_ID != 0 && disabled == true"
-            (click)="editView()"
-            id="cancel"
-            class="btn btn-primary"
-            style="float: right"
-          >
-            Edit
+          <button *ngIf="person.person_ID!=0 && disabled==true" (click)="editView()" id="cancel" class="btn btn-primary"
+            style="float: right;"> Edit
           </button>
-          <button
-            *ngIf="disabled == false"
-            type="button"
-            (click)="cancelView()"
-            style="float: right"
-            class="btn btn-light"
-            data-dismiss="modal"
-          >
-            Cancel
+          <button *ngIf="disabled==false" type="button" (click)='cancelView()' style="float: right;"
+            class="btn btn-light" data-dismiss="modal"> Cancel
           </button>
-          <button
-            *ngIf="person.person_ID != 0 && disabled == false"
-            type="button"
-            data-dismiss="modal"
-            style="margin-right: 10px; float: right"
-            (click)="personUpdate(person)"
-            class="btn btn-primary"
-          >
+          <button *ngIf="person.person_ID!=0 && disabled==false" type="button" data-dismiss="modal"
+            style=" margin-right: 10px; float: right;" (click)='personUpdate(person)' class="btn btn-primary">
             Update
           </button>
-          <button
-            *ngIf="person.person_ID == 0"
-            type="button"
-            data-dismiss="modal"
-            style="margin-right: 10px; float: right"
-            (click)="personAdd(person)"
-            class="btn btn-primary"
-          >
+          <button *ngIf="person.person_ID==0" type="button" data-dismiss="modal"
+            style=" margin-right: 10px; float: right;" (click)='personAdd(person)' class="btn btn-primary">
             Save
           </button>
         </div>
@@ -1058,35 +599,23 @@
   </div>
 </div>
 
-<div *ngIf="view == 6" class="fcorm-group">
+<div *ngIf="view==6" class="fcorm-group">
   <div class="card-primary card">
     <div class="card-header">
       <div class="align-items-center row">
-        <div class="col" *ngIf="person.person_ID == 0">
-          <a
-            href="javascript:void"
-            aria-controls="collapse-personinfo1"
-            aria-expanded="true"
-            class="card-title"
-            >Add New Person
+        <div class="col" *ngIf="person.person_ID==0">
+          <a href="javascript:void" aria-controls="collapse-personinfo1" aria-expanded="true" class="card-title">Add New
+            Person
           </a>
         </div>
-        <div class="col" *ngIf="person.person_ID != 0 && disabled == false">
-          <a
-            href="javascript:void"
-            aria-controls="collapse-personinfo1"
-            aria-expanded="true"
-            class="card-title"
-            >Edit Person
+        <div class="col" *ngIf="person.person_ID!=0 && disabled==false">
+          <a href="javascript:void" aria-controls="collapse-personinfo1" aria-expanded="true" class="card-title">Edit
+            Person
           </a>
         </div>
-        <div class="col" *ngIf="person.person_ID != 0 && disabled == true">
-          <a
-            href="javascript:void"
-            aria-controls="collapse-personinfo1"
-            aria-expanded="true"
-            class="card-title"
-            >Person Detail
+        <div class="col" *ngIf="person.person_ID!=0 && disabled==true">
+          <a href="javascript:void" aria-controls="collapse-personinfo1" aria-expanded="true" class="card-title">Person
+            Detail
           </a>
         </div>
       </div>
@@ -1097,38 +626,25 @@
           <div class="row">
             <div class="col-md-4">
               <div class="form-group">
-                <app-persontitle [title]="person.title" [disabled]="disabled"> </app-persontitle>
+                <app-persontitle [title]="person.title" [disabled]='disabled'>
+                </app-persontitle>
               </div>
             </div>
             <div class="col-md-4">
               <div class="form-group">
-                <label class="custom-label form-label"
-                  >Name<span style="color: red" [hidden]="disabled">*</span>
+                <label class="custom-label form-label">Name<span style="color: red;" [hidden]="disabled">*</span>
                 </label>
-                <input
-                  type="text"
-                  [(ngModel)]="person.forenames"
-                  class="form-control"
-                  name="forenames"
-                  maxlength="50"
-                  [disabled]="disabled"
-                />
+                <input type="text" [(ngModel)]="person.forenames" class="form-control" name="forenames" maxlength="50"
+                  [disabled]='disabled'>
               </div>
             </div>
             <div class="col-md-4">
               <div class="form-group">
-                <label class="control-label form-label"
-                  >Surname
-                  <span style="color: red" [hidden]="disabled">*</span>
+                <label class="control-label form-label">Surname
+                  <span style="color: red;" [hidden]="disabled">*</span>
                 </label>
-                <input
-                  type="text"
-                  [(ngModel)]="person.surname"
-                  class="form-control"
-                  name="surname"
-                  maxlength="50"
-                  [disabled]="disabled"
-                />
+                <input type="text" [(ngModel)]="person.surname" class="form-control" name="surname" maxlength="50"
+                  [disabled]='disabled'>
               </div>
             </div>
           </div>

@@ -1,3 +1,4 @@
+
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { LookupService } from 'src/app/services/lookup.service';
@@ -6,7 +7,7 @@ import { OnFailService } from 'src/app/services/on-fail.service';
 @Component({
   selector: 'app-referencecountry',
   templateUrl: './referencecountry.component.html',
-  styleUrls: ['./referencecountry.component.css'],
+  styleUrls: ['./referencecountry.component.css']
 })
 export class ReferencecountryComponent implements OnInit {
   @Input()
@@ -24,8 +25,8 @@ export class ReferencecountryComponent implements OnInit {
   constructor(
     private lookupservice: LookupService,
     private toastrservice: ToastrService,
-    private onfailservice: OnFailService
-  ) {}
+    private onfailservice: OnFailService,
+  ) { }
 
   ngOnInit(): void {
     this.referencecountries = JSON.parse(window.sessionStorage.getItem('referencecountries'));
@@ -40,47 +41,39 @@ export class ReferencecountryComponent implements OnInit {
   setReferencecountries(response) {
     if (this.disabled == false) {
       this.referencecountries = response;
-      window.sessionStorage.setItem('referencecountries', JSON.stringify(this.referencecountries));
+      window.sessionStorage.setItem("referencecountries", JSON.stringify(this.referencecountries));
     } else {
       this.referencecountriesAll = response;
-      window.sessionStorage.setItem(
-        'referencecountriesAll',
-        JSON.stringify(this.referencecountriesAll)
-      );
+      window.sessionStorage.setItem("referencecountriesAll", JSON.stringify(this.referencecountriesAll));
     }
   }
 
-  referencecountryGet() {
-    this.lookupservice.lookup('REFERENCECOUNTRY').subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.setReferencecountries(response);
-          }
+  referencecountryGet(){
+    this.lookupservice.lookup("REFERENCECOUNTRY").subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else{
+          this.setReferencecountries(response);
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
-  referencecountryGetAll() {
-    this.lookupservice.lookupAll('REFERENCECOUNTRY').subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.setReferencecountries(response);
-          }
+  referencecountryGetAll(){
+    this.lookupservice.lookupAll("REFERENCECOUNTRY").subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else{
+          this.setReferencecountries(response);
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
+
 }

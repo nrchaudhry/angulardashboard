@@ -7,7 +7,7 @@ import { OnFailService } from 'src/app/services/on-fail.service';
 @Component({
   selector: 'app-leavetype',
   templateUrl: './leavetype.component.html',
-  styleUrls: ['./leavetype.component.css'],
+  styleUrls: ['./leavetype.component.css']
 })
 export class LeavetypeComponent implements OnInit {
   @Input()
@@ -25,8 +25,8 @@ export class LeavetypeComponent implements OnInit {
   constructor(
     private lookupservice: LookupService,
     private toastrservice: ToastrService,
-    private onfailservice: OnFailService
-  ) {}
+    private onfailservice: OnFailService,
+  ) { }
 
   ngOnInit(): void {
     this.leavetypes = JSON.parse(window.sessionStorage.getItem('leavetypes'));
@@ -40,43 +40,38 @@ export class LeavetypeComponent implements OnInit {
 
   setLeavetypes(response) {
     this.leavetypes = response;
-    window.sessionStorage.setItem('leavetypes', JSON.stringify(this.leavetypes));
+    window.sessionStorage.setItem("leavetypes", JSON.stringify(this.leavetypes));
 
     this.leavetypesAll = response;
-    window.sessionStorage.setItem('leavetypesAll', JSON.stringify(this.leavetypesAll));
+    window.sessionStorage.setItem("leavetypesAll", JSON.stringify(this.leavetypesAll));
   }
 
   leavetypeGet() {
-    this.lookupservice.lookup('LEAVETYPE').subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.setLeavetypes(response);
-          }
+    this.lookupservice.lookup("LEAVETYPE").subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else {
+          this.setLeavetypes(response);
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   leavetypeGetAll() {
-    this.lookupservice.lookupAll('LEAVETYPE').subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.setLeavetypes(response);
-          }
+    this.lookupservice.lookupAll("LEAVETYPE").subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else {
+          this.setLeavetypes(response);
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
+
 }

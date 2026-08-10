@@ -1,3 +1,4 @@
+
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -8,23 +9,26 @@ declare var $: any;
 @Component({
   selector: 'app-persons',
   templateUrl: './persons.component.html',
-  styleUrls: ['./persons.component.css'],
+  styleUrls: ['./persons.component.css']
 })
 export class PersonsComponent implements OnInit {
-  @ViewChild('persons') persons: PersonComponent;
-  @ViewChild('addperson') addperson: PersonComponent;
-  @ViewChild('editperson') editperson: PersonComponent;
+  @ViewChild("persons") persons: PersonComponent;
+  @ViewChild("addperson") addperson: PersonComponent;
+  @ViewChild("editperson") editperson: PersonComponent;
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+  ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   view(row) {
-    this.router.navigate(['/home/person'], { queryParams: { person: row.data.person_ID } });
+    this.router.navigate(["/home/person"], { queryParams: { person: row.data.person_ID } });
   }
 
   addNew() {
-    this.router.navigate(['/home/person'], {});
+    this.router.navigate(["/home/person"], {});
   }
 
   refresh() {
@@ -51,7 +55,8 @@ export class PersonsComponent implements OnInit {
   //   }
 
   cancel() {
-    $('#addperson').modal('hide');
-    $('#editperson').modal('hide');
+    $("#addperson").modal("hide");
+    $("#editperson").modal("hide");
   }
 }
+

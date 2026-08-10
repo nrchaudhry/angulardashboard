@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { OnFailService } from '../../../services/on-fail.service';
 
-import { PersoneducationinstituteComponent } from '../../../components/person/personeducationinstitute/personeducationinstitute.component';
+import { PersoneducationinstituteComponent } from '../../../components/person/personeducationinstitute/personeducationinstitute.component'
 import { PersoneducationinstituteService } from '../../../components/person/personeducationinstitute/personeducationinstitute.service';
 
 declare var $: any;
@@ -10,29 +10,28 @@ declare var $: any;
 @Component({
   selector: 'app-personeducationinstitutes',
   templateUrl: './personeducationinstitutes.component.html',
-  styleUrls: ['./personeducationinstitutes.component.css'],
+  styleUrls: ['./personeducationinstitutes.component.css']
 })
 export class PersoneducationinstitutesComponent implements OnInit {
-  @ViewChild('personeducationinstitutes')
-  personeducationinstitutes: PersoneducationinstituteComponent;
-  @ViewChild('addpersoneducationinstitute')
-  addpersoneducationinstitute: PersoneducationinstituteComponent;
-  @ViewChild('editpersoneducationinstitute')
-  editpersoneducationinstitute: PersoneducationinstituteComponent;
+  @ViewChild("personeducationinstitutes") personeducationinstitutes: PersoneducationinstituteComponent;
+  @ViewChild("addpersoneducationinstitute") addpersoneducationinstitute: PersoneducationinstituteComponent;
+  @ViewChild("editpersoneducationinstitute") editpersoneducationinstitute: PersoneducationinstituteComponent;
 
   constructor(
     private personeducationinstituteservice: PersoneducationinstituteService,
     private toastrservice: ToastrService,
-    private onfailservice: OnFailService
-  ) {}
+    private onfailservice: OnFailService,
+  ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
-  view() {}
+  view() {
+  }
 
   addNew() {
     this.addpersoneducationinstitute.add();
-    $('#addpersoneducationinstitute').modal('show');
+    $("#addpersoneducationinstitute").modal("show");
   }
 
   refresh() {
@@ -50,18 +49,19 @@ export class PersoneducationinstitutesComponent implements OnInit {
       educationattendancemode_ID: row.data.educationattendancemode_ID,
       person_ID: row.data.person_ID,
       recievedqualification: row.data.recievedqualification,
-      isactive: row.data.isactive,
+      isactive: row.data.isactive
     };
-    if (row.data.isactive == 'Y') {
+    if (row.data.isactive == "Y") {
       this.editpersoneducationinstitute.personeducationinstitute.isactive = true;
     } else {
       this.editpersoneducationinstitute.personeducationinstitute.isactive = false;
     }
-    $('#editpersoneducationinstitute').modal('show');
+    $("#editpersoneducationinstitute").modal("show");
   }
 
   cancel() {
-    $('#addpersoneducationinstitute').modal('hide');
-    $('#editpersoneducationinstitute').modal('hide');
+    $("#addpersoneducationinstitute").modal("hide");
+    $("#editpersoneducationinstitute").modal("hide");
   }
+
 }

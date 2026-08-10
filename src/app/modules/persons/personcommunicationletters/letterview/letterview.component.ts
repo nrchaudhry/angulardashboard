@@ -5,20 +5,22 @@ import { PersoncommunicationletterComponent } from 'src/app/components/person/pe
 @Component({
   selector: 'app-letterview',
   templateUrl: './letterview.component.html',
-  styleUrls: ['./letterview.component.css'],
+  styleUrls: ['./letterview.component.css']
 })
 export class LetterviewComponent implements OnInit {
-  @ViewChild('personcommunicationletters')
-  personcommunicationletters: PersoncommunicationletterComponent;
+  @ViewChild("personcommunicationletters") personcommunicationletters: PersoncommunicationletterComponent;
 
-  personletterID = 0;
+   personletterID = 0;
 
-  constructor(private route: ActivatedRoute, private router: Router) {}
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+  ) { }
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe((params) => {
-      if (params.personcommunicationletter) {
-        this.personletterID = params.personcommunicationletter;
+    this.route.queryParams.subscribe(params => {
+      if (params. personcommunicationletter) {
+        this. personletterID = params. personcommunicationletter;
       }
     });
   }
@@ -29,6 +31,6 @@ export class LetterviewComponent implements OnInit {
   }
 
   cancel() {
-    this.router.navigate(['/home/communications'], { queryParams: {} });
+    this.router.navigate(["/home/communications"], { queryParams: {} });
   }
 }

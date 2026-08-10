@@ -1,9 +1,9 @@
-$(function () {
-  var $menu = $('#main-menu');
+$(function() {
 
-  // add the HTML structure
-  $('div.right-column').prepend(
-    '\
+	var $menu = $('#main-menu');
+
+	// add the HTML structure
+	$('div.right-column').prepend('\
   <div id="themes">\
    <h2>Switch theme (class)</h2>\
    <p>\
@@ -81,35 +81,19 @@ $(function () {
 &lt;style type="text/css"&gt;\n<span class="themes-code-main-menu-css"></span>&lt;/style&gt;\
 </span></pre>\
    <h4>HTML:</h4>\
-   <pre class="sh_html sh_sourceCode">' +
-      (window.addonHTMLBefore ? window.addonHTMLBefore : '') +
-      '&lt;nav id="main-nav">\n\
-	&lt;ul id="main-menu" class="<span class="themes-code-main-class">' +
-      $menu[0].className +
-      '</span>"&gt;\n\
+   <pre class="sh_html sh_sourceCode">' + (window.addonHTMLBefore ? window.addonHTMLBefore : '') + '\&lt;nav id="main-nav">\n\
+	&lt;ul id="main-menu" class="<span class="themes-code-main-class">' + $menu[0].className + '</span>"&gt;\n\
 		...\n\
 	&lt;/ul>\n\
-&lt;/nav>' +
-      (window.addonHTMLAfter ? window.addonHTMLAfter : '') +
-      '</pre>\
+&lt;/nav>' + (window.addonHTMLAfter ? window.addonHTMLAfter : '') + '</pre>\
    <h4>JavaScript:</h4>\
    <pre class="sh_html sh_sourceCode">&lt;!-- jQuery --&gt;\n\
 &lt;script type="text/javascript" src="../libs/jquery/jquery.js"&gt;&lt;/script&gt;\n\
 \n\
 &lt;!-- SmartMenus jQuery plugin --&gt;\n\
-&lt;script type="text/javascript" src="../jquery.smartmenus.js"&gt;&lt;/script&gt;\n' +
-      (window.addonScriptSrc
-        ? $.map(window.addonScriptSrc, function (arr) {
-            return (
-              '\n&lt;!-- ' +
-              arr[0] +
-              ' --&gt;\n&lt;script type="text/javascript" src="' +
-              arr[1] +
-              '"&gt;&lt;/script&gt;\n'
-            );
-          }).join('')
-        : '') +
-      '\
+&lt;script type="text/javascript" src="../jquery.smartmenus.js"&gt;&lt;/script&gt;\n' + (window.addonScriptSrc ? $.map(window.addonScriptSrc, function(arr) {
+	return '\n&lt;!-- ' + arr[0] + ' --&gt;\n&lt;script type="text/javascript" src="' + arr[1] + '"&gt;&lt;/script&gt;\n';
+}).join('') : '') + '\
 \n\
 &lt;!-- SmartMenus jQuery init --&gt;\n\
 &lt;script type="text/javascript"&gt;\n\
@@ -117,41 +101,29 @@ $(function () {
 		$(\'#main-menu\').smartmenus(<span class="themes-code-init-options">{\n\
 			subMenusSubOffsetX: 1,\n\
 			subMenusSubOffsetY: -8\n\
-		}</span>);\n' +
-      (window.addonScriptInit ? window.addonScriptInit : '') +
-      '\
+		}</span>);\n' + (window.addonScriptInit ? window.addonScriptInit : '') + '\
 	});\n\
 &lt;/script&gt;</pre>\
   </div>\
-'
-  );
+');
 
-  // hide sub options
-  $('#themes-horizontal-align-holder').hide();
+	// hide sub options
+	$('#themes-horizontal-align-holder').hide();
 
-  // load additional themes
-  $('#themes-classes option')
-    .not(':first')
-    .each(function () {
-      var className = $(this).attr('value');
-      $(
-        '<link href="../css/' +
-          className +
-          '/' +
-          className +
-          '.css" rel="stylesheet" type="text/css" />'
-      ).appendTo('head');
-    });
+	// load additional themes
+	$('#themes-classes option').not(':first').each(function() {
+		var className = $(this).attr('value');
+		$('<link href="../css/' + className + '/' + className + '.css" rel="stylesheet" type="text/css" />').appendTo('head');
+	});
 
-  // update Respond.js to parse all themes loaded dynamically
-  if (window.respond) {
-    respond.update();
-  }
+	// update Respond.js to parse all themes loaded dynamically
+	if (window.respond) {
+		respond.update();
+	}
 
-  // define the styles for the different main menu configurations
-  var mainMenuConfigs = {
-    horizontalLeft:
-      '	@media (min-width: 768px) {\n\
+	// define the styles for the different main menu configurations
+	var mainMenuConfigs = {
+		horizontalLeft: '	@media (min-width: 768px) {\n\
 		#main-nav {\n\
 			line-height: 0;\n\
 			text-align: left;\n\
@@ -160,8 +132,7 @@ $(function () {
 			display: inline-block;\n\
 		}\n\
 	}\n',
-    horizontalCenter:
-      '	@media (min-width: 768px) {\n\
+		horizontalCenter: '	@media (min-width: 768px) {\n\
 		#main-nav {\n\
 			line-height: 0;\n\
 			text-align: center;\n\
@@ -170,8 +141,7 @@ $(function () {
 			display: inline-block;\n\
 		}\n\
 	}\n',
-    horizontalRight:
-      '	@media (min-width: 768px) {\n\
+		horizontalRight: '	@media (min-width: 768px) {\n\
 		#main-nav {\n\
 			line-height: 0;\n\
 			text-align: right;\n\
@@ -180,9 +150,8 @@ $(function () {
 			display: inline-block;\n\
 		}\n\
 	}\n',
-    horizontalFullwidthLeft: '',
-    horizontalFullwidthJustified:
-      '	@media (min-width: 768px) {\n\
+		horizontalFullwidthLeft: '',
+		horizontalFullwidthJustified: '	@media (min-width: 768px) {\n\
 		#main-menu > li {\n\
 			float: none;\n\
 			display: table-cell;\n\
@@ -190,121 +159,91 @@ $(function () {
 			text-align: center;\n\
 		}\n\
 	}\n',
-    vertical:
-      '	@media (min-width: 768px) {\n\
+		vertical: '	@media (min-width: 768px) {\n\
 		#main-menu {\n\
 			float: left;\n\
 			width: 12em;\n\
 		}\n\
 	}\n',
-    verticalRTL:
-      '	@media (min-width: 768px) {\n\
+		verticalRTL: '	@media (min-width: 768px) {\n\
 		#main-menu {\n\
 			float: right;\n\
 			width: 12em;\n\
 		}\n\
-	}\n',
-  };
+	}\n'
+	};
 
-  // hook theme switcher
-  $(
-    '#themes-classes, #themes-horizontal, #themes-horizontal-align-left, #themes-horizontal-align-center, #themes-horizontal-align-right, #themes-horizontal-fullwidth, #themes-horizontal-fullwidth-align-justified, #themes-vertical, #themes-rtl'
-  ).change(function () {
-    var $select = $('#themes-classes'),
-      $mainMenuCSS = $('#main-menu-css'),
-      mainMenuCSS,
-      className = $select.val(),
-      horizontal = $('#themes-horizontal')[0].checked,
-      horizontalLeft = horizontal && $('#themes-horizontal-align-left')[0].checked,
-      horizontalCenter = horizontal && $('#themes-horizontal-align-center')[0].checked,
-      horizontalRight = horizontal && $('#themes-horizontal-align-right')[0].checked,
-      horizontalFullwidth = $('#themes-horizontal-fullwidth')[0].checked,
-      horizontalFullwidthLeft =
-        horizontalFullwidth && !$('#themes-horizontal-fullwidth-align-justified')[0].checked,
-      horizontalFullwidthJustified =
-        horizontalFullwidth && $('#themes-horizontal-fullwidth-align-justified')[0].checked,
-      vertical = $('#themes-vertical')[0].checked,
-      rtl = $('#themes-rtl')[0].checked,
-      $optionElm = $select.children().eq($select[0].selectedIndex),
-      initOptions = $optionElm.data('init-options' + (vertical ? '-vertical' : '')),
-      mainMenuClass = 'sm ' + (rtl ? 'sm-rtl ' : '') + (vertical ? 'sm-vertical ' : '') + className;
+	// hook theme switcher
+	$('#themes-classes, #themes-horizontal, #themes-horizontal-align-left, #themes-horizontal-align-center, #themes-horizontal-align-right, #themes-horizontal-fullwidth, #themes-horizontal-fullwidth-align-justified, #themes-vertical, #themes-rtl').change(function() {
+		var $select = $('#themes-classes'),
+			$mainMenuCSS = $('#main-menu-css'),
+			mainMenuCSS,
+			className = $select.val(),
+			horizontal = $('#themes-horizontal')[0].checked,
+			horizontalLeft = horizontal && $('#themes-horizontal-align-left')[0].checked,
+			horizontalCenter = horizontal && $('#themes-horizontal-align-center')[0].checked,
+			horizontalRight = horizontal && $('#themes-horizontal-align-right')[0].checked,
+			horizontalFullwidth = $('#themes-horizontal-fullwidth')[0].checked,
+			horizontalFullwidthLeft = horizontalFullwidth && !$('#themes-horizontal-fullwidth-align-justified')[0].checked,
+			horizontalFullwidthJustified = horizontalFullwidth && $('#themes-horizontal-fullwidth-align-justified')[0].checked,
+			vertical = $('#themes-vertical')[0].checked,
+			rtl = $('#themes-rtl')[0].checked,
+			$optionElm = $select.children().eq($select[0].selectedIndex),
+			initOptions = $optionElm.data('init-options' + (vertical ? '-vertical' : '')),
+			mainMenuClass = 'sm ' + (rtl ? 'sm-rtl ' : '') + (vertical ? 'sm-vertical ' : '') + className;
 
-    if ($mainMenuCSS.length) {
-      $mainMenuCSS.remove();
-      $mainMenuCSS = null;
-    } else {
-      // remove the inline style on init
-      $('style').eq(0).remove();
-    }
-    mainMenuCSS = horizontalLeft
-      ? mainMenuConfigs['horizontalLeft']
-      : horizontalCenter
-      ? mainMenuConfigs['horizontalCenter']
-      : horizontalRight
-      ? mainMenuConfigs['horizontalRight']
-      : horizontalFullwidthLeft
-      ? mainMenuConfigs['horizontalFullwidthLeft']
-      : horizontalFullwidthJustified
-      ? mainMenuConfigs['horizontalFullwidthJustified']
-      : // vertical
-      !rtl
-      ? mainMenuConfigs['vertical']
-      : mainMenuConfigs['verticalRTL'];
-    $('<style id="main-menu-css">' + mainMenuCSS + '</style>').appendTo('head');
+		if ($mainMenuCSS.length) {
+			$mainMenuCSS.remove();
+			$mainMenuCSS = null;
+		} else {
+			// remove the inline style on init
+			$('style').eq(0).remove();
+		}
+		mainMenuCSS = (horizontalLeft ? mainMenuConfigs['horizontalLeft'] :
+			horizontalCenter ? mainMenuConfigs['horizontalCenter'] :
+			horizontalRight ? mainMenuConfigs['horizontalRight'] :
+			horizontalFullwidthLeft ? mainMenuConfigs['horizontalFullwidthLeft'] :
+			horizontalFullwidthJustified ? mainMenuConfigs['horizontalFullwidthJustified'] :
+			// vertical
+			!rtl ? mainMenuConfigs['vertical'] : mainMenuConfigs['verticalRTL']);
+		$('<style id="main-menu-css">' + mainMenuCSS + '</style>').appendTo('head');
 
-    // show/hide sub options
-    $('#themes-horizontal-align-holder')[horizontal ? 'slideDown' : 'slideUp'](250);
-    $('#themes-horizontal-fullwidth-align-holder')[horizontalFullwidth ? 'slideDown' : 'slideUp'](
-      250
-    );
+		// show/hide sub options
+		$('#themes-horizontal-align-holder')[horizontal ? 'slideDown' : 'slideUp'](250);
+		$('#themes-horizontal-fullwidth-align-holder')[horizontalFullwidth ? 'slideDown' : 'slideUp'](250);
 
-    // switch #main-menu theme
-    $menu.smartmenus('destroy')[0].className = mainMenuClass;
-    $menu.smartmenus(eval('(' + initOptions + ')'));
-    $('html, body').css('background', $optionElm.data('page-bg'));
+		// switch #main-menu theme
+		$menu.smartmenus('destroy')[0].className = mainMenuClass;
+		$menu.smartmenus(eval('(' + initOptions + ')'));
+		$('html, body').css('background', $optionElm.data('page-bg'));
 
-    // update code samples
-    $('span.themes-code-class span, #themes-codepen-theme-name').text(className);
-    $('#themes-codepen-url').attr('href', $optionElm.data('codepen-url'));
-    $('span.themes-code-main-class span').text(mainMenuClass);
-    $('span.themes-code-main-menu-css').text(mainMenuCSS);
-    $('span.themes-code-main-menu-css-holder')[mainMenuCSS ? 'show' : 'hide']();
-    $('span.themes-code-init-options').text(initOptions);
+		// update code samples
+		$('span.themes-code-class span, #themes-codepen-theme-name').text(className);
+		$('#themes-codepen-url').attr('href', $optionElm.data('codepen-url'));
+		$('span.themes-code-main-class span').text(mainMenuClass);
+		$('span.themes-code-main-menu-css').text(mainMenuCSS);
+		$('span.themes-code-main-menu-css-holder')[mainMenuCSS ? 'show' : 'hide']();
+		$('span.themes-code-init-options').text(initOptions);
 
-    // display horizontal justified note if needed
-    if ($(this).is('#themes-horizontal-fullwidth-align-justified')) {
-      $('label[for="themes-horizontal-fullwidth-align-justified"] small')[
-        this.checked ? 'show' : 'hide'
-      ]();
-    }
+		// display horizontal justified note if needed
+		if ($(this).is('#themes-horizontal-fullwidth-align-justified')) {
+			$('label[for="themes-horizontal-fullwidth-align-justified"] small')[this.checked ? 'show' : 'hide']();
+		}
 
-    // call any addon init code
-    if (window.addonScriptInit) {
-      try {
-        eval(window.addonScriptInit);
-      } catch (e) {}
-    }
-  });
+		// call any addon init code
+		if (window.addonScriptInit) {
+			try { eval(window.addonScriptInit); } catch(e) {};
+		}
+	});
 
-  // init SHJS syntax highlighter
-  if (window.sh_highlightDocument) {
-    sh_highlightDocument();
-  }
+	// init SHJS syntax highlighter
+	if (window.sh_highlightDocument) {
+		sh_highlightDocument();
+	}
+
 });
 
 // load SHJS syntax highlighter
-document.write(
-  '<scr' +
-    'ipt type="text/javascript" src="http://shjs.sourceforge.net/sh_main.min.js" defer></scr' +
-    'ipt>'
-);
-document.write(
-  '<scr' +
-    'ipt type="text/javascript" src="http://shjs.sourceforge.net/lang/sh_javascript.js" defer></scr' +
-    'ipt>'
-);
-document.write(
-  '<scr' +
-    'ipt type="text/javascript" src="http://shjs.sourceforge.net/lang/sh_html.js" defer></scr' +
-    'ipt>'
-);
+document.write('<scr' + 'ipt type="text/javascript" src="http://shjs.sourceforge.net/sh_main.min.js" defer></scr' + 'ipt>');
+document.write('<scr' + 'ipt type="text/javascript" src="http://shjs.sourceforge.net/lang/sh_javascript.js" defer></scr' + 'ipt>');
+document.write('<scr' + 'ipt type="text/javascript" src="http://shjs.sourceforge.net/lang/sh_html.js" defer></scr' + 'ipt>');

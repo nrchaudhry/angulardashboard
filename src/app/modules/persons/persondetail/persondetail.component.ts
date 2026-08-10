@@ -13,20 +13,20 @@ declare var $: any;
 @Component({
   selector: 'app-persondetail',
   templateUrl: './persondetail.component.html',
-  styleUrls: ['./persondetail.component.css'],
+  styleUrls: ['./persondetail.component.css']
 })
 export class PersondetailComponent implements OnInit {
-  @ViewChild('person') person: PersonComponent;
-  @ViewChild('personcontactaddresses') personcontactaddresses: PersoncontactaddressComponent;
-  @ViewChild('personequalities') personequalities: PersonequalityComponent;
+  @ViewChild("person") person: PersonComponent;
+  @ViewChild("personcontactaddresses") personcontactaddresses: PersoncontactaddressComponent;
+  @ViewChild("personequalities") personequalities: PersonequalityComponent;
 
-  @ViewChild('personcontacts') personcontacts: PersoncontactComponent;
-  @ViewChild('addpersoncontact') addpersoncontact: PersoncontactComponent;
-  @ViewChild('editpersoncontact') editpersoncontact: PersoncontactComponent;
+  @ViewChild("personcontacts") personcontacts: PersoncontactComponent;
+  @ViewChild("addpersoncontact") addpersoncontact: PersoncontactComponent;
+  @ViewChild("editpersoncontact") editpersoncontact: PersoncontactComponent;
 
-  @ViewChild('personidentities') personidentities: PersonidentityComponent;
-  @ViewChild('addpersonidentity') addpersonidentity: PersonidentityComponent;
-  @ViewChild('editpersonidentity') editpersonidentity: PersonidentityComponent;
+  @ViewChild("personidentities") personidentities: PersonidentityComponent;
+  @ViewChild("addpersonidentity") addpersonidentity: PersonidentityComponent;
+  @ViewChild("editpersonidentity") editpersonidentity: PersonidentityComponent;
 
   personID = 0;
   personequalityID = 0;
@@ -38,13 +38,13 @@ export class PersondetailComponent implements OnInit {
     private toastrservice: ToastrService,
     private onfailservice: OnFailService,
     private route: ActivatedRoute,
-    private router: Router
-  ) {}
+    private router: Router,
+  ) { }
 
   disabled = false;
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe((params) => {
+    this.route.queryParams.subscribe(params => {
       if (params.person) {
         this.personID = params.person;
       } else if (window.sessionStorage.getItem('person') != null) {
@@ -64,37 +64,31 @@ export class PersondetailComponent implements OnInit {
   }
 
   showcontactaddress(row) {
-    this.router.navigate(['/home/contactaddressview'], {
-      queryParams: { personcontactaddress: row.data.personcontactaddress_ID },
-    });
+    this.router.navigate(["/home/contactaddressview"], { queryParams: { personcontactaddress: row.data.personcontactaddress_ID } });
   }
 
   addNewcontactaddress() {
-    this.router.navigate(['/home/contactaddressview'], {});
+    this.router.navigate(["/home/contactaddressview"], {});
     // this.addpersoncontactaddress.add();
     // $("#addpersoncontactaddress").modal("show");
   }
 
   showcontact(row) {
-    this.router.navigate(['/home/contactview'], {
-      queryParams: { personcontact: row.data.personcontact_ID },
-    });
+    this.router.navigate(["/home/contactview"], { queryParams: { personcontact: row.data.personcontact_ID } });
   }
 
   addNewcontact() {
-    this.router.navigate(['/home/contactview'], {});
+    this.router.navigate(["/home/contactview"], {});
     // this.addpersoncontact.add();
     // $("#addpersoncontact").modal("show");
   }
 
   showidentity(row) {
-    this.router.navigate(['/home/identityview'], {
-      queryParams: { personidentity: row.data.personidentity_ID },
-    });
+    this.router.navigate(["/home/identityview"], { queryParams: { personidentity: row.data.personidentity_ID } });
   }
 
   addNewidentity() {
-    this.router.navigate(['/home/identityview'], {});
+    this.router.navigate(["/home/identityview"], {});
     // this.addpersonidentity.add();
     // $("#addpersonidentity").modal("show");
   }
@@ -107,24 +101,24 @@ export class PersondetailComponent implements OnInit {
       contact_VALUE: row.data.contact_VALUE,
       ispreaferd: row.data.ispreaferd,
       isverified: row.data.isverified,
-      isactive: row.data.isactive,
+      isactive: row.data.isactive
     };
-    if (row.data.ispreaferd == 'Y') {
+    if (row.data.ispreaferd == "Y") {
       this.editpersoncontact.personcontact.ispreaferd = true;
     } else {
       this.editpersoncontact.personcontact.ispreaferd = false;
     }
-    if (row.data.isverified == 'Y') {
+    if (row.data.isverified == "Y") {
       this.editpersoncontact.personcontact.isverified = true;
     } else {
       this.editpersoncontact.personcontact.isverified = false;
     }
-    if (row.data.isactive == 'Y') {
+    if (row.data.isactive == "Y") {
       this.editpersoncontact.personcontact.isactive = true;
     } else {
       this.editpersoncontact.personcontact.isactive = false;
     }
-    $('#editpersoncontact').modal('show');
+    $("#editpersoncontact").modal("show");
   }
 
   editidentity(row) {
@@ -135,37 +129,38 @@ export class PersondetailComponent implements OnInit {
       document_PATH: row.data.document_PATH,
       identitytype_ID: row.data.identitytype_ID,
       identity_DESC: row.data.identity_DESC,
-      isactive: row.data.isactive,
-    };
-    if (row.data.isactive == 'Y') {
+      isactive: row.data.isactive
+    }
+    if (row.data.isactive == "Y") {
       this.editpersoncontact.personcontact.isactive = true;
     } else {
       this.editpersoncontact.personcontact.isactive = false;
     }
-    $('#editpersonidentity').modal('show');
+    $("#editpersonidentity").modal("show");
   }
 
   cancelcontactaddress() {
-    $('#addpersoncontactaddress').modal('hide');
-    $('#editpersoncontactaddress').modal('hide');
+    $("#addpersoncontactaddress").modal("hide");
+    $("#editpersoncontactaddress").modal("hide");
   }
 
   cancelcontact() {
-    $('#addpersoncontact').modal('hide');
-    $('#editpersoncontact').modal('hide');
+    $("#addpersoncontact").modal("hide");
+    $("#editpersoncontact").modal("hide");
   }
 
   cancelidentity() {
-    $('#addpersonidentity').modal('hide');
-    $('#editpersonidentity').modal('hide');
+    $("#addpersonidentity").modal("hide");
+    $("#editpersonidentity").modal("hide");
   }
 
   cancelEquality() {
     var search = {
-      person_ID: this.personID,
-    };
+      person_ID: this.personID
+    }
     this.personequalities.personequalityAdvancedSearch(search);
-    $('#add').modal('hide');
-    $('#edit').modal('hide');
+    $("#add").modal("hide");
+    $("#edit").modal("hide");
   }
+
 }

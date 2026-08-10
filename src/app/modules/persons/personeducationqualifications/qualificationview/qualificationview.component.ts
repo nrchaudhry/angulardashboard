@@ -6,18 +6,20 @@ import { PersoneducationqualificationComponent } from 'src/app/components/person
 @Component({
   selector: 'app-qualificationview',
   templateUrl: './qualificationview.component.html',
-  styleUrls: ['./qualificationview.component.css'],
+  styleUrls: ['./qualificationview.component.css']
 })
 export class QualificationviewComponent implements OnInit {
-  @ViewChild('personeducationqualification')
-  personeducationqualification: PersoneducationqualificationComponent;
+  @ViewChild("personeducationqualification") personeducationqualification: PersoneducationqualificationComponent;
 
   personqualificationID = 0;
 
-  constructor(private route: ActivatedRoute, private router: Router) {}
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+  ) { }
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe((params) => {
+    this.route.queryParams.subscribe(params => {
       if (params.personeducationqualification) {
         this.personqualificationID = params.personeducationqualification;
       }
@@ -26,6 +28,6 @@ export class QualificationviewComponent implements OnInit {
 
   cancel() {
     this.personeducationqualification.load(true);
-    this.router.navigate(['/home/qualifications'], { queryParams: {} });
+    this.router.navigate(["/home/qualifications"], { queryParams: {} });
   }
 }

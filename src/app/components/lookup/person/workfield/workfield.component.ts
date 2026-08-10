@@ -1,3 +1,4 @@
+
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { LookupService } from 'src/app/services/lookup.service';
@@ -6,7 +7,7 @@ import { OnFailService } from 'src/app/services/on-fail.service';
 @Component({
   selector: 'app-workfield',
   templateUrl: './workfield.component.html',
-  styleUrls: ['./workfield.component.css'],
+  styleUrls: ['./workfield.component.css']
 })
 export class WorkfieldComponent implements OnInit {
   @Input()
@@ -24,8 +25,8 @@ export class WorkfieldComponent implements OnInit {
   constructor(
     private lookupservice: LookupService,
     private toastrservice: ToastrService,
-    private onfailservice: OnFailService
-  ) {}
+    private onfailservice: OnFailService,
+  ) { }
 
   ngOnInit(): void {
     this.workfields = JSON.parse(window.sessionStorage.getItem('workfields'));
@@ -40,44 +41,39 @@ export class WorkfieldComponent implements OnInit {
   setWorkfields(response) {
     if (this.disabled == false) {
       this.workfields = response;
-      window.sessionStorage.setItem('workfields', JSON.stringify(this.workfields));
+      window.sessionStorage.setItem("workfields", JSON.stringify(this.workfields));
     } else {
       this.workfieldsAll = response;
-      window.sessionStorage.setItem('workfieldsAll', JSON.stringify(this.workfieldsAll));
+      window.sessionStorage.setItem("workfieldsAll", JSON.stringify(this.workfieldsAll));
     }
   }
 
-  workfieldGet() {
-    this.lookupservice.lookup('WORKFIELD').subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.setWorkfields(response);
-          }
+  workfieldGet(){
+    this.lookupservice.lookup("WORKFIELD").subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else{
+          this.setWorkfields(response);
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
-  workfieldGetAll() {
-    this.lookupservice.lookupAll('WORKFIELD').subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.setWorkfields(response);
-          }
+  workfieldGetAll(){
+    this.lookupservice.lookupAll("WORKFIELD").subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else{
+          this.setWorkfields(response);
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
+
 }

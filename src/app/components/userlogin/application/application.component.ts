@@ -9,12 +9,12 @@ import { ApplicationService } from './application.service';
 @Component({
   selector: 'app-application',
   templateUrl: './application.component.html',
-  styleUrls: ['./application.component.css'],
+  styleUrls: ['./application.component.css']
 })
 export class ApplicationComponent implements OnInit {
-  @ViewChild('applicationtype') applicationtype: ApplicationtypeComponent;
-  @ViewChild('addapplicationtype') addapplicationtype: ApplicationtypeComponent;
-  @ViewChild('editapplicationtype') editapplicationtype: ApplicationtypeComponent;
+  @ViewChild("applicationtype") applicationtype: ApplicationtypeComponent;
+  @ViewChild("addapplicationtype") addapplicationtype: ApplicationtypeComponent;
+  @ViewChild("editapplicationtype") editapplicationtype: ApplicationtypeComponent;
 
   @Input()
   view: number = 1;
@@ -38,29 +38,29 @@ export class ApplicationComponent implements OnInit {
     application_ID: 0,
     applicationtype_ID: null,
     application_GUID: null,
-    application_CODE: '',
-    application_NAME: '',
-    application_SHORTNAME: '',
-    application_DESCRIPTION: '',
-    applicationservice_PATH: '',
-    applicationpath_FRONTEND: '',
-    applicationlogo_PATH: '',
-    oauthservice_PATH: '',
-    headername: '',
-    projecttitle: '',
-    copyrights_YEAR: '',
-    companylink: '',
-    companyname: '',
+    application_CODE: "",
+    application_NAME: "",
+    application_SHORTNAME: "",
+    application_DESCRIPTION: "",
+    applicationservice_PATH: "",
+    applicationpath_FRONTEND: "",
+    applicationlogo_PATH: "",
+    oauthservice_PATH: "",
+    headername: "",
+    projecttitle: "",
+    copyrights_YEAR: "",
+    companylink: "",
+    companyname: "",
     ispublic: true,
     isactive: true,
-  };
+  }
 
   constructor(
     private applicationservice: ApplicationService,
     private toastrservice: ToastrService,
     private onfailservice: OnFailService,
-    private router: Router
-  ) {}
+    private router: Router,
+  ) { }
 
   ngOnInit(): void {
     this.applications = JSON.parse(window.sessionStorage.getItem('applications'));
@@ -73,31 +73,30 @@ export class ApplicationComponent implements OnInit {
       this.applicationGetAll();
     }
 
-    if (
-      this.applicationID != 0 &&
-      !this.applicationID &&
-      Number(window.sessionStorage.getItem('application')) > 0
-    ) {
+    if (this.applicationID != 0 && !this.applicationID && Number(window.sessionStorage.getItem('application')) > 0) {
       this.applicationID = Number(window.sessionStorage.getItem('application'));
     }
     if (this.view == 5 && this.applicationID) {
-      window.sessionStorage.setItem('application', this.applicationID);
+      window.sessionStorage.setItem("application", this.applicationID);
       this.applicationGetOne(this.applicationID);
     }
 
-    if (this.applicationID == 0) this.applicationID = null;
+    if (this.applicationID == 0)
+      this.applicationID = null;
   }
 
   onToolbarPreparing(e) {
-    e.toolbarOptions.items.unshift({
-      location: 'after',
-      widget: 'dxButton',
-      options: {
-        width: 136,
-        text: 'Refresh',
-        onClick: this.applicationGetAll.bind(this),
-      },
-    });
+    e.toolbarOptions.items.unshift(
+      {
+        location: 'after',
+        widget: 'dxButton',
+        options: {
+          width: 136,
+          text: 'Refresh',
+          onClick: this.applicationGetAll.bind(this),
+        },
+      }
+    );
   }
 
   add() {
@@ -105,19 +104,19 @@ export class ApplicationComponent implements OnInit {
       application_ID: 0,
       applicationtype_ID: null,
       application_GUID: null,
-      application_CODE: '',
-      application_NAME: '',
-      application_SHORTNAME: '',
-      application_DESCRIPTION: '',
-      applicationservice_PATH: '',
-      applicationpath_FRONTEND: '',
-      applicationlogo_PATH: '',
-      oauthservice_PATH: '',
-      headername: '',
-      projecttitle: '',
-      copyrights_YEAR: '',
-      companylink: '',
-      companyname: '',
+      application_CODE: "",
+      application_NAME: "",
+      application_SHORTNAME: "",
+      application_DESCRIPTION: "",
+      applicationservice_PATH: "",
+      applicationpath_FRONTEND: "",
+      applicationlogo_PATH: "",
+      oauthservice_PATH: "",
+      headername: "",
+      projecttitle: "",
+      copyrights_YEAR: "",
+      companylink: "",
+      companyname: "",
       ispublic: true,
       isactive: true,
     };
@@ -146,7 +145,7 @@ export class ApplicationComponent implements OnInit {
   applicationCancel() {
     this.disabled = true;
     if (this.application.application_ID == 0) {
-      this.router.navigate(['/home/applications'], {});
+      this.router.navigate(["/home/applications"], {});
     }
   }
 
@@ -155,12 +154,12 @@ export class ApplicationComponent implements OnInit {
   }
 
   setApplication(response) {
-    if (response.isactive == 'Y') {
+    if (response.isactive == "Y") {
       response.isactive = true;
     } else {
       response.isactive = false;
     }
-    if (response.ispublic == 'Y') {
+    if (response.ispublic == "Y") {
       response.ispublic = true;
     } else {
       response.ispublic = false;
@@ -172,92 +171,80 @@ export class ApplicationComponent implements OnInit {
   setUniversities(response) {
     if (this.view == 1 && this.disabled == false) {
       this.applications = response;
-      window.sessionStorage.setItem('applications', JSON.stringify(this.applications));
+      window.sessionStorage.setItem("applications", JSON.stringify(this.applications));
     } else {
       this.applicationsAll = response;
-      window.sessionStorage.setItem('applicationsAll', JSON.stringify(this.applicationsAll));
+      window.sessionStorage.setItem("applicationsAll", JSON.stringify(this.applicationsAll));
     }
     this.cancel.next();
   }
 
   applicationGet() {
-    this.applicationservice.get().subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.setUniversities(this.applicationservice.getAllDetail(response));
-          }
+    this.applicationservice.get().subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else {
+          this.setUniversities(this.applicationservice.getAllDetail(response));
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   applicationGetAll() {
-    this.applicationservice.getAll().subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.setUniversities(this.applicationservice.getAllDetail(response));
-          }
+    this.applicationservice.getAll().subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else {
+          this.setUniversities(this.applicationservice.getAllDetail(response));
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   applicationGetOne(id) {
-    this.applicationservice.getOne(id).subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.setApplication(this.applicationservice.getDetail(response));
-          }
+    this.applicationservice.getOne(id).subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else {
+          this.setApplication(this.applicationservice.getDetail(response));
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
   applicationAdd(application) {
-    application.isactive = 'Y';
-    application.ispublic = 'Y';
+    application.isactive = "Y";
+    application.ispublic = "Y";
     if (this.view == 5) {
       application.applicationtype_ID = this.applicationtype.applicationtypeID;
     } else {
       application.applicationtype_ID = this.addapplicationtype.applicationtypeID;
     }
 
-    this.applicationservice.add(application).subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else if (response.application_ID) {
-            this.toastrservice.success('Success', 'New Application Added');
-            this.applicationGetAll();
-            this.setApplication(response);
-            this.disabled = true;
-          } else {
-            this.toastrservice.error('Some thing went wrong');
-          }
+    this.applicationservice.add(application).subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else if (response.application_ID) {
+          this.toastrservice.success("Success", "New Application Added");
+          this.applicationGetAll();
+          this.setApplication(response);
+          this.disabled = true;
+        } else {
+          this.toastrservice.error("Some thing went wrong");
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   applicationUpdate(application) {
@@ -267,36 +254,33 @@ export class ApplicationComponent implements OnInit {
       application.applicationtype_ID = this.editapplicationtype.applicationtypeID;
     }
     if (application.isactive == true) {
-      application.isactive = 'Y';
+      application.isactive = "Y";
     } else {
-      application.isactive = 'N';
+      application.isactive = "N";
     }
     if (application.ispublic == true) {
-      application.ispublic = 'Y';
+      application.ispublic = "Y";
     } else {
-      application.ispublic = 'N';
+      application.ispublic = "N";
     }
 
-    this.applicationservice.update(application, application.application_ID).subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else if (response.application_ID) {
-            this.toastrservice.success('Success', ' Application Updated');
-            if (this.disabled == true) {
-              this.setApplication(response);
-            } else {
-              this.disabled = true;
-            }
+    this.applicationservice.update(application, application.application_ID).subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else if (response.application_ID) {
+          this.toastrservice.success("Success", " Application Updated");
+          if (this.disabled == true) {
+            this.setApplication(response);
           } else {
-            this.toastrservice.error('Some thing went wrong');
+            this.disabled = true;
           }
+        } else {
+          this.toastrservice.error("Some thing went wrong");
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 }

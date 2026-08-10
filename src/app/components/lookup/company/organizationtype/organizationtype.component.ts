@@ -1,3 +1,4 @@
+
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { LookupService } from 'src/app/services/lookup.service';
@@ -6,7 +7,7 @@ import { OnFailService } from 'src/app/services/on-fail.service';
 @Component({
   selector: 'app-organizationtype',
   templateUrl: './organizationtype.component.html',
-  styleUrls: ['./organizationtype.component.css'],
+  styleUrls: ['./organizationtype.component.css']
 })
 export class OrganizationtypeComponent implements OnInit {
   @Input()
@@ -24,8 +25,8 @@ export class OrganizationtypeComponent implements OnInit {
   constructor(
     private lookupservice: LookupService,
     private toastrservice: ToastrService,
-    private onfailservice: OnFailService
-  ) {}
+    private onfailservice: OnFailService,
+  ) { }
 
   ngOnInit(): void {
     this.organizationtypes = JSON.parse(window.sessionStorage.getItem('organizationtypes'));
@@ -40,47 +41,39 @@ export class OrganizationtypeComponent implements OnInit {
   setOrganizationtypes(response) {
     if (this.disabled == false) {
       this.organizationtypes = response;
-      window.sessionStorage.setItem('organizationtypes', JSON.stringify(this.organizationtypes));
+      window.sessionStorage.setItem("organizationtypes", JSON.stringify(this.organizationtypes));
     } else {
       this.organizationtypesAll = response;
-      window.sessionStorage.setItem(
-        'organizationtypesAll',
-        JSON.stringify(this.organizationtypesAll)
-      );
+      window.sessionStorage.setItem("organizationtypesAll", JSON.stringify(this.organizationtypesAll));
     }
   }
 
-  organizationtypeGet() {
-    this.lookupservice.lookup('ORGANIZATIONTYPES').subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.setOrganizationtypes(response);
-          }
+  organizationtypeGet(){
+    this.lookupservice.lookup("ORGANIZATIONTYPES").subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else{
+          this.setOrganizationtypes(response);
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
-  organizationtypeGetAll() {
-    this.lookupservice.lookupAll('ORGANIZATIONTYPES').subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.setOrganizationtypes(response);
-          }
+  organizationtypeGetAll(){
+    this.lookupservice.lookupAll("ORGANIZATIONTYPES").subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else{
+          this.setOrganizationtypes(response);
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
+
 }

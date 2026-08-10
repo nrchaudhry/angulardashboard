@@ -5,11 +5,11 @@ declare var $: any;
 @Component({
   selector: 'app-sequencenumber',
   templateUrl: './sequencenumber.component.html',
-  styleUrls: ['./sequencenumber.component.css'],
+  styleUrls: ['./sequencenumber.component.css']
 })
 export class SequencenumberComponent implements OnInit {
   @Input()
-  label: string = 'Sequence No';
+  label: string = "Sequence No";
   @Input()
   view: number = 1;
   @Input()
@@ -26,7 +26,7 @@ export class SequencenumberComponent implements OnInit {
   numbers = [];
   val = {};
 
-  constructor() {}
+  constructor() { }
 
   ngOnInit(): void {
     for (var i = this.start; i <= this.end; i++) {
@@ -34,4 +34,5 @@ export class SequencenumberComponent implements OnInit {
       this.numbers.push(this.val);
     }
   }
+
 }

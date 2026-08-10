@@ -1,3 +1,4 @@
+
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { LookupService } from 'src/app/services/lookup.service';
@@ -6,7 +7,7 @@ import { OnFailService } from 'src/app/services/on-fail.service';
 @Component({
   selector: 'app-provisiontype',
   templateUrl: './provisiontype.component.html',
-  styleUrls: ['./provisiontype.component.css'],
+  styleUrls: ['./provisiontype.component.css']
 })
 export class ProvisiontypeComponent implements OnInit {
   @Input()
@@ -24,8 +25,8 @@ export class ProvisiontypeComponent implements OnInit {
   constructor(
     private lookupservice: LookupService,
     private toastrservice: ToastrService,
-    private onfailservice: OnFailService
-  ) {}
+    private onfailservice: OnFailService,
+  ) { }
 
   ngOnInit(): void {
     this.provisiontypes = JSON.parse(window.sessionStorage.getItem('provisiontypes'));
@@ -40,44 +41,39 @@ export class ProvisiontypeComponent implements OnInit {
   setProvisiontypes(response) {
     if (this.disabled == false) {
       this.provisiontypes = response;
-      window.sessionStorage.setItem('provisiontypes', JSON.stringify(this.provisiontypes));
+      window.sessionStorage.setItem("provisiontypes", JSON.stringify(this.provisiontypes));
     } else {
       this.provisiontypesAll = response;
-      window.sessionStorage.setItem('provisiontypesAll', JSON.stringify(this.provisiontypesAll));
+      window.sessionStorage.setItem("provisiontypesAll", JSON.stringify(this.provisiontypesAll));
     }
   }
 
-  provisiontypeGet() {
-    this.lookupservice.lookup('PROVISIONTYPE').subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.setProvisiontypes(response);
-          }
+  provisiontypeGet(){
+    this.lookupservice.lookup("PROVISIONTYPE").subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else{
+          this.setProvisiontypes(response);
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
-  provisiontypeGetAll() {
-    this.lookupservice.lookupAll('PROVISIONTYPE').subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.setProvisiontypes(response);
-          }
+  provisiontypeGetAll(){
+    this.lookupservice.lookupAll("PROVISIONTYPE").subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else{
+          this.setProvisiontypes(response);
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
+
 }

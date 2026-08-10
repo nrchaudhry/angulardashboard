@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 
-import { setting } from 'src/app/setting';
+import { setting } from "src/app/setting";
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent {
   favIcon: HTMLLinkElement = document.querySelector('#appIcon');
@@ -19,3 +19,4 @@ export class AppComponent {
     this.changeIcon();
   }
 }
+

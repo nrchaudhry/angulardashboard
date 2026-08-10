@@ -1,3 +1,4 @@
+
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { LookupService } from 'src/app/services/lookup.service';
@@ -6,7 +7,7 @@ import { OnFailService } from 'src/app/services/on-fail.service';
 @Component({
   selector: 'app-careerlevel',
   templateUrl: './careerlevel.component.html',
-  styleUrls: ['./careerlevel.component.css'],
+  styleUrls: ['./careerlevel.component.css']
 })
 export class CareerlevelComponent implements OnInit {
   @Input()
@@ -24,8 +25,8 @@ export class CareerlevelComponent implements OnInit {
   constructor(
     private lookupservice: LookupService,
     private toastrservice: ToastrService,
-    private onfailservice: OnFailService
-  ) {}
+    private onfailservice: OnFailService,
+  ) { }
 
   ngOnInit(): void {
     this.careerlevels = JSON.parse(window.sessionStorage.getItem('careerlevels'));
@@ -40,44 +41,39 @@ export class CareerlevelComponent implements OnInit {
   setCareerlevels(response) {
     if (this.disabled == false) {
       this.careerlevels = response;
-      window.sessionStorage.setItem('careerlevels', JSON.stringify(this.careerlevels));
+      window.sessionStorage.setItem("careerlevels", JSON.stringify(this.careerlevels));
     } else {
       this.careerlevelsAll = response;
-      window.sessionStorage.setItem('careerlevelsAll', JSON.stringify(this.careerlevelsAll));
+      window.sessionStorage.setItem("careerlevelsAll", JSON.stringify(this.careerlevelsAll));
     }
   }
 
-  careerlevelGet() {
-    this.lookupservice.lookup('CAREERLEVEL').subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.setCareerlevels(response);
-          }
+  careerlevelGet(){
+    this.lookupservice.lookup("CAREERLEVEL").subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else{
+          this.setCareerlevels(response);
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
-  careerlevelGetAll() {
-    this.lookupservice.lookupAll('CAREERLEVEL').subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.setCareerlevels(response);
-          }
+  careerlevelGetAll(){
+    this.lookupservice.lookupAll("CAREERLEVEL").subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else{
+          this.setCareerlevels(response);
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
+
 }

@@ -14,11 +14,11 @@ import { DocumenttypeComponent } from '../../lookup/person/documenttype/document
 @Component({
   selector: 'app-persondocument',
   templateUrl: './persondocument.component.html',
-  styleUrls: ['./persondocument.component.css'],
+  styleUrls: ['./persondocument.component.css']
 })
 export class PersondocumentComponent implements OnInit {
-  @ViewChild('filetype') filetype: FiletypeComponent;
-  @ViewChild('documenttype') documenttype: DocumenttypeComponent;
+  @ViewChild("filetype") filetype: FiletypeComponent;
+  @ViewChild("documenttype") documenttype: DocumenttypeComponent;
 
   @Input()
   view: number = 1;
@@ -61,14 +61,14 @@ export class PersondocumentComponent implements OnInit {
     is_VERIFIED: false,
     is_ARCHIVED: false,
     isactive: true,
-  };
+  }
 
   constructor(
     private persondocumentservice: PersondocumentService,
     private toastrservice: ToastrService,
     private onfailservice: OnFailService,
-    private router: Router
-  ) {}
+    private router: Router,
+  ) { }
 
   ngOnInit(): void {
     this.load(this.isreload);
@@ -78,7 +78,7 @@ export class PersondocumentComponent implements OnInit {
     if (!this.personID && Number(window.sessionStorage.getItem('person')) > 0) {
       this.personID = Number(window.sessionStorage.getItem('person'));
     } else {
-      redirectByHref(setting.redirctPath + '/#/home/personal');
+      redirectByHref(setting.redirctPath + "/#/home/personal");
     }
 
     if (window.sessionStorage.getItem('persondocuments') != null) {
@@ -87,26 +87,15 @@ export class PersondocumentComponent implements OnInit {
     if (window.sessionStorage.getItem('persondocumentsAll') != null) {
       this.persondocumentsAll = JSON.parse(window.sessionStorage.getItem('persondocumentsAll'));
     }
-    if (
-      this.personID != 0 &&
-      !this.personID &&
-      Number(window.sessionStorage.getItem('person')) > 0
-    ) {
+    if (this.personID != 0 && !this.personID && Number(window.sessionStorage.getItem('person')) > 0) {
       this.personID = Number(window.sessionStorage.getItem('person'));
     }
 
-    if (
-      this.view >= 1 &&
-      this.view <= 2 &&
-      (this.persondocuments == null || this.persondocuments.length == 0 || reload == true)
-    ) {
+    if (this.view >= 1 && this.view <= 2 && (this.persondocuments == null || this.persondocuments.length == 0 || reload == true)) {
       this.persondocuments == null;
       this.persondocumentGet();
     }
-    if (
-      ((this.view >= 1 && this.view <= 2) || this.view == 10) &&
-      (this.persondocumentsAll == null || this.persondocumentsAll.length == 0 || reload == true)
-    ) {
+    if (((this.view >= 1 && this.view <= 2) || this.view == 10) && (this.persondocumentsAll == null || this.persondocumentsAll.length == 0 || reload == true)) {
       this.persondocumentsAll == null;
       this.persondocumentGetAll();
     }
@@ -117,40 +106,32 @@ export class PersondocumentComponent implements OnInit {
       filetype_CODE: this.filetypeCode,
       documenttype_ID: this.documenttypeID,
       documenttype_CODE: this.documenttypeCode,
-    };
+    }
     if (this.view >= 5 && this.view <= 6 && this.persondocumentID) {
-      window.sessionStorage.setItem('persondocument', this.persondocumentID);
+      window.sessionStorage.setItem("persondocument", this.persondocumentID);
       this.persondocumentGetOne(this.persondocumentID);
       this.disabled = true;
-    } else if (
-      this.view >= 11 &&
-      this.view <= 29 &&
-      this.disabled == false &&
-      (this.persondocuments == null || this.persondocuments.length == 0 || reload == true)
-    ) {
+    } else if ((this.view >= 11 && this.view <= 29) && this.disabled == false && (this.persondocuments == null || this.persondocuments.length == 0 || reload == true)) {
       this.persondocuments == null;
       this.persondocumentAdvancedSearch(search);
-    } else if (
-      this.view >= 11 &&
-      this.view <= 29 &&
-      this.disabled == true &&
-      (this.persondocumentsAll == null || this.persondocumentsAll.length == 0 || reload == true)
-    ) {
+    } else if ((this.view >= 11 && this.view <= 29) && this.disabled == true && (this.persondocumentsAll == null || this.persondocumentsAll.length == 0 || reload == true)) {
       this.persondocumentsAll == null;
       this.persondocumentAdvancedSearchAll(search);
     }
   }
 
   onToolbarPreparing(e) {
-    e.toolbarOptions.items.unshift({
-      location: 'after',
-      widget: 'dxButton',
-      options: {
-        width: 136,
-        text: 'Refresh',
-        onClick: this.load.bind(this, true),
-      },
-    });
+    e.toolbarOptions.items.unshift(
+      {
+        location: 'after',
+        widget: 'dxButton',
+        options: {
+          width: 136,
+          text: 'Refresh',
+          onClick: this.load.bind(this, true),
+        },
+      }
+    );
   }
 
   onChange(persondocumentID) {
@@ -203,7 +184,7 @@ export class PersondocumentComponent implements OnInit {
   persondocumentCancel() {
     this.disabled = true;
     if (this.persondocument.persondocument_ID == 0) {
-      this.router.navigate(['/home/persondocuments'], {});
+      this.router.navigate(["/home/persondocuments"], {});
     }
   }
 
@@ -212,7 +193,7 @@ export class PersondocumentComponent implements OnInit {
     this.personID = response.person_ID;
     this.filetypeID = response.filetype_ID;
     this.documenttypeID = response.documenttype_ID;
-    if (response.isactive == 'Y') {
+    if (response.isactive == "Y") {
       response.isactive = true;
     } else {
       response.isactive = false;
@@ -226,92 +207,73 @@ export class PersondocumentComponent implements OnInit {
   }
 
   persondocumentGet() {
-    this.persondocumentservice.get().subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.persondocuments = this.setPersondocuments(
-              this.persondocumentservice.getAllDetail(response)
-            );
-            window.sessionStorage.setItem('persondocuments', JSON.stringify(this.persondocuments));
-          }
+    this.persondocumentservice.get().subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else {
+          this.persondocuments = this.setPersondocuments(this.persondocumentservice.getAllDetail(response));
+          window.sessionStorage.setItem("persondocuments", JSON.stringify(this.persondocuments));
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   persondocumentGetAll() {
-    this.persondocumentservice.getAll().subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.persondocumentsAll = this.setPersondocuments(
-              this.persondocumentservice.getAllDetail(response)
-            );
-            window.sessionStorage.setItem(
-              'persondocumentsAll',
-              JSON.stringify(this.persondocumentsAll)
-            );
-          }
+    this.persondocumentservice.getAll().subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else {
+          this.persondocumentsAll = this.setPersondocuments(this.persondocumentservice.getAllDetail(response));
+          window.sessionStorage.setItem("persondocumentsAll", JSON.stringify(this.persondocumentsAll));
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   persondocumentGetOne(id) {
     this.disabled = true;
-    this.persondocumentservice.getOne(id).subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.setPersondocument(this.persondocumentservice.getDetail(response));
-          }
+    this.persondocumentservice.getOne(id).subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else {
+          this.setPersondocument(this.persondocumentservice.getDetail(response));
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   persondocumentAdd(persondocument) {
     persondocument.filetype_ID = this.filetype.filetypeID;
     persondocument.documenttype_ID = this.documenttype.documenttypeID;
     persondocument.person_ID = this.personID;
-    persondocument.isactive = 'Y';
+    persondocument.isactive = "Y";
 
-    this.persondocumentservice.add(persondocument).subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else if (response.persondocument_ID) {
-            this.toastrservice.success('Success', 'New Person Document Added');
-            this.setPersondocument(this.persondocumentservice.getDetail(response));
-            this.refresh.next();
-            this.persondocumentGetAll();
-            this.disabled = true;
-          } else {
-            this.toastrservice.error('Some thing went wrong');
-          }
+    this.persondocumentservice.add(persondocument).subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else if (response.persondocument_ID) {
+          this.toastrservice.success("Success", "New Person Document Added");
+          this.setPersondocument(this.persondocumentservice.getDetail(response));
+          this.refresh.next();
+          this.persondocumentGetAll();
+          this.disabled = true;
+        } else {
+          this.toastrservice.error("Some thing went wrong");
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   persondocumentUpdate(persondocument) {
@@ -319,100 +281,81 @@ export class PersondocumentComponent implements OnInit {
     persondocument.documenttype_ID = this.documenttype.documenttypeID;
     persondocument.person_ID = this.personID;
     if (persondocument.isactive == true) {
-      persondocument.isactive = 'Y';
+      persondocument.isactive = "Y";
     } else {
-      persondocument.isactive = 'N';
+      persondocument.isactive = "N";
     }
-    this.persondocumentservice.update(persondocument, persondocument.persondocument_ID).subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else if (response.persondocument_ID) {
-            this.toastrservice.success('Success', 'Person Document Updated');
-            this.setPersondocument(this.persondocumentservice.getDetail(response));
-            this.refresh.next();
-            this.persondocumentGetAll();
-            this.disabled = true;
-          } else {
-            this.toastrservice.error('Some thing went wrong');
-          }
+    this.persondocumentservice.update(persondocument, persondocument.persondocument_ID).subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else if (response.persondocument_ID) {
+          this.toastrservice.success("Success", "Person Document Updated");
+          this.setPersondocument(this.persondocumentservice.getDetail(response));
+          this.refresh.next();
+          this.persondocumentGetAll();
+          this.disabled = true;
+        } else {
+          this.toastrservice.error("Some thing went wrong");
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   persondocumentUpdateAll(persondocuments) {
-    this.persondocumentservice.updateAll(persondocuments).subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else if (response.length > 0) {
-            this.toastrservice.success('Success', 'Person Documents Updated');
-            this.setPersondocument(this.persondocumentservice.getDetail(response));
-            this.refresh.next();
-          } else {
-            this.toastrservice.error('Some thing went wrong');
-          }
+    this.persondocumentservice.updateAll(persondocuments).subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else if (response.length > 0) {
+          this.toastrservice.success("Success", "Person Documents Updated");
+          this.setPersondocument(this.persondocumentservice.getDetail(response));
+          this.refresh.next();
+        } else {
+          this.toastrservice.error("Some thing went wrong");
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   persondocumentSearch(str) {
     var search = {
-      search: str,
-    };
-    this.persondocumentservice.search(search).subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.persondocuments = this.setPersondocuments(
-              this.persondocumentservice.getAllDetail(response)
-            );
-            window.sessionStorage.setItem('persondocuments', JSON.stringify(this.persondocuments));
-          }
+      search: str
+    }
+    this.persondocumentservice.search(search).subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else {
+          this.persondocuments = this.setPersondocuments(this.persondocumentservice.getAllDetail(response));
+          window.sessionStorage.setItem("persondocuments", JSON.stringify(this.persondocuments));
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   persondocumentSearchAll(str) {
     var search = {
-      search: str,
-    };
-    this.persondocumentservice.searchAll(search).subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.persondocumentsAll = this.setPersondocuments(
-              this.persondocumentservice.getAllDetail(response)
-            );
-            window.sessionStorage.setItem(
-              'persondocumentsAll',
-              JSON.stringify(this.persondocumentsAll)
-            );
-          }
+      search: str
+    }
+    this.persondocumentservice.searchAll(search).subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else {
+          this.persondocumentsAll = this.setPersondocuments(this.persondocumentservice.getAllDetail(response));
+          window.sessionStorage.setItem("persondocumentsAll", JSON.stringify(this.persondocumentsAll));
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   persondocumentAdvancedSearch(search) {
@@ -421,23 +364,18 @@ export class PersondocumentComponent implements OnInit {
     this.documenttypeID = search.documenttype_ID;
     this.documenttypeCode = search.documenttype_CODE;
     this.personID = search.person_ID;
-    this.persondocumentservice.advancedSearch(search).subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.persondocuments = this.setPersondocuments(
-              this.persondocumentservice.getAllDetail(response)
-            );
-            window.sessionStorage.setItem('persondocuments', JSON.stringify(this.persondocuments));
-          }
+    this.persondocumentservice.advancedSearch(search).subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else {
+          this.persondocuments = this.setPersondocuments(this.persondocumentservice.getAllDetail(response));
+          window.sessionStorage.setItem("persondocuments", JSON.stringify(this.persondocuments));
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   persondocumentAdvancedSearchAll(search) {
@@ -446,25 +384,18 @@ export class PersondocumentComponent implements OnInit {
     this.documenttypeID = search.documenttype_ID;
     this.documenttypeCode = search.documenttype_CODE;
     this.personID = search.person_ID;
-    this.persondocumentservice.advancedSearchAll(search).subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.persondocumentsAll = this.setPersondocuments(
-              this.persondocumentservice.getAllDetail(response)
-            );
-            window.sessionStorage.setItem(
-              'persondocumentsAll',
-              JSON.stringify(this.persondocumentsAll)
-            );
-          }
+    this.persondocumentservice.advancedSearchAll(search).subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else {
+          this.persondocumentsAll = this.setPersondocuments(this.persondocumentservice.getAllDetail(response));
+          window.sessionStorage.setItem("persondocumentsAll", JSON.stringify(this.persondocumentsAll));
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
+
 }

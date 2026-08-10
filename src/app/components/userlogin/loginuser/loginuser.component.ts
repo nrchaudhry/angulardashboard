@@ -10,16 +10,16 @@ import { LoginuserService } from './loginuser.service';
 @Component({
   selector: 'app-loginuser',
   templateUrl: './loginuser.component.html',
-  styleUrls: ['./loginuser.component.css'],
+  styleUrls: ['./loginuser.component.css']
 })
 export class LoginuserComponent implements OnInit {
-  @ViewChild('person') person: PersonComponent;
-  @ViewChild('addperson') addperson: PersonComponent;
-  @ViewChild('editperson') editperson: PersonComponent;
+  @ViewChild("person") person: PersonComponent;
+  @ViewChild("addperson") addperson: PersonComponent;
+  @ViewChild("editperson") editperson: PersonComponent;
 
-  @ViewChild('employee') employee: EmployeeComponent;
-  @ViewChild('addemployee') addemployee: EmployeeComponent;
-  @ViewChild('editemployee') editemployee: EmployeeComponent;
+  @ViewChild("employee") employee: EmployeeComponent;
+  @ViewChild("addemployee") addemployee: EmployeeComponent;
+  @ViewChild("editemployee") editemployee: EmployeeComponent;
 
   @Input()
   view: number = 1;
@@ -41,9 +41,9 @@ export class LoginuserComponent implements OnInit {
   loginusersAll = [];
   loginuser = {
     user_ID: 0,
-    username: '',
-    last_LOGIN: '',
-    user_NAME: '',
+    username: "",
+    last_LOGIN: "",
+    user_NAME: "",
     email: null,
     employee_ID: 0,
     person_ID: 0,
@@ -54,14 +54,14 @@ export class LoginuserComponent implements OnInit {
     accountNonLocked: true,
     credentialsNonExpired: true,
     isactive: true,
-  };
+  }
 
   constructor(
     private loginuserservice: LoginuserService,
     private toastrservice: ToastrService,
     private onfailservice: OnFailService,
-    private router: Router
-  ) {}
+    private router: Router,
+  ) { }
 
   ngOnInit(): void {
     this.loginusers = JSON.parse(window.sessionStorage.getItem('loginusers'));
@@ -74,39 +74,38 @@ export class LoginuserComponent implements OnInit {
       this.loginuserGetAll();
     }
 
-    if (
-      this.userID != 0 &&
-      !this.userID &&
-      Number(window.sessionStorage.getItem('loginuser')) > 0
-    ) {
+    if (this.userID != 0 && !this.userID && Number(window.sessionStorage.getItem('loginuser')) > 0) {
       this.userID = Number(window.sessionStorage.getItem('loginuser'));
     }
     if (this.view == 5 && this.userID) {
-      window.sessionStorage.setItem('loginuser', this.userID);
+      window.sessionStorage.setItem("loginuser", this.userID);
       this.loginuserGetOne(this.userID);
     }
 
-    if (this.userID == 0) this.userID = null;
+    if (this.userID == 0)
+      this.userID = null;
   }
 
   onToolbarPreparing(e) {
-    e.toolbarOptions.items.unshift({
-      location: 'after',
-      widget: 'dxButton',
-      options: {
-        width: 136,
-        text: 'Refresh',
-        onClick: this.loginuserGetAll.bind(this),
-      },
-    });
+    e.toolbarOptions.items.unshift(
+      {
+        location: 'after',
+        widget: 'dxButton',
+        options: {
+          width: 136,
+          text: 'Refresh',
+          onClick: this.loginuserGetAll.bind(this),
+        },
+      }
+    );
   }
 
   add() {
     this.loginuser = {
       user_ID: 0,
-      username: '',
-      last_LOGIN: '',
-      user_NAME: '',
+      username: "",
+      last_LOGIN: "",
+      user_NAME: "",
       email: null,
       employee_ID: 0,
       person_ID: 0,
@@ -144,7 +143,7 @@ export class LoginuserComponent implements OnInit {
   loginuserCancel() {
     this.disabled = true;
     if (this.loginuser.user_ID == 0) {
-      this.router.navigate(['/home/loginusers'], {});
+      this.router.navigate(["/home/loginusers"], {});
     }
   }
 
@@ -153,27 +152,27 @@ export class LoginuserComponent implements OnInit {
   }
 
   setLoginuser(response) {
-    if (response.isactive == 'Y') {
+    if (response.isactive == "Y") {
       response.isactive = true;
     } else {
       response.isactive = false;
     }
-    if (response.enabled == 'Y') {
+    if (response.enabled == "Y") {
       response.enabled = true;
     } else {
       response.enabled = false;
     }
-    if (response.accountNonExpired == 'Y') {
+    if (response.accountNonExpired == "Y") {
       response.accountNonExpired = true;
     } else {
       response.accountNonExpired = false;
     }
-    if (response.accountNonLocked == 'Y') {
+    if (response.accountNonLocked == "Y") {
       response.accountNonLocked = true;
     } else {
       response.accountNonLocked = false;
     }
-    if (response.credentialsNonExpired == 'Y') {
+    if (response.credentialsNonExpired == "Y") {
       response.credentialsNonExpired = true;
     } else {
       response.credentialsNonExpired = false;
@@ -185,70 +184,61 @@ export class LoginuserComponent implements OnInit {
   setUniversities(response) {
     if (this.view == 1 && this.disabled == false) {
       this.loginusers = response;
-      window.sessionStorage.setItem('loginusers', JSON.stringify(this.loginusers));
+      window.sessionStorage.setItem("loginusers", JSON.stringify(this.loginusers));
     } else {
       this.loginusersAll = response;
-      window.sessionStorage.setItem('loginusersAll', JSON.stringify(this.loginusersAll));
+      window.sessionStorage.setItem("loginusersAll", JSON.stringify(this.loginusersAll));
     }
     this.cancel.next();
   }
 
   loginuserGet() {
-    this.loginuserservice.get().subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.setUniversities(this.loginuserservice.getAllDetail(response));
-          }
+    this.loginuserservice.get().subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else {
+          this.setUniversities(this.loginuserservice.getAllDetail(response));
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   loginuserGetAll() {
-    this.loginuserservice.getAll().subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.setUniversities(this.loginuserservice.getAllDetail(response));
-          }
+    this.loginuserservice.getAll().subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else {
+          this.setUniversities(this.loginuserservice.getAllDetail(response));
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   loginuserGetOne(id) {
-    this.loginuserservice.getOne(id).subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else {
-            this.setLoginuser(this.loginuserservice.getDetail(response));
-          }
+    this.loginuserservice.getOne(id).subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else {
+          this.setLoginuser(this.loginuserservice.getDetail(response));
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
   loginuserAdd(loginuser) {
-    loginuser.isactive = 'Y';
-    loginuser.enabled = 'Y';
-    loginuser.accountNonExpired = 'Y';
-    loginuser.accountNonLocked = 'Y';
-    loginuser.credentialsNonExpired = 'Y';
+    loginuser.isactive = "Y";
+    loginuser.enabled = "Y";
+    loginuser.accountNonExpired = "Y";
+    loginuser.accountNonLocked = "Y";
+    loginuser.credentialsNonExpired = "Y";
     if (this.view == 5) {
       loginuser.person_ID = this.person.personID;
       loginuser.employee_ID = this.employee.employeeID;
@@ -257,25 +247,22 @@ export class LoginuserComponent implements OnInit {
       loginuser.employee_ID = this.addemployee.employeeID;
     }
 
-    this.loginuserservice.add(loginuser).subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else if (response.user_ID) {
-            this.toastrservice.success('Success', 'New Loginuser Added');
-            this.loginuserGetAll();
-            this.setLoginuser(response);
-            this.disabled = true;
-          } else {
-            this.toastrservice.error('Some thing went wrong');
-          }
+    this.loginuserservice.add(loginuser).subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else if (response.user_ID) {
+          this.toastrservice.success("Success", "New Loginuser Added");
+          this.loginuserGetAll();
+          this.setLoginuser(response);
+          this.disabled = true;
+        } else {
+          this.toastrservice.error("Some thing went wrong");
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 
   loginuserUpdate(loginuser) {
@@ -287,51 +274,48 @@ export class LoginuserComponent implements OnInit {
       loginuser.employee_ID = this.editemployee.employeeID;
     }
     if (loginuser.isactive == true) {
-      loginuser.isactive = 'Y';
+      loginuser.isactive = "Y";
     } else {
-      loginuser.isactive = 'N';
+      loginuser.isactive = "N";
     }
     if (loginuser.enabled == true) {
-      loginuser.enabled = 'Y';
+      loginuser.enabled = "Y";
     } else {
-      loginuser.enabled = 'N';
+      loginuser.enabled = "N";
     }
     if (loginuser.accountNonExpired == true) {
-      loginuser.accountNonExpired = 'Y';
+      loginuser.accountNonExpired = "Y";
     } else {
-      loginuser.accountNonExpired = 'N';
+      loginuser.accountNonExpired = "N";
     }
     if (loginuser.accountNonLocked == true) {
-      loginuser.accountNonLocked = 'Y';
+      loginuser.accountNonLocked = "Y";
     } else {
-      loginuser.accountNonLocked = 'N';
+      loginuser.accountNonLocked = "N";
     }
     if (loginuser.credentialsNonExpired == true) {
-      loginuser.credentialsNonExpired = 'Y';
+      loginuser.credentialsNonExpired = "Y";
     } else {
-      loginuser.credentialsNonExpired = 'N';
+      loginuser.credentialsNonExpired = "N";
     }
 
-    this.loginuserservice.update(loginuser, loginuser.user_ID).subscribe(
-      (response) => {
-        if (response) {
-          if (response.error && response.status) {
-            this.toastrservice.warning('Message', ' ' + response.message);
-          } else if (response.user_ID) {
-            this.toastrservice.success('Success', ' Loginuser Updated');
-            if (this.disabled == true) {
-              this.setLoginuser(response);
-            } else {
-              this.disabled = true;
-            }
+    this.loginuserservice.update(loginuser, loginuser.user_ID).subscribe(response => {
+      if (response) {
+        if (response.error && response.status) {
+          this.toastrservice.warning("Message", " " + response.message);
+        } else if (response.user_ID) {
+          this.toastrservice.success("Success", " Loginuser Updated");
+          if (this.disabled == true) {
+            this.setLoginuser(response);
           } else {
-            this.toastrservice.error('Some thing went wrong');
+            this.disabled = true;
           }
+        } else {
+          this.toastrservice.error("Some thing went wrong");
         }
-      },
-      (error) => {
-        this.onfailservice.onFail(error);
       }
-    );
+    }, error => {
+      this.onfailservice.onFail(error);
+    })
   }
 }

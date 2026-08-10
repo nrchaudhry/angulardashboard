@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { OnFailService } from '../../../services/on-fail.service';
 import { Router } from '@angular/router';
-import { PersoncontactaddressComponent } from '../../../components/person/personcontactaddress/personcontactaddress.component';
+import { PersoncontactaddressComponent } from '../../../components/person/personcontactaddress/personcontactaddress.component'
 import { PersoncontactaddressService } from '../../../components/person/personcontactaddress/personcontactaddress.service';
 
 declare var $: any;
@@ -10,23 +10,25 @@ declare var $: any;
 @Component({
   selector: 'app-personcontactaddresses',
   templateUrl: './personcontactaddresses.component.html',
-  styleUrls: ['./personcontactaddresses.component.css'],
+  styleUrls: ['./personcontactaddresses.component.css']
 })
 export class PersoncontactaddressesComponent implements OnInit {
-  @ViewChild('personcontactaddresses') personcontactaddresses: PersoncontactaddressComponent;
-  @ViewChild('addpersoncontactaddress') addpersoncontactaddress: PersoncontactaddressComponent;
-  @ViewChild('editpersoncontactaddress') editpersoncontactaddress: PersoncontactaddressComponent;
+  @ViewChild("personcontactaddresses") personcontactaddresses: PersoncontactaddressComponent;
+  @ViewChild("addpersoncontactaddress") addpersoncontactaddress: PersoncontactaddressComponent;
+  @ViewChild("editpersoncontactaddress") editpersoncontactaddress: PersoncontactaddressComponent;
 
   constructor(
     private accountclassificationservice: PersoncontactaddressService,
     private toastrservice: ToastrService,
     private onfailservice: OnFailService,
-    private router: Router
-  ) {}
+    private router: Router,
+  ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
-  view() {}
+  view() {
+  }
 
   refresh() {
     this.personcontactaddresses.load(true);
@@ -34,14 +36,12 @@ export class PersoncontactaddressesComponent implements OnInit {
   }
 
   show(row) {
-    this.router.navigate(['/home/personcontactaddress'], {
-      queryParams: { personcontactaddress: row.data.personcontactaddress_ID },
-    });
+    this.router.navigate(["/home/personcontactaddress"], { queryParams: { personcontactaddress: row.data.personcontactaddress_ID } });
   }
 
   addNew() {
     this.addpersoncontactaddress.add();
-    $('#add').modal('show');
+    $("#add").modal("show");
   }
 
   edit(row) {
@@ -56,19 +56,20 @@ export class PersoncontactaddressesComponent implements OnInit {
       address_POSTCODE: row.data.address_POSTCODE,
       location_ID: row.data.location_ID,
       ispermanent: row.data.ispermanent,
-      isactive: row.data.isactive,
+      isactive: row.data.isactive
     };
 
-    if (row.data.isactive == 'Y') {
+    if (row.data.isactive == "Y") {
       this.editpersoncontactaddress.personcontactaddress.isactive = true;
     } else {
       this.editpersoncontactaddress.personcontactaddress.isactive = false;
     }
-    $('#edit').modal('show');
+    $("#edit").modal("show");
   }
 
   cancel() {
-    $('#add').modal('hide');
-    $('#edit').modal('hide');
+    $("#add").modal("hide");
+    $("#edit").modal("hide");
   }
+
 }

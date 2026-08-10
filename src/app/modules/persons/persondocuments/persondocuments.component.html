@@ -7,12 +7,8 @@
         <div class="card-header">
           <div class="align-items-center row">
             <div class="col">
-              <a
-                href="javascript:void"
-                aria-controls="collapse-customerinfo1"
-                aria-expanded="true"
-                class="card-title"
-                >Document
+              <a href="javascript:void" aria-controls="collapse-customerinfo1" aria-expanded="true"
+                class="card-title">Document
               </a>
             </div>
             <div class="col-auto">
@@ -25,13 +21,8 @@
         <div class="card-body">
           <div class="row">
             <div class="col-lg-12">
-              <app-persondocument
-                #persondocuments
-                [view]="22"
-                [personID]="personID"
-                [isreload]="true"
-                (show)="show($event)"
-              ></app-persondocument>
+              <app-persondocument #persondocuments [view]="22" [personID]="personID" [isreload]="true"
+                (show)="show($event)"></app-persondocument>
             </div>
           </div>
         </div>
@@ -40,34 +31,12 @@
   </div>
 </div>
 
-<div
-  aria-labelledby="exampleModalLabel"
-  class="modal fade show"
-  id="addpersondocument"
-  role="dialog"
-  tabindex="-1"
->
-  <app-persondocument
-    #addpersondocument
-    [view]="3"
-    (refresh)="refresh()"
-    (cancel)="cancel()"
-  ></app-persondocument>
+<div aria-labelledby="exampleModalLabel" class="modal fade show" id="addpersondocument" role="dialog" tabindex="-1">
+  <app-persondocument #addpersondocument [view]=3 (refresh)="refresh()" (cancel)="cancel()"></app-persondocument>
 </div>
 
-<div
-  aria-labelledby="exampleModalLabel"
-  class="modal fade show"
-  id="editpersondocument"
-  role="dialog"
-  tabindex="-1"
->
-  <app-persondocument
-    #editpersondocument
-    [view]="4"
-    (refresh)="refresh()"
-    (cancel)="cancel()"
-  ></app-persondocument>
+<div aria-labelledby="exampleModalLabel" class="modal fade show" id="editpersondocument" role="dialog" tabindex="-1">
+  <app-persondocument #editpersondocument [view]=4 (refresh)="refresh()" (cancel)="cancel()"></app-persondocument>
 </div>
 
 <app-navigation nextURL="" previousURL="/home/references"></app-navigation>

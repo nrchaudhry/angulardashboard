@@ -7,12 +7,8 @@
         <div class="card-header">
           <div class="align-items-center row">
             <div class="col">
-              <a
-                href="javascript:void"
-                aria-controls="collapse-customerinfo1"
-                aria-expanded="true"
-                class="card-title"
-                >COMMUNICATION LETTERS
+              <a href="javascript:void" aria-controls="collapse-customerinfo1" aria-expanded="true"
+                class="card-title">COMMUNICATION LETTERS
               </a>
             </div>
             <div class="col-auto">
@@ -25,13 +21,8 @@
         <div class="card-body">
           <div class="row">
             <div class="col-lg-12">
-              <app-personcommunicationletter
-                #personcommunicationletters
-                [view]="22"
-                [personID]="personID"
-                [isreload]="true"
-                (show)="showLetter($event)"
-              ></app-personcommunicationletter>
+              <app-personcommunicationletter #personcommunicationletters [view]=22 [personID]="personID"
+                [isreload]="true" (show)="showLetter($event)"></app-personcommunicationletter>
             </div>
           </div>
         </div>
@@ -47,12 +38,8 @@
         <div class="card-header">
           <div class="align-items-center row">
             <div class="col">
-              <a
-                href="javascript:void"
-                aria-controls="collapse-customerinfo1"
-                aria-expanded="true"
-                class="card-title"
-                >COMMUNICATION EMAILS
+              <a href="javascript:void" aria-controls="collapse-customerinfo1" aria-expanded="true"
+                class="card-title">COMMUNICATION EMAILS
               </a>
             </div>
             <div class="col-auto">
@@ -65,13 +52,8 @@
         <div class="card-body">
           <div class="row">
             <div class="col-lg-12">
-              <app-personcommunicationemail
-                #personcommunicationemails
-                [view]="22"
-                [personID]="personID"
-                [isreload]="true"
-                (show)="showEmail($event)"
-              ></app-personcommunicationemail>
+              <app-personcommunicationemail #personcommunicationemails [view]=22 [personID]="personID" [isreload]="true"
+                (show)="showEmail($event)"></app-personcommunicationemail>
             </div>
           </div>
         </div>
@@ -87,12 +69,8 @@
         <div class="card-header">
           <div class="align-items-center row">
             <div class="col">
-              <a
-                href="javascript:void"
-                aria-controls="collapse-customerinfo1"
-                aria-expanded="true"
-                class="card-title"
-                >COMMUNICATION SMS
+              <a href="javascript:void" aria-controls="collapse-customerinfo1" aria-expanded="true"
+                class="card-title">COMMUNICATION SMS
               </a>
             </div>
             <div class="col-auto">
@@ -105,13 +83,8 @@
         <div class="card-body">
           <div class="row">
             <div class="col-lg-12">
-              <app-personcommunicationsms
-                #personcommunicationsmss
-                [view]="22"
-                [personID]="personID"
-                [isreload]="true"
-                (show)="showSMS($event)"
-              ></app-personcommunicationsms>
+              <app-personcommunicationsms #personcommunicationsmss [view]=22 [personID]="personID" [isreload]="true"
+                (show)="showSMS($event)"></app-personcommunicationsms>
             </div>
           </div>
         </div>
