@@ -1,5 +1,19 @@
+#!/bin/sh
+set -eu
+
+nvm_dir="${NVM_DIR:-$HOME/.nvm}"
+
+if [ ! -s "$nvm_dir/nvm.sh" ]; then
+  echo "NVM was not found: $nvm_dir/nvm.sh" >&2
+  exit 1
+fi
+
+. "$nvm_dir/nvm.sh"
+
 echo "Compile COMPANYNAME Dashboard Management Start"
-git pull
+git pull --ff-only
+nvm use 24
+npm install -f
 
 URLStyle=${1:-"http://design.companyname.com/companyname/styles.css"}
 OUTStyle=${2:-"src/styles.css"}
