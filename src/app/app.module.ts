@@ -13,6 +13,7 @@ import { LoadingBarModule } from '@ngx-loading-bar/core';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -20,6 +21,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { NotfoundComponent } from './pages/notfound/notfound.component';
 import { RequestOptionsService } from './services/setting.headers';
 import { HttpErrorInterceptor } from './services/http-error.interceptor';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [AppComponent, LoginComponent, NotfoundComponent],
@@ -37,6 +39,10 @@ import { HttpErrorInterceptor } from './services/http-error.interceptor';
     NgxSpinnerModule,
     ReactiveFormsModule,
     AppRoutingModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      registrationStrategy: 'registerWhenStable:30000',
+    }),
   ],
   providers: [
     {

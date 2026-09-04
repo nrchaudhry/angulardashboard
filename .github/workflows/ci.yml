@@ -1,0 +1,16 @@
+name: CI
+on: [push, pull_request]
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 14
+          cache: npm
+      - run: npm ci --legacy-peer-deps
+      - run: npm run format:check
+      - run: npm run build -- --configuration production
+      - name: Verify PWA artifacts
+        run: test -f products/ngsw-worker.js && test -f products/ngsw.json && test -f products/assets/manifest.webmanifest

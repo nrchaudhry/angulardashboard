@@ -1,5 +1,13 @@
 # Demo
 
+## Installable web application
+
+Production builds include an Angular service worker, web app manifest, and local CWIZTECH
+icons. Deploy the `products/` directory over HTTPS with SPA fallback to `index.html`, then use
+the browser's **Install app** action. The service worker is disabled by `ng serve`; test it by
+serving a production build. Only the application shell and static assets are cached. Identity,
+Gateway, and other API responses are never configured for caching.
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.5.
 
 ## Development server

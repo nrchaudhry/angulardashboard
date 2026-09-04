@@ -24,6 +24,8 @@
             "tsConfig": "tsconfig.app.json",
             "aot": true,
             "assets": ["src/assets"],
+            "serviceWorker": true,
+            "ngswConfigPath": "ngsw-config.json",
             "styles": [
               "node_modules/devextreme/dist/css/dx.common.css",
               "node_modules/devextreme/dist/css/dx.light.css",
