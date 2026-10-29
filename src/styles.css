@@ -1,3 +1,26 @@
 @import '~@ng-select/ng-select/themes/default.theme.css';
 @import url('https://old.cwiztech.com/design/css/admin-hub.css');
 @import url('https://old.cwiztech.com/design/css/cwiztech-theme.css');
+
+/* Keep application workspaces fluid on wide displays. */
+app-root {
+  display: block;
+  width: 100%;
+  max-width: none;
+}
+
+.container,
+.container-sm,
+.container-md,
+.container-lg,
+.container-xl,
+.container-xxl {
+  width: 100% !important;
+  max-width: none !important;
+}
+
+cwiztech-app-shell .content-wrapper {
+  width: 100% !important;
+  max-width: none !important;
+  margin-inline: 0 !important;
+}
