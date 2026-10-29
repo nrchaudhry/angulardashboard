@@ -13,7 +13,7 @@ export const setting = {
   icon: 'https://design.cwiztech.com/images/favicon.ico',
 
   servicePath: 'fivestar/',
-  commonServicePath: 'cwiztech/',
+  commonServicePath: '',
 
   isHash: '/#',
   redirctPath: '',
